@@ -1,0 +1,5 @@
+Final XeLaTeX pass exited 0; 52 pages.
+No overfull boxes, missing glyphs, undefined references or undefined citations.
+Three underfull hbox spacing notices retained and visually reviewed.
+MiKTeX emitted an update-check advisory; no package update was performed.
+Final run used workspace-only Portable config, cache and fontconfig with automatic maintenance disabled.

@@ -1,0 +1,329 @@
+{
+  "results": {
+    "0.1": {
+      "alpha": 0.1,
+      "calibration_n": 240,
+      "order_statistic_k": 217,
+      "q": 3.547680652939748,
+      "populations": {
+        "iid_test": {
+          "n": 320,
+          "coverage": 0.85625,
+          "mean_radius_m": 8.480768325547784,
+          "median_radius_m": 7.084249933447948,
+          "by_scenario": {
+            "moving_clean": {
+              "n": 79,
+              "coverage": 0.8354430379746836
+            },
+            "moving_outliers": {
+              "n": 82,
+              "coverage": 0.5975609756097561
+            },
+            "static_clean": {
+              "n": 75,
+              "coverage": 1.0
+            },
+            "static_outliers": {
+              "n": 84,
+              "coverage": 1.0
+            }
+          },
+          "rejection_curve": [
+            {
+              "radius_threshold_m": 2,
+              "acceptance_rate": 0.0,
+              "accepted_n": 0,
+              "accepted_mean_error_m": null,
+              "accepted_coverage": null
+            },
+            {
+              "radius_threshold_m": 5,
+              "acceptance_rate": 0.265625,
+              "accepted_n": 85,
+              "accepted_mean_error_m": 2.034390119937341,
+              "accepted_coverage": 0.8823529411764706
+            },
+            {
+              "radius_threshold_m": 10,
+              "acceptance_rate": 0.715625,
+              "accepted_n": 229,
+              "accepted_mean_error_m": 3.165384307655116,
+              "accepted_coverage": 0.8384279475982532
+            },
+            {
+              "radius_threshold_m": 15,
+              "acceptance_rate": 0.909375,
+              "accepted_n": 291,
+              "accepted_mean_error_m": 3.5399954474998854,
+              "accepted_coverage": 0.845360824742268
+            },
+            {
+              "radius_threshold_m": 20,
+              "acceptance_rate": 0.971875,
+              "accepted_n": 311,
+              "accepted_mean_error_m": 3.702492134125428,
+              "accepted_coverage": 0.8520900321543409
+            },
+            {
+              "radius_threshold_m": 30,
+              "acceptance_rate": 0.99375,
+              "accepted_n": 318,
+              "accepted_mean_error_m": 3.869961763564065,
+              "accepted_coverage": 0.8553459119496856
+            },
+            {
+              "radius_threshold_m": 50,
+              "acceptance_rate": 1.0,
+              "accepted_n": 320,
+              "accepted_mean_error_m": 3.955294220031535,
+              "accepted_coverage": 0.85625
+            }
+          ]
+        },
+        "shifted_stress": {
+          "n": 200,
+          "coverage": 0.74,
+          "mean_radius_m": 20.14679675290029,
+          "median_radius_m": 14.300441863396781,
+          "by_scenario": {
+            "accelerating": {
+              "n": 40,
+              "coverage": 0.875
+            },
+            "calibration_shift": {
+              "n": 40,
+              "coverage": 0.625
+            },
+            "high_contamination": {
+              "n": 40,
+              "coverage": 0.825
+            },
+            "poor_geometry": {
+              "n": 40,
+              "coverage": 1.0
+            },
+            "sparse": {
+              "n": 40,
+              "coverage": 0.375
+            }
+          },
+          "rejection_curve": [
+            {
+              "radius_threshold_m": 2,
+              "acceptance_rate": 0.0,
+              "accepted_n": 0,
+              "accepted_mean_error_m": null,
+              "accepted_coverage": null
+            },
+            {
+              "radius_threshold_m": 5,
+              "acceptance_rate": 0.01,
+              "accepted_n": 2,
+              "accepted_mean_error_m": 14.316757414212915,
+              "accepted_coverage": 0.0
+            },
+            {
+              "radius_threshold_m": 10,
+              "acceptance_rate": 0.29,
+              "accepted_n": 58,
+              "accepted_mean_error_m": 8.918621621195186,
+              "accepted_coverage": 0.5
+            },
+            {
+              "radius_threshold_m": 15,
+              "acceptance_rate": 0.535,
+              "accepted_n": 107,
+              "accepted_mean_error_m": 9.672156545298362,
+              "accepted_coverage": 0.5794392523364486
+            },
+            {
+              "radius_threshold_m": 20,
+              "acceptance_rate": 0.695,
+              "accepted_n": 139,
+              "accepted_mean_error_m": 9.587681899889347,
+              "accepted_coverage": 0.6474820143884892
+            },
+            {
+              "radius_threshold_m": 30,
+              "acceptance_rate": 0.85,
+              "accepted_n": 170,
+              "accepted_mean_error_m": 9.743614313999952,
+              "accepted_coverage": 0.6941176470588235
+            },
+            {
+              "radius_threshold_m": 50,
+              "acceptance_rate": 0.94,
+              "accepted_n": 188,
+              "accepted_mean_error_m": 10.200661085271175,
+              "accepted_coverage": 0.723404255319149
+            }
+          ]
+        }
+      }
+    },
+    "0.05": {
+      "alpha": 0.05,
+      "calibration_n": 240,
+      "order_statistic_k": 229,
+      "q": 5.199401404595713,
+      "populations": {
+        "iid_test": {
+          "n": 320,
+          "coverage": 0.946875,
+          "mean_radius_m": 12.42922434615562,
+          "median_radius_m": 10.382518230313195,
+          "by_scenario": {
+            "moving_clean": {
+              "n": 79,
+              "coverage": 0.9113924050632911
+            },
+            "moving_outliers": {
+              "n": 82,
+              "coverage": 0.8780487804878049
+            },
+            "static_clean": {
+              "n": 75,
+              "coverage": 1.0
+            },
+            "static_outliers": {
+              "n": 84,
+              "coverage": 1.0
+            }
+          },
+          "rejection_curve": [
+            {
+              "radius_threshold_m": 2,
+              "acceptance_rate": 0.0,
+              "accepted_n": 0,
+              "accepted_mean_error_m": null,
+              "accepted_coverage": null
+            },
+            {
+              "radius_threshold_m": 5,
+              "acceptance_rate": 0.00625,
+              "accepted_n": 2,
+              "accepted_mean_error_m": 0.7604869970514136,
+              "accepted_coverage": 1.0
+            },
+            {
+              "radius_threshold_m": 10,
+              "acceptance_rate": 0.471875,
+              "accepted_n": 151,
+              "accepted_mean_error_m": 2.6897075856716994,
+              "accepted_coverage": 0.9271523178807947
+            },
+            {
+              "radius_threshold_m": 15,
+              "acceptance_rate": 0.725,
+              "accepted_n": 232,
+              "accepted_mean_error_m": 3.221392489284621,
+              "accepted_coverage": 0.9310344827586207
+            },
+            {
+              "radius_threshold_m": 20,
+              "acceptance_rate": 0.88125,
+              "accepted_n": 282,
+              "accepted_mean_error_m": 3.4598068605597767,
+              "accepted_coverage": 0.9397163120567376
+            },
+            {
+              "radius_threshold_m": 30,
+              "acceptance_rate": 0.975,
+              "accepted_n": 312,
+              "accepted_mean_error_m": 3.7351092160992643,
+              "accepted_coverage": 0.9455128205128205
+            },
+            {
+              "radius_threshold_m": 50,
+              "acceptance_rate": 1.0,
+              "accepted_n": 320,
+              "accepted_mean_error_m": 3.955294220031535,
+              "accepted_coverage": 0.946875
+            }
+          ]
+        },
+        "shifted_stress": {
+          "n": 200,
+          "coverage": 0.855,
+          "mean_radius_m": 29.52669464438212,
+          "median_radius_m": 20.95840769920261,
+          "by_scenario": {
+            "accelerating": {
+              "n": 40,
+              "coverage": 0.925
+            },
+            "calibration_shift": {
+              "n": 40,
+              "coverage": 0.825
+            },
+            "high_contamination": {
+              "n": 40,
+              "coverage": 0.925
+            },
+            "poor_geometry": {
+              "n": 40,
+              "coverage": 1.0
+            },
+            "sparse": {
+              "n": 40,
+              "coverage": 0.6
+            }
+          },
+          "rejection_curve": [
+            {
+              "radius_threshold_m": 2,
+              "acceptance_rate": 0.0,
+              "accepted_n": 0,
+              "accepted_mean_error_m": null,
+              "accepted_coverage": null
+            },
+            {
+              "radius_threshold_m": 5,
+              "acceptance_rate": 0.0,
+              "accepted_n": 0,
+              "accepted_mean_error_m": null,
+              "accepted_coverage": null
+            },
+            {
+              "radius_threshold_m": 10,
+              "acceptance_rate": 0.085,
+              "accepted_n": 17,
+              "accepted_mean_error_m": 11.600474865672483,
+              "accepted_coverage": 0.29411764705882354
+            },
+            {
+              "radius_threshold_m": 15,
+              "acceptance_rate": 0.305,
+              "accepted_n": 61,
+              "accepted_mean_error_m": 9.207486511913212,
+              "accepted_coverage": 0.639344262295082
+            },
+            {
+              "radius_threshold_m": 20,
+              "acceptance_rate": 0.48,
+              "accepted_n": 96,
+              "accepted_mean_error_m": 9.471500920405601,
+              "accepted_coverage": 0.7291666666666666
+            },
+            {
+              "radius_threshold_m": 30,
+              "acceptance_rate": 0.7,
+              "accepted_n": 140,
+              "accepted_mean_error_m": 9.555465886066555,
+              "accepted_coverage": 0.8
+            },
+            {
+              "radius_threshold_m": 50,
+              "acceptance_rate": 0.89,
+              "accepted_n": 178,
+              "accepted_mean_error_m": 10.009338339969396,
+              "accepted_coverage": 0.8370786516853933
+            }
+          ]
+        }
+      }
+    }
+  },
+  "claim": "Marginal coverage requires exchangeability of iid calibration/test mixture and frozen estimator. No conditional/rejection/shift guarantee."
+}

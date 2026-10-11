@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "analysis_summary": {
+      "type": "string",
+      "description": "Brief decision rationale, not private chain-of-thought."
+    },
+    "hypothesis": {
+      "type": "string"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "read_sources",
+        "register_method",
+        "run_experiment",
+        "diagnose",
+        "verify_math",
+        "ablate",
+        "freeze",
+        "finish"
+      ]
+    },
+    "arguments_json": {
+      "type": "string",
+      "description": "A JSON object encoded as a string containing the chosen tool arguments."
+    },
+    "expected_result": {
+      "type": "string"
+    },
+    "memory_note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "analysis_summary",
+    "hypothesis",
+    "action",
+    "arguments_json",
+    "expected_result",
+    "memory_note"
+  ]
+}

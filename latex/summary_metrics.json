@@ -1,0 +1,51 @@
+{
+  "run": {
+    "actions": 13,
+    "model_calls": 14,
+    "critic_calls": 1,
+    "experiment_calls": 6,
+    "methods": 5,
+    "elapsed_minutes": 31.57427375,
+    "usage": {
+      "input_tokens": 444020,
+      "cached_input_tokens": 30720,
+      "output_tokens": 6994,
+      "reasoning_output_tokens": 334
+    },
+    "method_names": {
+      "range_cv_reported": "P1",
+      "log_cv_reported": "P2",
+      "range_cv_constant": "P3",
+      "log_cv_cauchy": "P4",
+      "range_velocity_reported": "P5"
+    },
+    "frozen_id": "range_cv_reported"
+  },
+  "main_metrics": {
+    "n": 360,
+    "mean_m": 4.18925082096567,
+    "rmse_m": 6.433902426515806,
+    "median_m": 2.2519200769937227,
+    "p90_m": 9.965827152422019,
+    "p95_m": 14.816806591678775,
+    "max_m": 31.27678703607722,
+    "within_5m": 0.7527777777777778,
+    "within_30m": 0.9972222222222222,
+    "mean_work_units": 71.29722222222222,
+    "mean_seconds": 0.014904505833379112
+  },
+  "stress_metrics": {
+    "n": 200,
+    "mean_m": 10.175577821671636,
+    "rmse_m": 12.459501657807369,
+    "median_m": 8.395425554181436,
+    "p90_m": 20.88912888729258,
+    "p95_m": 23.926906693095003,
+    "max_m": 38.24121106453274,
+    "within_5m": 0.285,
+    "within_30m": 0.99,
+    "mean_work_units": 84.015,
+    "mean_seconds": 0.016223662499987766
+  },
+  "prediction_count": 5040
+}

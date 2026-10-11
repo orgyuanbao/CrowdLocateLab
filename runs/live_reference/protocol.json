@@ -1,0 +1,24 @@
+{
+  "study": "CrowdLocateLab-v2",
+  "discovery_seed": 46191,
+  "validation_seed": 57383,
+  "source_hashes": {
+    "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+    "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+    "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+    "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+    "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+    "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+    "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+    "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18",
+    "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+    "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+    "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+    "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+    "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+    "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5"
+  },
+  "reasoning_effort": "medium",
+  "test_access": false,
+  "goal_sha256": "45ad7bf60fff02ba57345bc5a1965439688c7ffb269d85bccd857b27b5faac1d"
+}

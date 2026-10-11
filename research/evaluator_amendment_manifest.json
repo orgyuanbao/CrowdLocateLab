@@ -1,0 +1,40 @@
+{
+  "amendment_id": "evaluator-v2.1-baseline-shorthand-guard",
+  "created_at_utc": "2026-09-24T17:40:54.714109+00:00",
+  "first_review_observation_utc": "2026-09-24T17:37:03Z",
+  "first_review_run_state": {
+    "status": "running",
+    "frozen": false,
+    "steps": 7,
+    "experiment_calls": 2,
+    "results_directory_existed": false
+  },
+  "creation_run_state": {
+    "status": "running",
+    "frozen": false,
+    "steps": 9,
+    "experiment_calls": 3
+  },
+  "creation_results_directory_exists": false,
+  "phase": "Pre-freeze, pre-holdout code-review amendment",
+  "original_benchmark_sha256": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+  "original_source_snapshot": "research/benchmark_v2_initialization_snapshot.py",
+  "original_source_snapshot_sha256": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+  "original_research_manifest_snapshot": "research/initial_research_protocol_snapshot.json",
+  "original_research_manifest_sha256": "6a146e5f816237f72a1f83d500c1f64cfc48833c51233d9b504e3e52fa36625d",
+  "amended_evaluator_sha256": "f4ed7a18c722536b0d1daa6197a8dd23d38a929ff6f97827741b5ada259810c5",
+  "exact_diff_file": "research/evaluator_v2_1.patch",
+  "exact_diff_sha256": "59efd1d33081d6eb516ce72064695f5a635e8d80bb0c6cea6a79cc16f699b353",
+  "semantic_change": "Skip compositional ablations only when the frozen spec is baseline shorthand; keep chosen spec unchanged.",
+  "unchanged": [
+    "research tools",
+    "numerical solvers",
+    "live model decisions",
+    "initialization source hashes",
+    "dataset seeds and CLI options",
+    "predecessor policy",
+    "metrics/bootstrap/conformal helpers"
+  ],
+  "formal_evaluation_policy": "First formal holdout uses benchmark_v2_1.py only; no version selection using holdout outcomes.",
+  "verification": "4 fixture-only evaluator amendment tests passed; no holdout generation or scoring was called."
+}

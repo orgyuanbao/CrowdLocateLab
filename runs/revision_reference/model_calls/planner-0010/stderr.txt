@@ -1,0 +1,12 @@
+2026-09-24T18:49:45.454214Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:49:45.454294Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:49:45.462448Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-24T18:49:46.472867Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:49:46.472905Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:50:16.229840Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 190ms)... turn_id=01a0d4c0-934d-7ee1-945a-12c0d8979270 retries=1 max_retries=5 sampling_error=request timed out
+2026-09-24T18:50:31.438818Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 366ms)... turn_id=01a0d4c0-934d-7ee1-945a-12c0d8979270 retries=2 max_retries=5 sampling_error=request timed out
+2026-09-24T18:50:46.813655Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 863ms)... turn_id=01a0d4c0-934d-7ee1-945a-12c0d8979270 retries=3 max_retries=5 sampling_error=request timed out
+2026-09-24T18:51:02.696377Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.603s)... turn_id=01a0d4c0-934d-7ee1-945a-12c0d8979270 retries=4 max_retries=5 sampling_error=request timed out
+2026-09-24T18:51:19.314088Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.281s)... turn_id=01a0d4c0-934d-7ee1-945a-12c0d8979270 retries=5 max_retries=5 sampling_error=request timed out
+2026-09-24T18:51:37.605199Z  WARN codex_core::client: falling back to HTTP
+2026-09-24T18:51:54.485476Z  WARN codex_core::hook_runtime: after_agent hook failed; continuing turn_id=01a0d4c0-934d-7ee1-945a-12c0d8979270 hook_name=legacy_notify error=文件名或扩展名太长。 (os error 206)

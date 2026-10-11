@@ -1,0 +1,18 @@
+{
+  "spec": {
+    "model": "cv_select",
+    "residual": "log_range",
+    "loss": "cauchy",
+    "scale": "reported",
+    "f_scale": 1.5,
+    "ridge": 0.05,
+    "trim_fraction": 0.0,
+    "consensus_trials": 0,
+    "starts": 3,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1
+  },
+  "hypothesis": "Ablation of log_cv_reported: {'loss': 'cauchy'}",
+  "mathematical_definition": "静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||。令ell_i=sqrt(log(1+(sigma_i/max(y_i,0.1))^2))，残差r_i=[log(max(d_i,0.1))-log(max(y_i,0.1))-0.1^2/2]/ell_i。最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，c=1.5，lambda=0.05；静态无速度罚项。时间排序后三折交错验证，以全部留出观测的平均单位尺度soft-L1残差损失评分；全部恒速训练折可用且CV_velocity<0.95 CV_static时选择恒速，否则静态。内折一个普通起点，最终三个起点全数据重拟合；无截尾或抽样初始化。与range_cv_reported仅改变残差选项，包括其规定的尺度和中心化；这不是纯对数变换的独立效应，也不构成精确混合噪声似然或无偏保证。"
+}

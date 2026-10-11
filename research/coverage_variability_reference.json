@@ -1,0 +1,66 @@
+{
+  "purpose": "Post-evaluation mathematical variability reference only; no new cases, refits, method changes, or q changes.",
+  "score_model": "Frozen nonconformity score S=position_error/positive_observation_scale; iid continuous common score CDF F.",
+  "derivation": "For m iid calibration scores and q=S_(k), U=F(q)~Beta(k,m+1-k). Independently conditional on U, K|U~Binomial(N,U); integrating gives K~BetaBinomial(N,k,m+1-k).",
+  "assumptions": [
+    "Estimator and positive score scale frozen independently of calibration/test observations.",
+    "Calibration and coverage-test scores are iid from one common continuous CDF; no score ties under the idealized model.",
+    "Test cases are independent of calibration and one another before conditioning; only their common random q induces dependence marginally."
+  ],
+  "not_claimed": [
+    "Not a confidence interval conditional on the realized calibration set.",
+    "Not a revised calibration quantile or a post-hoc change to the predictor.",
+    "Not a coverage guarantee for scenarios, rejected subsets, or distribution shift.",
+    "Does not erase the observed 85.625% coverage at nominal 90%.",
+    "Does not verify that idealized iid/continuous assumptions hold in real radio data."
+  ],
+  "software": {
+    "scipy": "1.18.1",
+    "function": "scipy.stats.betabinom",
+    "interval_convention": "Equal-tailed discrete 2.5% and 97.5% quantiles."
+  },
+  "results": [
+    {
+      "alpha": 0.1,
+      "calibration_n": 240,
+      "test_n": 320,
+      "order_statistic_k": 217,
+      "beta_a": 217,
+      "beta_b": 24,
+      "observed_covered_count": 274,
+      "observed_coverage": 0.85625,
+      "joint_expected_covered_count": 288.13278008298755,
+      "joint_expected_coverage": 0.9004149377593361,
+      "joint_predictive_interval_95_count": [
+        271,
+        303
+      ],
+      "joint_predictive_interval_95_coverage": [
+        0.846875,
+        0.946875
+      ],
+      "unconditional_lower_tail_probability_le_observed": 0.056279420453228014
+    },
+    {
+      "alpha": 0.05,
+      "calibration_n": 240,
+      "test_n": 320,
+      "order_statistic_k": 229,
+      "beta_a": 229,
+      "beta_b": 12,
+      "observed_covered_count": 303,
+      "observed_coverage": 0.946875,
+      "joint_expected_covered_count": 304.0663900414938,
+      "joint_expected_coverage": 0.950207468879668,
+      "joint_predictive_interval_95_count": [
+        291,
+        314
+      ],
+      "joint_predictive_interval_95_coverage": [
+        0.909375,
+        0.98125
+      ],
+      "unconditional_lower_tail_probability_le_observed": 0.4257782698365475
+    }
+  ]
+}

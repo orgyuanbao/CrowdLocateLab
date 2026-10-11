@@ -1,0 +1,26 @@
+{
+  "provider": "codex_cli",
+  "request_id": "critic-0012",
+  "prompt_sha256": "682505b1fe9dbd515635b667dc3f22b06b6122abc7dca3761874a097d7c72a7c",
+  "schema_sha256": "2b38441cddb9022cd489e0b2fec93dd1fe018d7369900b126aaa0bc422b4dbb2",
+  "model_selection": "user_configured_default; no --model override",
+  "reasoning_effort_override": "medium",
+  "sandbox_requested": "read-only",
+  "complete_tool_isolation_claimed": false,
+  "timeout_seconds": 300.0,
+  "returncode": 0,
+  "status": "completed",
+  "elapsed_seconds": 139.625,
+  "unexpected_tools": [],
+  "raw_event_count": 9,
+  "usage": {
+    "input_tokens": 34094,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 702,
+    "reasoning_output_tokens": 35
+  },
+  "model_identifier": null,
+  "model_identifier_source": "not_reported_by_cli",
+  "cli_error_event_count": 4
+}

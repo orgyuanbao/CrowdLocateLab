@@ -1,0 +1,253 @@
+{
+  "study": "CrowdLocateLab-v3-revision",
+  "discovery_seed": 1646191,
+  "validation_seed": 1657383,
+  "development_scenarios": [
+    "static_clean",
+    "static_outliers",
+    "moving_clean",
+    "moving_outliers",
+    "sparse"
+  ],
+  "discovery_per_scenario": 20,
+  "validation_per_scenario": 30,
+  "source_hashes": {
+    "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+    "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+    "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+    "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+    "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+    "benchmark_revision.py": "f281ae97d782fc4d0e7e8aa87f581d500f8357abe2d49111c0223f2588f1b3a7",
+    "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+    "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+    "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+    "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+    "research/revision_plan.json": "da76f76e9a4d3c6e2259039db548f29b0185cd7f810dc998411d3cf04250ec6a",
+    "revision/__init__.py": "293416f98ffcca3e2121e27da43c5357f7441c554cc511e84c2dd810569db532",
+    "revision/agent.py": "7058be24e0068681a18e803813f3fe13f3303da46a3be4d0cad8461a2b0e70da",
+    "revision/evaluation.py": "faaeb1318a415cd89efdc5e38d107b9aaf941b318233b1522dc5517703c678f9",
+    "revision/report.py": "13fbc6a90e77c85be9f7e4113e7f3fa59eef03b4b9038e2fdb89d948d5be7563",
+    "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+    "run_revision.py": "ec84f9def2f76c4c68245b6a8bf4b271b628eb7a0cf7f6f173c0b4de9823eb78",
+    "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+    "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+    "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+    "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18"
+  },
+  "reasoning_effort": "medium",
+  "test_access": false,
+  "goal_sha256": "e01ea6028a5aa8ffc02b7af6ea1c71da54323dc8fa085a1841b7945542fbfa2a",
+  "revision_plan_sha256": "da76f76e9a4d3c6e2259039db548f29b0185cd7f810dc998411d3cf04250ec6a",
+  "revision_plan": {
+    "version": "v3-preregistered-second-study-1",
+    "status": "declared_before_revision_agent_and_fresh_holdout",
+    "purpose": "Use v2 failures as prior evidence for a new LLM research cycle, then evaluate exactly one frozen revision on new data; this is not an independent replication of the original discovery process.",
+    "development": {
+      "discovery_seed": 1646191,
+      "validation_seed": 1657383,
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers",
+        "sparse"
+      ],
+      "discovery_per_scenario": 20,
+      "validation_per_scenario": 30
+    },
+    "main": {
+      "seeds": [
+        1814711,
+        1826013,
+        1837901
+      ],
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers"
+      ],
+      "per_scenario_per_seed": 60,
+      "expected_n": 720
+    },
+    "stress": {
+      "seed": 1849391,
+      "scenarios": [
+        "poor_geometry",
+        "accelerating",
+        "sparse",
+        "calibration_shift",
+        "high_contamination"
+      ],
+      "per_scenario": 80,
+      "expected_n": 400
+    },
+    "edge": {
+      "seed": 1980221,
+      "scenarios": [
+        "static_clean",
+        "moving_clean"
+      ],
+      "observation_n": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "per_cell": 30,
+      "expected_n": 420
+    },
+    "calibration": {
+      "seed": 1862193,
+      "size": 800,
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers"
+      ],
+      "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+    },
+    "coverage": {
+      "seed": 1875149,
+      "size": 1200,
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers"
+      ],
+      "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+    },
+    "methods": {
+      "fixed_baselines": [
+        "static_wls",
+        "static_robust",
+        "dynamic_robust",
+        "legacy_bic"
+      ],
+      "v2_frozen_spec": {
+        "consensus_trials": 0,
+        "f_scale": 1.5,
+        "gate_margin": 0.05,
+        "log_bias_correction": true,
+        "log_sd": 0.1,
+        "loss": "soft_l1",
+        "model": "cv_select",
+        "residual": "range",
+        "ridge": 0.05,
+        "scale": "reported",
+        "starts": 3,
+        "trim_fraction": 0.0
+      },
+      "revision_selected": "Exactly one method frozen by runs/revision_reference before generating any fresh dataset",
+      "ablations": {
+        "ablate_k3": {
+          "model": "cv_select",
+          "cv_folds": 3
+        },
+        "ablate_k4": {
+          "model": "cv_select",
+          "cv_folds": 4
+        },
+        "ablate_force_velocity": {
+          "model": "velocity"
+        },
+        "ablate_force_static": {
+          "model": "static"
+        }
+      },
+      "ablation_policy": "For composed selected specs, apply these declared changes. K3/K4 are a paired selection-fold contrast; if selected is not CV they also enable CV, so do not call them single-component ablations of selected. Baseline shorthand has no compositional ablations. Normalize defaults and ignore cv_folds for non-CV when marking exact aliases; aliases reuse numerical predictions and are not independent methods."
+    },
+    "statistics": {
+      "bootstrap_seed": 1912303,
+      "bootstrap_repetitions": 4000,
+      "paired_endpoint": "reference error minus revision_selected error, positive favours revision; use identical case IDs",
+      "strata": {
+        "main": [
+          "study_seed",
+          "scenario"
+        ],
+        "stress": [
+          "scenario"
+        ],
+        "edge": [
+          "observation_n",
+          "scenario"
+        ]
+      },
+      "strata_weight": "equal weight per predeclared balanced cell; resample paired cases within each fixed cell",
+      "confidence_intervals": "two-sided percentile 95%; descriptive approximate sampling intervals, no multiplicity adjustment or uncertainty from LLM search",
+      "static_noninferiority": {
+        "scenario": "static_clean",
+        "reference": "static_wls",
+        "ratio_margin": 1.1,
+        "endpoint": "ratio of mean errors and mean(selected error minus 1.1*WLS error)",
+        "interpretation": "point estimate and two-sided 95% bootstrap upper bound reported separately; exploratory noninferiority diagnostic, not a confirmatory trial"
+      },
+      "per_seed": "Report each of the three main root seeds; these are data batches, not independent LLM research replications",
+      "tail_and_cost": [
+        "median_m",
+        "p90_m",
+        "p95_m",
+        "max_m",
+        "mean_work_units",
+        "mean_seconds"
+      ],
+      "cost_caveat": "Legacy work_units is solver nfev; composed solver work_units counts residual calls including CV/initialization rounds. They are not guaranteed identical compute units. Report wall time as observed machine timing, not a controlled speed benchmark; no direct acceleration claim from work-unit ratios.",
+      "failures": "Report every predefined scenario and n-boundary cell, including deterioration; no choice of favourable evaluation version or subset"
+    },
+    "regions": {
+      "methods": [
+        "revision_selected"
+      ],
+      "alphas": [
+        0.1,
+        0.05
+      ],
+      "score": "Euclidean position error divided by frozen positive observation-only geometry_scale_m, clipped/fallback exactly as the original scale(row) helper",
+      "global": "k=ceil((m+1)*(1-alpha)); kth calibration score, infinity if k>m or m=0",
+      "mondrian": "Same rank independently within a frozen observation-derived selected_model group: static or velocity (legacy dynamic is mapped to velocity). Unknown output raises an error, never truth-based fallback.",
+      "empty_group": "Use an unbounded region and q=infinity. JSON stores string infinity and explicit unbounded indicators, not null.",
+      "populations": [
+        "iid_test",
+        "shifted_stress",
+        "edge"
+      ],
+      "subgroups": "Report true scenario only after prediction as evaluation labels; true scenario is not the Mondrian group function",
+      "coverage_intervals": "Wilson 95% intervals for the IID test population and its scenario/observed-model subgroups. They estimate test-sampling coverage probability conditional on this realized calibration rule, not a conformal guarantee or recalibration interval. No pooled binomial interval for fixed-mixture shifted stress/edge.",
+      "radius_rejection_thresholds_m": [
+        2,
+        5,
+        10,
+        15,
+        20,
+        30,
+        50
+      ],
+      "guarantee_scope": "IID calibration/test plus frozen estimator/scale/group implies marginal global coverage and group-conditional Mondrian coverage conditional on group membership and calibration group count, marginal over calibration scores. No guarantee conditional on a realized calibration set, true scenario, radius acceptance, or shifted stress/edge population."
+    },
+    "integrity": {
+      "must_freeze_before_generation": true,
+      "required_new_source_hashes": [
+        "run_revision.py",
+        "revision/agent.py",
+        "revision/evaluation.py",
+        "benchmark_revision.py",
+        "research/revision_plan.json"
+      ],
+      "original_v2_sources": "Preserve every original frozen byte. New study uses separate files and includes original and new sources in its initialization hash manifest.",
+      "case_identity": "Prefix split, root seed and case index; retain generator_seed in case metadata. Identical case object across methods.",
+      "output_policy": "Refuse existing output directory. Save initialization provenance, input cases, every unique method result, aliases, complete statistics and completion marker.",
+      "fresh_results_policy": "Never generate these fresh datasets or inspect their outcomes before revision freeze. Fixtures use unrelated small seeds only. Old v2 test data are acknowledged prior evidence, never relabelled fresh holdout."
+    }
+  },
+  "exposed_v2_prior": {
+    "runs/live_reference/tools/frozen_method.json": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+    "results/benchmark/summary.json": "4e526862c801f3058548a3f3674fad90c4c9eaf9a5383b680f3118f822f2299f",
+    "results/sensitivity/summary.json": "cc72eb2b205927f36518612efeefe78f8e5e954bce41163b83f09be879f42ea4"
+  }
+}

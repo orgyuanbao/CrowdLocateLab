@@ -1,0 +1,109 @@
+\section{第一轮的观测数与污染敏感性研究}\label{sec:sensitivity}
+
+\input{sections/sensitivity_protocol}
+
+实际完成384个独立案例、1152次定位预测，耗时0.2分钟。以下结果没有返馈给第一轮研究智能体，也没有用于替换其已冻结方案；第二轮则明确把这些结果作为已暴露先验，另用新数据评价修订。
+
+在全部32个预设网格单元中，所选方法的样本均值低于静态WLS的单元为23个，低于恒速稳健基线的单元为20个。每格仅12例，单元胜出数量是描述性结果，不是显著性检验或部署分布下的成功概率。
+
+\begin{table}[H]\centering\small
+\caption{静止目标：所选方法平均位置误差（m）。列为名义污染比例。}
+
+\begin{tabular}{lrrrr}
+\toprule
+观测数 & 0\% & 10\% & 25\% & 40\%\\
+\midrule
+8 & 1.807 & 3.042 & 2.810 & 4.937\\
+12 & 2.295 & 2.388 & 2.261 & 11.469\\
+16 & 1.189 & 2.861 & 2.306 & 3.184\\
+24 & 0.897 & 1.506 & 1.940 & 6.133\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[width=0.91\linewidth,height=6.4cm,xlabel={观测数},ylabel={平均位置误差（m）},xtick={8,12,16,24},ymin=0,grid=major,legend style={at={(0.5,1.04)},anchor=south,legend columns=4}]
+\addplot[thick,color=navy,mark=*] coordinates {(8,1.806937) (12,2.295357) (16,1.189295) (24,0.896926)};\addlegendentry{0\%}
+\addplot[thick,color=teal,mark=square*] coordinates {(8,3.041615) (12,2.387690) (16,2.861054) (24,1.506256)};\addlegendentry{10\%}
+\addplot[thick,color=orange,mark=triangle*] coordinates {(8,2.809855) (12,2.261038) (16,2.305569) (24,1.940370)};\addlegendentry{25\%}
+\addplot[thick,color=brick,mark=diamond*] coordinates {(8,4.936753) (12,11.468595) (16,3.184007) (24,6.133056)};\addlegendentry{40\%}
+\end{axis}\end{tikzpicture}
+\caption{静止目标的样本量与污染敏感性。线段仅连接离散实验格点，不表示格点间的理论插值。}
+\label{fig:sensitivity-static_outliers}
+\end{figure}
+
+\begin{table}[H]\centering\small
+\caption{静止目标：模型选择及相对恒速基线的配对均值差。正差值表示所选方法误差较低。}
+
+\begin{tabular}{lrrrrr}
+\toprule
+观测数 & 名义污染 & 实际污染 & 选择恒速 & CV可用 & 误差减少/m\\
+\midrule
+8 & 0\% & 0.0\% & 0.0\% & 0.0\% & 3.582\\
+8 & 10\% & 12.5\% & 0.0\% & 0.0\% & 11.203\\
+8 & 25\% & 25.0\% & 0.0\% & 0.0\% & 11.262\\
+8 & 40\% & 37.5\% & 0.0\% & 0.0\% & 16.244\\
+12 & 0\% & 0.0\% & 25.0\% & 100.0\% & 1.646\\
+12 & 10\% & 8.3\% & 25.0\% & 100.0\% & 1.097\\
+12 & 25\% & 25.0\% & 0.0\% & 100.0\% & 4.197\\
+12 & 40\% & 41.7\% & 41.7\% & 100.0\% & 6.950\\
+16 & 0\% & 0.0\% & 0.0\% & 100.0\% & 1.332\\
+16 & 10\% & 12.5\% & 16.7\% & 100.0\% & 2.038\\
+16 & 25\% & 25.0\% & 0.0\% & 100.0\% & 9.356\\
+16 & 40\% & 37.5\% & 8.3\% & 100.0\% & 7.023\\
+24 & 0\% & 0.0\% & 0.0\% & 100.0\% & 0.964\\
+24 & 10\% & 8.3\% & 16.7\% & 100.0\% & 1.237\\
+24 & 25\% & 25.0\% & 0.0\% & 100.0\% & 1.827\\
+24 & 40\% & 41.7\% & 16.7\% & 100.0\% & 5.043\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{移动目标：所选方法平均位置误差（m）。列为名义污染比例。}
+
+\begin{tabular}{lrrrr}
+\toprule
+观测数 & 0\% & 10\% & 25\% & 40\%\\
+\midrule
+8 & 11.526 & 9.125 & 10.956 & 14.169\\
+12 & 4.647 & 6.090 & 10.801 & 14.661\\
+16 & 4.661 & 12.936 & 10.409 & 9.317\\
+24 & 1.778 & 2.938 & 5.347 & 8.704\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[width=0.91\linewidth,height=6.4cm,xlabel={观测数},ylabel={平均位置误差（m）},xtick={8,12,16,24},ymin=0,grid=major,legend style={at={(0.5,1.04)},anchor=south,legend columns=4}]
+\addplot[thick,color=navy,mark=*] coordinates {(8,11.526413) (12,4.647328) (16,4.661318) (24,1.777933)};\addlegendentry{0\%}
+\addplot[thick,color=teal,mark=square*] coordinates {(8,9.125434) (12,6.090254) (16,12.936288) (24,2.938467)};\addlegendentry{10\%}
+\addplot[thick,color=orange,mark=triangle*] coordinates {(8,10.955595) (12,10.801396) (16,10.409263) (24,5.347258)};\addlegendentry{25\%}
+\addplot[thick,color=brick,mark=diamond*] coordinates {(8,14.168633) (12,14.661439) (16,9.317081) (24,8.704152)};\addlegendentry{40\%}
+\end{axis}\end{tikzpicture}
+\caption{移动目标的样本量与污染敏感性。线段仅连接离散实验格点，不表示格点间的理论插值。}
+\label{fig:sensitivity-moving_outliers}
+\end{figure}
+
+\begin{table}[H]\centering\small
+\caption{移动目标：模型选择及相对恒速基线的配对均值差。正差值表示所选方法误差较低。}
+
+\begin{tabular}{lrrrrr}
+\toprule
+观测数 & 名义污染 & 实际污染 & 选择恒速 & CV可用 & 误差减少/m\\
+\midrule
+8 & 0\% & 0.0\% & 0.0\% & 0.0\% & -7.328\\
+8 & 10\% & 12.5\% & 0.0\% & 0.0\% & 0.496\\
+8 & 25\% & 25.0\% & 0.0\% & 0.0\% & 4.017\\
+8 & 40\% & 37.5\% & 0.0\% & 0.0\% & 4.096\\
+12 & 0\% & 0.0\% & 83.3\% & 100.0\% & -1.647\\
+12 & 10\% & 8.3\% & 75.0\% & 100.0\% & -1.341\\
+12 & 25\% & 25.0\% & 50.0\% & 100.0\% & -3.113\\
+12 & 40\% & 41.7\% & 33.3\% & 100.0\% & 3.313\\
+16 & 0\% & 0.0\% & 83.3\% & 100.0\% & -1.208\\
+16 & 10\% & 12.5\% & 66.7\% & 100.0\% & -2.377\\
+16 & 25\% & 25.0\% & 8.3\% & 100.0\% & -1.925\\
+16 & 40\% & 37.5\% & 25.0\% & 100.0\% & -2.142\\
+24 & 0\% & 0.0\% & 100.0\% & 100.0\% & -0.000\\
+24 & 10\% & 8.3\% & 91.7\% & 100.0\% & -0.240\\
+24 & 25\% & 25.0\% & 33.3\% & 100.0\% & -0.098\\
+24 & 40\% & 41.7\% & 16.7\% & 100.0\% & -2.198\\
+\bottomrule\end{tabular}\end{table}
+
+离散观测数使实际污染比例与名义比例有所差异，表中分别列出。CV可用率为空表示该方法未输出此诊断；不能将缺失信息当作零。若冻结方法使用三折观测门控，则8条观测时部分训练折少于6条，按预定实现会禁止选择恒速；这项设计限制应与由污染或优化失败引起的选择错误区分。
+
+\input{sections/sensitivity_interpretation}

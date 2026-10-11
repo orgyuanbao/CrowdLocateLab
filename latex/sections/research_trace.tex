@@ -1,0 +1,132 @@
+\section{第一轮真实智能体运行与研究迭代}\label{sec:trace}
+
+\subsection{运行身份、预算与实际调用}
+
+正式轨迹保存在\texttt{runs/live\_reference/}。本次状态为\texttt{frozen}，共执行13个研究动作，发起14次模型调用，其中14次成功，包含1次独立审阅调用。实验工具调用计数为6，其中控制消融2次。正式过程历时31.6分钟。
+
+模型由已登录的Codex CLI调用，采用用户配置的默认模型，没有人为填写服务端未返回的型号。本次保存的响应不是回放。服务内部连接重试与控制器重新请求是不同计数；完整日志均保留。
+
+\begin{table}[H]\centering\small
+\caption{正式研究的审计计数。token使用量按CLI返回字段相加，不推断费用。}
+
+\begin{tabular}{lr}
+\toprule
+指标 & 数值\\
+\midrule
+注册的新方法（含消融） & 5\\
+成功模型调用 & 14\\
+独立审阅调用 & 1\\
+输入token & 444020\\
+缓存输入token & 30720\\
+输出token & 6994\\
+检测到的CLI额外工具事件 & 0\\
+\bottomrule\end{tabular}\end{table}
+
+\subsection{由一次失败驱动的真实修订}
+
+模型最初预期对数残差有助于移动异常案例，但P2的开发均值达到12.117米，并未实现预期。随后它调用诊断工具检查极端误差。工具返回的是跨场景全局最差案例，因此模型明确承认，原先关于某个场景最差四例的假设尚不能完整判定；它没有将不匹配的诊断输出当成已证实的因果解释。
+
+第8步只将拟合损失从soft-L1改为Cauchy，登记P4；观测划分、残差、尺度和验证评分保持不变。工具返回的移动异常均值从12.117降至8.555米，CEP90从24.954降至14.923米。然而静态正常均值为1.384米，高于事前开发判据1.316米，故这个包含静态条件的联合假设仍被否定。10\%容忍度是模型在开发阶段声明的经验判据，不是原工业要求的严格非劣，也不是统计非劣检验。
+
+这一链条中的假设、诊断对象、修改与拒绝理由来自实际模型响应；上述数值来自保存的配对实验。因而可以核查模型是否根据反馈改变研究动作，而不是仅阅读最后一个最优配置。
+
+\noindent\textbf{证据定位：}研究目录下的\path{tools/experiments/call_003_discovery_log_cv_reported.json}、\path{tools/experiments/call_003_discovery_log_cv_cauchy.json}，以及对应步号的\path{events.jsonl}。
+
+\subsection{逐步动作与可核查证据}
+
+下表由事件日志自动生成。方法代号按首次注册顺序分配；它们不是预设候选排名。实际计算结果来自工具返回，研究动机与预期来自模型响应。
+
+\begingroup\small\setlength{\tabcolsep}{4pt}
+
+\begin{longtable}{@{}p{8mm}p{23mm}p{121mm}@{}}
+
+\caption{实际研究动作序列。均值单位为米；开发与验证来自不同案例集。}\label{tab:trace}\\
+
+\toprule 步 & 动作 & 执行内容与实际结果\\\midrule\endfirsthead
+
+\toprule 步 & 动作 & 执行内容与实际结果\\\midrule\endhead
+
+\bottomrule\endfoot
+
+1 & 读取来源 & 目前尚无来源证据，先读取问题材料、假设与算子的精确定义，为基线实验和可检验方法设计建立依据。\\[3pt]
+
+2 & 执行实验 & 开发集：静态WLS 均值 6.599；静态稳健 均值 5.868；恒速稳健 均值 4.060；旧BIC门控 均值 3.896\\[3pt]
+
+3 & 注册方法 & P1；距离域soft-L1观测交叉验证选择在discovery上同时满足：moving\_\allowbreak{}outliers平均误差低于legacy\_\allowbreak{}bic，static\_\allowbreak{}clean平均误差不超过static\_\allowbreak{}wls的1.10倍。\\[3pt]
+
+4 & 注册方法 & P2；在discovery共同案例上，log\_\allowbreak{}cv\_\allowbreak{}reported的moving\_\allowbreak{}outliers平均当前位置误差低于range\_\allowbreak{}cv\_\allowbreak{}reported，且static\_\allowbreak{}clean平均误差不超过static\_\allowbreak{}wls的1.10倍。\\[3pt]
+
+5 & 注册方法 & P3；在discovery共同案例上，range\_\allowbreak{}cv\_\allowbreak{}constant的moving\_\allowbreak{}outliers平均当前位置误差低于range\_\allowbreak{}cv\_\allowbreak{}reported，且static\_\allowbreak{}clean平均误差不超过static\_\allowbreak{}wls的1.10倍。\\[3pt]
+
+6 & 执行实验 & 开发集：静态WLS 均值 6.599；P1 均值 3.943；P2 均值 5.209；P3 均值 5.329\\[3pt]
+
+7 & 失败诊断 & 诊断 P2；discovery支持距离域交叉验证候选的预设联合条件，但对数残差和共享尺度的移动异常改善假设均被否定；共享尺度还违反正常静止容忍度。先诊断对数候选的严重失败，区分模型误选与拟合异常，为修订提供证据。\\[3pt]
+
+8 & 控制消融 & 开发集：P2 均值 5.209；P4 均值 4.294；改变 \{'loss': 'cauchy'\}\\[3pt]
+
+9 & 数学检查 & Cauchy消融降低了移动异常均值和尾部误差，但正常静止均值1.38382米超过预设1.31631米阈值，因此联合假设被否定。下一步检查数学命题，明确观测权重偏差、几何不可辨识性及不确定性校准的适用条件。\\[3pt]
+
+10 & 控制消融 & 开发集：P1 均值 3.943；P5 均值 4.058；改变 \{'model': 'velocity'\}\\[3pt]
+
+11 & 执行实验 & 验证集：静态WLS 均值 6.022；旧BIC门控 均值 3.912；P1 均值 3.742；P5 均值 4.759\\[3pt]
+
+12 & 执行实验 & 验证集：静态WLS 均值 6.022；静态稳健 均值 5.572；恒速稳健 均值 4.759；P1 均值 3.742\\[3pt]
+
+13 & 冻结方法 & 冻结 P1；冻结已登记且未据validation修改的range\_\allowbreak{}cv\_\allowbreak{}reported。验证每场景24例：四场景等权平均误差3.74151米，低于static\_\allowbreak{}robust的5.57182、dynamic\_\allowbreak{}robust的4.75875及legacy\_\allowbreak{}bic的3.91248米；正常静止0.90199米低于预设WLS均值1.10倍阈值1.01550米；移动异常8.36549米低于BIC的9.\\[3pt]
+
+\end{longtable}\endgroup
+
+\subsection{候选组成、修订与审阅}
+
+\begin{table}[H]\centering\small
+\caption{智能体注册的方法组成与已观测均值。空白项表示未调用该划分。}
+
+\begin{tabular}{p{8mm}p{104mm}rr}
+\toprule
+代号 & 模型／残差／尺度／损失 & 开发 & 验证\\
+\midrule
+P1 & \texttt{cv\_\allowbreak{}select/range/reported/soft\_\allowbreak{}l1} \newline trim=0.0, subsets=0, margin=0.05 & 3.943 & 3.742\\
+P2 & \texttt{cv\_\allowbreak{}select/log\_\allowbreak{}range/reported/soft\_\allowbreak{}l1} \newline trim=0.0, subsets=0, margin=0.05 & 5.209 & --\\
+P3 & \texttt{cv\_\allowbreak{}select/range/constant/soft\_\allowbreak{}l1} \newline trim=0.0, subsets=0, margin=0.05 & 5.329 & --\\
+P4 & \texttt{cv\_\allowbreak{}select/log\_\allowbreak{}range/reported/cauchy} \newline trim=0.0, subsets=0, margin=0.05 & 4.294 & --\\
+P5 & \texttt{velocity/range/reported/soft\_\allowbreak{}l1} \newline trim=0.0, subsets=0, margin=0.05 & 4.058 & 4.759\\
+\bottomrule\end{tabular}\end{table}
+
+\paragraph{审阅1（第3次普通实验后）}
+
+方法登记存在定义冲突：log\_\allowbreak{}cv\_\allowbreak{}cauchy仍写soft-L1目标，range\_\allowbreak{}velocity\_\allowbreak{}reported仍写交叉验证选择。须明确实际执行的spec与数学定义，避免错误归因。；验证联合判据按点估计全部通过：移动异常8.36549<9.22411米，正常静止0.90199<1.01550米，宏均值3.74151<4.75930米；但每场景仅24例，缺少配对差异的不确定性，不能称为统计非劣或泛化保证。；计算预算尚未超限，但比较未匹配计算量：候选平均69.35工作单位，BIC为47.49，强制恒速为26.49。调用次数不能替代实际计算预算；应报告精度与成本权衡。；验证缺少static\_\allowbreak{}robust和dynamic\_\allowbreak{}robust；尤其匹配配置的强制静态稳健基线有助于分离稳健损失与模型选择的贡献。；未见测试或校准泄漏证据，但来源、划分独立性及预处理实现未提供，无法独立核实。交错观测验证评价的是留出距离预测，与当前位置估计目标并不等价。；多候选与诊断修订均依据discovery，属于适当开发；继续根据已见validation调参会产生选择偏差。宏均值结论还依赖四场景等权设定。；最差4例诊断实际跨场景，尚未完成原先针对移动异常最差4例的假设检验。镜像反例否定局部满秩足以保证全局可辨识；恒速基线在移动异常上更优，也否定候选普遍占优。
+
+建议的下一步：先澄清两项登记定义冲突并记录执行配置；保持候选不变，用一次集中validation调用补齐static\_\allowbreak{}robust、dynamic\_\allowbreak{}robust及候选比较。随后依据预设静止容忍度、场景权重及计算成本冻结有验证证据的方法，明确未解决校准问题；不要为达到建议步数继续调参。
+
+\paragraph{对审阅意见的实际回应}
+
+模型在第12步的持久记忆中记录：方法ID不可修改，保留并明确登记文字缺陷：log\_\allowbreak{}cv\_\allowbreak{}cauchy的spec为cauchy，拟合损失应为c²log(1+(r/c)²)，留出评分仍为单位尺度soft-L1；range\_\allowbreak{}velocity\_\allowbreak{}reported的spec为velocity，不执行CV选择。以上依据工具返回的spec及受控变更，未独立核验实现。主要候选不变，本次补齐稳健基线，不据validation调参；随后依据既定静止10\%容忍度、四场景等权误差及成本选择冻结。现有点估计不是统计非劣证明，基线配置未确认一致前不能视为单因素消融；覆盖率、配对不确定性及工业适用性仍未解决。
+
+因此，本报告的方法数学解释以实际执行配置和数值源码为准。历史登记文本被原样保留，不能把上述文字纠错说成重新运行了不同的定位算法；后续版本应将父方法说明与消融后的定义分开保存。
+
+\subsection{最终冻结配置}
+
+最终方法为P1，原始标识为\texttt{range\_\allowbreak{}cv\_\allowbreak{}reported}。参数和结论在最终测试前保存；下列配置不因测试结果而更改。
+
+\begin{table}[H]\centering\small
+\caption{冻结方法的实际声明参数；未声明字段采用数值模块公开默认值。}
+
+\begin{tabular}{ll}
+\toprule
+字段 & 值\\
+\midrule
+\texttt{consensus\_\allowbreak{}trials} & \texttt{0}\\
+\texttt{f\_\allowbreak{}scale} & \texttt{1.5}\\
+\texttt{gate\_\allowbreak{}margin} & \texttt{0.05}\\
+\texttt{log\_\allowbreak{}bias\_\allowbreak{}correction} & \texttt{True}\\
+\texttt{log\_\allowbreak{}sd} & \texttt{0.1}\\
+\texttt{loss} & \texttt{soft\_\allowbreak{}l1}\\
+\texttt{model} & \texttt{cv\_\allowbreak{}select}\\
+\texttt{residual} & \texttt{range}\\
+\texttt{ridge} & \texttt{0.05}\\
+\texttt{scale} & \texttt{reported}\\
+\texttt{starts} & \texttt{3}\\
+\texttt{trim\_\allowbreak{}fraction} & \texttt{0.0}\\
+\bottomrule\end{tabular}\end{table}
+
+冻结时模型给出的研究结论为：冻结已登记且未据validation修改的range\_\allowbreak{}cv\_\allowbreak{}reported。验证每场景24例：四场景等权平均误差3.74151米，低于static\_\allowbreak{}robust的5.57182、dynamic\_\allowbreak{}robust的4.75875及legacy\_\allowbreak{}bic的3.91248米；正常静止0.90199米低于预设WLS均值1.10倍阈值1.01550米；移动异常8.36549米低于BIC的9.22411米，但高于dynamic\_\allowbreak{}robust的6.08423米。候选平均69.35417工作单位，高于静态稳健20.53125、动态稳健26.95833及BIC的47.48958；比较未匹配计算量，选择体现预设静止容忍度与四场景等权误差的折中，不代表普遍占优。discovery拒绝了对数残差和常数尺度分别优于距离域reported的假设；Cauchy修订改善对数方法移动异常误差但未通过静止容忍度。受控强制恒速消融显示移动收益与静止代价。登记文字缺陷须保留说明：log\_\allowbreak{}cv\_\allowbreak{}cauchy实际spec为cauchy，其拟合损失为c²log(1+(r/c)²)，留出评分仍为单位尺度soft-L1；range\_\allowbreak{}velocity\_\allowbreak{}reported实际spec为velocity，不执行CV选择；这些解释依工具spec，未经独立实现核验。数学检查支持指定标量乘性噪声模型的自加权偏差公式及镜像不可辨识恒等式，不可推广为完整定位误差证明；局部满秩不足以排除全局歧义。共形边际覆盖需要估计器及正尺度冻结和校准测试交换性，尚无校准或覆盖率实测。仍缺配对差异不确定性、独立数据与实现核验，原移动异常最差4例诊断假设未完成；观测预测评分与当前位置误差目标不等价。所有结论限于已见合成开发数据的点估计，不声称统计非劣、工业验收、原创性或泛化保证。冻结后立即结束开发，测试及校准尚未访问。

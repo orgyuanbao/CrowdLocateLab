@@ -1,0 +1,108 @@
+{
+  "version": "CrowdLocateLab-sensitivity-v1",
+  "evaluation_started_utc": "2026-09-24T17:52:41.291169+00:00",
+  "registered_plan": {
+    "version": "CrowdLocateLab-sensitivity-v1",
+    "registered_at_utc": "2026-09-24T17:26:03Z",
+    "registration_status": "Written before sensitivity data generation; local record, not third-party timestamp certification.",
+    "purpose": "Evaluate the frozen method's applicability across observation count and range contamination; inspect sparse-sample CV gating without selecting or retuning a method.",
+    "seed": 980221,
+    "observation_counts": [
+      8,
+      12,
+      16,
+      24
+    ],
+    "contamination_rates": [
+      0.0,
+      0.1,
+      0.25,
+      0.4
+    ],
+    "scenarios": [
+      "static_outliers",
+      "moving_outliers"
+    ],
+    "cases_per_cell": 12,
+    "cell_count": 32,
+    "case_count": 384,
+    "method_names": [
+      "llm_selected",
+      "dynamic_robust",
+      "static_wls"
+    ],
+    "prediction_count": 1152,
+    "stream_design": "For each grid cell use numpy.random.SeedSequence([seed, SCENARIOS.index(scenario), n, round(10000*contamination)]).spawn(cases_per_cell); each child emits one uint64 generate_case seed. Cells and methods share no generated observations, except that all methods receive the same case within a cell.",
+    "contamination_realization": "The generator corrupts round(n * nominal_rate) observations; save and report actual_outlier_fraction because small n makes realized fractions discrete.",
+    "pairing": "All three fixed methods evaluate every saved case; mean error differences are computed case by case within each cell.",
+    "outcomes": [
+      "mean_position_error_m",
+      "empirical_p90_position_error_m",
+      "mean_work_units",
+      "mean_elapsed_seconds",
+      "selected_model_counts_and_rates",
+      "cv_velocity_allowed_rate_when_diagnostic_available",
+      "paired_mean_error_reduction_relative_to_each_baseline"
+    ],
+    "work_unit_caveat": "Modern solvers count residual evaluations including CV and initialization; legacy baselines expose legacy nfev. Counts are implementation-dependent, so retain wall-clock time as well.",
+    "inference_scope": "Exploratory fixed-grid sensitivity description with only 12 cases per cell. No per-cell significance declarations, universal superiority claims, or multiple-comparison-confirmed conclusions.",
+    "prohibition": "Validate the original research freeze before generating any case. Do not change the frozen method, choose a winning grid region after inspection as a confirmatory claim, or feed sensitivity outcomes back into the agent. No recalibration or coverage claim is part of this study.",
+    "data_scope": "Synthetic planar mean-one lognormal distance observations with the original generator's anchor and additive errors; no external radio or industrial dataset."
+  },
+  "plan_sha256": "1d58335ed15ca4a44f0268146a55bb5a7cb7c98dd1128f26d4197eba6f394922",
+  "sensitivity_script_sha256": "0bb5216152d5967238c2483f0be27f12c05fe6eec16ff9ad29ed15a30c869da5",
+  "frozen_method_sha256": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+  "frozen_method_id": "range_cv_reported",
+  "methods": {
+    "llm_selected": {
+      "consensus_trials": 0,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 3,
+      "trim_fraction": 0.0
+    },
+    "dynamic_robust": {
+      "baseline": "dynamic_robust"
+    },
+    "static_wls": {
+      "baseline": "static_wls"
+    }
+  },
+  "pre_holdout_integrity_check": {
+    "verified_source_files": 14,
+    "verified_evidence_files": 15,
+    "controller_and_toolkit_frozen": true,
+    "is_replay": false,
+    "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+  },
+  "critical_source_sha256": {
+    "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+    "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+    "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+    "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+    "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+    "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+    "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+    "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18",
+    "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+    "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+    "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+    "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+    "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+    "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "prohibition": "Validate the original research freeze before generating any case. Do not change the frozen method, choose a winning grid region after inspection as a confirmatory claim, or feed sensitivity outcomes back into the agent. No recalibration or coverage claim is part of this study."
+}

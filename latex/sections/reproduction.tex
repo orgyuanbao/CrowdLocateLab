@@ -1,0 +1,45 @@
+\section{交付结构与复现实验}
+\label{app:reproduction}
+
+第一轮研究入口是 \path{run_agent.py}，独立评测入口为 \path{benchmark_v2_1.py}。第二轮对应入口为 \path{run_revision.py}与\path{benchmark_revision.py}，新版浏览器为\path{dashboard_revision.py}。数值求解器、基础研究工具与大模型运行时分别位于 \path{localization/}、\path{tools/} 和 \path{agent_runtime/}，第二轮扩展集中在\path{revision/}，从而可以分开检查数学算法与智能体决策。
+
+\begin{table}[htbp]
+\centering\small
+\caption{项目文件与其用途。完整命令及版本条件见根目录README。}
+\begin{tabularx}{\linewidth}{@{}p{49mm}Y@{}}
+\toprule
+路径 & 可核查内容\\
+\midrule
+\texttt{runs/live\_reference/} & 正式实际运行的状态、事件、模型调用、工具结果与冻结方法\\
+\texttt{results/benchmark/} & 独立输入、逐例预测、统计摘要、消融、校准、协议与环境版本\\
+\texttt{tests/} & 解析Jacobian、观测访问边界、交叉验证、控制器、证据与校准检验\\
+\texttt{docs/} & 数学实现说明之外的研究背景、使用指南与文献数据库\\
+\texttt{latex/} & 本报告的LaTeX主文件、章节与基于真实结果生成的表格和图形\\
+\texttt{reporting/build\_report.py} & 从现有真实结果生成报告的数据部分，不重新选择定位方法\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{三种不同含义的复现}
+保存结果复查不产生新的模型请求。打开本地面板即可阅读方法提案、实验、失败和审阅意见，并核对逐例误差文件。确定性计算复现固定方法、输入和数值环境，再次运行求解与统计；壁钟时间和文件生成时刻可以变化，数值等价性应在指定容差内比较。
+
+语言模型研究重跑具有不同含义。规划器受模型版本、服务状态与采样影响，新的调用可能作出不同决策；即使数据种子相同，也不能承诺复现同一条研究路径。应为新研究指定独立目录并保存新的模型原始输出。项目还提供显式的\texttt{replay}模式：它重新执行已保存的动作，测试控制器与工具的联接；它不会产生新的模型研究证据，面板和状态均将其标记为回放。
+
+\subsection{基本命令}
+在项目根目录创建Python环境并安装数值依赖后，可运行：
+\begin{lstlisting}
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python dashboard.py --run runs/live_reference --results results/benchmark
+\end{lstlisting}
+真实研究要求已安装Codex CLI并完成用户登录。登录信息由CLI自身管理，不写入项目。命令示例为：
+\begin{lstlisting}
+python run_agent.py --output runs/my_new_study
+python benchmark_v2_1.py --run runs/my_new_study --output results/my_new_study
+\end{lstlisting}
+原\texttt{benchmark.py}保留为研究初始化版本及共享校验/统计库，不应直接作为正式评估入口。\texttt{research/evaluator\_amendment.md}记录冻结前、首次holdout前的入口修复与版本承诺。运行时不会在模型不可用时用规则伪造回应。调用失败会保留状态和错误证据；恢复必须保持研究目标、预算、种子与源代码一致。独立评测会验证冻结状态、方法注册表、验证集证据和源代码摘要，校验失败则停止。
+
+报告使用XeLaTeX与BibTeX编译。Windows版采用系统宋体、黑体、Times New Roman与Consolas；新版在这些字体不可用时提供Fandol和TeX Gyre回退。所有科学图形使用PGFPlots或TikZ绘制，表格由保存的结果生成，无需图像生成模型。第二轮和完整PDF的命令见附录\ref{app:usability}以及根目录README。
+
+\subsection{审计边界}
+事件散列链、源代码摘要和不可覆盖的实验文件用于发现无意修改与版本不一致。它们不是受信第三方时间戳或密码学签名，不能抵御同时重写全部记录的攻击。模型服务未返回的信息不填入猜测值。公开发布前，提交者应补充自己的姓名、学号与课程信息，并检查模型调用记录中是否有不希望公开的研究文本；本交付不包含身份凭据或所提供课件原文。

@@ -1,0 +1,115 @@
+\section{第二轮真实智能体轨迹}
+
+\label{sec:revision-trace}
+
+本次第二轮保存了12个研究动作，发起13次模型请求，其中13次获得成功响应，其中审阅调用1次；实验与消融调用6次，登记4个新候选或消融版本，历时28.3分钟。正式状态为冻结。本记录由真实在线模型调用产生，未标为回放。网络等待包含在历时中，不能将其解释为定位求解耗时。各行决策来自模型返回，观测来自实际工具执行。
+
+\begingroup\small\setlength{\tabcolsep}{4pt}
+
+\begin{longtable}{@{}p{8mm}p{21mm}p{\dimexpr\linewidth-29mm-16pt\relax}@{}}
+
+\caption{第二轮的完整动作顺序。方法以R编号简写，原始标识保留在方法表及日志中。}\\
+
+\toprule 步 & 动作 & 公开决策依据与工具观测\\\midrule\endfirsthead
+
+\toprule 步 & 动作 & 公开决策依据与工具观测\\\midrule\endhead
+
+1 & 读取先验 & 尚无来源观察；先读取数学实现、第二轮预登记计划及已公开的v2结果，明确后续候选设计与验证约束。 读取原问题、实现数学、预登记计划及已暴露第一轮结果。\\[3pt]
+
+2 & 登记候选 & 已读来源表明，三折在n=8时存在仅5个训练观测的折。先登记仅将v2折数改为4的候选，检验解除计数限制后的收益与代价；准确性改善尚无本轮证据。 登记R1；仅将v2的交错观测验证从三折改为四折：预计sparse恒速选择率提高且平均定位误差降低，static\_\allowbreak{}clean相对v2平均误差增幅不超过10\%，moving\_\allowbreak{}outliers平均误差不增加；预计平均耗时上升。四折只解除n=8的训练数量障碍，不保证几何可用性或\\[3pt]
+
+3 & 执行实验 & 已读取来源并登记四折候选，但尚无本轮实验结果。先做配对发现集实验，以检验折数变化及静态、运动和成本取舍，并为后续诊断修订提供依据。 发现集五场景均值/m：R1 4.222；第一轮冻结 5.181；静态WLS 7.273；恒速稳健 4.644\\[3pt]
+
+4 & 失败诊断 & 发现集上四折相对v2降低了稀疏和运动异常平均误差，但静态正常误差仍约为WLS的1.54倍，总体耗时增加约46\%。先诊断模型选择与失败案例，再据此修订；现有汇总尚不能确定退化机制。 诊断R1；最差返回案例误差24.221 m\\[3pt]
+
+5 & 登记候选 & 诊断显示稀疏场景已选恒速14/20例，但最坏案例仍因验证得分选择静态；运动异常最坏例存在极大标准化残差。登记仅改变残差域的修订，检验污染评分与定位表现。静态最坏四例未返回，相关机制尚未确认。 登记R2；诊断驱动修订：四折已使sparse恒速选择达到14/20，但返回的三个稀疏失败例与一个运动异常失败例均因预测评分选择静态；后者含约20的标准化残差。仅将range改为log\_\allowbreak{}range，检验对数压缩与中心化是否改善评分及拟合。预测相对range\_\allowbreak{}cv4\_\allowbreak{}rep\\[3pt]
+
+6 & 执行实验 & 对数四折修订已登记但尚无性能证据。下一步用相同发现案例与距离四折、v2及静态WLS配对比较，检验残差修改的效果及静态退化，保留充分预算完成消融、数学检查和验证。 发现集五场景均值/m：R2 5.036；R1 4.222；第一轮冻结 5.181；静态WLS 7.273\\[3pt]
+
+7 & 单组件消融 & 对数修订仅改善静态正常误差，运动异常和稀疏改善预期被否定；同次实验耗时增幅约4.2\%，符合成本预期。以表现更好的距离四折为父方法，单独提高运动选择门槛，检验静态退化与运动收益的取舍，并完成必要消融。 发现集五场景均值/m：R1 4.222；R3 4.598。实际改动：\{"gate\_\allowbreak{}margin": 0.2\}\\[3pt]
+
+8 & 数学核验 & 门槛消融降低静态正常误差，但运动异常误差增加约17.1\%，否定不超过10\%的预期。先完成独立数学检查，明确可证明结论的条件，再继续开发与验证。 核验：all。数值见证不替代数学证明。\\[3pt]
+
+9 & 单组件消融 & 对数残差和提高运动门槛均出现误差退化，暂保留四折距离方法。下一步单独减少最终拟合起点，检验计算成本能否下降且不明显损害各目标场景精度；保留至少两次验证预算。 发现集五场景均值/m：R1 4.222；R4 4.222。实际改动：\{"starts": 1\}\\[3pt]
+
+10 & 执行实验 & 单起点消融在发现集保持各场景误差近似不变，同次平均耗时降低约26.2\%，但静态正常退化仍未解决。现在验证单起点候选、父方法、v2及WLS，检验精度与成本取舍是否延续。 验证集五场景均值/m：R4 4.113；R1 4.064；第一轮冻结 5.221；静态WLS 7.414\\[3pt]
+
+11 & 执行实验 & 已有来源、消融及数学检查证据，但三个参考方法缺少本轮验证，尚不能冻结。停止新增调参，用一次验证补齐对照并评估单起点候选的精度与耗时取舍。 验证集五场景均值/m：R4 4.113；静态稳健 7.033；恒速稳健 4.523；BIC门控 4.397\\[3pt]
+
+12 & 冻结方法 & 全部冻结前提已满足，最新验证补齐五个参考。选择单起点候选，明确接受稀疏尾部代价与相对v2更高耗时；停止调参并冻结。 冻结R4；后续开发接口关闭。\\[3pt]
+
+\bottomrule\end{longtable}\endgroup
+
+\subsection{登记组合及冻结选择}
+
+\begin{table}[H]\centering\small
+\caption{新方法的主要组成。非CV模型不使用K和门槛；完整声明见原始注册表。}
+
+\begin{tabularx}{\linewidth}{@{}p{8mm}p{36mm}>{\raggedright\arraybackslash}Xp{19mm}@{}}
+\toprule
+编号 & 原始标识 & 主要设置 & 验证均值/m\\
+\midrule
+R1 & range\_\allowbreak{}cv4\_\allowbreak{}reported & cv\_\allowbreak{}select; K=4; margin=0.05; soft\_\allowbreak{}l1; range; starts=3 & 4.064\\
+R2 & log\_\allowbreak{}cv4\_\allowbreak{}reported & cv\_\allowbreak{}select; K=4; margin=0.05; soft\_\allowbreak{}l1; log\_\allowbreak{}range; starts=3 & --\\
+R3 & range\_\allowbreak{}cv4\_\allowbreak{}margin20 & cv\_\allowbreak{}select; K=4; margin=0.2; soft\_\allowbreak{}l1; range; starts=3 & --\\
+R4 & range\_\allowbreak{}cv4\_\allowbreak{}single\_\allowbreak{}start & cv\_\allowbreak{}select; K=4; margin=0.05; soft\_\allowbreak{}l1; range; starts=1 & 4.113\\
+\bottomrule\end{tabularx}\end{table}
+
+最终冻结方法为R4，其完整配置如下。
+
+\begin{table}[H]\centering\small
+\caption{第二轮冻结配置，测试后不再调整。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+字段 & 值\\
+\midrule
+consensus\_\allowbreak{}trials & 0\\
+cv\_\allowbreak{}folds & 4\\
+f\_\allowbreak{}scale & 1.5\\
+gate\_\allowbreak{}margin & 0.05\\
+log\_\allowbreak{}bias\_\allowbreak{}correction & True\\
+log\_\allowbreak{}sd & 0.1\\
+loss & soft\_\allowbreak{}l1\\
+model & cv\_\allowbreak{}select\\
+residual & range\\
+ridge & 0.05\\
+scale & reported\\
+starts & 1\\
+trim\_\allowbreak{}fraction & 0.0\\
+\bottomrule\end{tabularx}\end{table}
+
+\subsection{审阅反馈与研究结论原始记录}
+
+\noindent\textbf{审阅1。} 在3次成功实验后记录。以下按真实审阅字段整理公开摘要，较长字段标明节选；这不是私有思维链。
+
+\noindent\textbf{范围检查：} 通过。
+
+\noindent\textbf{指出的问题：}\begin{enumerate}[leftmargin=2em,nosep]
+\item 尚缺static\_\allowbreak{}robust、dynamic\_\allowbreak{}robust、legacy\_\allowbreak{}bic的validation证据，当前不能冻结；实验预算剩3次。
+\item 静态正常目标仍失败：单起点验证均值1.248米，为WLS的约1.156倍，超过1.10界限。
+\item 单起点满足预设均值容差，但稀疏均值较三起点增加约3.85\%，最大误差19.54米对16.10米；不能声称精度无损。
+\item 单起点验证总体耗时较父方法下降约19.6\%，但较v2增加约22.8\%；未证明等计算预算优势，工作量口径也不可直接比较。
+\item 验证集已暴露；后续依其选择候选属于模型选择，重复相同验证案例不是独立复现。未见禁用数据泄漏证据。
+\item 对数修订及严格门槛的部分预测已失败，应保留负结果；新组合登记不证明学术新颖性。
+\item 反射反例否定局部满秩蕴含全局唯一；标量偏差结论不推广至完整定位器，保形结论不提供当前实证覆盖保证。\end{enumerate}
+
+\noindent\textbf{下一步建议：} 停止新增调参，下一次validation同时评估range\_\allowbreak{}cv4\_\allowbreak{}single\_\allowbreak{}start、static\_\allowbreak{}robust、dynamic\_\allowbreak{}robust、legacy\_\allowbreak{}bic，补齐参考对照。记录已有均值预测通过及静态非劣诊断失败、稀疏尾部代价，再按明确的精度与耗时取舍冻结新候选；不读取或生成holdout/test/calibration。
+
+\noindent\textbf{证据边界：}\begin{itemize}[leftmargin=2em,nosep]
+\item 仅审阅所供记录，未核验实现、哈希、样本独立性或计时环境。
+\item 每场景验证仅30例，缺少配对差值不确定性及重复计时；均值阈值通过不等于统计非劣证明。
+\item 四折解除计数障碍，同时改变评分与训练划分，误差改善不能完全归因于计数机制。
+\item 本次同模型独立上下文审阅不是数学证明或独立经验复现。\end{itemize}
+
+完整公开审阅字段见\nolinkurl{runs/revision_reference/state.json}中的critiques，及对应\nolinkurl{model_calls/}响应记录。独立提示不等于不同模型。
+
+\noindent\textbf{冻结时的公开结论（保留原文）：}
+
+依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy\_\allowbreak{}bic为4.397米、dynamic\_\allowbreak{}robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic\_\allowbreak{}robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。
+
+相对三起点父方法，同次验证总体耗时下降约19.6\%，宏均值由4.064升至4.113米，稀疏均值增加约3.85\%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8\%；最新同次候选耗时0.01547秒，static\_\allowbreak{}robust、dynamic\_\allowbreak{}robust、legacy\_\allowbreak{}bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。
+
+反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。
+
+完整提示、响应、失败和用量见\nolinkurl{runs/revision_reference/model_calls/}；完整动作、工具输入输出及证据链见同目录\texttt{events.jsonl}。

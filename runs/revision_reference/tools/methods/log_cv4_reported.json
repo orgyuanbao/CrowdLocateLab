@@ -1,0 +1,30 @@
+{
+  "spec": {
+    "consensus_trials": 0,
+    "cv_folds": 4,
+    "f_scale": 1.5,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "cv_select",
+    "residual": "log_range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 3,
+    "trim_fraction": 0.0
+  },
+  "hypothesis": "诊断驱动修订：四折已使sparse恒速选择达到14/20，但返回的三个稀疏失败例与一个运动异常失败例均因预测评分选择静态；后者含约20的标准化残差。仅将range改为log_range，检验对数压缩与中心化是否改善评分及拟合。预测相对range_cv4_reported，discovery的static_clean、moving_outliers、sparse平均误差分别下降，总体平均耗时增幅不超过20%。这不是已确认的污染因果解释；静态最坏四例未被返回，不能断言其误差集中于恒速选择。",
+  "mathematical_definition": "静态d_i=||x-a_i||，恒速d_i=||x+t_i v-a_i||。令delta=0.1米，ell_i=sqrt(log(1+(sigma_i/max(y_i,delta))^2))，r_i=[log(max(d_i,delta))-log(max(y_i,delta))-0.1^2/2]/ell_i。各模型最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，c=1.5、lambda=0.05，静态无速度罚项。按时间排序作四折交错验证，分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)，不截尾。仅全部恒速训练折满足至少6个观测、至少1秒跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折一个普通起点，最终三个起点全数据重拟合，无抽样初始化。与range_cv4_reported唯一有效字段差异为residual；log尺度与中心修正因此开始生效。该残差是含坐标及加性噪声时的工程近似，不是精确似然，也无无偏或全局最优保证。",
+  "registration_kind": "new_composition",
+  "registered_after_diagnosis_count": 1,
+  "diagnosis_evidence": [
+    {
+      "method_id": "range_cv4_reported",
+      "split": "discovery",
+      "diagnosis_number": 1,
+      "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+      "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+    }
+  ]
+}

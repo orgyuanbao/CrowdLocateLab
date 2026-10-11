@@ -1,0 +1,7 @@
+# Reference numerical environment; optional tighter reproduction constraints.
+# Python runtime: 3.12.14 (install separately; this is not a pip requirement).
+# Reference Codex CLI: 0.155.0-alpha.16.4 (install separately; not a Python package).
+# A pinned CLI does not pin the remotely configured model or reproduce its choices.
+# Report-building dependencies are separate in requirements-report.txt.
+numpy==2.3.5
+scipy==1.18.1

@@ -1,0 +1,14 @@
+2026-09-24T18:31:36.556108Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:31:36.556187Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:31:36.563650Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-24T18:31:41.530190Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out
+2026-09-24T18:31:41.530447Z  WARN codex_core_plugins::manager: failed to load recommended plugins error=failed to send remote plugin catalog request to https://chatgpt.com/backend-api/ps/plugins/suggested/codex?scope=GLOBAL: error sending request for url (https://chatgpt.com/backend-api/ps/plugins/suggested/codex?scope=GLOBAL)
+2026-09-24T18:31:42.195607Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:31:42.195629Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:32:07.932320Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 208ms)... turn_id=01a0d4af-f5bf-7792-9418-5a691c315c24 retries=1 max_retries=5 sampling_error=request timed out
+2026-09-24T18:32:23.159218Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 383ms)... turn_id=01a0d4af-f5bf-7792-9418-5a691c315c24 retries=2 max_retries=5 sampling_error=request timed out
+2026-09-24T18:32:38.555166Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 778ms)... turn_id=01a0d4af-f5bf-7792-9418-5a691c315c24 retries=3 max_retries=5 sampling_error=request timed out
+2026-09-24T18:32:54.357470Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.466s)... turn_id=01a0d4af-f5bf-7792-9418-5a691c315c24 retries=4 max_retries=5 sampling_error=request timed out
+2026-09-24T18:33:10.849521Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 3.267s)... turn_id=01a0d4af-f5bf-7792-9418-5a691c315c24 retries=5 max_retries=5 sampling_error=request timed out
+2026-09-24T18:33:29.147726Z  WARN codex_core::client: falling back to HTTP
+2026-09-24T18:33:56.171723Z  WARN codex_core::hook_runtime: after_agent hook failed; continuing turn_id=01a0d4af-f5bf-7792-9418-5a691c315c24 hook_name=legacy_notify error=文件名或扩展名太长。 (os error 206)

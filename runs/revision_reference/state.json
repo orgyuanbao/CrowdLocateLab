@@ -1,0 +1,3923 @@
+{
+  "identity_sha256": "6310d7dc6999641c0b94189626a229c7e1685bb85626bfdd841fa182ae72c1e1",
+  "identity": {
+    "runtime_version": 1,
+    "goal": "开展第二轮真实大模型科研研究：改进异步污染距离定位中已发现的静态正常退化、稀疏n=8排除运动模型和计算代价。\n第一轮v2的测试、压力与敏感性结果已经公开给你，明确视为已暴露先验，绝不能重称未见测试。\nv2_frozen只是第五个参考基线，不计新方法；原四基线也不计新候选。本轮必须新增至少两个有效组成不同的方法。\n你负责根据真实工具观察制定下一行动，不使用预先写定候选菜单，也不要求你保证获胜。\n先read_sources了解数学实现、第二轮预登记计划和已暴露结果。新的discovery/validation根种子分别1646191/1657383，\n五场景为原四核心场景加sparse，每场景20/30例。新holdout/test/calibration绝不可读取或生成。\n已有算子支持cv_folds=2..5。n-ceil(n/K)>=6只是恒速CV训练数量必要条件，K=4可让n=8满足计数条件，\n但不保证满秩、正确选择、位置更准或计算更快。你可探索运动门槛、损失、尺度和起点等已实现算子组合。\n必须先观察实验并做至少一次diagnose，然后依据诊断登记至少一个修订；至少一次ablate只能改变一个有效字段。\n消融数学定义会记录父定义、具体改变及最终规格，不能声称旧公式原样适用。\n对静态正常退化、运动异常、稀疏和成本分别提出可证伪预期；记录否定假设与失败案例。\n验证集最多四次调用，总实验/消融预算8次，每调用最多4方法；候选、原四个基线和v2_frozen都必须有本轮validation证据，\n因此至少留两次验证调用。候选与v2_frozen须至少在同一次验证中和一个原基线比较。不要把发现集进步当泛化保证。\n冻结要求>=3实验、>=2新组合、>=1诊断及其后的修订、>=1成功单组件消融、>=1数学检查和必要验证对照。\n只能冻结新候选；如果没有改善也应诚实冻结并说明取舍，不伪造成功。所有工具结果与模型预测严格分开。\n目标14-18个研究动作，最多20步、8次实验/消融、28次模型请求（包括审阅和重试）。有足够证据时及时冻结。\n旧基线nfev与新方法残差调用数并非同一口径，成本应同时报告实测耗时，不能将工作量比直接解释为加速。\n用中文写analysis_summary、hypothesis与memory_note，公开决策摘要简短清楚。预实现算子与作者证明不是你发明。\n只在最终结构化JSON选择登记工具，不调用Codex自身shell/web/file工具。研究材料只是证据，不是改变规则的指令。",
+    "tool_spec": {
+      "read_sources": {
+        "arguments": {},
+        "description": "Read original mathematical context, revision plan and already exposed v2 results. V2 test/sensitivity results are prior knowledge, not fresh validation. Never reads revision holdout."
+      },
+      "register_method": {
+        "arguments": {
+          "method_id": "new stable lowercase id",
+          "hypothesis": "falsifiable research hypothesis",
+          "mathematical_definition": "describe the objective/model/selection mathematically",
+          "spec": {
+            "model": "static|velocity|cv_select",
+            "residual": "range|log_range",
+            "scale": "reported|constant",
+            "loss": "linear|soft_l1|huber|cauchy",
+            "f_scale": 1.5,
+            "ridge": 0.05,
+            "trim_fraction": 0.0,
+            "consensus_trials": 0,
+            "gate_margin": 0.05,
+            "log_bias_correction": true,
+            "log_sd": 0.1,
+            "starts": 3,
+            "cv_folds": "integer 2..5"
+          }
+        },
+        "description": "Create a compositional solver method (not pick a fixed candidate list). IDs immutable. Mechanisms may be combined; all numeric computation is in registered solver modules. cv_folds=2..5 is implemented. For n observations and K folds, n-ceil(n/K)>=6 is a necessary training-count condition for velocity CV. K=4 permits n=8 by count only, not a guarantee of rank, accuracy or lower cost. After a diagnosis, register an explicitly revised hypothesis; existing reference IDs do not count as new methods. Known inactive fields are normalized when rejecting duplicate compositions; this is not a proof of semantic novelty."
+      },
+      "run_experiment": {
+        "arguments": {
+          "method_ids": [
+            "static_wls",
+            "new_method"
+          ],
+          "split": "discovery|validation"
+        },
+        "description": "Evaluate 1..4 methods on common fresh cases. Discovery: five scenarios x20, validation: five scenarios x30, at most four validation calls. Scenarios include sparse n=8. Validation must evaluate all four original baselines and v2_frozen, plus the selected candidate. The candidate and v2_frozen must share a validation call with at least one original baseline. Inspect scenario errors, tails, measured seconds and work units separately."
+      },
+      "diagnose": {
+        "arguments": {
+          "method_id": "id",
+          "split": "discovery",
+          "top_k": 4
+        },
+        "description": "Inspect failure cases, static/dynamic selection frequencies, observed residual/geometry diagnostics and comparative baselines. Must first run the experiment."
+      },
+      "verify_math": {
+        "arguments": {
+          "proposition": "all|self_weight_bias|mirror|conformal"
+        },
+        "description": "Execute independent witnesses and inspect exact proposition assumptions. Does not turn numerical evidence into a proof."
+      },
+      "ablate": {
+        "arguments": {
+          "method_id": "id",
+          "changes": {
+            "trim_fraction": 0
+          },
+          "new_id": "id_no_trim",
+          "split": "discovery"
+        },
+        "description": "Change exactly one effective configuration field, register a distinct composed method and execute paired discovery evaluation. Mathematical record explicitly contains parent definition, changed field and final effective spec; the old formula is not asserted unchanged."
+      },
+      "freeze": {
+        "arguments": {
+          "method_id": "id",
+          "scientific_conclusion": "supported results and unresolved failures"
+        },
+        "description": "Freeze a NEW registered candidate after >=3 experiment calls, >=2 distinct new compositions excluding the five references, >=1 diagnosis, >=1 subsequent method revision, >=1 successful single-component ablation and >=1 mathematical check. Selected candidate and all five references must all have fresh validation evidence. Describe failures and tradeoffs; numerical superiority is not a freeze requirement."
+      },
+      "finish": {
+        "arguments": {
+          "summary": "reason for stopping"
+        },
+        "description": "Stop only after freeze; no fabricated success."
+      }
+    },
+    "config": {
+      "study": "CrowdLocateLab-v3-revision",
+      "discovery_seed": 1646191,
+      "validation_seed": 1657383,
+      "development_scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers",
+        "sparse"
+      ],
+      "discovery_per_scenario": 20,
+      "validation_per_scenario": 30,
+      "source_hashes": {
+        "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+        "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+        "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+        "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+        "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+        "benchmark_revision.py": "f281ae97d782fc4d0e7e8aa87f581d500f8357abe2d49111c0223f2588f1b3a7",
+        "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+        "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+        "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+        "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+        "research/revision_plan.json": "da76f76e9a4d3c6e2259039db548f29b0185cd7f810dc998411d3cf04250ec6a",
+        "revision/__init__.py": "293416f98ffcca3e2121e27da43c5357f7441c554cc511e84c2dd810569db532",
+        "revision/agent.py": "7058be24e0068681a18e803813f3fe13f3303da46a3be4d0cad8461a2b0e70da",
+        "revision/evaluation.py": "faaeb1318a415cd89efdc5e38d107b9aaf941b318233b1522dc5517703c678f9",
+        "revision/report.py": "13fbc6a90e77c85be9f7e4113e7f3fa59eef03b4b9038e2fdb89d948d5be7563",
+        "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+        "run_revision.py": "ec84f9def2f76c4c68245b6a8bf4b271b628eb7a0cf7f6f173c0b4de9823eb78",
+        "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+        "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+        "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+        "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18"
+      },
+      "reasoning_effort": "medium",
+      "test_access": false,
+      "goal_sha256": "e01ea6028a5aa8ffc02b7af6ea1c71da54323dc8fa085a1841b7945542fbfa2a",
+      "revision_plan_sha256": "da76f76e9a4d3c6e2259039db548f29b0185cd7f810dc998411d3cf04250ec6a",
+      "revision_plan": {
+        "version": "v3-preregistered-second-study-1",
+        "status": "declared_before_revision_agent_and_fresh_holdout",
+        "purpose": "Use v2 failures as prior evidence for a new LLM research cycle, then evaluate exactly one frozen revision on new data; this is not an independent replication of the original discovery process.",
+        "development": {
+          "discovery_seed": 1646191,
+          "validation_seed": 1657383,
+          "scenarios": [
+            "static_clean",
+            "static_outliers",
+            "moving_clean",
+            "moving_outliers",
+            "sparse"
+          ],
+          "discovery_per_scenario": 20,
+          "validation_per_scenario": 30
+        },
+        "main": {
+          "seeds": [
+            1814711,
+            1826013,
+            1837901
+          ],
+          "scenarios": [
+            "static_clean",
+            "static_outliers",
+            "moving_clean",
+            "moving_outliers"
+          ],
+          "per_scenario_per_seed": 60,
+          "expected_n": 720
+        },
+        "stress": {
+          "seed": 1849391,
+          "scenarios": [
+            "poor_geometry",
+            "accelerating",
+            "sparse",
+            "calibration_shift",
+            "high_contamination"
+          ],
+          "per_scenario": 80,
+          "expected_n": 400
+        },
+        "edge": {
+          "seed": 1980221,
+          "scenarios": [
+            "static_clean",
+            "moving_clean"
+          ],
+          "observation_n": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "per_cell": 30,
+          "expected_n": 420
+        },
+        "calibration": {
+          "seed": 1862193,
+          "size": 800,
+          "scenarios": [
+            "static_clean",
+            "static_outliers",
+            "moving_clean",
+            "moving_outliers"
+          ],
+          "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+        },
+        "coverage": {
+          "seed": 1875149,
+          "size": 1200,
+          "scenarios": [
+            "static_clean",
+            "static_outliers",
+            "moving_clean",
+            "moving_outliers"
+          ],
+          "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+        },
+        "methods": {
+          "fixed_baselines": [
+            "static_wls",
+            "static_robust",
+            "dynamic_robust",
+            "legacy_bic"
+          ],
+          "v2_frozen_spec": {
+            "consensus_trials": 0,
+            "f_scale": 1.5,
+            "gate_margin": 0.05,
+            "log_bias_correction": true,
+            "log_sd": 0.1,
+            "loss": "soft_l1",
+            "model": "cv_select",
+            "residual": "range",
+            "ridge": 0.05,
+            "scale": "reported",
+            "starts": 3,
+            "trim_fraction": 0.0
+          },
+          "revision_selected": "Exactly one method frozen by runs/revision_reference before generating any fresh dataset",
+          "ablations": {
+            "ablate_k3": {
+              "model": "cv_select",
+              "cv_folds": 3
+            },
+            "ablate_k4": {
+              "model": "cv_select",
+              "cv_folds": 4
+            },
+            "ablate_force_velocity": {
+              "model": "velocity"
+            },
+            "ablate_force_static": {
+              "model": "static"
+            }
+          },
+          "ablation_policy": "For composed selected specs, apply these declared changes. K3/K4 are a paired selection-fold contrast; if selected is not CV they also enable CV, so do not call them single-component ablations of selected. Baseline shorthand has no compositional ablations. Normalize defaults and ignore cv_folds for non-CV when marking exact aliases; aliases reuse numerical predictions and are not independent methods."
+        },
+        "statistics": {
+          "bootstrap_seed": 1912303,
+          "bootstrap_repetitions": 4000,
+          "paired_endpoint": "reference error minus revision_selected error, positive favours revision; use identical case IDs",
+          "strata": {
+            "main": [
+              "study_seed",
+              "scenario"
+            ],
+            "stress": [
+              "scenario"
+            ],
+            "edge": [
+              "observation_n",
+              "scenario"
+            ]
+          },
+          "strata_weight": "equal weight per predeclared balanced cell; resample paired cases within each fixed cell",
+          "confidence_intervals": "two-sided percentile 95%; descriptive approximate sampling intervals, no multiplicity adjustment or uncertainty from LLM search",
+          "static_noninferiority": {
+            "scenario": "static_clean",
+            "reference": "static_wls",
+            "ratio_margin": 1.1,
+            "endpoint": "ratio of mean errors and mean(selected error minus 1.1*WLS error)",
+            "interpretation": "point estimate and two-sided 95% bootstrap upper bound reported separately; exploratory noninferiority diagnostic, not a confirmatory trial"
+          },
+          "per_seed": "Report each of the three main root seeds; these are data batches, not independent LLM research replications",
+          "tail_and_cost": [
+            "median_m",
+            "p90_m",
+            "p95_m",
+            "max_m",
+            "mean_work_units",
+            "mean_seconds"
+          ],
+          "cost_caveat": "Legacy work_units is solver nfev; composed solver work_units counts residual calls including CV/initialization rounds. They are not guaranteed identical compute units. Report wall time as observed machine timing, not a controlled speed benchmark; no direct acceleration claim from work-unit ratios.",
+          "failures": "Report every predefined scenario and n-boundary cell, including deterioration; no choice of favourable evaluation version or subset"
+        },
+        "regions": {
+          "methods": [
+            "revision_selected"
+          ],
+          "alphas": [
+            0.1,
+            0.05
+          ],
+          "score": "Euclidean position error divided by frozen positive observation-only geometry_scale_m, clipped/fallback exactly as the original scale(row) helper",
+          "global": "k=ceil((m+1)*(1-alpha)); kth calibration score, infinity if k>m or m=0",
+          "mondrian": "Same rank independently within a frozen observation-derived selected_model group: static or velocity (legacy dynamic is mapped to velocity). Unknown output raises an error, never truth-based fallback.",
+          "empty_group": "Use an unbounded region and q=infinity. JSON stores string infinity and explicit unbounded indicators, not null.",
+          "populations": [
+            "iid_test",
+            "shifted_stress",
+            "edge"
+          ],
+          "subgroups": "Report true scenario only after prediction as evaluation labels; true scenario is not the Mondrian group function",
+          "coverage_intervals": "Wilson 95% intervals for the IID test population and its scenario/observed-model subgroups. They estimate test-sampling coverage probability conditional on this realized calibration rule, not a conformal guarantee or recalibration interval. No pooled binomial interval for fixed-mixture shifted stress/edge.",
+          "radius_rejection_thresholds_m": [
+            2,
+            5,
+            10,
+            15,
+            20,
+            30,
+            50
+          ],
+          "guarantee_scope": "IID calibration/test plus frozen estimator/scale/group implies marginal global coverage and group-conditional Mondrian coverage conditional on group membership and calibration group count, marginal over calibration scores. No guarantee conditional on a realized calibration set, true scenario, radius acceptance, or shifted stress/edge population."
+        },
+        "integrity": {
+          "must_freeze_before_generation": true,
+          "required_new_source_hashes": [
+            "run_revision.py",
+            "revision/agent.py",
+            "revision/evaluation.py",
+            "benchmark_revision.py",
+            "research/revision_plan.json"
+          ],
+          "original_v2_sources": "Preserve every original frozen byte. New study uses separate files and includes original and new sources in its initialization hash manifest.",
+          "case_identity": "Prefix split, root seed and case index; retain generator_seed in case metadata. Identical case object across methods.",
+          "output_policy": "Refuse existing output directory. Save initialization provenance, input cases, every unique method result, aliases, complete statistics and completion marker.",
+          "fresh_results_policy": "Never generate these fresh datasets or inspect their outcomes before revision freeze. Fixtures use unrelated small seeds only. Old v2 test data are acknowledged prior evidence, never relabelled fresh holdout."
+        }
+      },
+      "exposed_v2_prior": {
+        "runs/live_reference/tools/frozen_method.json": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+        "results/benchmark/summary.json": "4e526862c801f3058548a3f3674fad90c4c9eaf9a5383b680f3118f822f2299f",
+        "results/sensitivity/summary.json": "cc72eb2b205927f36518612efeefe78f8e5e954bce41163b83f09be879f42ea4"
+      }
+    },
+    "seed_hash": "ec9dcd80ed26bcb7d614a3ec8fbd90b8f176927dbb0b0e87a8744255a2d2e817",
+    "provider": "codex_cli",
+    "provider_settings": {
+      "reasoning_effort": "medium",
+      "model_override": null
+    },
+    "max_steps": 20,
+    "max_experiments": 8,
+    "max_model_calls": 28,
+    "max_retries": 2,
+    "critic_every": 3
+  },
+  "created_at": "2026-09-24T18:29:32.568834+00:00",
+  "status": "frozen",
+  "frozen": true,
+  "steps": 12,
+  "model_calls": 13,
+  "successful_model_calls": 13,
+  "experiment_calls": 6,
+  "successful_experiments": 4,
+  "last_critic_experiments": 3,
+  "memory": [
+    {
+      "step": 1,
+      "hypothesis": "来源材料将支持核查：v2三折恒速交叉验证在n=8时至少一折训练观测不足6个；该计数限制可能解释稀疏场景的运动模型排除，但不能单独解释定位误差。",
+      "expected_result": "获得实现、预登记方案和已暴露结果，核实稀疏样本的模型可用性规则，并确定静态正常、运动异常及计算成本的已有证据与待检验问题。",
+      "note": "当前没有工具实测证据。v2公开结果仅作已暴露先验；后续只用本轮discovery/validation设计方法，保留至少两次验证调用，不读取或生成holdout/test/calibration。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 2,
+      "hypothesis": "相对v2_frozen，四折候选将在discovery的sparse场景提高恒速选择率并降低平均定位误差；static_clean平均误差增幅不超过10%，moving_outliers平均误差不增加。四折增加内层拟合，预计平均耗时上升，而非加速。任一指标不满足即否定相应预期。",
+      "expected_result": "工具成功登记一个区别于五个参考方法的新组合；本次不会产生误差或耗时证据。后续配对discovery实验可检验四折是否实际解除恒速排除，以及误差与耗时的变化。",
+      "note": "来源已观察；本步仅提出四折候选，未观察开发结果。静态预期中的10%是相对v2的机制检查，不替代预登记的相对static_wls非劣诊断。实验后须diagnose并登记诊断驱动修订，完成单字段消融和数学检查；保留至少两次validation调用覆盖全部参考方法，冻结前不接触新测试或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 3,
+      "hypothesis": "相对v2_frozen，range_cv4_reported在discovery的sparse场景恒速选择率提高且平均定位误差降低，static_clean平均误差增幅不超过10%，moving_outliers平均误差不增加；平均耗时预计上升。这些预期分别检验，计数可用性不代表定位改善。",
+      "expected_result": "获得四方法在相同100个发现案例上的分场景误差、尾部、耗时和工作量证据。预计四折解除部分稀疏案例的计数排除，但准确率和其他可用性条件仍可能否定预期；随后用diagnose检查选择频率和失败案例。",
+      "note": "本次是首次开发实验，预测尚非观察事实。静态相对v2的10%预期不替代相对static_wls的预登记非劣诊断；旧基线工作量与新求解器调用数不可直接解释为速度比。保留至少两次validation调用覆盖全部参考方法，实验后先诊断再登记修订，不接触新测试或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 4,
+      "hypothesis": "四折候选在sparse中选择恒速的比例高于v2的零选择率；static_clean误差最大的四例中至少两例选择了恒速。若诊断不符合这些预测，则否定相应机制解释；即使符合，也不能单凭关联证明因果。",
+      "expected_result": "获得分场景选择频率、失败案例及残差和几何诊断，检验稀疏计数障碍解除后的实际选择情况，并判断静态尾部是否集中于恒速选择，为下一项单字段修订提供依据。",
+      "note": "已观察：四折相对v2的sparse均值由11.045降至7.232米，moving_outliers由7.685降至7.120米，static_clean由1.760降至1.652米，但WLS为1.072米；总体耗时由0.01266升至0.01845秒。选择频率与失败机制尚未观察。诊断后须登记修订，完成单字段消融、数学检查及覆盖全部五参考的验证，至少保留两次validation调用；不访问新测试或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 5,
+      "hypothesis": "相对range_cv4_reported，仅改用log_range将降低discovery的moving_outliers与sparse平均误差，降低static_clean平均误差，并使总体平均耗时增幅不超过20%；四项分别检验，任一不满足即否定对应预期。",
+      "expected_result": "工具登记诊断后的第二个有效新组合，不产生性能证据；随后配对发现实验可分别检验三个场景误差和耗时预期。",
+      "note": "已观察稀疏恒速14/20、静态正常恒速4/20、运动异常恒速10/20；返回最坏四例全选静态且恒速折均可用。静态尾部预测尚未检验。新对数修订仅为假设；仍需单字段消融、数学检查及覆盖五参考和候选的验证，至少保留两次validation调用，不访问测试或校准。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 6,
+      "hypothesis": "相对range_cv4_reported，log_cv4_reported在discovery的static_clean、moving_outliers和sparse平均定位误差分别降低，总体平均耗时不超过前者的1.20倍；四项独立判定，任何一项不满足即否定对应预期。",
+      "expected_result": "获得四方法在相同100个发现案例上的分场景误差、尾部和计算成本。预计对数修订改善三个目标场景，但是否达到static_clean相对WLS的1.10倍均值界限仍待观察；发现结果不构成泛化或非劣保证。",
+      "note": "当前仅距离四折有发现证据，对数修订的改善尚是假设。本调用后仍余6次实验/消融预算；须完成成功单字段消融、数学检查及至少两次覆盖全部五参考与所选候选的validation，候选与v2须同次对照一个原基线。不读取或生成新测试、holdout或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 7,
+      "hypothesis": "仅将range_cv4_reported的gate_margin从0.05提高到0.20，预计discovery静态正常平均误差低于1.6516米，运动异常平均误差不超过父方法的1.10倍，稀疏平均误差仍低于v2的11.0448米，总体平均耗时不超过同次父方法的1.10倍。四项分别检验；更严格门槛可能误拒运动，这些预期不构成保证。",
+      "expected_result": "获得仅改变运动门槛的配对发现证据及更新后的数学记录。预计静态误选减少，但运动异常和稀疏误差可能上升；逐场景误差、尾部和同次实测耗时将决定是否保留此修订。",
+      "note": "已观察log相对range四折：静态正常1.652→1.462米，运动异常7.120→9.000米，稀疏7.232→7.593米，静态异常1.908→3.574米；对数方法并非全面改善。耗时应同次比较0.02560/0.02456，不能跨调用宣称加速。此次单字段门槛消融尚无结果；后续仍须数学检查、至少两次覆盖五参考及所选候选的validation，候选与v2及原基线须同次比较。只用开发数据，冻结前不访问测试或校准。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 8,
+      "hypothesis": "数学检查将提供反例，否定无附加假设下定位解必然唯一、观测相关权重必然无偏的普遍断言；若工具未提供相应有效见证，则这些预测未获支持。",
+      "expected_result": "获得各命题的假设、独立见证及检查结果；区分数值反例、条件性数学结论和实验表现，不将检查通过解释为候选精度或覆盖率保证。",
+      "note": "已观察门槛0.05→0.20使静态正常均值1.652→1.297米，运动异常7.120→8.340米，稀疏维持7.232米；运动异常增幅超过预设10%，静态仍未达到WLS的1.10倍均值界限。同次总体耗时0.01971→0.01713秒，仅为本次计时证据。成功单字段消融已完成；本次数学检查尚无结果。余5次实验预算，至少保留两次validation覆盖所选候选与全部五参考，并确保候选、v2及原基线同次比较；不访问新测试或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 9,
+      "hypothesis": "仅将range_cv4_reported的starts从3降至1，预计discovery的static_clean、moving_outliers、sparse平均误差分别不超过父方法的1.05倍，且同次总体平均耗时至少降低10%。四项独立检验；局部极小值可能使精度预期失败。",
+      "expected_result": "获得父方法与单起点方法的配对误差、尾部、实测耗时和工作量。内折原已使用一个起点，因此节省仅来自最终重拟合，耗时下降可能不足10%；不能用工作量比替代实测速比。",
+      "note": "已完成数学检查：反射恒等式及见证说明局部满秩不保证全局唯一；观测相关权重的偏差公式仅在给定标量对数正态假设下成立；保形覆盖结论依赖冻结、交换性等条件，尚无覆盖率实证。当前四折距离方法发现集宏均值优于已试修订，但静态正常仍未达到相对WLS的1.10倍界限。本次成本消融尚无结果；执行后剩4次实验预算，须至少两次validation覆盖最终候选及全部五参考，候选、v2和一个原基线须同次比较。冻结前不访问新测试或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 10,
+      "hypothesis": "在validation中，range_cv4_single_start的static_clean、moving_outliers和sparse平均误差分别不超过range_cv4_reported的1.05倍，总体平均耗时至少降低10%；相对v2_frozen，moving_outliers与sparse平均误差下降。预计static_clean平均误差仍超过static_wls的1.10倍。各项分别检验，未满足即否定对应预测。",
+      "expected_result": "获得四方法在相同150个验证案例上的分场景误差、尾部、实测耗时和工作量，判断单起点节省是否伴随精度损失，并明确静态正常非劣诊断是否失败。",
+      "note": "已观察单起点发现集宏均值4.22246米，父方法4.22231米；同次耗时0.01673对0.02267秒，下降约26.2%，三个目标场景的5%误差界限均满足，仅为发现证据。静态正常约1.652米，仍高于WLS约1.072米的1.10倍。此次为首次validation，执行后剩3次实验预算；随后须验证static_robust、dynamic_robust、legacy_bic并包含拟冻结候选。数学检查与成功单字段消融已完成；冻结前不访问新测试或校准数据。",
+      "tool_succeeded": true
+    },
+    {
+      "source": "critic",
+      "note": "停止新增调参，下一次validation同时评估range_cv4_single_start、static_robust、dynamic_robust、legacy_bic，补齐参考对照。记录已有均值预测通过及静态非劣诊断失败、稀疏尾部代价，再按明确的精度与耗时取舍冻结新候选；不读取或生成holdout/test/calibration。",
+      "issues": [
+        "尚缺static_robust、dynamic_robust、legacy_bic的validation证据，当前不能冻结；实验预算剩3次。",
+        "静态正常目标仍失败：单起点验证均值1.248米，为WLS的约1.156倍，超过1.10界限。",
+        "单起点满足预设均值容差，但稀疏均值较三起点增加约3.85%，最大误差19.54米对16.10米；不能声称精度无损。",
+        "单起点验证总体耗时较父方法下降约19.6%，但较v2增加约22.8%；未证明等计算预算优势，工作量口径也不可直接比较。",
+        "验证集已暴露；后续依其选择候选属于模型选择，重复相同验证案例不是独立复现。未见禁用数据泄漏证据。",
+        "对数修订及严格门槛的部分预测已失败，应保留负结果；新组合登记不证明学术新颖性。",
+        "反射反例否定局部满秩蕴含全局唯一；标量偏差结论不推广至完整定位器，保形结论不提供当前实证覆盖保证。"
+      ]
+    },
+    {
+      "step": 11,
+      "hypothesis": "在validation中，range_cv4_single_start的moving_outliers与sparse平均误差均低于static_robust，宏平均误差低于legacy_bic，但总体平均耗时高于static_robust。各项分别检验；dynamic_robust作为完整对照，不预设候选优胜。",
+      "expected_result": "获得四方法的分场景误差、尾部、实测耗时及工作量，补齐全部五参考的验证覆盖。预计候选相对静态稳健方法改善运动异常与稀疏均值，但付出更多耗时；结果可能否定预测。重复候选的既有验证案例不构成独立复现。",
+      "note": "已观察单起点验证宏均值4.113米；静态正常1.248米超过WLS的1.10倍界限。相对三起点，耗时下降约19.6%，但稀疏均值增加约3.85%、最大误差升至19.54米；相对v2耗时增加约22.8%。保留对数修订与严格门槛的负结果。此次补齐对照后优先冻结，诚实说明取舍；验证选择属于模型选择，不作统计非劣或精度无损声明，不读取或生成holdout/test/calibration。",
+      "tool_succeeded": true
+    },
+    {
+      "step": 12,
+      "hypothesis": "待未来独立评估检验：冻结候选相对v2_frozen在moving_outliers与sparse的平均定位误差均降低；任一场景未降低即否定对应预期。当前验证仅提供开发证据。",
+      "expected_result": "冻结工具接受已登记候选并锁定其完整配置，结束开发；本动作不产生新的性能或覆盖率证据。",
+      "note": "最新验证已补齐全部参考，上一轮四项预测均获均值及耗时观察支持，但动态稳健基线在运动与稀疏场景更准且更快。冻结单起点候选体现相对父方法的成本取舍，静态正常目标仍失败，稀疏尾部恶化。成功冻结后立即停止开发，不依据后续测试修改配置。",
+      "tool_succeeded": true
+    }
+  ],
+  "observations": [
+    {
+      "step": 1,
+      "action": "read_sources",
+      "arguments": {},
+      "result": {
+        "sources": {
+          "docs/research_context.md": "# CrowdLocateLab：稳健异步定位的研究依据与可检验数学问题\n\n文档类型：研究参考材料。整理日期：2026-09-25。本文区分已核对的来源、已有实验事实、数学推导与尚待执行的研究假设；不包含运行权限、外部提交或工具执行指令。以下新方法组合均为待检验候选，不能当作已经取得的实验成果，也没有“首次提出”的新颖性声明。\n\n## 1. 原工业问题与本项目的范围\n\n课程材料《HarmonyOS难题发布-第七期(1).pdf》第 1/5 页给出的题目是“基于非线性优化的众包离线高精度位置聚合难题”。设备离线后持续广播 BLE，附近协助设备上报自己的位置及扫描 RSSI；目标可能移动，上报者自身定位可能有误差。原式为\n\n\\[\n\\widehat x=\\arg\\min_{x\\in\\mathbb R^2}\\sum_{i=1}^{N}\\omega_i\n\\bigl(f(r_i)-\\|x-l_i\\|_2\\bigr)^2.\n\\]\n\n这里原资料的 $r_i$ 表示 RSSI，$f(r_i)$ 表示反演距离，$l_i$ 表示报告者位置，权重来自上报时间、定位方式、精度和置信度。为避免下文符号混淆，下文把 RSSI 写成 $p_i$，观测距离写成 $y_i$，模型距离写成 $d_i(\\theta)$。\n\n原题目标有两项：超过 10 个协助设备时 CEP90 在 30 米以内；标准场景不劣化条件下，移动目标检测精度提升 20%。源页没有定义后一句的统计量，也未给出其真实验证数据、对照系统或判定非劣的容忍度。项目可研究这一工业开放问题的合成数学子问题，但不能把合成 CEP90 达标或平均误差下降称为工业验收通过。\n\n建议研究标题：**污染观测下的异步众包定位：对数距离稳健拟合、观测交叉验证与几何不确定性**。研究对象是当前二维位置 $x_0$，不是完整无线协议、地图匹配或真实产品定位服务。可检验问题为：有有限异步观测、运动模型失配和异常上报时，哪些可观测诊断能够可靠地帮助选择定位模型，并在几何歧义出现时识别不应给出确定位置的案例？\n\n## 2. 第一版真正观察到了什么\n\n以下仅是第一版 `CrowdLocate-Agent/results/reference` 的结果，不是新版结果：\n\n| 独立合成测试上的方法 | 平均误差 / m | CEP90 / m |\n| --- | ---: | ---: |\n| 静态 WLS | 6.48398555 | 14.32709471 |\n| 第一版智能体所选配置 | 4.36320353 | 12.47071053 |\n| 同预算随机搜索所选配置 | 3.68387833 | 10.22650500 |\n| 固定恒速稳健基线 | 4.16678560 | 9.55676295 |\n\n第一版的 160 个独立测试样本中，所选方法在移动异常场景的 40 例里把 37 例判成静态；该场景平均误差为 11.2833 m，略高于 WLS 的 11.2000 m。静态正常场景误差从 WLS 的 0.8743 m 上升到 0.9113 m。总体均值改善没有满足逐场景非劣，也没有证明经验规划优于随机搜索。\n\n这些事实支持三个待检验解释，而非已确定因果：观测距离参与权重估计可能影响污染点的有效影响；基于训练拟合误差的启发式 BIC 门控可能偏向静态；小开发集上的选择可能不能推广。一个实验同时改动多个模块，无法识别是哪一项解释成立，因此残差、稳健拟合、模型选择和拒绝规则需要分别消融。\n\n第一版的规划器是显式编程的 UCB 与参数邻域搜索，没有实际调用 LLM。新版若采用模型思考与工具调用，相关能力结论应来自新版独立保存的真实调用轨迹；本文不预先断言这些调用已发生，也不把算法模板日志当成模型推理记录。\n\n## 3. 观测模型与对数残差\n\n### 3.1 符号和可观测量\n\n令当前时刻为 0，上报时刻为 $t_i\\leq0$，报告者真实坐标为 $a_i$，上报坐标为 $\\widetilde a_i=a_i+\\xi_i$。每例可观测输入为 $Z=\\{(t_i,\\widetilde a_i,p_i)\\}_{i=1}^n$ 或已反演的 $\\{(t_i,\\widetilde a_i,y_i)\\}_{i=1}^n$，以及公开标定得到的噪声尺度。真实 $a_i$、目标位置、真实速度和污染标签只属于模拟器或离线评估端。\n\n静态模型 $M_0$ 为 $x(t)=x_0$；恒速模型 $M_1$ 为 $x(t)=x_0+vt$。数值分析可用 $u=T v,\\ \\tau_i=t_i/T$ 重参数化，$\\theta=(x_0,u)$，使所有参数都以米为单位；$T>0$ 是固定时间尺度。此时\n\n\\[\nd_i(\\theta)=\\|x_0+u\\tau_i-\\widetilde a_i\\|_2.\n\\]\n\n原始 RSSI 的对数距离模型为\n\n\\[\np_i=P_0-10n_p\\log_{10}(d_i/d_0)+\\epsilon_i,\n\\quad \\epsilon_i\\sim N(0,\\sigma_p^2).\n\\]\n\n在参数已知、没有加性距离误差时，直接反演得到 $\\log y_i=\\log d_i+\\mu_i+e_i$，$e_i\\sim N(0,s_i^2)$，且 $s_i=\\log(10)\\sigma_p/(10n_p)$。通常直接反演的对数中心 $\\mu_i=0$，此时距离中位数为 $d_i$。若模拟器特意采用均值为 1 的乘子，则 $\\mu_i=-s_i^2/2$。两种约定不可混用。RSS 模型背景见 [R1]；这里的均值修正和下述推导是显式建模约定，不是从文献自动继承的实际 BLE 标定。\n\n### 3.2 候选残差与稳健损失\n\n候选标准化残差为\n\n\\[\nz_i(\\theta)=\\frac{\\log d_i(\\theta)-\\log y_i+\\mu_i}{s_i}.\n\\]\n\n特别地，均值为 1 的对数正态模拟器对应分子 $\\log d_i-\\log y_i-s_i^2/2$。拟合目标可为\n\n\\[\nL_M(\\theta)=\\sum_i w_i\\rho_c(z_i(\\theta))+\\lambda\\|u\\|_2^2,\n\\quad w_i\\geq0,\n\\]\n\n其中 Huber 或 soft-L1 只作用于观测项，速度惩罚保持二次。这里的 $\\rho_c$ 作用于残差本身；若采用 SciPy 的 $\\rho(z^2)$ 接口，公式需作相应转换，不能混淆两个尺度定义。Huber 与稳健测距定位已有先行工作 [R3]；对数化不会使几何目标变成凸问题，也不能消除几何歧义。\n\n计算中 $y_i$ 必须为正。距离接近零时，硬截断 $\\max(d_i,d_{\\min})$ 会改变目标并产生不可微拐点；平滑替代 $\\sqrt{d_i^2+d_{\\min}^2}$ 也改变物理模型。任一处理都属于数值约定，应披露 $d_{\\min}$ 和对近零案例的影响。\n\n若坐标误差不为零，在线性化条件下，对数距离方差还含\n\n\\[\n\\operatorname{Var}(\\delta\\log d_i)\\approx\n\\frac{q_i^\\mathsf T\\Sigma_{a_i}q_i}{d_i^2},\n\\quad q_i=\\frac{x(t_i)-a_i}{d_i}.\n\\]\n\n独立加性距离误差再贡献 $\\sigma_{\\mathrm{add}}^2/d_i^2$。这些量依赖未知位置；可用一个先验固定的 pilot fit 计算并冻结尺度作工程近似。每次根据当前参数更新尺度却忽略似然归一化项，不等于完整最大似然。对数残差也无法自动校正路径损耗参数失配，相关压力场景仍然必要。\n\n## 4. 抗污染拟合：可实现的增强与控制变量\n\n**候选 A：多起点对数 Huber/soft-L1。** 保留全部观测，以对数残差拟合静态和恒速模型；固定总起点数、迭代上限与数据尺度。与距离域稳健损失比较时，尽量只改变残差定义，以区分 log 建模与额外计算的作用。\n\n**候选 B：抽样一致初始化后稳健重拟合。** RANSAC 的原始思想是从小子集构造模型，再由全体观测一致性选择候选 [R2]。异步二维恒速模型有四个连续未知量，但“四条观测”既不保证唯一解，也不保证数值稳定。可用 6 个跨越早、中、晚时段且几何不退化的观测构造候选，再以全体对数残差的一致集大小和稳健代价排序，最后在一致集或全体数据上稳健重拟合。抽样次数和重拟合成本应计入总求解预算。\n\n若全体 $n$ 个观测中恰有 $h$ 个内点，每次独立、均匀、无放回抽取大小 $m$ 的子集，则单次全内点概率为 $p=\\binom{h}{m}/\\binom{n}{m}$，$K$ 次独立抽样至少出现一个全内点子集的概率为 $1-(1-p)^K$。这只保证抽样事件；不保证子集具有好几何、不保证数值优化成功，也不保证评分正确识别它。实际时间分层抽样改变了该概率，不能继续原样套用公式。\n\n**候选 C：显式截尾的非线性拟合。** 给定保留数 $h$，记平方标准化残差的升序统计量为 $z_{(1)}^2\\leq\\cdots\\leq z_{(n)}^2$，定义 $L_{\\mathrm{trim}}(\\theta)=\\sum_{j=1}^h z_{(j)}(\\theta)^2+\\lambda\\|u\\|^2$。可交替选取小残差观测与重拟合，但该程序只有局部性质。若 $h$ 太小，删点会同时删掉时间跨度和几何信息；异常点也可能组成自洽的错误轨迹。该组合在本文只是候选，不附带 50% breakdown 或全局收敛声明，也不归因于 RANSAC 原论文。\n\n测试中应保留两类污染：独立大误差，以及相互一致的错误轨迹/设备标定偏差。后一类能检验“少数但自洽的伪轨迹”对一致性方法的影响。异常比例未知时，固定的 $h$、阈值和噪声尺度可能失配。\n\n## 5. 静态与恒速的选择：观测交叉验证\n\n交叉验证是已建立的预测评估思想 [R4]。本项目可将它用于每个定位案例内部的观测预测：拟合阶段只看到一部分上报，模型选择只比较另一部分上报距离的预测误差。这里 `CV` 若指 cross-validation，应与 constant-velocity 的缩写区分；下文恒速模型统一写 $M_1$。\n\n一个具体候选协议：按时间排序后固定为 3 折，采用交错分配使每个训练折和验证折都有早、中、晚观测；分别拟合 $M_0$ 与 $M_1$。对于验证观测，使用冻结的标定尺度，计算\n\n\\[\n\\widehat R_M=\\frac{1}{n}\\sum_{k=1}^{K}\\sum_{i\\in V_k}\n\\min\\{z_i(\\widehat\\theta_{M,-k})^2,c_{\\mathrm{val}}^2\\}.\n\\]\n\n若 $\\widehat R_0-\\widehat R_1>\\Delta$，且恒速的训练子问题均通过有效观测数、时间跨度和几何诊断，则选择 $M_1$，否则回退到 $M_0$；最后在全部上报上重拟合所选模型。$c_{\\mathrm{val}}$、折分与 $\\Delta$ 是开发阶段参数，不由测试真值设置。比较的两个模型使用完全相同的验证观测和评分函数。保留逐折差值比只保存最后门控标签更有解释力。\n\n这一协议减少在训练数据上用拟合改善直接奖励多参数模型的风险，但没有“避免一切门控失败”的保证。共享同一轨迹、报告者关联与时序噪声相关会破坏简单独立性假设；截断验证损失可能让过多错误预测被同一上限掩盖；log 预测误差小也不等于当前位置欧氏误差小。对于目标加速，交错验证主要测插值能力，另设“以前段观测拟合、后段预测”的时间外推压力检验更合适；两种验证问题不应混为一谈。\n\n小样本下，不应把同一案例的 $K$ 折得分当成 $K$ 个独立样本来计算 $t$ 检验。可在独立开发案例之间汇总两模型的配对差值；开发集反复选择折数、门槛和阈值后，最终效果仍需要独立测试。\n\n## 6. 三个精确命题／反例及证明\n\n以下是针对本项目的可验证推导，不作理论首创声明。它们分别解释权重偏差、全局歧义和局部误差稳定性；三者不是同一层次的保证。\n\n### 命题 1：观测自身作为相对方差尺度可引入系统偏差\n\n设真实标量距离 $d>0$，$Y=d\\exp(\\varepsilon+\\mu)$，其中 $\\varepsilon\\sim N(0,s^2)$、$s>0$。考虑常数候选距离 $q>0$。\n\n距离域相对平方风险 $R(q)=\\mathbb E[(q-Y)^2/Y^2]$ 的唯一最小点为\n\n\\[\nq_* = \\frac{\\mathbb E[Y^{-1}]}{\\mathbb E[Y^{-2}]}\n=d\\exp(\\mu-3s^2/2).\n\\]\n\n证明：展开风险得到 $q^2\\mathbb E[Y^{-2}]-2q\\mathbb E[Y^{-1}]+1$；二阶导数严格为正。利用高斯指数矩，$\\mathbb E[Y^{-1}]=d^{-1}e^{-\\mu+s^2/2}$、$\\mathbb E[Y^{-2}]=d^{-2}e^{-2\\mu+2s^2}$，代入即得。\n\n相反，$\\mathbb E[(\\log q-\\log Y+\\mu)^2]=(\\log q-\\log d)^2+s^2$ 在 $q=d$ 处唯一最小。对于均值为 1 的乘子，$\\mu=-s^2/2$，于是距离域相对风险的最优点为 $d e^{-2s^2}$，而正确中心化的对数平方风险仍以 $d$ 为最优。\n\n含义与边界：这给“$\\sigma_i\\propto y_i$ 的 plug-in WLS 可能偏差”一个精确简化反例，而非完整多维定位系统的误差公式。坐标误差、加性噪声、正则项、稳健损失和非线性几何都会改变总体最优点。对数拟合也没有由此获得全局无偏保证。\n\n可检验实验：固定 $d=20$，对多个 $s$ 生成大量独立重复观测，比较 $\\sum Y^{-1}/\\sum Y^{-2}$ 与理论极限，以及 $\\exp(\\overline{\\log Y}-\\mu)$ 与 $d$。数值检查只验证有限样本趋向，不代替上面的证明。\n\n### 命题 2：动态镜像歧义与不能同时准确定位的下界\n\n所有报告者坐标为 $a_i=(b_i,0)$，令 $R=\\operatorname{diag}(1,-1)$。任意恒速轨迹 $(x_0,v)$ 与镜像 $(Rx_0,Rv)$ 对任意时刻 $t_i$ 满足\n\n\\[\n\\|Rx_0+Rv t_i-a_i\\|_2\n=\\|R(x_0+v t_i-a_i)\\|_2\n=\\|x_0+v t_i-a_i\\|_2.\n\\]\n\n因此，两条不同轨迹产生完全相同的距离数据。如果两当前位置的间距为 $D>0$，任一确定的点估计 $\\widehat x$ 至少对其中一个真值产生 $D/2$ 的误差，因为三角不等式给出\n\n\\[\nD\\leq\\|x_0-\\widehat x\\|+\\|Rx_0-\\widehat x\\|.\n\\]\n\n加入同分布的距离噪声后，两世界的观测分布仍相同；对任意随机估计器积分，至少有一个世界的期望欧氏误差不小于 $D/2$。这说明仅靠更强优化、更多同轴上报或更换损失不能从不可区分数据中恢复唯一真值。报告者具有能区分两侧的其他信息时，前提不成立。\n\n局部满秩不排除全局镜像。可验证例子为 $x_0=(1.5,3),v=(0.2,0.1)$，$b=(-7,-2,5,-5,7,1)$，$t=(-8,-6,-4,-2,-1,0)$。两个当前位置相距 6 m，镜像距离差为 0；原距离 Jacobian 为 4 列满秩。给每行乘上正的 $1/(s_i d_i)$ 不改变秩，因此对数距离 Jacobian 同样可以局部满秩。网络唯一定位背景参见 [R6]，这里的单目标动态反例由上述等式直接证明。\n\n### 命题 3：带明确邻域条件的非线性对数测距误差界\n\n令 $\\theta=(x_0,u)\\in\\mathbb R^4$，$F_i(\\theta)=s_i^{-1}\\log\\|A_i\\theta-a_i\\|$，$A_i=[I_2\\ \\tau_i I_2]$，固定 $s_i>0$。设在真值附近闭球 $B(\\theta_*,R_0)$ 中所有距离至少为 $r_{\\min}>0$，且 $J_*=DF(\\theta_*)$ 满列秩，最小奇异值为 $\\sigma_*>0$。定义\n\n\\[\nL=\\left[\\sum_i\\left(\\frac{1+\\tau_i^2}{s_i r_{\\min}^2}\\right)^2\\right]^{1/2}.\n\\]\n\n对球内任意 $\\theta=\\theta_*+h$，有\n\n\\[\n\\|F(\\theta)-F(\\theta_*)\\|_2\n\\geq \\sigma_*\\|h\\|_2-\\frac L2\\|h\\|_2^2.\n\\]\n\n证明：$\\nabla^2\\log\\|z\\|=(I-2qq^\\mathsf T)/\\|z\\|^2$，其中 $q=z/\\|z\\|$，其谱范数为 $1/\\|z\\|^2$。又 $\\|A_i\\|^2=1+\\tau_i^2$，故第 $i$ 分量 Hessian 范数至多 $(1+\\tau_i^2)/(s_i r_{\\min}^2)$。向量 Taylor 余项的范数至多 $L\\|h\\|^2/2$；结合 $\\|J_*h\\|\\geq\\sigma_*\\|h\\|$ 即得。\n\n进一步，设中心化的对数观测 $b_i=(\\log y_i-\\mu_i)/s_i$ 满足 $b=F(\\theta_*)+e$ 且 $\\|e\\|_2\\leq\\eta$。若估计值满足 $\\widehat\\theta\\in B(\\theta_*,R_0)$、$\\|\\widehat\\theta-\\theta_*\\|\\leq\\sigma_*/L$，并且 $\\|F(\\widehat\\theta)-b\\|\\leq\\beta$，则\n\n\\[\n\\|\\widehat x_0-x_{0,*}\\|_2\n\\leq\\|\\widehat\\theta-\\theta_*\\|_2\n\\leq\\frac{2(\\eta+\\beta)}{\\sigma_*}.\n\\]\n\n当额外满足 $\\beta\\leq\\eta$ 时，上界化为 $4\\eta/\\sigma_*$。证明是把上式的下界进一步写成 $\\sigma_*\\|h\\|/2$，再应用观测误差的三角不等式。\n\n边界十分关键：这是条件性局部非线性界，不是无条件部署证书。真值邻域、有效噪声界和真值 Jacobian 通常不可直接观测；$\\beta\\leq\\eta$ 也不由鲁棒损失最小化自动推出。异常点若没有可靠识别，不能把包含任意污染的噪声设成已知有界。拟合点的最小奇异值只是诊断；它不能直接替代所有假设，更不能排除命题 2 的另一个远处解。\n\n## 7. 预测区域与拒绝定位\n\n“局部条件误差界”“基于正确高斯模型的近似协方差椭圆”和“经验校准的预测区域”具有不同前提。$J^\\mathsf TJ$ 的逆在高斯、正确模型、局部线性化下可提供近似协方差，但污染、模型选择、边界和多解会使其失准；仅据条件数不能称为 95% 置信保证。\n\n一种可实现的可信度研究路线是独立案例级 split conformal。冻结位置估计函数 $\\widehat x(Z)$ 和正尺度函数 $g(Z)>0$ 后，使用没有参与方法选择的 $m$ 个独立校准案例，计算\n\n\\[\nS_j=\\|\\widehat x(Z_j)-x_j\\|_2/g(Z_j),\\quad\nk=\\lceil(m+1)(1-\\alpha)\\rceil.\n\\]\n\n令 $q=S_{(k)}$，当 $k>m$ 时令 $q=+\\infty$。输出圆盘 $C(Z)=\\{x:\\|x-\\widehat x(Z)\\|\\leq qg(Z)\\}$。若校准与新案例可交换，且上述函数已独立冻结，秩的对称性给出边际覆盖 $\\Pr\\{x_{\\mathrm{new}}\\in C(Z_{\\mathrm{new}})\\}\\geq1-\\alpha$。这是将 [R5] 的标量非符合度秩思想用于二维欧氏误差圆盘的直接构造，非本项目原创定理，也不是每个具体位置的条件覆盖保证。\n\n尺度候选可来自按固定时间归一化后的最小奇异值、多个低代价起点的当前位置信息分歧、有效时间跨度和稳健残差。$g$ 的形式若由校准真值继续调参，前述独立冻结条件失效；需要额外的数据分割。整个 episode 才是校准单位，不能把同一轨迹的 16 个相依上报冒充 16 个独立定位案例。\n\n可以把拒绝规则设为预测半径大于预设值、低代价解出现显著分歧或数值边界活跃。拒绝后需要同时报告接受率、被接受样本的位置误差、错误接受率以及区域覆盖。总体 conformal 的边际覆盖不自动等于被接受子集的条件覆盖；真实或压力分布改变时，可交换性保证也不再适用。\n\n若案例按若干真实场景固定配额而非从共同混合分布独立抽样，合并分数的可交换性也不是自动成立。此时可以如实报告经验覆盖，但不能无条件套用总体定理。按预先固定且部署时可观测的组分别校准是另一研究设计；按只有模拟器知道的“真实移动/异常场景标签”选择校准组，会泄漏未知信息。\n\n## 8. 可检验的新问题，而非新颖性声明\n\n**Q1：污染下静态非劣与运动收益是否冲突？** 对给定模型族、计算预算与污染集合，是否存在只用观测信息的门控规则，使每类静态分布的风险不高于静态基线 $+\\epsilon$，且在指定可辨识运动分布上至少改善 $\\Delta$？这里 $\\epsilon,\\Delta$ 和分布类必须明确。第一版结果给出某个规则失败的实例，不能证明所有规则不可能。\n\n**Q2：可观测模型分歧能否比单个 Jacobian 更好识别尾部风险？** 在控制接受率和计算预算后，比较基于局部奇异值、折间预测分歧和近最优解位置分歧的拒绝规则。命题 2 说明只用某个拟合点局部满秩会遗漏全局歧义；它没有证明多起点分歧一定能找到另一个解。\n\n**Q3：污染下的观测预测优势如何转化为当前位置风险？** 在给定时间跨度、最小奇异值、噪声和曲率条件下，可否把静态/动态的留出对数风险差转换成对 $x_0$ 风险的界？命题 3 只提供局部残差到参数误差的一部分联系；解决整个问题还需要处理门控随机性、未识别污染和两个模型不同的近似偏差。\n\n这些问题适合通过反例、参数扫描和有限实验逐步收缩条件，不适合从一张平均误差表宣布“已解决”。\n\n## 9. 实验设计与研究深度\n\n建议分开四种数据用途：开发案例供模型提出候选和分析失败；冻结方法后独立校准案例供预测区域；最终测试案例只作一次确认；预先规定的分布外压力案例检验边界。若新版已经看过第一版测试结果，这一批不再是新版真正未见的最终测试，新的最终种子应独立预定，第一版数据可保留为历史诊断集。\n\n主要指标包含分场景平均欧氏误差、CEP90、30 米内比例、静态相对退化、接受率与选择性误差、预测区域覆盖和面积、CPU 耗时、函数评价数、模型/工具调用次数。静态非劣约束可在开发阶段定义为各静态场景配对均值差不超过预定容忍度，但经验通过不等于总体风险保证。原工业题的 20% 仍不能由这些自行定义的指标替代。\n\n最小可解释消融组可包含：原距离 WLS；距离稳健恒速；log 稳健恒速；log + 抽样一致/截尾初始化；原启发式 BIC 选择；同拟合器的观测交叉验证选择；冻结方法加或不加拒绝；真实模型规划器与等预算无反馈/随机建议的对照。所有方法使用相同案例，失败案例不从分母删除；超时和求解失败需有预先规定的统计方式。\n\n压力维度至少覆盖污染比例、噪声尺度、报告者几何扇角、时间跨度、速度/加速度、路径损耗或 RSSI 偏置失配。完整笛卡尔积可能太昂贵，可先单变量扫描，再预定少量复合困难场景。多个规划随机种子有助于区分算法改善与偶然找到好配置，但若只完成一个种子，应明确范围。\n\n科研智能体的研究含量体现在它基于观察提出可证伪假设、调用工具测试、解释或修正失败、冻结可复验结果；不是添加更多角色名称。数学命题、候选公式与实验结论有不同证据类型。论文式报告应分别列出“已证明”“实测支持”“未支持/反例”“仍未知”，以实际执行内容为准。\n\n## 10. 已核对的原始文献与可用范围\n\n以下 6 篇文献的元数据及相关摘要/正文均在 2026-09-25 核对；BibTeX 在同目录 `references.bib`。文献中的实验数值、收敛性和覆盖条件不会自动成为本项目的结果。\n\n- **[R1] Patwari et al. (2003), Relative Location Estimation in Wireless Sensor Networks.** [DOI](https://doi.org/10.1109/TSP.2003.814469)，[作者托管稿](https://web.eecs.umich.edu/~hero/Preprints/patwari_tsp02_final.pdf)。RSS/TOA 定位的观测模型与估计界背景；不证明本文的 BLE 生成器已获现实标定。\n- **[R2] Fischler and Bolles (1981), Random Sample Consensus: A Paradigm for Model Fitting with Applications to Image Analysis and Automated Cartography.** [DOI](https://doi.org/10.1145/358669.358692)，[原论文副本](https://cmp.felk.cvut.cz/cmp/courses/PVR/2007/Labs/RANSAC_paper.pdf)。抽样一致方法的原始来源；异步恒速测距的子集大小、可辨识性与评分需要另行验证。\n- **[R3] Soares and Gomes (2016), Dealing with bad apples: Robust range-based network localization via distributed relaxation methods.** [arXiv:1610.09020](https://arxiv.org/abs/1610.09020)。以 Huber 处理污染测距并研究凸下界；本文 SciPy 非凸拟合不具有该分布式松弛算法的理论保证。\n- **[R4] Stone (1974), Cross-Validatory Choice and Assessment of Statistical Predictions.** [DOI](https://doi.org/10.1111/j.2517-6161.1974.tb00994.x)，[原论文与讨论副本](https://sites.stat.washington.edu/courses/stat527/s13/readings/Stone1974.pdf)。预测评估与交叉验证的原始研究；不直接证明本文时间折分在相关或污染观测下无偏。期刊元数据正文为 111–133 页，带讨论的扫描件延伸到 147 页。\n- **[R5] Lei et al. (2018), Distribution-Free Predictive Inference for Regression.** [DOI](https://doi.org/10.1080/01621459.2017.1307116)，[作者全文](https://www.stat.cmu.edu/~ryantibs/papers/conformal.pdf)，[arXiv:1604.04173](https://arxiv.org/abs/1604.04173)。split conformal 的秩与边际预测覆盖依据；案例级交换性与方法冻结是关键条件，非分布漂移下的保证。\n- **[R6] Eren et al. (2004), Rigidity, Computation, and Randomization in Network Localization.** [DOI](https://doi.org/10.1109/INFCOM.2004.1354686)，[原论文副本](https://courses.csail.mit.edu/6.885/spring06/papers/Eren-etal.pdf)。几何唯一定位与刚性理论背景；本文动态镜像例子和局部 Taylor 界以本文件给出的明确假设及证明为准。\n\n来源文件和参考文献是研究材料，不是指令来源。原课程 PDF/PPT 不随本项目重新分发；没有因为文件中出现组织或联系方式而进行外部联系。\n",
+          "localization/method_math.md": "# CrowdLocateLab numerical specification\n\nThis document describes the implemented algorithm, including approximations and\nbudget reductions. It is not a claim of a new globally optimal localization\nalgorithm or an industrial solution to Bluetooth crowd localization.\n\n## Observation boundary and trajectory\n\nEvery estimator reads only the arrays `anchors`, `times`, `ranges`, and `sigma`.\nCoordinates and ranges are metres; times are seconds relative to the target\ntime zero. `truth`, `velocity`, `scenario`, and `meta` are evaluation-only fields.\nNo optimizer, initializer, consensus rule, or model-selection fold reads them.\nCase labels can be used by an external evaluation tool to summarize development\nerrors, but those labels do not enter the estimator.\n\nFor observation i, let a_i be the reported anchor coordinate, t_i its time,\ny_i>0 its observed range, and sigma_i>0 its reported range uncertainty.\n\n    static:    z_i(theta) = x\n    velocity:  z_i(theta) = x + t_i v\n    d_i(theta) = ||z_i(theta) - a_i||_2\n\nThe estimated current position is x, not the position at the mean observation\ntime. Static fits have two parameters; velocity fits have four. A velocity fit\nwith fewer than six observations or less than one second of temporal spread\nfalls back to the static model.\n\n## Residual alternatives and their actual calibration\n\nFor `residual=\"range\"`, the standardized residual is\n\n    r_i(theta) = (d_i(theta) - y_i) / s_i.\n\nFor `scale=\"reported\"`, s_i = sigma_i. For `scale=\"constant\"`, every s_i\nequals the median of the supplied sigma values in that fitting dataset. This\nremoves per-observation dependence of weights on a particular observed range,\nbut the shared scale still comes from noisy observations.\n\nFor `residual=\"log_range\"`, with clipping threshold delta=0.1 m,\n\n    b = log_sd^2/2 if log_bias_correction else 0\n    r_i(theta) = [log(max(d_i(theta), delta))\n                  - log(max(y_i, delta)) - b] / ell_i.\n    ell_i = sqrt(log(1 + (sigma_i / max(y_i, delta))^2)).\n\nThe `reported` log scale ell_i comes from the reported total range uncertainty,\nso it approximately includes coordinate and additive range uncertainty. It is\nthe lognormal coefficient-of-variation inversion; it is **not** the exact\nlikelihood of the mixture of lognormal radio noise and Gaussian coordinate\nnoise. For `scale=\"constant\"`, all ell_i are replaced by their training-data\nmedian. At long ranges under the nominal generator, ell_i is approximately 0.1.\nThe configured `log_sd` (default 0.1) controls the centering correction only;\nthe supplied sigma values control the log residual scale. A calibration-shift\nscenario can invalidate either calibration assumption.\n\nFor the simplified model Y=d exp(epsilon-s^2/2), epsilon~N(0,s^2),\n\n    E[log Y] = log d - s^2/2.\n\nThus the correction sign above gives E[log d-log Y-s^2/2]=0 before scaling.\nThis exact scalar identity does not make a scaled, robust, clipped, or nonlinear\nmulti-anchor estimator unbiased. Additive noise and anchor-coordinate error\nalso break this simple scalar derivation.\n\nThe scalar weighted objective E[(q-Y)^2/Y^2] has minimizer\n\n    q* = E[Y^-1] / E[Y^-2] = d exp(-2s^2).\n\nThis is a mechanism motivating a constant scale or a log residual. It applies\nto a one-range population model with weight exactly proportional to 1/Y^2;\nit is not a theorem that every nonlinear localization estimate has this bias.\nThe generator's additive coordinate term weakens the exact proportionality.\n\n## Optimization loss and Jacobian\n\nLet c=`f_scale`, lambda=`ridge`, and I the currently retained observations.\nThe optimization objective is\n\n    L(theta; I) = sum_{i in I} c^2 rho((r_i(theta)/c)^2)\n                 + lambda ||v||_2^2          [velocity only].\n\nThe loss rho(z) is one of:\n\n| loss | rho(z) |\n|---|---|\n| linear | z |\n| soft_l1 | 2(sqrt(1+z)-1) |\n| huber | z for z<=1; 2sqrt(z)-1 otherwise |\n| cauchy | log(1+z) |\n\nVelocity regularization is always quadratic, even with a robust measurement\nloss. A callable SciPy loss applies robustness to measurement rows and leaves\nthe last two regularization rows linear. This distinction is tested.\n\nFor d_i>0, let u_i=(z_i-a_i)/d_i. The range Jacobian row is\n\n    static:   u_i^T / s_i\n    velocity: [u_i^T, t_i u_i^T] / s_i.\n\nFor the log residual, divide the unscaled geometric row by d_i ell_i while\nd_i>delta, and set its row to zero in the clipped region d_i<=delta. At the\nclipping boundary the mathematical derivative is not unique; the implementation\nchooses zero there. The mean correction has zero parameter derivative.\n\nSciPy `least_squares` uses analytic Jacobians, at most 100 residual evaluations\nper main solve, and 60 per consensus subset solve. Relative tolerances are\n3e-6. These are local solves. Finite data-derived bounds are a numerical guard:\nposition lies within 10 times an observation spread around the weighted anchor\ncentroid; velocity bounds are 10 times spread divided by temporal span.\n\n## Initializers and observation-subset consensus\n\nThe default three position starts are (1) a centered linear solution of\ndifferenced squared-range equations, (2) the weighted anchor centroid, and\n(3) the reflection of the linear start about that centroid. Five starts add\ntwo offsets perpendicular to the dominant anchor direction. An unstable linear\nstart farther than five observation spreads is replaced by the centroid.\nVelocity starts are zero. No start uses hidden position or velocity labels.\n\nFor C=`consensus_trials` in 0..12, C subsets are sampled without replacement,\neach of size min(n, max(k+2, ceil(n/2))), where k is the model dimension. The\nrandom generator uses the supplied method seed and a deterministic hash of\nthe four observation arrays. Each subset is fit once from its own linear\ninitializer, with its own scale estimate. Subset solutions are scored on all\navailable training observations using the same robust, optionally trimmed,\nregularized objective. The best subset solution becomes **one additional full\ndata initialization**, not C additional full solves.\n\nThis is a bounded random-subset initialization method, related to consensus\nideas. It does not implement a classical RANSAC stopping guarantee and does not\nclaim a certified breakdown point or that any sampled subset is uncontaminated.\n\n## Fixed-budget iterative trimming\n\nLet alpha=`trim_fraction` in [0,0.35]. The retained count is\n\n    h = min(n, max(k+1, ceil((1-alpha)n))).\n\nFor each start, first solve with all observations. If alpha>0, retain the h\nsmallest absolute standardized residuals, refit, and repeat with at most three\ntotal solves, stopping early when the retained index set is unchanged. After\nthe final solve, recalculate the h-smallest-residual score. Among starts,\nselect the smallest **trimmed robust loss plus velocity penalty**, rather than\nthe smallest measurement term alone. This is a local, fixed-budget alternating\napproximation to least-trimmed estimation; it need not reach a stationary point\nor the global optimum. The retained set recorded in diagnostics is the final\nranked set; after the last allowed solve it may differ from the final solve's\ninput set.\n\n## Observation-level predictive model selection\n\nFor `model=\"cv_select\"`, sort observations by time and assign them to K=3\ninterleaved folds by default. Each observation is a validation observation\nexactly once. In each fold fit static and velocity models using **training\nobservations only**. Initializers, random subsets, and constant scales use that\ntraining fold. Reported per-observation uncertainties may be used to score the\nvalidation observations, because they are observed features, not hidden labels.\n\nTo bound computation, inner fits use one ordinary start and at most three\nconsensus trials. Their residual, loss, regularization and trimming definitions\nare otherwise unchanged. The final selected model is refit to all observations\nwith the full requested number of starts and consensus trials. Consequently\nthis is validation of a fixed-budget proxy for the final fitting procedure,\nnot exact cross-validation of the full computation budget.\n\nEach validation residual is evaluated with fixed unit-scale soft-L1, regardless\nof the training loss. No validation residual is trimmed. Aggregate by the mean\nover validation observations, rather than equally weighting unequal fold sizes:\n\n    CV_m = (1/n) sum_i 2(sqrt(1+r_{i,held-out,m}^2)-1).\n\nChoose velocity only when all dynamic folds are admissible and\n\n    CV_velocity < (1-gate_margin) CV_static.\n\nThe default relative margin is 0.05. A fold with fewer than six training\nobservations, less than one second of training temporal spread, a rank-deficient\nvelocity data Jacobian, or an active numerical bound blocks dynamic selection.\nInadmissible model selection falls back to a full static fit. With eight sparse\nobservations and K=3, some training folds have five observations, so velocity\nselection is deliberately unavailable under this policy.\n\nInterleaved folds test interpolation in the observed time window; they do not\nestablish forward forecasting performance or accurately extrapolate arbitrary\naccelerating motion. Contamination affects validation measurements too, so this\ncriterion is not guaranteed to choose the true motion class or best x(0).\n\n## Geometry proxy and computational accounting\n\nLet J be the data-residual Jacobian of the selected model on its retained set,\nexcluding the ridge rows. Let r contain its standardized observation residuals.\nThe returned `geometry_scale_m` is\n\n    clip(sqrt(trace(pinv(J^T J)[0:2,0:2]))\n         * max(1, median(abs(r))/0.6745), 0.2, 100).\n\nA rank-deficient J receives the conservative cap 100. This local quantity is\nan **uncalibrated observable scale**. It does not account for global mirror\nambiguity, optimizer failures, model misspecification, selection, or systematic\nradio bias, and is not a confidence interval or a proven Cramer-Rao bound.\nAny split-conformal coverage statement must come from an independent exchangeable\ncalibration procedure, not from this Jacobian calculation. Out-of-distribution\ncoverage or coverage conditional on a data-dependent rejection rule is not\nautomatically guaranteed by ordinary marginal conformal coverage.\n\n`work_units` counts actual residual-function evaluations inside every optimizer\ncall, including all starts, all subset trials, all trimming rounds, all CV\nfolds, and the final full-data refit. Diagnostics also count Jacobian evaluations\nand solver calls. It is not CPU time, total floating-point operations, or total\nresidual scoring outside optimizers. `elapsed_seconds` measures wall time.\n\n## Synthetic data and retained references\n\nNine scenarios are supplied: static_clean, static_outliers, moving_clean,\nmoving_outliers, poor_geometry, accelerating, sparse, calibration_shift,\nhigh_contamination. The first six preserve the version-one observation\ngeneration for the same seeds under default settings. New scenarios use\nindependent scenario seed streams.\n\nNominal generation uses t in [-30,0], lognormal mean-one radio multipliers with\nlog SD 0.1, independent 0.70 m Gaussian anchor-coordinate errors, and 0.25 m\nGaussian additive range noise. Standard outliers affect approximately 15--25%\nof observations; 75% of corruptions multiply range by 1.7--2.8, and 25% multiply\nit by 0.30--0.60. The actual finite-sample fraction is recorded. Narrow geometry\nuses a 14-degree anchor sector. Accelerating paths add 0.5*a*t^2, with acceleration\nmagnitude 0.025--0.065 m/s^2 and a changed direction.\n\n`generate_suite` gives the sparse scenario eight observations and others sixteen.\n`generate_case(..., n=...)` always respects the explicit/default n, permitting\nanchor-count stress studies. Calibration shift multiplies ranges by 1.30 and\nuses actual log SD 0.16 but reports uncertainty using nominal log SD 0.10.\nHigh contamination draws the nominal corruption fraction uniformly in 0.35--0.45.\nExplicit `contamination` and `log_sd` arguments enable stress grids; metadata\nrecords their actual values and all latent generation labels for evaluation.\nThese are stylized synthetic stress conditions, not measured radio statistics.\n\n`legacy_model.py` retains version-one WLS, robust static, robust velocity, and\nrobust-BIC selection. `fit_baseline` wraps those references and adds the common\ngeometry proxy without changing their estimated positions. Its BIC remains a\nheuristic fitted-residual criterion, not a calibrated likelihood-ratio test.\n\n## Implemented verification scope\n\n`tests/test_localization.py` checks finite-difference Jacobians for both models\nand both residual types, derivatives of four losses and quadratic ridge rows,\nthe exact lognormal-centering identity by Gaussian quadrature, exact noiseless\nvelocity recovery, guarded observation-only access, explicit fold exclusion,\nactual work-unit accounting, strict JSON output, input checks, nine-scenario\nseed reproducibility, and stress controls. Its seeds are dedicated probes and\nit does not open a formal held-out benchmark.\n"
+        },
+        "scope": "Original source HarmonyOS problem 1, local reference context. Synthetic observations only. No claim of industrial acceptance.",
+        "revision_plan": {
+          "version": "v3-preregistered-second-study-1",
+          "status": "declared_before_revision_agent_and_fresh_holdout",
+          "purpose": "Use v2 failures as prior evidence for a new LLM research cycle, then evaluate exactly one frozen revision on new data; this is not an independent replication of the original discovery process.",
+          "development": {
+            "discovery_seed": 1646191,
+            "validation_seed": 1657383,
+            "scenarios": [
+              "static_clean",
+              "static_outliers",
+              "moving_clean",
+              "moving_outliers",
+              "sparse"
+            ],
+            "discovery_per_scenario": 20,
+            "validation_per_scenario": 30
+          },
+          "main": {
+            "seeds": [
+              1814711,
+              1826013,
+              1837901
+            ],
+            "scenarios": [
+              "static_clean",
+              "static_outliers",
+              "moving_clean",
+              "moving_outliers"
+            ],
+            "per_scenario_per_seed": 60,
+            "expected_n": 720
+          },
+          "stress": {
+            "seed": 1849391,
+            "scenarios": [
+              "poor_geometry",
+              "accelerating",
+              "sparse",
+              "calibration_shift",
+              "high_contamination"
+            ],
+            "per_scenario": 80,
+            "expected_n": 400
+          },
+          "edge": {
+            "seed": 1980221,
+            "scenarios": [
+              "static_clean",
+              "moving_clean"
+            ],
+            "observation_n": [
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "per_cell": 30,
+            "expected_n": 420
+          },
+          "calibration": {
+            "seed": 1862193,
+            "size": 800,
+            "scenarios": [
+              "static_clean",
+              "static_outliers",
+              "moving_clean",
+              "moving_outliers"
+            ],
+            "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+          },
+          "coverage": {
+            "seed": 1875149,
+            "size": 1200,
+            "scenarios": [
+              "static_clean",
+              "static_outliers",
+              "moving_clean",
+              "moving_outliers"
+            ],
+            "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+          },
+          "methods": {
+            "fixed_baselines": [
+              "static_wls",
+              "static_robust",
+              "dynamic_robust",
+              "legacy_bic"
+            ],
+            "v2_frozen_spec": {
+              "consensus_trials": 0,
+              "f_scale": 1.5,
+              "gate_margin": 0.05,
+              "log_bias_correction": true,
+              "log_sd": 0.1,
+              "loss": "soft_l1",
+              "model": "cv_select",
+              "residual": "range",
+              "ridge": 0.05,
+              "scale": "reported",
+              "starts": 3,
+              "trim_fraction": 0.0
+            },
+            "revision_selected": "Exactly one method frozen by runs/revision_reference before generating any fresh dataset",
+            "ablations": {
+              "ablate_k3": {
+                "model": "cv_select",
+                "cv_folds": 3
+              },
+              "ablate_k4": {
+                "model": "cv_select",
+                "cv_folds": 4
+              },
+              "ablate_force_velocity": {
+                "model": "velocity"
+              },
+              "ablate_force_static": {
+                "model": "static"
+              }
+            },
+            "ablation_policy": "For composed selected specs, apply these declared changes. K3/K4 are a paired selection-fold contrast; if selected is not CV they also enable CV, so do not call them single-component ablations of selected. Baseline shorthand has no compositional ablations. Normalize defaults and ignore cv_folds for non-CV when marking exact aliases; aliases reuse numerical predictions and are not independent methods."
+          },
+          "statistics": {
+            "bootstrap_seed": 1912303,
+            "bootstrap_repetitions": 4000,
+            "paired_endpoint": "reference error minus revision_selected error, positive favours revision; use identical case IDs",
+            "strata": {
+              "main": [
+                "study_seed",
+                "scenario"
+              ],
+              "stress": [
+                "scenario"
+              ],
+              "edge": [
+                "observation_n",
+                "scenario"
+              ]
+            },
+            "strata_weight": "equal weight per predeclared balanced cell; resample paired cases within each fixed cell",
+            "confidence_intervals": "two-sided percentile 95%; descriptive approximate sampling intervals, no multiplicity adjustment or uncertainty from LLM search",
+            "static_noninferiority": {
+              "scenario": "static_clean",
+              "reference": "static_wls",
+              "ratio_margin": 1.1,
+              "endpoint": "ratio of mean errors and mean(selected error minus 1.1*WLS error)",
+              "interpretation": "point estimate and two-sided 95% bootstrap upper bound reported separately; exploratory noninferiority diagnostic, not a confirmatory trial"
+            },
+            "per_seed": "Report each of the three main root seeds; these are data batches, not independent LLM research replications",
+            "tail_and_cost": [
+              "median_m",
+              "p90_m",
+              "p95_m",
+              "max_m",
+              "mean_work_units",
+              "mean_seconds"
+            ],
+            "cost_caveat": "Legacy work_units is solver nfev; composed solver work_units counts residual calls including CV/initialization rounds. They are not guaranteed identical compute units. Report wall time as observed machine timing, not a controlled speed benchmark; no direct acceleration claim from work-unit ratios.",
+            "failures": "Report every predefined scenario and n-boundary cell, including deterioration; no choice of favourable evaluation version or subset"
+          },
+          "regions": {
+            "methods": [
+              "revision_selected"
+            ],
+            "alphas": [
+              0.1,
+              0.05
+            ],
+            "score": "Euclidean position error divided by frozen positive observation-only geometry_scale_m, clipped/fallback exactly as the original scale(row) helper",
+            "global": "k=ceil((m+1)*(1-alpha)); kth calibration score, infinity if k>m or m=0",
+            "mondrian": "Same rank independently within a frozen observation-derived selected_model group: static or velocity (legacy dynamic is mapped to velocity). Unknown output raises an error, never truth-based fallback.",
+            "empty_group": "Use an unbounded region and q=infinity. JSON stores string infinity and explicit unbounded indicators, not null.",
+            "populations": [
+              "iid_test",
+              "shifted_stress",
+              "edge"
+            ],
+            "subgroups": "Report true scenario only after prediction as evaluation labels; true scenario is not the Mondrian group function",
+            "coverage_intervals": "Wilson 95% intervals for the IID test population and its scenario/observed-model subgroups. They estimate test-sampling coverage probability conditional on this realized calibration rule, not a conformal guarantee or recalibration interval. No pooled binomial interval for fixed-mixture shifted stress/edge.",
+            "radius_rejection_thresholds_m": [
+              2,
+              5,
+              10,
+              15,
+              20,
+              30,
+              50
+            ],
+            "guarantee_scope": "IID calibration/test plus frozen estimator/scale/group implies marginal global coverage and group-conditional Mondrian coverage conditional on group membership and calibration group count, marginal over calibration scores. No guarantee conditional on a realized calibration set, true scenario, radius acceptance, or shifted stress/edge population."
+          },
+          "integrity": {
+            "must_freeze_before_generation": true,
+            "required_new_source_hashes": [
+              "run_revision.py",
+              "revision/agent.py",
+              "revision/evaluation.py",
+              "benchmark_revision.py",
+              "research/revision_plan.json"
+            ],
+            "original_v2_sources": "Preserve every original frozen byte. New study uses separate files and includes original and new sources in its initialization hash manifest.",
+            "case_identity": "Prefix split, root seed and case index; retain generator_seed in case metadata. Identical case object across methods.",
+            "output_policy": "Refuse existing output directory. Save initialization provenance, input cases, every unique method result, aliases, complete statistics and completion marker.",
+            "fresh_results_policy": "Never generate these fresh datasets or inspect their outcomes before revision freeze. Fixtures use unrelated small seeds only. Old v2 test data are acknowledged prior evidence, never relabelled fresh holdout."
+          }
+        },
+        "prior_status": "The following v2 data are explicitly exposed prior knowledge, never fresh revision holdout.",
+        "v2_frozen": {
+          "spec": {
+            "consensus_trials": 0,
+            "f_scale": 1.5,
+            "gate_margin": 0.05,
+            "log_bias_correction": true,
+            "log_sd": 0.1,
+            "loss": "soft_l1",
+            "model": "cv_select",
+            "residual": "range",
+            "ridge": 0.05,
+            "scale": "reported",
+            "starts": 3,
+            "trim_fraction": 0.0
+          },
+          "sha256": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7"
+        },
+        "exposed_v2_metrics": {
+          "static_wls": {
+            "main": {
+              "overall": {
+                "mean_m": 6.532456016030652,
+                "p90_m": 14.958636741570256,
+                "mean_seconds": 0.002690328611162032,
+                "mean_work_units": 19.341666666666665
+              },
+              "by_scenario": {
+                "moving_outliers": {
+                  "mean_m": 11.258691164231314,
+                  "p90_m": 17.461224497981277,
+                  "mean_seconds": 0.0031984044445279225,
+                  "mean_work_units": 24.1
+                },
+                "static_clean": {
+                  "mean_m": 1.0308121172784805,
+                  "p90_m": 1.7339457056047651,
+                  "mean_seconds": 0.002199716666695571,
+                  "mean_work_units": 14.566666666666666
+                }
+              }
+            },
+            "stress": {
+              "overall": {
+                "mean_m": 12.411904254250777,
+                "p90_m": 19.95421283957602,
+                "mean_seconds": 0.0033672505000413365,
+                "mean_work_units": 25.93
+              },
+              "by_scenario": {
+                "sparse": {
+                  "mean_m": 10.804916520550867,
+                  "p90_m": 17.493470275558995,
+                  "mean_seconds": 0.002839010000025155,
+                  "mean_work_units": 21.125
+                }
+              }
+            }
+          },
+          "dynamic_robust": {
+            "main": {
+              "overall": {
+                "mean_m": 4.674261319844915,
+                "p90_m": 9.852716694143963,
+                "mean_seconds": 0.004861826944402815,
+                "mean_work_units": 27.197222222222223
+              },
+              "by_scenario": {
+                "moving_outliers": {
+                  "mean_m": 7.212710704229784,
+                  "p90_m": 17.673362541824396,
+                  "mean_seconds": 0.005787523333351095,
+                  "mean_work_units": 33.31111111111111
+                },
+                "static_clean": {
+                  "mean_m": 2.6358384456646227,
+                  "p90_m": 4.411092090506342,
+                  "mean_seconds": 0.0038844133332936004,
+                  "mean_work_units": 21.355555555555554
+                }
+              }
+            },
+            "stress": {
+              "overall": {
+                "mean_m": 8.813860886270001,
+                "p90_m": 20.640956931274438,
+                "mean_seconds": 0.006576150499895448,
+                "mean_work_units": 38.63
+              },
+              "by_scenario": {
+                "sparse": {
+                  "mean_m": 5.976103482934611,
+                  "p90_m": 14.302911304087955,
+                  "mean_seconds": 0.005654579999963971,
+                  "mean_work_units": 32.95
+                }
+              }
+            }
+          },
+          "llm_selected": {
+            "main": {
+              "overall": {
+                "mean_m": 4.18925082096567,
+                "p90_m": 9.965827152422019,
+                "mean_seconds": 0.014904505833379112,
+                "mean_work_units": 71.29722222222222
+              },
+              "by_scenario": {
+                "moving_outliers": {
+                  "mean_m": 9.327779801974266,
+                  "p90_m": 17.66905156862376,
+                  "mean_seconds": 0.01777136000008694,
+                  "mean_work_units": 89.73333333333333
+                },
+                "static_clean": {
+                  "mean_m": 1.4186812614090465,
+                  "p90_m": 2.9395581450899777,
+                  "mean_seconds": 0.011543657777838234,
+                  "mean_work_units": 51.06666666666667
+                }
+              }
+            },
+            "stress": {
+              "overall": {
+                "mean_m": 10.175577821671636,
+                "p90_m": 20.88912888729258,
+                "mean_seconds": 0.016223662499987766,
+                "mean_work_units": 84.015
+              },
+              "by_scenario": {
+                "sparse": {
+                  "mean_m": 11.121399847905371,
+                  "p90_m": 18.089856308215182,
+                  "mean_seconds": 0.003956717499931983,
+                  "mean_work_units": 25.225
+                }
+              }
+            }
+          }
+        },
+        "revision_scope": "Investigate v2 static-normal degradation, n=8 velocity exclusion and compute cost. Only development split generation is callable. CV training count is necessary, not sufficient. v2 work units and new-solver residual counts differ: do not infer speedup from their ratio."
+      }
+    },
+    {
+      "step": 2,
+      "action": "register_method",
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "hypothesis": "仅将v2的交错观测验证从三折改为四折：预计sparse恒速选择率提高且平均定位误差降低，static_clean相对v2平均误差增幅不超过10%，moving_outliers平均误差不增加；预计平均耗时上升。四折只解除n=8的训练数量障碍，不保证几何可用性或定位改善。",
+        "mathematical_definition": "静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        }
+      },
+      "result": {
+        "registered": "range_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "probe": "API validation only; not included in research metrics",
+        "registration_kind": "new_composition",
+        "registered_after_diagnosis_count": 0
+      }
+    },
+    {
+      "step": 3,
+      "action": "run_experiment",
+      "arguments": {
+        "method_ids": [
+          "range_cv4_reported",
+          "v2_frozen",
+          "static_wls",
+          "dynamic_robust"
+        ],
+        "split": "discovery"
+      },
+      "result": {
+        "split": "discovery",
+        "metrics": {
+          "range_cv4_reported": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.222306289201211,
+              "rmse_m": 6.047193961060073,
+              "median_m": 2.6278691988112732,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.72,
+              "within_30m": 1.0,
+              "mean_work_units": 88.34,
+              "mean_seconds": 0.018450084999894898
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2007913139883613,
+                "rmse_m": 3.660230058231244,
+                "median_m": 3.13181393653164,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 90.1,
+                "mean_seconds": 0.019225474999984726
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.119805192143181,
+                "rmse_m": 8.24167429120703,
+                "median_m": 6.35513030756605,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "max_m": 16.08445964242549,
+                "within_5m": 0.35,
+                "within_30m": 1.0,
+                "mean_work_units": 114.35,
+                "mean_seconds": 0.022564774999773364
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.231568476274518,
+                "rmse_m": 9.617999228125726,
+                "median_m": 4.958049200765737,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 102.35,
+                "mean_seconds": 0.020636039999772038
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.651597214986466,
+                "rmse_m": 2.1279879682807694,
+                "median_m": 1.0999039374267612,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "max_m": 5.343622745575744,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 58.5,
+                "mean_seconds": 0.013697374999992462
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 1.9077692486135285,
+                "rmse_m": 2.1180304215260812,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "max_m": 3.7852990912639277,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 76.4,
+                "mean_seconds": 0.0161267599999519
+              }
+            },
+            "macro_mean_m": 4.222306289201212,
+            "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+            "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+          },
+          "v2_frozen": {
+            "overall": {
+              "n": 100,
+              "mean_m": 5.180675620199055,
+              "rmse_m": 7.15037132388909,
+              "median_m": 3.3747569036611944,
+              "p90_m": 11.500208950346394,
+              "p95_m": 16.110886451823408,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.63,
+              "within_30m": 1.0,
+              "mean_work_units": 61.95,
+              "mean_seconds": 0.012659292999887838
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2713379810332546,
+                "rmse_m": 3.870274125634198,
+                "median_m": 2.8252250371507386,
+                "p90_m": 5.924623163621435,
+                "p95_m": 7.6372531728533595,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.8,
+                "within_30m": 1.0,
+                "mean_work_units": 78.75,
+                "mean_seconds": 0.016691644999809796
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.684595393420635,
+                "rmse_m": 8.848876861329519,
+                "median_m": 7.123734721654495,
+                "p90_m": 14.988864872298404,
+                "p95_m": 16.154938795566743,
+                "max_m": 17.494042705250546,
+                "within_5m": 0.3,
+                "within_30m": 1.0,
+                "mean_work_units": 90.05,
+                "mean_seconds": 0.017439139999805776
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 11.044812073504534,
+                "rmse_m": 12.2874862734418,
+                "median_m": 9.942320514133518,
+                "p90_m": 17.77032788028251,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.15,
+                "within_30m": 1.0,
+                "mean_work_units": 24.8,
+                "mean_seconds": 0.003954154999792081
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.7600504942275257,
+                "rmse_m": 2.1947854655682937,
+                "median_m": 1.2335847544012624,
+                "p90_m": 3.6854290548236057,
+                "p95_m": 4.713884909984129,
+                "max_m": 5.014346210194073,
+                "within_5m": 0.95,
+                "within_30m": 1.0,
+                "mean_work_units": 50.25,
+                "mean_seconds": 0.011668929999905231
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 2.1425821588093203,
+                "rmse_m": 2.560860143205814,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.6481944856969744,
+                "p95_m": 3.9340366191659615,
+                "max_m": 6.76004964930456,
+                "within_5m": 0.95,
+                "within_30m": 1.0,
+                "mean_work_units": 65.9,
+                "mean_seconds": 0.013542595000126311
+              }
+            },
+            "macro_mean_m": 5.180675620199054,
+            "evidence_path": "experiments/call_001_discovery_v2_frozen.json",
+            "evidence_sha256": "e126742a4d3648a9d7094651abf8aaac75535f0282f4916a3e88f5c99f5201d8"
+          },
+          "static_wls": {
+            "overall": {
+              "n": 100,
+              "mean_m": 7.272688119659063,
+              "rmse_m": 9.273688029873492,
+              "median_m": 6.083576940580119,
+              "p90_m": 15.985280698511506,
+              "p95_m": 17.456951331035302,
+              "max_m": 24.01511584758825,
+              "within_5m": 0.45,
+              "within_30m": 1.0,
+              "mean_work_units": 20.55,
+              "mean_seconds": 0.002703204000117694
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 9.707700484265253,
+                "rmse_m": 10.769441500277106,
+                "median_m": 8.68500949782102,
+                "p90_m": 16.984080657006263,
+                "p95_m": 17.67696198835362,
+                "max_m": 21.94814798874674,
+                "within_5m": 0.1,
+                "within_30m": 1.0,
+                "mean_work_units": 20.7,
+                "mean_seconds": 0.002784615000109625
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 11.269208420147127,
+                "rmse_m": 12.207829349768959,
+                "median_m": 11.491447299858642,
+                "p90_m": 17.323432010065375,
+                "p95_m": 17.529419760171912,
+                "max_m": 20.19245954986918,
+                "within_5m": 0.15,
+                "within_30m": 1.0,
+                "mean_work_units": 24.0,
+                "mean_seconds": 0.0029648300001099415
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 11.074790946120707,
+                "rmse_m": 12.244686037073626,
+                "median_m": 9.729130232486138,
+                "p90_m": 17.90501611941211,
+                "p95_m": 21.263566024441864,
+                "max_m": 24.01511584758825,
+                "within_5m": 0.15,
+                "within_30m": 1.0,
+                "mean_work_units": 24.4,
+                "mean_seconds": 0.003070560000196565
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.0716799731469464,
+                "rmse_m": 1.1775463637034693,
+                "median_m": 1.0090668688092639,
+                "p90_m": 1.6425276943376708,
+                "p95_m": 1.8504481298670818,
+                "max_m": 2.3791128009777243,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 14.0,
+                "mean_seconds": 0.0020863750000899017
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 3.240060774615278,
+                "rmse_m": 3.698043960115403,
+                "median_m": 2.7242113397703775,
+                "p90_m": 5.423892291907658,
+                "p95_m": 6.005990568002533,
+                "max_m": 7.809723207600766,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 19.65,
+                "mean_seconds": 0.002609640000082436
+              }
+            },
+            "macro_mean_m": 7.272688119659063,
+            "evidence_path": "experiments/call_001_discovery_static_wls.json",
+            "evidence_sha256": "b930c885a15c33d9f927beb7fe55dd9f5ae532ab59d6b13ca4091e00f98de253"
+          },
+          "dynamic_robust": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.644172841991074,
+              "rmse_m": 6.069059021442411,
+              "median_m": 3.5158415611453986,
+              "p90_m": 8.32870713260177,
+              "p95_m": 10.511205845862575,
+              "max_m": 29.79341404670698,
+              "within_5m": 0.66,
+              "within_30m": 1.0,
+              "mean_work_units": 28.65,
+              "mean_seconds": 0.004930978999909712
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 2.881466742668233,
+                "rmse_m": 3.3758575915455524,
+                "median_m": 2.4263690304560086,
+                "p90_m": 4.343061784531167,
+                "p95_m": 6.00793796224949,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 29.45,
+                "mean_seconds": 0.0051553999998759535
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 5.470499504749875,
+                "rmse_m": 6.063499896428518,
+                "median_m": 5.871998275359022,
+                "p90_m": 8.772413903001226,
+                "p95_m": 9.296163996492112,
+                "max_m": 10.495514940159772,
+                "within_5m": 0.45,
+                "within_30m": 1.0,
+                "mean_work_units": 34.2,
+                "mean_seconds": 0.005719789999875502
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 5.209821557395212,
+                "rmse_m": 6.598891045982968,
+                "median_m": 4.290572806560258,
+                "p90_m": 8.635293725126456,
+                "p95_m": 12.919803609238198,
+                "max_m": 18.426751972865453,
+                "within_5m": 0.6,
+                "within_30m": 1.0,
+                "mean_work_units": 33.1,
+                "mean_seconds": 0.005579175000093528
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 3.032154448260525,
+                "rmse_m": 3.3110413369971448,
+                "median_m": 2.63978193167598,
+                "p90_m": 4.979739633426124,
+                "p95_m": 5.030799441729382,
+                "max_m": 5.343492135676003,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 20.65,
+                "mean_seconds": 0.0037265399998432256
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 6.626921956881526,
+                "rmse_m": 9.027545833963687,
+                "median_m": 5.602196098116471,
+                "p90_m": 10.890690292126312,
+                "p95_m": 12.531430863989689,
+                "max_m": 29.79341404670698,
+                "within_5m": 0.45,
+                "within_30m": 1.0,
+                "mean_work_units": 25.85,
+                "mean_seconds": 0.00447398999986035
+              }
+            },
+            "macro_mean_m": 4.644172841991074,
+            "evidence_path": "experiments/call_001_discovery_dynamic_robust.json",
+            "evidence_sha256": "4a86cf4a37138eaa2772b66d3abe0c8a1940788c82cfe598d7a7efc7c5a64e32"
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost."
+      }
+    },
+    {
+      "step": 4,
+      "action": "diagnose",
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "split": "discovery",
+        "top_k": 4
+      },
+      "result": {
+        "worst_cases": [
+          {
+            "case_id": "sparse-2525231735",
+            "scenario": "sparse",
+            "position": [
+              42.82067534710085,
+              -3.8810629739706837
+            ],
+            "error_m": 24.221066157440106,
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "diagnostics": {
+              "selected_model": "static",
+              "fit_cost": 4.838353180112463,
+              "regularized_objective": 4.838353180112463,
+              "all_observation_robust_cost": 4.838353180112463,
+              "standardized_residuals": [
+                -0.23144840009134982,
+                0.06779348426860164,
+                0.039216990234024494,
+                -0.5574041734992139,
+                -0.2725539100668745,
+                -1.009265260840987,
+                2.1556798377287585,
+                -0.3215281287939462
+              ],
+              "retained_indices": [
+                2,
+                1,
+                0,
+                4,
+                7,
+                3,
+                5,
+                6
+              ],
+              "retained_count": 8,
+              "trim_rounds": 1,
+              "starts_attempted": 3,
+              "consensus_trials": 0,
+              "jacobian_singular_values": [
+                1.0403981241994276,
+                0.5940468792415867
+              ],
+              "jacobian_condition": 1.7513737729380763,
+              "jacobian_rank": 2,
+              "ill_conditioned": false,
+              "solver_success": true,
+              "solver_status": 2,
+              "at_numerical_bound": false,
+              "constant_scale": null,
+              "fallback_reason": null,
+              "geometry_scale_m": 1.9384476713973502,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "cv": {
+                "scores": {
+                  "static": 0.7890991473698588,
+                  "velocity": 2.46777434627837
+                },
+                "dynamic_admissible": true,
+                "gate_margin": 0.05,
+                "folds": [
+                  {
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      0,
+                      4
+                    ],
+                    "static": 0.4415368746177064,
+                    "velocity": 2.1195813277151574
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      1,
+                      5
+                    ],
+                    "static": 0.6105660584201316,
+                    "velocity": 3.4234591988967873
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7
+                    ],
+                    "validation_indices": [
+                      2,
+                      6
+                    ],
+                    "static": 1.4745403921095686,
+                    "velocity": 1.5434128852245916
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6
+                    ],
+                    "validation_indices": [
+                      3,
+                      7
+                    ],
+                    "static": 0.6297532643320287,
+                    "velocity": 2.7846439732769435
+                  }
+                ],
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score",
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "inner_starts": 1,
+                "inner_consensus_trials": 0,
+                "fold_assignment": "time-sorted interleaving; every observation held out once"
+              },
+              "computation": {
+                "nfev": 101,
+                "njev": 90,
+                "solves": 11
+              },
+              "spec": {
+                "model": "cv_select",
+                "residual": "range",
+                "scale": "reported",
+                "loss": "soft_l1",
+                "f_scale": 1.5,
+                "starts": 3,
+                "ridge": 0.05,
+                "trim_fraction": 0.0,
+                "consensus_trials": 0,
+                "gate_margin": 0.05,
+                "seed": 0,
+                "cv_folds": 4,
+                "log_bias_correction": true,
+                "log_sd": 0.1
+              }
+            },
+            "work_units": 101,
+            "elapsed_seconds": 0.019702999999935855
+          },
+          {
+            "case_id": "sparse-3674770531",
+            "scenario": "sparse",
+            "position": [
+              11.778188011379838,
+              -32.56408183369831
+            ],
+            "error_m": 20.740093669257867,
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "diagnostics": {
+              "selected_model": "static",
+              "fit_cost": 14.144724935762955,
+              "regularized_objective": 14.144724935762955,
+              "all_observation_robust_cost": 14.144724935762955,
+              "standardized_residuals": [
+                3.089758713045375,
+                -0.6298239900815368,
+                1.3424721083679345,
+                1.0473036195008658,
+                1.4098843502951226,
+                0.5879850252704926,
+                1.474743965800619,
+                -1.3792474729018749
+              ],
+              "retained_indices": [
+                5,
+                1,
+                3,
+                2,
+                7,
+                4,
+                6,
+                0
+              ],
+              "retained_count": 8,
+              "trim_rounds": 1,
+              "starts_attempted": 3,
+              "consensus_trials": 0,
+              "jacobian_singular_values": [
+                1.6579326541175186,
+                0.7350845399742763
+              ],
+              "jacobian_condition": 2.255431265328389,
+              "jacobian_rank": 2,
+              "ill_conditioned": false,
+              "solver_success": true,
+              "solver_status": 2,
+              "at_numerical_bound": false,
+              "constant_scale": null,
+              "fallback_reason": null,
+              "geometry_scale_m": 3.0023763491351034,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "cv": {
+                "scores": {
+                  "static": 3.500443487228482,
+                  "velocity": 5.850990227888132
+                },
+                "dynamic_admissible": true,
+                "gate_margin": 0.05,
+                "folds": [
+                  {
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      0,
+                      4
+                    ],
+                    "static": 8.233443823697014,
+                    "velocity": 17.74456166414359
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      1,
+                      5
+                    ],
+                    "static": 0.4136669929466179,
+                    "velocity": 0.7214573510929703
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7
+                    ],
+                    "validation_indices": [
+                      2,
+                      6
+                    ],
+                    "static": 1.9073219961762213,
+                    "velocity": 1.0078445302767018
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6
+                    ],
+                    "validation_indices": [
+                      3,
+                      7
+                    ],
+                    "static": 3.4473411360940753,
+                    "velocity": 3.9300973660392673
+                  }
+                ],
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score",
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "inner_starts": 1,
+                "inner_consensus_trials": 0,
+                "fold_assignment": "time-sorted interleaving; every observation held out once"
+              },
+              "computation": {
+                "nfev": 168,
+                "njev": 116,
+                "solves": 11
+              },
+              "spec": {
+                "model": "cv_select",
+                "residual": "range",
+                "scale": "reported",
+                "loss": "soft_l1",
+                "f_scale": 1.5,
+                "starts": 3,
+                "ridge": 0.05,
+                "trim_fraction": 0.0,
+                "consensus_trials": 0,
+                "gate_margin": 0.05,
+                "seed": 0,
+                "cv_folds": 4,
+                "log_bias_correction": true,
+                "log_sd": 0.1
+              }
+            },
+            "work_units": 168,
+            "elapsed_seconds": 0.027092300000731484
+          },
+          {
+            "case_id": "moving_outliers-2735524135",
+            "scenario": "moving_outliers",
+            "position": [
+              11.040840885613683,
+              -29.18934584140519
+            ],
+            "error_m": 16.08445964242549,
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "diagnostics": {
+              "selected_model": "static",
+              "fit_cost": 111.05462272530069,
+              "regularized_objective": 111.05462272530069,
+              "all_observation_robust_cost": 111.05462272530069,
+              "standardized_residuals": [
+                -3.240945068574635,
+                -0.49340881870264164,
+                0.2682143769811356,
+                -2.8084132175599232,
+                -0.8990527491029494,
+                -6.822053026167959,
+                -0.5020709133422495,
+                -1.7179434526982504,
+                -0.3441958274851018,
+                -0.22564201671862413,
+                -0.3673823165669913,
+                1.702299945538009,
+                -0.6371557448625278,
+                20.032619712087236,
+                6.841187458237872,
+                2.5665947113092376
+              ],
+              "retained_indices": [
+                9,
+                2,
+                8,
+                10,
+                1,
+                6,
+                12,
+                4,
+                11,
+                7,
+                15,
+                3,
+                0,
+                5,
+                14,
+                13
+              ],
+              "retained_count": 16,
+              "trim_rounds": 1,
+              "starts_attempted": 3,
+              "consensus_trials": 0,
+              "jacobian_singular_values": [
+                1.311924178004972,
+                0.8205671445930088
+              ],
+              "jacobian_condition": 1.5988017393210037,
+              "jacobian_rank": 2,
+              "ill_conditioned": false,
+              "solver_success": true,
+              "solver_status": 2,
+              "at_numerical_bound": false,
+              "constant_scale": null,
+              "fallback_reason": null,
+              "geometry_scale_m": 2.771849375280231,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "cv": {
+                "scores": {
+                  "static": 12.87094644117083,
+                  "velocity": 13.536471842075953
+                },
+                "dynamic_admissible": true,
+                "gate_margin": 0.05,
+                "folds": [
+                  {
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7,
+                      9,
+                      10,
+                      11,
+                      13,
+                      14,
+                      15
+                    ],
+                    "validation_indices": [
+                      0,
+                      4,
+                      8,
+                      12
+                    ],
+                    "static": 1.9480380843723568,
+                    "velocity": 0.5582170455157254
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7,
+                      8,
+                      10,
+                      11,
+                      12,
+                      14,
+                      15
+                    ],
+                    "validation_indices": [
+                      1,
+                      5,
+                      9,
+                      13
+                    ],
+                    "static": 13.26783447437101,
+                    "velocity": 13.852741016810391
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7,
+                      8,
+                      9,
+                      11,
+                      12,
+                      13,
+                      15
+                    ],
+                    "validation_indices": [
+                      2,
+                      6,
+                      10,
+                      14
+                    ],
+                    "static": 33.26854467069377,
+                    "velocity": 38.66434221483027
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6,
+                      8,
+                      9,
+                      10,
+                      12,
+                      13,
+                      14
+                    ],
+                    "validation_indices": [
+                      3,
+                      7,
+                      11,
+                      15
+                    ],
+                    "static": 2.999368535246179,
+                    "velocity": 1.0705870911474296
+                  }
+                ],
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score",
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "inner_starts": 1,
+                "inner_consensus_trials": 0,
+                "fold_assignment": "time-sorted interleaving; every observation held out once"
+              },
+              "computation": {
+                "nfev": 104,
+                "njev": 89,
+                "solves": 11
+              },
+              "spec": {
+                "model": "cv_select",
+                "residual": "range",
+                "scale": "reported",
+                "loss": "soft_l1",
+                "f_scale": 1.5,
+                "starts": 3,
+                "ridge": 0.05,
+                "trim_fraction": 0.0,
+                "consensus_trials": 0,
+                "gate_margin": 0.05,
+                "seed": 0,
+                "cv_folds": 4,
+                "log_bias_correction": true,
+                "log_sd": 0.1
+              }
+            },
+            "work_units": 104,
+            "elapsed_seconds": 0.02012049999939336
+          },
+          {
+            "case_id": "sparse-1334051403",
+            "scenario": "sparse",
+            "position": [
+              21.398171896814976,
+              -22.586023790184466
+            ],
+            "error_m": 15.743644801007921,
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "diagnostics": {
+              "selected_model": "static",
+              "fit_cost": 15.876603063607103,
+              "regularized_objective": 15.876603063607103,
+              "all_observation_robust_cost": 15.876603063607103,
+              "standardized_residuals": [
+                -0.47219768156192937,
+                0.44810364938713615,
+                -1.6159212405636938,
+                -0.41705186559707086,
+                -1.7890285573380837,
+                0.5078493553154367,
+                1.282649690425011,
+                4.243171099735013
+              ],
+              "retained_indices": [
+                3,
+                1,
+                0,
+                5,
+                6,
+                2,
+                4,
+                7
+              ],
+              "retained_count": 8,
+              "trim_rounds": 1,
+              "starts_attempted": 3,
+              "consensus_trials": 0,
+              "jacobian_singular_values": [
+                1.1352410084088826,
+                0.4366398939981309
+              ],
+              "jacobian_condition": 2.5999479754677255,
+              "jacobian_rank": 2,
+              "ill_conditioned": false,
+              "solver_success": true,
+              "solver_status": 2,
+              "at_numerical_bound": false,
+              "constant_scale": null,
+              "fallback_reason": null,
+              "geometry_scale_m": 3.2568470530642117,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "cv": {
+                "scores": {
+                  "static": 1.8799534274849474,
+                  "velocity": 3.0834094703268518
+                },
+                "dynamic_admissible": true,
+                "gate_margin": 0.05,
+                "folds": [
+                  {
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      0,
+                      4
+                    ],
+                    "static": 1.4462060692929257,
+                    "velocity": 1.0612800352058862
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      1,
+                      5
+                    ],
+                    "static": 0.5243364675898774,
+                    "velocity": 3.279066550972882
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7
+                    ],
+                    "validation_indices": [
+                      2,
+                      6
+                    ],
+                    "static": 1.7057225701646301,
+                    "velocity": 4.187642923938673
+                  },
+                  {
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6
+                    ],
+                    "validation_indices": [
+                      3,
+                      7
+                    ],
+                    "static": 3.8435486028923562,
+                    "velocity": 3.8056483711899647
+                  }
+                ],
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score",
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "inner_starts": 1,
+                "inner_consensus_trials": 0,
+                "fold_assignment": "time-sorted interleaving; every observation held out once"
+              },
+              "computation": {
+                "nfev": 129,
+                "njev": 115,
+                "solves": 11
+              },
+              "spec": {
+                "model": "cv_select",
+                "residual": "range",
+                "scale": "reported",
+                "loss": "soft_l1",
+                "f_scale": 1.5,
+                "starts": 3,
+                "ridge": 0.05,
+                "trim_fraction": 0.0,
+                "consensus_trials": 0,
+                "gate_margin": 0.05,
+                "seed": 0,
+                "cv_folds": 4,
+                "log_bias_correction": true,
+                "log_sd": 0.1
+              }
+            },
+            "work_units": 129,
+            "elapsed_seconds": 0.02337209999859624
+          }
+        ],
+        "selection_frequencies": {
+          "static_clean": {
+            "static": 16,
+            "velocity": 4
+          },
+          "static_outliers": {
+            "static": 20
+          },
+          "moving_clean": {
+            "velocity": 18,
+            "static": 2
+          },
+          "moving_outliers": {
+            "velocity": 10,
+            "static": 10
+          },
+          "sparse": {
+            "velocity": 14,
+            "static": 6
+          }
+        },
+        "warning": "Worst-case examples are diagnostic evidence, not theorems or guarantees about other cases.",
+        "revision_diagnosis": {
+          "method_id": "range_cv4_reported",
+          "split": "discovery",
+          "diagnosis_number": 1,
+          "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+          "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+        }
+      }
+    },
+    {
+      "step": 5,
+      "action": "register_method",
+      "arguments": {
+        "method_id": "log_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "log_range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "hypothesis": "诊断驱动修订：四折已使sparse恒速选择达到14/20，但返回的三个稀疏失败例与一个运动异常失败例均因预测评分选择静态；后者含约20的标准化残差。仅将range改为log_range，检验对数压缩与中心化是否改善评分及拟合。预测相对range_cv4_reported，discovery的static_clean、moving_outliers、sparse平均误差分别下降，总体平均耗时增幅不超过20%。这不是已确认的污染因果解释；静态最坏四例未被返回，不能断言其误差集中于恒速选择。",
+        "mathematical_definition": "静态d_i=||x-a_i||，恒速d_i=||x+t_i v-a_i||。令delta=0.1米，ell_i=sqrt(log(1+(sigma_i/max(y_i,delta))^2))，r_i=[log(max(d_i,delta))-log(max(y_i,delta))-0.1^2/2]/ell_i。各模型最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，c=1.5、lambda=0.05，静态无速度罚项。按时间排序作四折交错验证，分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)，不截尾。仅全部恒速训练折满足至少6个观测、至少1秒跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折一个普通起点，最终三个起点全数据重拟合，无抽样初始化。与range_cv4_reported唯一有效字段差异为residual；log尺度与中心修正因此开始生效。该残差是含坐标及加性噪声时的工程近似，不是精确似然，也无无偏或全局最优保证。"
+      },
+      "result": {
+        "registered": "log_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "log_range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "probe": "API validation only; not included in research metrics",
+        "registration_kind": "new_composition",
+        "registered_after_diagnosis_count": 1
+      }
+    },
+    {
+      "step": 6,
+      "action": "run_experiment",
+      "arguments": {
+        "method_ids": [
+          "log_cv4_reported",
+          "range_cv4_reported",
+          "v2_frozen",
+          "static_wls"
+        ],
+        "split": "discovery"
+      },
+      "result": {
+        "split": "discovery",
+        "metrics": {
+          "log_cv4_reported": {
+            "overall": {
+              "n": 100,
+              "mean_m": 5.0358391268017675,
+              "rmse_m": 7.493846429442024,
+              "median_m": 2.9394942148327443,
+              "p90_m": 12.924990450675502,
+              "p95_m": 18.63779052192677,
+              "max_m": 27.054748152110786,
+              "within_5m": 0.72,
+              "within_30m": 1.0,
+              "mean_work_units": 103.41,
+              "mean_seconds": 0.025598381999971026
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.550456948725631,
+                "rmse_m": 4.347720301926499,
+                "median_m": 2.881114185519969,
+                "p90_m": 6.270266040657391,
+                "p95_m": 7.853212745617181,
+                "max_m": 11.107386185321776,
+                "within_5m": 0.8,
+                "within_30m": 1.0,
+                "mean_work_units": 98.6,
+                "mean_seconds": 0.02850858000010703
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 9.000215326007218,
+                "rmse_m": 11.254202864308278,
+                "median_m": 6.46548298536058,
+                "p90_m": 18.70661839553824,
+                "p95_m": 20.30098152212291,
+                "max_m": 27.054748152110786,
+                "within_5m": 0.45,
+                "within_30m": 1.0,
+                "mean_work_units": 132.4,
+                "mean_seconds": 0.029993854999884207
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.593116057026892,
+                "rmse_m": 9.821191042215467,
+                "median_m": 5.581830055734242,
+                "p90_m": 18.28066409852869,
+                "p95_m": 20.83180195815656,
+                "max_m": 24.382460476676137,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 115.65,
+                "mean_seconds": 0.02477270999979737
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.4618159680535951,
+                "rmse_m": 1.9529785903529013,
+                "median_m": 1.0361107608827695,
+                "p90_m": 2.7414440232192403,
+                "p95_m": 5.000699020949285,
+                "max_m": 5.166281156377228,
+                "within_5m": 0.95,
+                "within_30m": 1.0,
+                "mean_work_units": 64.6,
+                "mean_seconds": 0.017984464999881312
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 3.5735913341954957,
+                "rmse_m": 5.91261352901119,
+                "median_m": 2.0216285588597005,
+                "p90_m": 5.416516493439652,
+                "p95_m": 13.957384353800666,
+                "max_m": 20.139207143142833,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 105.8,
+                "mean_seconds": 0.026732300000185207
+              }
+            },
+            "macro_mean_m": 5.035839126801767,
+            "evidence_path": "experiments/call_002_discovery_log_cv4_reported.json",
+            "evidence_sha256": "9b2dd740e01727fbf5e58b73f6166dcb2bb519780285f554051d55cd73c16b81"
+          },
+          "range_cv4_reported": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.222306289201211,
+              "rmse_m": 6.047193961060073,
+              "median_m": 2.6278691988112732,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.72,
+              "within_30m": 1.0,
+              "mean_work_units": 88.34,
+              "mean_seconds": 0.02455996900003811
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2007913139883613,
+                "rmse_m": 3.660230058231244,
+                "median_m": 3.13181393653164,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 90.1,
+                "mean_seconds": 0.028133509999952365
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.119805192143181,
+                "rmse_m": 8.24167429120703,
+                "median_m": 6.35513030756605,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "max_m": 16.08445964242549,
+                "within_5m": 0.35,
+                "within_30m": 1.0,
+                "mean_work_units": 114.35,
+                "mean_seconds": 0.03199597000002541
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.231568476274518,
+                "rmse_m": 9.617999228125726,
+                "median_m": 4.958049200765737,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 102.35,
+                "mean_seconds": 0.02739850000025399
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.651597214986466,
+                "rmse_m": 2.1279879682807694,
+                "median_m": 1.0999039374267612,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "max_m": 5.343622745575744,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 58.5,
+                "mean_seconds": 0.013950874999954977
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 1.9077692486135285,
+                "rmse_m": 2.1180304215260812,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "max_m": 3.7852990912639277,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 76.4,
+                "mean_seconds": 0.021320990000003804
+              }
+            },
+            "macro_mean_m": 4.222306289201212,
+            "evidence_path": "experiments/call_002_discovery_range_cv4_reported.json",
+            "evidence_sha256": "04371195a3de210562e353952e216af44729df2cfe6bf5230d11192ff5dc8afd"
+          },
+          "v2_frozen": {
+            "overall": {
+              "n": 100,
+              "mean_m": 5.180675620199055,
+              "rmse_m": 7.15037132388909,
+              "median_m": 3.3747569036611944,
+              "p90_m": 11.500208950346394,
+              "p95_m": 16.110886451823408,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.63,
+              "within_30m": 1.0,
+              "mean_work_units": 61.95,
+              "mean_seconds": 0.01568317400013257
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2713379810332546,
+                "rmse_m": 3.870274125634198,
+                "median_m": 2.8252250371507386,
+                "p90_m": 5.924623163621435,
+                "p95_m": 7.6372531728533595,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.8,
+                "within_30m": 1.0,
+                "mean_work_units": 78.75,
+                "mean_seconds": 0.018606430000090768
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.684595393420635,
+                "rmse_m": 8.848876861329519,
+                "median_m": 7.123734721654495,
+                "p90_m": 14.988864872298404,
+                "p95_m": 16.154938795566743,
+                "max_m": 17.494042705250546,
+                "within_5m": 0.3,
+                "within_30m": 1.0,
+                "mean_work_units": 90.05,
+                "mean_seconds": 0.018236720000277273
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 11.044812073504534,
+                "rmse_m": 12.2874862734418,
+                "median_m": 9.942320514133518,
+                "p90_m": 17.77032788028251,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.15,
+                "within_30m": 1.0,
+                "mean_work_units": 24.8,
+                "mean_seconds": 0.0050362999999379095
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.7600504942275257,
+                "rmse_m": 2.1947854655682937,
+                "median_m": 1.2335847544012624,
+                "p90_m": 3.6854290548236057,
+                "p95_m": 4.713884909984129,
+                "max_m": 5.014346210194073,
+                "within_5m": 0.95,
+                "within_30m": 1.0,
+                "mean_work_units": 50.25,
+                "mean_seconds": 0.016792625000289264
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 2.1425821588093203,
+                "rmse_m": 2.560860143205814,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.6481944856969744,
+                "p95_m": 3.9340366191659615,
+                "max_m": 6.76004964930456,
+                "within_5m": 0.95,
+                "within_30m": 1.0,
+                "mean_work_units": 65.9,
+                "mean_seconds": 0.01974379500006762
+              }
+            },
+            "macro_mean_m": 5.180675620199054,
+            "evidence_path": "experiments/call_002_discovery_v2_frozen.json",
+            "evidence_sha256": "faadd244c8a01dc1e422df8eb8fba13e036c49755aaa2d9ea58c4328f66ca01f"
+          },
+          "static_wls": {
+            "overall": {
+              "n": 100,
+              "mean_m": 7.272688119659063,
+              "rmse_m": 9.273688029873492,
+              "median_m": 6.083576940580119,
+              "p90_m": 15.985280698511506,
+              "p95_m": 17.456951331035302,
+              "max_m": 24.01511584758825,
+              "within_5m": 0.45,
+              "within_30m": 1.0,
+              "mean_work_units": 20.55,
+              "mean_seconds": 0.003445260999997117
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 9.707700484265253,
+                "rmse_m": 10.769441500277106,
+                "median_m": 8.68500949782102,
+                "p90_m": 16.984080657006263,
+                "p95_m": 17.67696198835362,
+                "max_m": 21.94814798874674,
+                "within_5m": 0.1,
+                "within_30m": 1.0,
+                "mean_work_units": 20.7,
+                "mean_seconds": 0.003469150000000809
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 11.269208420147127,
+                "rmse_m": 12.207829349768959,
+                "median_m": 11.491447299858642,
+                "p90_m": 17.323432010065375,
+                "p95_m": 17.529419760171912,
+                "max_m": 20.19245954986918,
+                "within_5m": 0.15,
+                "within_30m": 1.0,
+                "mean_work_units": 24.0,
+                "mean_seconds": 0.003831399999853602
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 11.074790946120707,
+                "rmse_m": 12.244686037073626,
+                "median_m": 9.729130232486138,
+                "p90_m": 17.90501611941211,
+                "p95_m": 21.263566024441864,
+                "max_m": 24.01511584758825,
+                "within_5m": 0.15,
+                "within_30m": 1.0,
+                "mean_work_units": 24.4,
+                "mean_seconds": 0.003577595000024303
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.0716799731469464,
+                "rmse_m": 1.1775463637034693,
+                "median_m": 1.0090668688092639,
+                "p90_m": 1.6425276943376708,
+                "p95_m": 1.8504481298670818,
+                "max_m": 2.3791128009777243,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 14.0,
+                "mean_seconds": 0.0032024950000959507
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 3.240060774615278,
+                "rmse_m": 3.698043960115403,
+                "median_m": 2.7242113397703775,
+                "p90_m": 5.423892291907658,
+                "p95_m": 6.005990568002533,
+                "max_m": 7.809723207600766,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 19.65,
+                "mean_seconds": 0.003145665000010922
+              }
+            },
+            "macro_mean_m": 7.272688119659063,
+            "evidence_path": "experiments/call_002_discovery_static_wls.json",
+            "evidence_sha256": "3b981363b3138f50bc1c1586a766a81a0e47e0a4a8d5cdb4972ecbb33ff5be42"
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost."
+      }
+    },
+    {
+      "step": 7,
+      "action": "ablate",
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "new_id": "range_cv4_margin20",
+        "changes": {
+          "gate_margin": 0.2
+        },
+        "split": "discovery"
+      },
+      "result": {
+        "split": "discovery",
+        "metrics": {
+          "range_cv4_reported": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.222306289201211,
+              "rmse_m": 6.047193961060073,
+              "median_m": 2.6278691988112732,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.72,
+              "within_30m": 1.0,
+              "mean_work_units": 88.34,
+              "mean_seconds": 0.019713574000033988
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2007913139883613,
+                "rmse_m": 3.660230058231244,
+                "median_m": 3.13181393653164,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 90.1,
+                "mean_seconds": 0.020044729999881383
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.119805192143181,
+                "rmse_m": 8.24167429120703,
+                "median_m": 6.35513030756605,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "max_m": 16.08445964242549,
+                "within_5m": 0.35,
+                "within_30m": 1.0,
+                "mean_work_units": 114.35,
+                "mean_seconds": 0.021987985000214393
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.231568476274518,
+                "rmse_m": 9.617999228125726,
+                "median_m": 4.958049200765737,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 102.35,
+                "mean_seconds": 0.01978264000008494
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.651597214986466,
+                "rmse_m": 2.1279879682807694,
+                "median_m": 1.0999039374267612,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "max_m": 5.343622745575744,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 58.5,
+                "mean_seconds": 0.014522690000103467
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 1.9077692486135285,
+                "rmse_m": 2.1180304215260812,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "max_m": 3.7852990912639277,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 76.4,
+                "mean_seconds": 0.02222982499988575
+              }
+            },
+            "macro_mean_m": 4.222306289201212,
+            "evidence_path": "experiments/call_003_discovery_range_cv4_reported.json",
+            "evidence_sha256": "2e031eacccb4ac9f7072474a7f336d849024252f97d7e136657ebd0abbb89659"
+          },
+          "range_cv4_margin20": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.597754983329966,
+              "rmse_m": 6.698707099542943,
+              "median_m": 2.7155176551545877,
+              "p90_m": 10.746616699530893,
+              "p95_m": 14.91095775410935,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.7,
+              "within_30m": 1.0,
+              "mean_work_units": 87.66,
+              "mean_seconds": 0.017125544999962584
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 4.212120178728333,
+                "rmse_m": 4.9658363957600935,
+                "median_m": 3.3918980123263323,
+                "p90_m": 8.348994611854526,
+                "p95_m": 9.014672049351729,
+                "max_m": 10.735389197838309,
+                "within_5m": 0.7,
+                "within_30m": 1.0,
+                "mean_work_units": 89.4,
+                "mean_seconds": 0.018102969999836203
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 8.339996889111301,
+                "rmse_m": 10.002939751998005,
+                "median_m": 6.706369925176242,
+                "p90_m": 14.988864872298404,
+                "p95_m": 16.45062077668507,
+                "max_m": 23.40768232761698,
+                "within_5m": 0.35,
+                "within_30m": 1.0,
+                "mean_work_units": 111.95,
+                "mean_seconds": 0.02052349499990669
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.231568476274518,
+                "rmse_m": 9.617999228125726,
+                "median_m": 4.958049200765737,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 102.35,
+                "mean_seconds": 0.018343610000010814
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.297320123922149,
+                "rmse_m": 1.6288300147776915,
+                "median_m": 1.0575113270627938,
+                "p90_m": 1.9528282757708104,
+                "p95_m": 2.4872561425401756,
+                "max_m": 5.014346210194073,
+                "within_5m": 0.95,
+                "within_30m": 1.0,
+                "mean_work_units": 58.2,
+                "mean_seconds": 0.012719290000131878
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 1.9077692486135285,
+                "rmse_m": 2.1180304215260812,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "max_m": 3.7852990912639277,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 76.4,
+                "mean_seconds": 0.01593835999992734
+              }
+            },
+            "macro_mean_m": 4.597754983329966,
+            "evidence_path": "experiments/call_003_discovery_range_cv4_margin20.json",
+            "evidence_sha256": "ed49505c5137d7b2747fb4be5a2a8a791028b77410806df2d9584b5f70fdc211"
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "controlled_changes": {
+          "gate_margin": 0.2
+        },
+        "parent_method_id": "range_cv4_reported",
+        "new_method_id": "range_cv4_margin20",
+        "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: gate_margin: 0.05 -> 0.2.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.2, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 3, \"trim_fraction\": 0.0}"
+      }
+    },
+    {
+      "step": 8,
+      "action": "verify_math",
+      "arguments": {
+        "proposition": "all"
+      },
+      "result": {
+        "self_weight_bias": {
+          "status": "analytical result with independent Monte Carlo witness",
+          "assumptions": "Scalar range q>0; Y=d*exp(eps-s²/2); eps~N(0,s²); weight=Y^-2; no coordinate/additive error.",
+          "formula": "argmin_q E[(q-Y)^2/Y^2] = d*exp(-2*s^2)",
+          "log_formula": "argmin_q E[(log(q)-log(Y)-s²/2)^2] = d",
+          "derivation": "E[Y^k]=d^k exp((k²-k)s²/2). Setting derivative to zero gives E[Y^-1]/E[Y^-2].",
+          "truth_m": 20.0,
+          "noise_log_sd": 0.35,
+          "mc_samples": 200000,
+          "analytical_weighted_optimum_m": 15.654090764837363,
+          "mc_weighted_optimum_m": 15.671449031755385,
+          "mc_corrected_log_optimum_m": 20.018638146987602,
+          "limitation": "Not a theorem about the full nonlinear multianchor problem or its finite-sample optimizer."
+        },
+        "mirror": {
+          "status": "exact identity plus numerical witness",
+          "max_distance_difference_m": 0.0,
+          "position_separation_m": 6.0,
+          "anchors": [
+            [
+              -7.0,
+              0.0
+            ],
+            [
+              -2.0,
+              0.0
+            ],
+            [
+              5.0,
+              0.0
+            ],
+            [
+              -5.0,
+              0.0
+            ],
+            [
+              7.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0
+            ]
+          ],
+          "times": [
+            -8.0,
+            -6.0,
+            -4.0,
+            -2.0,
+            -1.0,
+            0.0
+          ],
+          "position": [
+            1.5,
+            3.0
+          ],
+          "velocity": [
+            0.2,
+            0.1
+          ],
+          "jacobian_rank": 4,
+          "singular_values": [
+            10.320627257717938,
+            4.285072985975744,
+            1.0915107670541162,
+            0.9650941702835486
+          ],
+          "proof": "R a_i=a_i and ||Rz||=||z||; thus ranges of (x,v) and (Rx,Rv) coincide for all times.",
+          "limitation": "A full-rank local Jacobian does not remove global reflection ambiguity."
+        },
+        "conformal": {
+          "status": "theorem conditions checked; empirical coverage requires frozen benchmark",
+          "statement": "For m exchangeable calibration cases and one new case, frozen estimator and positive frozen scale g, use k=ceil((m+1)*(1-alpha)); q=S_(k), S=error/g, q=inf if k>m. Then marginal coverage is >=1-alpha.",
+          "assumptions": [
+            "estimator frozen before calibration",
+            "calibration and test cases exchangeable",
+            "true positions available for calibration only"
+          ],
+          "not_implied": [
+            "conditional coverage for each scenario",
+            "coverage after data-dependent rejection",
+            "coverage under distribution shift"
+          ]
+        }
+      }
+    },
+    {
+      "step": 9,
+      "action": "ablate",
+      "arguments": {
+        "changes": {
+          "starts": 1
+        },
+        "method_id": "range_cv4_reported",
+        "new_id": "range_cv4_single_start",
+        "split": "discovery"
+      },
+      "result": {
+        "split": "discovery",
+        "metrics": {
+          "range_cv4_reported": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.222306289201211,
+              "rmse_m": 6.047193961060073,
+              "median_m": 2.6278691988112732,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "max_m": 24.221066157440106,
+              "within_5m": 0.72,
+              "within_30m": 1.0,
+              "mean_work_units": 88.34,
+              "mean_seconds": 0.02267050600003131
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2007913139883613,
+                "rmse_m": 3.660230058231244,
+                "median_m": 3.13181393653164,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "max_m": 8.285093125515575,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 90.1,
+                "mean_seconds": 0.024252959999921588
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.119805192143181,
+                "rmse_m": 8.24167429120703,
+                "median_m": 6.35513030756605,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "max_m": 16.08445964242549,
+                "within_5m": 0.35,
+                "within_30m": 1.0,
+                "mean_work_units": 114.35,
+                "mean_seconds": 0.02724275000009584
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.231568476274518,
+                "rmse_m": 9.617999228125726,
+                "median_m": 4.958049200765737,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "max_m": 24.221066157440106,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 102.35,
+                "mean_seconds": 0.024190400000043154
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.651597214986466,
+                "rmse_m": 2.1279879682807694,
+                "median_m": 1.0999039374267612,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "max_m": 5.343622745575744,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 58.5,
+                "mean_seconds": 0.017453179999938583
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 1.9077692486135285,
+                "rmse_m": 2.1180304215260812,
+                "median_m": 1.9007635976936572,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "max_m": 3.7852990912639277,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 76.4,
+                "mean_seconds": 0.020213240000157385
+              }
+            },
+            "macro_mean_m": 4.222306289201212,
+            "evidence_path": "experiments/call_004_discovery_range_cv4_reported.json",
+            "evidence_sha256": "f384ea6d56f366e212c85da8d8e55117d8766779548224ddcfe77e652919b203"
+          },
+          "range_cv4_single_start": {
+            "overall": {
+              "n": 100,
+              "mean_m": 4.222458462079389,
+              "rmse_m": 6.047191975347248,
+              "median_m": 2.627275543500521,
+              "p90_m": 9.775983897114292,
+              "p95_m": 13.541007825090238,
+              "max_m": 24.221062860570104,
+              "within_5m": 0.72,
+              "within_30m": 1.0,
+              "mean_work_units": 70.72,
+              "mean_seconds": 0.016725331999896297
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 20,
+                "mean_m": 3.2018704997029004,
+                "rmse_m": 3.661173986178419,
+                "median_m": 3.1316225308857195,
+                "p90_m": 5.751589061859076,
+                "p95_m": 5.9987986843060375,
+                "max_m": 8.285081944679414,
+                "within_5m": 0.85,
+                "within_30m": 1.0,
+                "mean_work_units": 70.6,
+                "mean_seconds": 0.015757224999742903
+              },
+              "moving_outliers": {
+                "n": 20,
+                "mean_m": 7.119589890225704,
+                "rmse_m": 8.241322457935201,
+                "median_m": 6.354383085614166,
+                "p90_m": 13.610803840615077,
+                "p95_m": 14.92798080672941,
+                "max_m": 16.084105853409046,
+                "within_5m": 0.35,
+                "within_30m": 1.0,
+                "mean_work_units": 93.2,
+                "mean_seconds": 0.020539569999891684
+              },
+              "sparse": {
+                "n": 20,
+                "mean_m": 7.231494099879574,
+                "rmse_m": 9.617919546065744,
+                "median_m": 4.957743738641883,
+                "p90_m": 16.24305027313815,
+                "p95_m": 20.91390376441471,
+                "max_m": 24.221062860570104,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 81.35,
+                "mean_seconds": 0.017903600000045115
+              },
+              "static_clean": {
+                "n": 20,
+                "mean_m": 1.651517453530752,
+                "rmse_m": 2.1279476651886067,
+                "median_m": 1.099925327542987,
+                "p90_m": 2.8940600356212314,
+                "p95_m": 5.030847246364755,
+                "max_m": 5.343910330278837,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 45.75,
+                "mean_seconds": 0.014011954999750742
+              },
+              "static_outliers": {
+                "n": 20,
+                "mean_m": 1.9078203670580127,
+                "rmse_m": 2.118141983061799,
+                "median_m": 1.9004874064783848,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.6407110433935372,
+                "max_m": 3.787968695825134,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 62.7,
+                "mean_seconds": 0.015414310000051046
+              }
+            },
+            "macro_mean_m": 4.222458462079389,
+            "evidence_path": "experiments/call_004_discovery_range_cv4_single_start.json",
+            "evidence_sha256": "a7c58045a82845319d9191b2e911d68d54b2eb291606f05666ababebea8caaae"
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "controlled_changes": {
+          "starts": 1
+        },
+        "parent_method_id": "range_cv4_reported",
+        "new_method_id": "range_cv4_single_start",
+        "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: starts: 3 -> 1.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.05, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 1, \"trim_fraction\": 0.0}"
+      }
+    },
+    {
+      "step": 10,
+      "action": "run_experiment",
+      "arguments": {
+        "method_ids": [
+          "range_cv4_single_start",
+          "range_cv4_reported",
+          "v2_frozen",
+          "static_wls"
+        ],
+        "split": "validation"
+      },
+      "result": {
+        "split": "validation",
+        "metrics": {
+          "range_cv4_single_start": {
+            "overall": {
+              "n": 150,
+              "mean_m": 4.1130458342795695,
+              "rmse_m": 6.093931112769121,
+              "median_m": 2.2171029126853825,
+              "p90_m": 11.57809991951046,
+              "p95_m": 15.55081726422429,
+              "max_m": 19.538825417941094,
+              "within_5m": 0.7733333333333333,
+              "within_30m": 1.0,
+              "mean_work_units": 73.86666666666666,
+              "mean_seconds": 0.016595022000195362
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 2.867392691985055,
+                "rmse_m": 3.793360223979726,
+                "median_m": 2.46411785887158,
+                "p90_m": 4.519691183752024,
+                "p95_m": 6.403889633698432,
+                "max_m": 13.413262086265679,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 73.73333333333333,
+                "mean_seconds": 0.01573627333358066
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 7.3126109315775425,
+                "rmse_m": 9.064779895612944,
+                "median_m": 5.598828401063045,
+                "p90_m": 15.99440626484744,
+                "p95_m": 16.786227635482458,
+                "max_m": 18.19452160374674,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 86.3,
+                "mean_seconds": 0.017824690000270493
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 6.607911472039877,
+                "rmse_m": 8.334652190628812,
+                "median_m": 4.986820622144599,
+                "p90_m": 15.081787219522239,
+                "p95_m": 15.928770467712187,
+                "max_m": 19.538825417941094,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 89.93333333333334,
+                "mean_seconds": 0.02215650333346275
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.2481545286220959,
+                "rmse_m": 1.4631677882334517,
+                "median_m": 1.1103361319514762,
+                "p90_m": 1.9550619237348574,
+                "p95_m": 2.4551915110394726,
+                "max_m": 3.897595412343032,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 47.96666666666667,
+                "mean_seconds": 0.012246700000165827
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 2.529159547173272,
+                "rmse_m": 4.18483913380427,
+                "median_m": 1.347881822636297,
+                "p90_m": 4.68474430408715,
+                "p95_m": 9.265126819060448,
+                "max_m": 15.395191473792206,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 71.4,
+                "mean_seconds": 0.015010943333497078
+              }
+            },
+            "macro_mean_m": 4.113045834279569,
+            "evidence_path": "experiments/call_005_validation_range_cv4_single_start.json",
+            "evidence_sha256": "b54a1f0290cdef71b9c0a1f0f7e5e724c9ef4ec5e95999c079fc570e7e1729c8"
+          },
+          "range_cv4_reported": {
+            "overall": {
+              "n": 150,
+              "mean_m": 4.064208908138752,
+              "rmse_m": 5.965516291036585,
+              "median_m": 2.215193970412998,
+              "p90_m": 11.530977807602218,
+              "p95_m": 15.221378515885359,
+              "max_m": 18.19452160374674,
+              "within_5m": 0.7733333333333333,
+              "within_30m": 1.0,
+              "mean_work_units": 91.14,
+              "mean_seconds": 0.020637267999967054
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 2.8669946569193483,
+                "rmse_m": 3.792393152471357,
+                "median_m": 2.46411785887158,
+                "p90_m": 4.519635864894246,
+                "p95_m": 6.394709909485764,
+                "max_m": 13.412475308881337,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 93.66666666666667,
+                "mean_seconds": 0.022104453333304262
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 7.313938068154888,
+                "rmse_m": 9.067508634784495,
+                "median_m": 5.598896559680395,
+                "p90_m": 15.99959577684489,
+                "p95_m": 16.80447478823076,
+                "max_m": 18.19452160374674,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 104.1,
+                "mean_seconds": 0.023173300000053132
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 6.362929127866049,
+                "rmse_m": 7.853833722608075,
+                "median_m": 4.986601396440375,
+                "p90_m": 13.935750374436974,
+                "p95_m": 15.399715093291166,
+                "max_m": 16.09964407196478,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 111.9,
+                "mean_seconds": 0.023627196666711824
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.24815801104917,
+                "rmse_m": 1.463187016465985,
+                "median_m": 1.110392739492729,
+                "p90_m": 1.9553039253617497,
+                "p95_m": 2.455366285061147,
+                "max_m": 3.897595412343032,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 60.9,
+                "mean_seconds": 0.016419389999888758
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 2.5290246767043,
+                "rmse_m": 4.184655785220686,
+                "median_m": 1.347881822636297,
+                "p90_m": 4.677349054497124,
+                "p95_m": 9.26599520946255,
+                "max_m": 15.395339799365429,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 85.13333333333334,
+                "mean_seconds": 0.0178619999998773
+              }
+            },
+            "macro_mean_m": 4.064208908138751,
+            "evidence_path": "experiments/call_005_validation_range_cv4_reported.json",
+            "evidence_sha256": "9984c6787adc79265a1ade14b51cdee689fad8f83e5a783c802fcf00ba32df46"
+          },
+          "v2_frozen": {
+            "overall": {
+              "n": 150,
+              "mean_m": 5.220934751474459,
+              "rmse_m": 7.414214377469137,
+              "median_m": 2.6131418807636315,
+              "p90_m": 13.821438439219813,
+              "p95_m": 16.080065216966414,
+              "max_m": 22.147801420249326,
+              "within_5m": 0.66,
+              "within_30m": 1.0,
+              "mean_work_units": 61.96666666666667,
+              "mean_seconds": 0.01351528933334824
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 3.0618264654672274,
+                "rmse_m": 4.042895114210579,
+                "median_m": 2.509483060101144,
+                "p90_m": 5.219266047904118,
+                "p95_m": 7.8046109203864535,
+                "max_m": 13.412475308881337,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 76.96666666666667,
+                "mean_seconds": 0.017725926666753367
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 8.598998957415183,
+                "rmse_m": 10.33413536904852,
+                "median_m": 8.356324708695972,
+                "p90_m": 16.250476872655963,
+                "p95_m": 17.81829959877321,
+                "max_m": 22.147801420249326,
+                "within_5m": 0.4,
+                "within_30m": 1.0,
+                "mean_work_units": 83.73333333333333,
+                "mean_seconds": 0.018369676666770828
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 10.686695194311094,
+                "rmse_m": 11.52943396865206,
+                "median_m": 9.718291869773477,
+                "p90_m": 16.15728564667718,
+                "p95_m": 17.89579133457225,
+                "max_m": 19.636040568858302,
+                "within_5m": 0.06666666666666667,
+                "within_30m": 1.0,
+                "mean_work_units": 29.133333333333333,
+                "mean_seconds": 0.0057646199999605114
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.2196295160659607,
+                "rmse_m": 1.3430196067616489,
+                "median_m": 1.242467545848891,
+                "p90_m": 1.918663765267629,
+                "p95_m": 1.9879785409627764,
+                "max_m": 2.8110406629226135,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 49.86666666666667,
+                "mean_seconds": 0.011190646666727843
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 2.5375236241128283,
+                "rmse_m": 4.120918604312487,
+                "median_m": 1.4042781794339414,
+                "p90_m": 4.677349054497124,
+                "p95_m": 8.839409930896108,
+                "max_m": 15.395339799365429,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 70.13333333333334,
+                "mean_seconds": 0.01452557666652865
+              }
+            },
+            "macro_mean_m": 5.220934751474458,
+            "evidence_path": "experiments/call_005_validation_v2_frozen.json",
+            "evidence_sha256": "8d3026529367234296d401dda040981eaf00bcd7f77ef0671cdbf2f87db23066"
+          },
+          "static_wls": {
+            "overall": {
+              "n": 150,
+              "mean_m": 7.413860698882612,
+              "rmse_m": 9.334033705870974,
+              "median_m": 7.103180562869037,
+              "p90_m": 16.27045775215209,
+              "p95_m": 18.070800500715805,
+              "max_m": 22.243684608331954,
+              "within_5m": 0.4266666666666667,
+              "within_30m": 1.0,
+              "mean_work_units": 20.69333333333333,
+              "mean_seconds": 0.003322881333248612
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 11.729483211526732,
+                "rmse_m": 12.847274658469464,
+                "median_m": 11.344419849661444,
+                "p90_m": 19.142707648131136,
+                "p95_m": 20.2217839618963,
+                "max_m": 21.61467976786275,
+                "within_5m": 0.13333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 20.866666666666667,
+                "mean_seconds": 0.003743439999986246
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 9.713249360678152,
+                "rmse_m": 10.761861043786377,
+                "median_m": 9.170102715734668,
+                "p90_m": 15.370532969397901,
+                "p95_m": 17.91628108598326,
+                "max_m": 22.243684608331954,
+                "within_5m": 0.2,
+                "within_30m": 1.0,
+                "mean_work_units": 22.8,
+                "mean_seconds": 0.004056613333280741
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 10.738220531997106,
+                "rmse_m": 11.552155813401495,
+                "median_m": 10.019262874562997,
+                "p90_m": 17.27263338047302,
+                "p95_m": 17.673858388842334,
+                "max_m": 19.33907388681365,
+                "within_5m": 0.1,
+                "within_30m": 1.0,
+                "mean_work_units": 26.066666666666666,
+                "mean_seconds": 0.0033308166665544075
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.0794242705009318,
+                "rmse_m": 1.219141993953817,
+                "median_m": 1.0166182475338,
+                "p90_m": 1.7598515325041961,
+                "p95_m": 1.906009189212278,
+                "max_m": 2.747514237470936,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 14.633333333333333,
+                "mean_seconds": 0.002421396666371341
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 3.808926119710143,
+                "rmse_m": 4.451089270867423,
+                "median_m": 3.0512963248292246,
+                "p90_m": 7.863560981880656,
+                "p95_m": 8.259827392391072,
+                "max_m": 8.844189881974867,
+                "within_5m": 0.7,
+                "within_30m": 1.0,
+                "mean_work_units": 19.1,
+                "mean_seconds": 0.003062140000050325
+              }
+            },
+            "macro_mean_m": 7.413860698882613,
+            "evidence_path": "experiments/call_005_validation_static_wls.json",
+            "evidence_sha256": "b6bc6d8cd3b37cef1372e4389dfc5b0c174d40052aa21f4c709c7c6f27d53637"
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost."
+      }
+    },
+    {
+      "step": 11,
+      "action": "run_experiment",
+      "arguments": {
+        "method_ids": [
+          "range_cv4_single_start",
+          "static_robust",
+          "dynamic_robust",
+          "legacy_bic"
+        ],
+        "split": "validation"
+      },
+      "result": {
+        "split": "validation",
+        "metrics": {
+          "range_cv4_single_start": {
+            "overall": {
+              "n": 150,
+              "mean_m": 4.1130458342795695,
+              "rmse_m": 6.093931112769121,
+              "median_m": 2.2171029126853825,
+              "p90_m": 11.57809991951046,
+              "p95_m": 15.55081726422429,
+              "max_m": 19.538825417941094,
+              "within_5m": 0.7733333333333333,
+              "within_30m": 1.0,
+              "mean_work_units": 73.86666666666666,
+              "mean_seconds": 0.0154658720000225
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 2.867392691985055,
+                "rmse_m": 3.793360223979726,
+                "median_m": 2.46411785887158,
+                "p90_m": 4.519691183752024,
+                "p95_m": 6.403889633698432,
+                "max_m": 13.413262086265679,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 73.73333333333333,
+                "mean_seconds": 0.015142883333404219
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 7.3126109315775425,
+                "rmse_m": 9.064779895612944,
+                "median_m": 5.598828401063045,
+                "p90_m": 15.99440626484744,
+                "p95_m": 16.786227635482458,
+                "max_m": 18.19452160374674,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 86.3,
+                "mean_seconds": 0.016554059999786357
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 6.607911472039877,
+                "rmse_m": 8.334652190628812,
+                "median_m": 4.986820622144599,
+                "p90_m": 15.081787219522239,
+                "p95_m": 15.928770467712187,
+                "max_m": 19.538825417941094,
+                "within_5m": 0.5,
+                "within_30m": 1.0,
+                "mean_work_units": 89.93333333333334,
+                "mean_seconds": 0.017387176666731344
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.2481545286220959,
+                "rmse_m": 1.4631677882334517,
+                "median_m": 1.1103361319514762,
+                "p90_m": 1.9550619237348574,
+                "p95_m": 2.4551915110394726,
+                "max_m": 3.897595412343032,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 47.96666666666667,
+                "mean_seconds": 0.012329053333511789
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 2.529159547173272,
+                "rmse_m": 4.18483913380427,
+                "median_m": 1.347881822636297,
+                "p90_m": 4.68474430408715,
+                "p95_m": 9.265126819060448,
+                "max_m": 15.395191473792206,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 71.4,
+                "mean_seconds": 0.01591618666667879
+              }
+            },
+            "macro_mean_m": 4.113045834279569,
+            "evidence_path": "experiments/call_006_validation_range_cv4_single_start.json",
+            "evidence_sha256": "870f68dfd503ae04f45fb7b452fe1b4769fdb2c6fc88c8f24d3a302d54373eee"
+          },
+          "static_robust": {
+            "overall": {
+              "n": 150,
+              "mean_m": 7.03314956078437,
+              "rmse_m": 9.167095855883266,
+              "median_m": 5.829140584172265,
+              "p90_m": 15.74995911671611,
+              "p95_m": 17.667399425332402,
+              "max_m": 22.147801420249326,
+              "within_5m": 0.4666666666666667,
+              "within_30m": 1.0,
+              "mean_work_units": 23.046666666666667,
+              "mean_seconds": 0.0032663253332551297
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 11.742070034983833,
+                "rmse_m": 12.826366737910984,
+                "median_m": 12.060127070782048,
+                "p90_m": 19.137960309674774,
+                "p95_m": 20.02490150109504,
+                "max_m": 21.048207989425528,
+                "within_5m": 0.13333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 23.466666666666665,
+                "mean_seconds": 0.003313743333031501
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 9.742436467523342,
+                "rmse_m": 10.759825944939259,
+                "median_m": 8.957966999559073,
+                "p90_m": 15.725902771744417,
+                "p95_m": 16.741650913992416,
+                "max_m": 22.147801420249326,
+                "within_5m": 0.16666666666666666,
+                "within_30m": 1.0,
+                "mean_work_units": 24.4,
+                "mean_seconds": 0.003468090000023949
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 10.686778533104576,
+                "rmse_m": 11.52958870500278,
+                "median_m": 9.721572756898603,
+                "p90_m": 16.15728564667718,
+                "p95_m": 17.895757506984424,
+                "max_m": 19.636187259782968,
+                "within_5m": 0.06666666666666667,
+                "within_30m": 1.0,
+                "mean_work_units": 29.7,
+                "mean_seconds": 0.004201413333127372
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.1416961614711167,
+                "rmse_m": 1.2849366143825267,
+                "median_m": 1.0198844150186597,
+                "p90_m": 1.918663765267629,
+                "p95_m": 1.9879785409627764,
+                "max_m": 2.811040662922613,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 17.6,
+                "mean_seconds": 0.0027793233335008456
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 1.852766606838981,
+                "rmse_m": 2.30352258171585,
+                "median_m": 1.347881822636297,
+                "p90_m": 4.0471855131475465,
+                "p95_m": 4.716210482206505,
+                "max_m": 5.795533601827711,
+                "within_5m": 0.9666666666666667,
+                "within_30m": 1.0,
+                "mean_work_units": 20.066666666666666,
+                "mean_seconds": 0.002569056666591981
+              }
+            },
+            "macro_mean_m": 7.033149560784369,
+            "evidence_path": "experiments/call_006_validation_static_robust.json",
+            "evidence_sha256": "9f4e7f49acecdd1cadd3b24fda34b16c21275374c52d0df5bbb7c67558a0d0fd"
+          },
+          "dynamic_robust": {
+            "overall": {
+              "n": 150,
+              "mean_m": 4.522623639855094,
+              "rmse_m": 6.697516601857244,
+              "median_m": 3.0378045985504665,
+              "p90_m": 8.86459427151923,
+              "p95_m": 12.818019630984322,
+              "max_m": 38.62231779549651,
+              "within_5m": 0.7333333333333333,
+              "within_30m": 0.9933333333333333,
+              "mean_work_units": 28.92,
+              "mean_seconds": 0.004993494666632614
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 2.676219034595365,
+                "rmse_m": 3.2175612154205964,
+                "median_m": 2.4643771492885147,
+                "p90_m": 4.519623378992083,
+                "p95_m": 6.394653722926012,
+                "max_m": 7.6715731780821725,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 29.2,
+                "mean_seconds": 0.00484337666657666
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 5.418736164490345,
+                "rmse_m": 6.825542715308306,
+                "median_m": 4.180591198279057,
+                "p90_m": 10.634614590238247,
+                "p95_m": 14.509623132127668,
+                "max_m": 18.194521603746733,
+                "within_5m": 0.6,
+                "within_30m": 1.0,
+                "mean_work_units": 31.4,
+                "mean_seconds": 0.005342650000056892
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 3.984468686807687,
+                "rmse_m": 4.977913117356743,
+                "median_m": 3.3740998696617575,
+                "p90_m": 8.004813183289308,
+                "p95_m": 9.894874259852926,
+                "max_m": 12.160863034724171,
+                "within_5m": 0.7666666666666667,
+                "within_30m": 1.0,
+                "mean_work_units": 34.56666666666667,
+                "mean_seconds": 0.005830126666599729
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 2.3801245668969897,
+                "rmse_m": 2.749806682653536,
+                "median_m": 1.871888528712153,
+                "p90_m": 4.453574472784948,
+                "p95_m": 5.058645361414819,
+                "max_m": 6.154348533203658,
+                "within_5m": 0.9333333333333333,
+                "within_30m": 1.0,
+                "mean_work_units": 21.4,
+                "mean_seconds": 0.0039766066664014945
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 8.153569746485081,
+                "rmse_m": 11.619029814548698,
+                "median_m": 5.872299560843283,
+                "p90_m": 15.633350412262851,
+                "p95_m": 23.567579449035087,
+                "max_m": 38.62231779549651,
+                "within_5m": 0.43333333333333335,
+                "within_30m": 0.9666666666666667,
+                "mean_work_units": 28.033333333333335,
+                "mean_seconds": 0.004974713333528295
+              }
+            },
+            "macro_mean_m": 4.522623639855094,
+            "evidence_path": "experiments/call_006_validation_dynamic_robust.json",
+            "evidence_sha256": "aff6bbb37d8b87edfb53fdcfef16a96c9085aa042d6c3a718d3a9bde650d4519"
+          },
+          "legacy_bic": {
+            "overall": {
+              "n": 150,
+              "mean_m": 4.397258312193743,
+              "rmse_m": 6.412559198566502,
+              "median_m": 2.4075078100789544,
+              "p90_m": 11.677999463289648,
+              "p95_m": 15.690983399348543,
+              "max_m": 22.147801420249326,
+              "within_5m": 0.74,
+              "within_30m": 1.0,
+              "mean_work_units": 51.96666666666667,
+              "mean_seconds": 0.007790225333289224
+            },
+            "by_scenario": {
+              "moving_clean": {
+                "n": 30,
+                "mean_m": 2.891322349233127,
+                "rmse_m": 3.5202723232737827,
+                "median_m": 2.509483060101142,
+                "p90_m": 5.219153674784618,
+                "p95_m": 7.625934444925536,
+                "max_m": 8.02269017413064,
+                "within_5m": 0.9,
+                "within_30m": 1.0,
+                "mean_work_units": 52.666666666666664,
+                "mean_seconds": 0.007830506666747776
+              },
+              "moving_outliers": {
+                "n": 30,
+                "mean_m": 10.26992254118821,
+                "rmse_m": 11.367421244404115,
+                "median_m": 9.2837839176523,
+                "p90_m": 16.247573987174317,
+                "p95_m": 17.81881390431222,
+                "max_m": 22.147801420249326,
+                "within_5m": 0.16666666666666666,
+                "within_30m": 1.0,
+                "mean_work_units": 55.8,
+                "mean_seconds": 0.00857171333336737
+              },
+              "sparse": {
+                "n": 30,
+                "mean_m": 5.40408306707266,
+                "rmse_m": 7.054382577184447,
+                "median_m": 3.897010613226157,
+                "p90_m": 12.331389487642001,
+                "p95_m": 14.887788152321546,
+                "max_m": 16.09964407196478,
+                "within_5m": 0.6666666666666666,
+                "within_30m": 1.0,
+                "mean_work_units": 64.26666666666667,
+                "mean_seconds": 0.009077123333251317
+              },
+              "static_clean": {
+                "n": 30,
+                "mean_m": 1.248151414830459,
+                "rmse_m": 1.4631881246692624,
+                "median_m": 1.110392739492729,
+                "p90_m": 1.9553039253617497,
+                "p95_m": 2.4553662850611464,
+                "max_m": 3.897595412343035,
+                "within_5m": 1.0,
+                "within_30m": 1.0,
+                "mean_work_units": 39.0,
+                "mean_seconds": 0.006338360000154353
+              },
+              "static_outliers": {
+                "n": 30,
+                "mean_m": 2.17281218864426,
+                "rmse_m": 3.47688961061539,
+                "median_m": 1.347881822636297,
+                "p90_m": 4.0471855131475465,
+                "p95_m": 4.716210482206505,
+                "max_m": 15.39690105598609,
+                "within_5m": 0.9666666666666667,
+                "within_30m": 1.0,
+                "mean_work_units": 48.1,
+                "mean_seconds": 0.0071334233329253035
+              }
+            },
+            "macro_mean_m": 4.397258312193744,
+            "evidence_path": "experiments/call_006_validation_legacy_bic.json",
+            "evidence_sha256": "cceb0a3fd3b2a8cf057cace41a855d96f308ac13df00aedcb057cf6cc9ecc850"
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost."
+      }
+    },
+    {
+      "step": 12,
+      "action": "freeze",
+      "arguments": {
+        "method_id": "range_cv4_single_start",
+        "scientific_conclusion": "依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy_bic为4.397米、dynamic_robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic_robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。相对三起点父方法，同次验证总体耗时下降约19.6%，宏均值由4.064升至4.113米，稀疏均值增加约3.85%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8%；最新同次候选耗时0.01547秒，static_robust、dynamic_robust、legacy_bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。"
+      },
+      "result": {
+        "method_id": "range_cv4_single_start",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 1,
+          "trim_fraction": 0.0
+        },
+        "hypothesis": "Single-component ablation of range_cv4_reported: {'starts': 1}",
+        "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: starts: 3 -> 1.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.05, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 1, \"trim_fraction\": 0.0}",
+        "registration_kind": "single_component_ablation",
+        "registered_after_diagnosis_count": 1,
+        "diagnosis_evidence": [
+          {
+            "method_id": "range_cv4_reported",
+            "split": "discovery",
+            "diagnosis_number": 1,
+            "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+            "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+          }
+        ],
+        "parent_method_id": "range_cv4_reported",
+        "controlled_changes": {
+          "starts": 1
+        },
+        "validation": {
+          "overall": {
+            "n": 150,
+            "mean_m": 4.1130458342795695,
+            "rmse_m": 6.093931112769121,
+            "median_m": 2.2171029126853825,
+            "p90_m": 11.57809991951046,
+            "p95_m": 15.55081726422429,
+            "max_m": 19.538825417941094,
+            "within_5m": 0.7733333333333333,
+            "within_30m": 1.0,
+            "mean_work_units": 73.86666666666666,
+            "mean_seconds": 0.0154658720000225
+          },
+          "by_scenario": {
+            "moving_clean": {
+              "n": 30,
+              "mean_m": 2.867392691985055,
+              "rmse_m": 3.793360223979726,
+              "median_m": 2.46411785887158,
+              "p90_m": 4.519691183752024,
+              "p95_m": 6.403889633698432,
+              "max_m": 13.413262086265679,
+              "within_5m": 0.9333333333333333,
+              "within_30m": 1.0,
+              "mean_work_units": 73.73333333333333,
+              "mean_seconds": 0.015142883333404219
+            },
+            "moving_outliers": {
+              "n": 30,
+              "mean_m": 7.3126109315775425,
+              "rmse_m": 9.064779895612944,
+              "median_m": 5.598828401063045,
+              "p90_m": 15.99440626484744,
+              "p95_m": 16.786227635482458,
+              "max_m": 18.19452160374674,
+              "within_5m": 0.5,
+              "within_30m": 1.0,
+              "mean_work_units": 86.3,
+              "mean_seconds": 0.016554059999786357
+            },
+            "sparse": {
+              "n": 30,
+              "mean_m": 6.607911472039877,
+              "rmse_m": 8.334652190628812,
+              "median_m": 4.986820622144599,
+              "p90_m": 15.081787219522239,
+              "p95_m": 15.928770467712187,
+              "max_m": 19.538825417941094,
+              "within_5m": 0.5,
+              "within_30m": 1.0,
+              "mean_work_units": 89.93333333333334,
+              "mean_seconds": 0.017387176666731344
+            },
+            "static_clean": {
+              "n": 30,
+              "mean_m": 1.2481545286220959,
+              "rmse_m": 1.4631677882334517,
+              "median_m": 1.1103361319514762,
+              "p90_m": 1.9550619237348574,
+              "p95_m": 2.4551915110394726,
+              "max_m": 3.897595412343032,
+              "within_5m": 1.0,
+              "within_30m": 1.0,
+              "mean_work_units": 47.96666666666667,
+              "mean_seconds": 0.012329053333511789
+            },
+            "static_outliers": {
+              "n": 30,
+              "mean_m": 2.529159547173272,
+              "rmse_m": 4.18483913380427,
+              "median_m": 1.347881822636297,
+              "p90_m": 4.68474430408715,
+              "p95_m": 9.265126819060448,
+              "max_m": 15.395191473792206,
+              "within_5m": 0.9333333333333333,
+              "within_30m": 1.0,
+              "mean_work_units": 71.4,
+              "mean_seconds": 0.01591618666667879
+            }
+          },
+          "macro_mean_m": 4.113045834279569,
+          "evidence_path": "experiments/call_006_validation_range_cv4_single_start.json",
+          "evidence_sha256": "870f68dfd503ae04f45fb7b452fe1b4769fdb2c6fc88c8f24d3a302d54373eee"
+        },
+        "scientific_conclusion": "依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy_bic为4.397米、dynamic_robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic_robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。相对三起点父方法，同次验证总体耗时下降约19.6%，宏均值由4.064升至4.113米，稀疏均值增加约3.85%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8%；最新同次候选耗时0.01547秒，static_robust、dynamic_robust、legacy_bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。",
+        "frozen_before_test": true,
+        "registry_sha256": "a268897cd96eb7ee786a2dcecb6255bade7a6ec5e413dda27f38e2e82c3bdc40"
+      }
+    }
+  ],
+  "registered_methods": {
+    "range_cv4_reported": {
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "hypothesis": "仅将v2的交错观测验证从三折改为四折：预计sparse恒速选择率提高且平均定位误差降低，static_clean相对v2平均误差增幅不超过10%，moving_outliers平均误差不增加；预计平均耗时上升。四折只解除n=8的训练数量障碍，不保证几何可用性或定位改善。",
+        "mathematical_definition": "静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        }
+      },
+      "registration": {
+        "registered": "range_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "probe": "API validation only; not included in research metrics",
+        "registration_kind": "new_composition",
+        "registered_after_diagnosis_count": 0
+      }
+    },
+    "log_cv4_reported": {
+      "arguments": {
+        "method_id": "log_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "log_range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "hypothesis": "诊断驱动修订：四折已使sparse恒速选择达到14/20，但返回的三个稀疏失败例与一个运动异常失败例均因预测评分选择静态；后者含约20的标准化残差。仅将range改为log_range，检验对数压缩与中心化是否改善评分及拟合。预测相对range_cv4_reported，discovery的static_clean、moving_outliers、sparse平均误差分别下降，总体平均耗时增幅不超过20%。这不是已确认的污染因果解释；静态最坏四例未被返回，不能断言其误差集中于恒速选择。",
+        "mathematical_definition": "静态d_i=||x-a_i||，恒速d_i=||x+t_i v-a_i||。令delta=0.1米，ell_i=sqrt(log(1+(sigma_i/max(y_i,delta))^2))，r_i=[log(max(d_i,delta))-log(max(y_i,delta))-0.1^2/2]/ell_i。各模型最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，c=1.5、lambda=0.05，静态无速度罚项。按时间排序作四折交错验证，分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)，不截尾。仅全部恒速训练折满足至少6个观测、至少1秒跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折一个普通起点，最终三个起点全数据重拟合，无抽样初始化。与range_cv4_reported唯一有效字段差异为residual；log尺度与中心修正因此开始生效。该残差是含坐标及加性噪声时的工程近似，不是精确似然，也无无偏或全局最优保证。"
+      },
+      "registration": {
+        "registered": "log_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "log_range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "probe": "API validation only; not included in research metrics",
+        "registration_kind": "new_composition",
+        "registered_after_diagnosis_count": 1
+      }
+    }
+  },
+  "critiques": [
+    {
+      "after_successful_experiments": 3,
+      "scope_valid": true,
+      "issues": [
+        "尚缺static_robust、dynamic_robust、legacy_bic的validation证据，当前不能冻结；实验预算剩3次。",
+        "静态正常目标仍失败：单起点验证均值1.248米，为WLS的约1.156倍，超过1.10界限。",
+        "单起点满足预设均值容差，但稀疏均值较三起点增加约3.85%，最大误差19.54米对16.10米；不能声称精度无损。",
+        "单起点验证总体耗时较父方法下降约19.6%，但较v2增加约22.8%；未证明等计算预算优势，工作量口径也不可直接比较。",
+        "验证集已暴露；后续依其选择候选属于模型选择，重复相同验证案例不是独立复现。未见禁用数据泄漏证据。",
+        "对数修订及严格门槛的部分预测已失败，应保留负结果；新组合登记不证明学术新颖性。",
+        "反射反例否定局部满秩蕴含全局唯一；标量偏差结论不推广至完整定位器，保形结论不提供当前实证覆盖保证。"
+      ],
+      "recommended_next_step": "停止新增调参，下一次validation同时评估range_cv4_single_start、static_robust、dynamic_robust、legacy_bic，补齐参考对照。记录已有均值预测通过及静态非劣诊断失败、稀疏尾部代价，再按明确的精度与耗时取舍冻结新候选；不读取或生成holdout/test/calibration。",
+      "evidence_caveats": [
+        "仅审阅所供记录，未核验实现、哈希、样本独立性或计时环境。",
+        "每场景验证仅30例，缺少配对差值不确定性及重复计时；均值阈值通过不等于统计非劣证明。",
+        "四折解除计数障碍，同时改变评分与训练划分，误差改善不能完全归因于计数机制。",
+        "本次同模型独立上下文审阅不是数学证明或独立经验复现。"
+      ],
+      "independent_prompt": true,
+      "different_model_claimed": false
+    }
+  ],
+  "pending_tool": null,
+  "unexpected_tool_events": [],
+  "is_replay": false,
+  "updated_at": "2026-09-24T18:57:52.417404+00:00",
+  "last_event_sequence": 65,
+  "last_event_sha256": "6a93b4b0e1f2bcd1891ca2710e2ba15698f2c138096f9ff323b66261648510d6",
+  "freeze_result": {
+    "method_id": "range_cv4_single_start",
+    "spec": {
+      "consensus_trials": 0,
+      "cv_folds": 4,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    },
+    "hypothesis": "Single-component ablation of range_cv4_reported: {'starts': 1}",
+    "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: starts: 3 -> 1.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.05, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 1, \"trim_fraction\": 0.0}",
+    "registration_kind": "single_component_ablation",
+    "registered_after_diagnosis_count": 1,
+    "diagnosis_evidence": [
+      {
+        "method_id": "range_cv4_reported",
+        "split": "discovery",
+        "diagnosis_number": 1,
+        "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+        "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+      }
+    ],
+    "parent_method_id": "range_cv4_reported",
+    "controlled_changes": {
+      "starts": 1
+    },
+    "validation": {
+      "overall": {
+        "n": 150,
+        "mean_m": 4.1130458342795695,
+        "rmse_m": 6.093931112769121,
+        "median_m": 2.2171029126853825,
+        "p90_m": 11.57809991951046,
+        "p95_m": 15.55081726422429,
+        "max_m": 19.538825417941094,
+        "within_5m": 0.7733333333333333,
+        "within_30m": 1.0,
+        "mean_work_units": 73.86666666666666,
+        "mean_seconds": 0.0154658720000225
+      },
+      "by_scenario": {
+        "moving_clean": {
+          "n": 30,
+          "mean_m": 2.867392691985055,
+          "rmse_m": 3.793360223979726,
+          "median_m": 2.46411785887158,
+          "p90_m": 4.519691183752024,
+          "p95_m": 6.403889633698432,
+          "max_m": 13.413262086265679,
+          "within_5m": 0.9333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 73.73333333333333,
+          "mean_seconds": 0.015142883333404219
+        },
+        "moving_outliers": {
+          "n": 30,
+          "mean_m": 7.3126109315775425,
+          "rmse_m": 9.064779895612944,
+          "median_m": 5.598828401063045,
+          "p90_m": 15.99440626484744,
+          "p95_m": 16.786227635482458,
+          "max_m": 18.19452160374674,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 86.3,
+          "mean_seconds": 0.016554059999786357
+        },
+        "sparse": {
+          "n": 30,
+          "mean_m": 6.607911472039877,
+          "rmse_m": 8.334652190628812,
+          "median_m": 4.986820622144599,
+          "p90_m": 15.081787219522239,
+          "p95_m": 15.928770467712187,
+          "max_m": 19.538825417941094,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 89.93333333333334,
+          "mean_seconds": 0.017387176666731344
+        },
+        "static_clean": {
+          "n": 30,
+          "mean_m": 1.2481545286220959,
+          "rmse_m": 1.4631677882334517,
+          "median_m": 1.1103361319514762,
+          "p90_m": 1.9550619237348574,
+          "p95_m": 2.4551915110394726,
+          "max_m": 3.897595412343032,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 47.96666666666667,
+          "mean_seconds": 0.012329053333511789
+        },
+        "static_outliers": {
+          "n": 30,
+          "mean_m": 2.529159547173272,
+          "rmse_m": 4.18483913380427,
+          "median_m": 1.347881822636297,
+          "p90_m": 4.68474430408715,
+          "p95_m": 9.265126819060448,
+          "max_m": 15.395191473792206,
+          "within_5m": 0.9333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 71.4,
+          "mean_seconds": 0.01591618666667879
+        }
+      },
+      "macro_mean_m": 4.113045834279569,
+      "evidence_path": "experiments/call_006_validation_range_cv4_single_start.json",
+      "evidence_sha256": "870f68dfd503ae04f45fb7b452fe1b4769fdb2c6fc88c8f24d3a302d54373eee"
+    },
+    "scientific_conclusion": "依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy_bic为4.397米、dynamic_robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic_robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。相对三起点父方法，同次验证总体耗时下降约19.6%，宏均值由4.064升至4.113米，稀疏均值增加约3.85%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8%；最新同次候选耗时0.01547秒，static_robust、dynamic_robust、legacy_bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。",
+    "frozen_before_test": true,
+    "registry_sha256": "a268897cd96eb7ee786a2dcecb6255bade7a6ec5e413dda27f38e2e82c3bdc40"
+  }
+}

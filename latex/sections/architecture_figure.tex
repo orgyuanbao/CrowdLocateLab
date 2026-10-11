@@ -1,0 +1,19 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[box/.style={draw=navy!50,fill=paleblue,rounded corners=2pt,align=center,text width=37mm,minimum height=13mm,font=\small},arr/.style={-{Stealth[length=2mm]},draw=teal,thick},node distance=9mm and 12mm]
+\node[box] (plan) {大模型规划器\\形成假设、选择动作};
+\node[box,right=of plan] (control) {持久化控制器\\校验、预算、派发};
+\node[box,right=of control] (tool) {研究工具与求解器\\实验、诊断、数学见证};
+\node[box,below=of tool] (evidence) {真实实验结果\\逐例数据与诊断};
+\node[box,below=of control] (memory) {记忆与审阅反馈\\保留失败，修订假设};
+\node[box,below=of plan] (freeze) {方案冻结\\独立测试与校准};
+\draw[arr] (plan)--(control);
+\draw[arr] (control)--(tool);
+\draw[arr] (tool)--(evidence);
+\draw[arr] (evidence)--(memory);
+\draw[arr] (memory.north)--++(0,4mm)-|([xshift=-4mm]plan.south);
+\draw[arr] ([xshift=5mm]plan.south)--([xshift=5mm]freeze.north);
+\end{tikzpicture}
+\caption{智能体的研究闭环。动作来自实际模型响应，证据来自数值工具；冻结后才开放最终评测。}
+\label{fig:architecture}
+\end{figure}

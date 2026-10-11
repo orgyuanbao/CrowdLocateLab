@@ -1,0 +1,94 @@
+{
+  "method_id": "range_cv_reported",
+  "spec": {
+    "consensus_trials": 0,
+    "f_scale": 1.5,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "cv_select",
+    "residual": "range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 3,
+    "trim_fraction": 0.0
+  },
+  "hypothesis": "距离域soft-L1观测交叉验证选择在discovery上同时满足：moving_outliers平均误差低于legacy_bic，static_clean平均误差不超过static_wls的1.10倍。",
+  "mathematical_definition": "静态模型d_i=||x-a_i||，恒速模型d_i=||x+t_i v-a_i||；残差r_i=(d_i-y_i)/sigma_i。各模型最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5，lambda=0.05，静态模型无速度罚项。按时间排序作三折交错观测验证，用所有留出观测的平均单位尺度soft-L1残差损失评分；仅当全部恒速训练折满足实现规定的可用性条件且CV_velocity<0.95 CV_static时选择恒速，否则选择静态。内折按实现使用一个普通起点，最终全数据使用三个起点重拟合；不截尾、不添加抽样初始化。该候选与legacy_bic的比较是完整方法比较，不能单独归因于门控。",
+  "validation": {
+    "overall": {
+      "n": 96,
+      "mean_m": 3.741507471830109,
+      "rmse_m": 5.498796802072417,
+      "median_m": 2.4742915781696477,
+      "p90_m": 8.358878436502135,
+      "p95_m": 11.466669085615578,
+      "max_m": 23.230794533040612,
+      "within_5m": 0.7708333333333334,
+      "within_30m": 1.0,
+      "mean_work_units": 69.35416666666667,
+      "mean_seconds": 0.016219317708381215
+    },
+    "by_scenario": {
+      "moving_clean": {
+        "n": 24,
+        "mean_m": 3.487449631096323,
+        "rmse_m": 3.957650623587557,
+        "median_m": 3.4467900742189856,
+        "p90_m": 5.551989598881717,
+        "p95_m": 6.848686358050075,
+        "max_m": 9.109161345908335,
+        "within_5m": 0.875,
+        "within_30m": 1.0,
+        "mean_work_units": 70.91666666666667,
+        "mean_seconds": 0.01594605416660973
+      },
+      "moving_outliers": {
+        "n": 24,
+        "mean_m": 8.36548903534789,
+        "rmse_m": 9.827727847945058,
+        "median_m": 7.400383418104305,
+        "p90_m": 16.172380980831296,
+        "p95_m": 16.71265544908746,
+        "max_m": 23.230794533040612,
+        "within_5m": 0.2916666666666667,
+        "within_30m": 1.0,
+        "mean_work_units": 84.91666666666667,
+        "mean_seconds": 0.01972390416684296
+      },
+      "static_clean": {
+        "n": 24,
+        "mean_m": 0.9019924936617413,
+        "rmse_m": 0.991460238409358,
+        "median_m": 0.7556807232172846,
+        "p90_m": 1.4753876507801906,
+        "p95_m": 1.5862491947354502,
+        "max_m": 1.6702629691007072,
+        "within_5m": 1.0,
+        "within_30m": 1.0,
+        "mean_work_units": 50.958333333333336,
+        "mean_seconds": 0.013043049999775272
+      },
+      "static_outliers": {
+        "n": 24,
+        "mean_m": 2.211098727214482,
+        "rmse_m": 2.7779198271229535,
+        "median_m": 1.7048059148609862,
+        "p90_m": 3.7714015018639087,
+        "p95_m": 6.018354227264765,
+        "max_m": 7.412688802360305,
+        "within_5m": 0.9166666666666666,
+        "within_30m": 1.0,
+        "mean_work_units": 70.625,
+        "mean_seconds": 0.0161642625002969
+      }
+    },
+    "macro_mean_m": 3.741507471830109,
+    "evidence_path": "experiments/call_006_validation_range_cv_reported.json",
+    "evidence_sha256": "69b12deed544f5811778b2ed2bb43ba2e7ee747de011e5068b3f0f6232ae5713"
+  },
+  "scientific_conclusion": "冻结已登记且未据validation修改的range_cv_reported。验证每场景24例：四场景等权平均误差3.74151米，低于static_robust的5.57182、dynamic_robust的4.75875及legacy_bic的3.91248米；正常静止0.90199米低于预设WLS均值1.10倍阈值1.01550米；移动异常8.36549米低于BIC的9.22411米，但高于dynamic_robust的6.08423米。候选平均69.35417工作单位，高于静态稳健20.53125、动态稳健26.95833及BIC的47.48958；比较未匹配计算量，选择体现预设静止容忍度与四场景等权误差的折中，不代表普遍占优。discovery拒绝了对数残差和常数尺度分别优于距离域reported的假设；Cauchy修订改善对数方法移动异常误差但未通过静止容忍度。受控强制恒速消融显示移动收益与静止代价。登记文字缺陷须保留说明：log_cv_cauchy实际spec为cauchy，其拟合损失为c²log(1+(r/c)²)，留出评分仍为单位尺度soft-L1；range_velocity_reported实际spec为velocity，不执行CV选择；这些解释依工具spec，未经独立实现核验。数学检查支持指定标量乘性噪声模型的自加权偏差公式及镜像不可辨识恒等式，不可推广为完整定位误差证明；局部满秩不足以排除全局歧义。共形边际覆盖需要估计器及正尺度冻结和校准测试交换性，尚无校准或覆盖率实测。仍缺配对差异不确定性、独立数据与实现核验，原移动异常最差4例诊断假设未完成；观测预测评分与当前位置误差目标不等价。所有结论限于已见合成开发数据的点估计，不声称统计非劣、工业验收、原创性或泛化保证。冻结后立即结束开发，测试及校准尚未访问。",
+  "frozen_before_test": true,
+  "registry_sha256": "3b967fbb1c8146664d66c4c2577b6dac80cd5f42f1d093914296071baa2d8c99"
+}

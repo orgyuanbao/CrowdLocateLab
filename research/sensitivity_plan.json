@@ -1,0 +1,31 @@
+{
+  "version": "CrowdLocateLab-sensitivity-v1",
+  "registered_at_utc": "2026-09-24T17:26:03Z",
+  "registration_status": "Written before sensitivity data generation; local record, not third-party timestamp certification.",
+  "purpose": "Evaluate the frozen method's applicability across observation count and range contamination; inspect sparse-sample CV gating without selecting or retuning a method.",
+  "seed": 980221,
+  "observation_counts": [8, 12, 16, 24],
+  "contamination_rates": [0.0, 0.1, 0.25, 0.4],
+  "scenarios": ["static_outliers", "moving_outliers"],
+  "cases_per_cell": 12,
+  "cell_count": 32,
+  "case_count": 384,
+  "method_names": ["llm_selected", "dynamic_robust", "static_wls"],
+  "prediction_count": 1152,
+  "stream_design": "For each grid cell use numpy.random.SeedSequence([seed, SCENARIOS.index(scenario), n, round(10000*contamination)]).spawn(cases_per_cell); each child emits one uint64 generate_case seed. Cells and methods share no generated observations, except that all methods receive the same case within a cell.",
+  "contamination_realization": "The generator corrupts round(n * nominal_rate) observations; save and report actual_outlier_fraction because small n makes realized fractions discrete.",
+  "pairing": "All three fixed methods evaluate every saved case; mean error differences are computed case by case within each cell.",
+  "outcomes": [
+    "mean_position_error_m",
+    "empirical_p90_position_error_m",
+    "mean_work_units",
+    "mean_elapsed_seconds",
+    "selected_model_counts_and_rates",
+    "cv_velocity_allowed_rate_when_diagnostic_available",
+    "paired_mean_error_reduction_relative_to_each_baseline"
+  ],
+  "work_unit_caveat": "Modern solvers count residual evaluations including CV and initialization; legacy baselines expose legacy nfev. Counts are implementation-dependent, so retain wall-clock time as well.",
+  "inference_scope": "Exploratory fixed-grid sensitivity description with only 12 cases per cell. No per-cell significance declarations, universal superiority claims, or multiple-comparison-confirmed conclusions.",
+  "prohibition": "Validate the original research freeze before generating any case. Do not change the frozen method, choose a winning grid region after inspection as a confirmatory claim, or feed sensitivity outcomes back into the agent. No recalibration or coverage claim is part of this study.",
+  "data_scope": "Synthetic planar mean-one lognormal distance observations with the original generator's anchor and additive errors; no external radio or industrial dataset."
+}

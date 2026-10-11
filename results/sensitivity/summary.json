@@ -1,0 +1,3432 @@
+{
+  "status": "complete",
+  "protocol": {
+    "version": "CrowdLocateLab-sensitivity-v1",
+    "evaluation_started_utc": "2026-09-24T17:52:41.291169+00:00",
+    "registered_plan": {
+      "version": "CrowdLocateLab-sensitivity-v1",
+      "registered_at_utc": "2026-09-24T17:26:03Z",
+      "registration_status": "Written before sensitivity data generation; local record, not third-party timestamp certification.",
+      "purpose": "Evaluate the frozen method's applicability across observation count and range contamination; inspect sparse-sample CV gating without selecting or retuning a method.",
+      "seed": 980221,
+      "observation_counts": [
+        8,
+        12,
+        16,
+        24
+      ],
+      "contamination_rates": [
+        0.0,
+        0.1,
+        0.25,
+        0.4
+      ],
+      "scenarios": [
+        "static_outliers",
+        "moving_outliers"
+      ],
+      "cases_per_cell": 12,
+      "cell_count": 32,
+      "case_count": 384,
+      "method_names": [
+        "llm_selected",
+        "dynamic_robust",
+        "static_wls"
+      ],
+      "prediction_count": 1152,
+      "stream_design": "For each grid cell use numpy.random.SeedSequence([seed, SCENARIOS.index(scenario), n, round(10000*contamination)]).spawn(cases_per_cell); each child emits one uint64 generate_case seed. Cells and methods share no generated observations, except that all methods receive the same case within a cell.",
+      "contamination_realization": "The generator corrupts round(n * nominal_rate) observations; save and report actual_outlier_fraction because small n makes realized fractions discrete.",
+      "pairing": "All three fixed methods evaluate every saved case; mean error differences are computed case by case within each cell.",
+      "outcomes": [
+        "mean_position_error_m",
+        "empirical_p90_position_error_m",
+        "mean_work_units",
+        "mean_elapsed_seconds",
+        "selected_model_counts_and_rates",
+        "cv_velocity_allowed_rate_when_diagnostic_available",
+        "paired_mean_error_reduction_relative_to_each_baseline"
+      ],
+      "work_unit_caveat": "Modern solvers count residual evaluations including CV and initialization; legacy baselines expose legacy nfev. Counts are implementation-dependent, so retain wall-clock time as well.",
+      "inference_scope": "Exploratory fixed-grid sensitivity description with only 12 cases per cell. No per-cell significance declarations, universal superiority claims, or multiple-comparison-confirmed conclusions.",
+      "prohibition": "Validate the original research freeze before generating any case. Do not change the frozen method, choose a winning grid region after inspection as a confirmatory claim, or feed sensitivity outcomes back into the agent. No recalibration or coverage claim is part of this study.",
+      "data_scope": "Synthetic planar mean-one lognormal distance observations with the original generator's anchor and additive errors; no external radio or industrial dataset."
+    },
+    "plan_sha256": "1d58335ed15ca4a44f0268146a55bb5a7cb7c98dd1128f26d4197eba6f394922",
+    "sensitivity_script_sha256": "0bb5216152d5967238c2483f0be27f12c05fe6eec16ff9ad29ed15a30c869da5",
+    "frozen_method_sha256": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+    "frozen_method_id": "range_cv_reported",
+    "methods": {
+      "llm_selected": {
+        "consensus_trials": 0,
+        "f_scale": 1.5,
+        "gate_margin": 0.05,
+        "log_bias_correction": true,
+        "log_sd": 0.1,
+        "loss": "soft_l1",
+        "model": "cv_select",
+        "residual": "range",
+        "ridge": 0.05,
+        "scale": "reported",
+        "starts": 3,
+        "trim_fraction": 0.0
+      },
+      "dynamic_robust": {
+        "baseline": "dynamic_robust"
+      },
+      "static_wls": {
+        "baseline": "static_wls"
+      }
+    },
+    "pre_holdout_integrity_check": {
+      "verified_source_files": 14,
+      "verified_evidence_files": 15,
+      "controller_and_toolkit_frozen": true,
+      "is_replay": false,
+      "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+    },
+    "critical_source_sha256": {
+      "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+      "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+      "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+      "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+      "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+      "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+      "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+      "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18",
+      "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+      "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+      "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+      "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+      "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+      "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5"
+    },
+    "environment": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "platform": "Windows-11-10.0.26200-SP0"
+    },
+    "prohibition": "Validate the original research freeze before generating any case. Do not change the frozen method, choose a winning grid region after inspection as a confirmatory claim, or feed sensitivity outcomes back into the agent. No recalibration or coverage claim is part of this study."
+  },
+  "case_count": 384,
+  "prediction_count": 1152,
+  "cells": [
+    {
+      "cell_id": "static_outliers_n8_c0000",
+      "scenario": "static_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 1.8069372502971932,
+          "rmse_m": 2.019514714688814,
+          "median_m": 1.928462370358083,
+          "p90_m": 2.710103826369841,
+          "p95_m": 3.294411140357334,
+          "max_m": 3.90946039439934,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 20.916666666666668,
+          "mean_seconds": 0.0034683583332177173,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 5.389259510396523,
+          "rmse_m": 7.0266923519899676,
+          "median_m": 4.237841443739262,
+          "p90_m": 8.673408740753084,
+          "p95_m": 13.071323990175802,
+          "max_m": 18.39139522277046,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 27.333333333333332,
+          "mean_seconds": 0.004621866666639107,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 1.8617542971060919,
+          "rmse_m": 2.0987925825970177,
+          "median_m": 1.8416218855025557,
+          "p90_m": 2.562108826140311,
+          "p95_m": 3.3631859502639108,
+          "max_m": 4.3103378300682875,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 17.75,
+          "mean_seconds": 0.002856041666594441,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 3.5823222600993296,
+          "median_reduction_m": 2.608634307293272,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.05481704680889912,
+          "median_reduction_m": -0.001007041180482171,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n8_c1000",
+      "scenario": "static_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.125,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 3.0416149287124714,
+          "rmse_m": 3.807706281155174,
+          "median_m": 1.6829569490511134,
+          "p90_m": 6.604021728095007,
+          "p95_m": 6.794641871579165,
+          "max_m": 6.9601584211981775,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 23.666666666666668,
+          "mean_seconds": 0.004521533333445404,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 14.244281653131134,
+          "rmse_m": 18.913367170259857,
+          "median_m": 11.326797108176963,
+          "p90_m": 32.402956666549585,
+          "p95_m": 39.345830475861305,
+          "max_m": 45.52686280813781,
+          "within_5m": 0.25,
+          "within_30m": 0.8333333333333334,
+          "mean_work_units": 34.333333333333336,
+          "mean_seconds": 0.007880958333468394,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 4.0357396938672485,
+          "rmse_m": 5.437571072062224,
+          "median_m": 2.2267087023036636,
+          "p90_m": 8.644983822623194,
+          "p95_m": 9.608568404653653,
+          "max_m": 10.732151383240101,
+          "within_5m": 0.6666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 20.25,
+          "mean_seconds": 0.002846366666896453,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 11.202666724418663,
+          "median_reduction_m": 9.390395521327926,
+          "chosen_lower_error_fraction": 0.8333333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.9941247651547771,
+          "median_reduction_m": 0.671475537659869,
+          "chosen_lower_error_fraction": 0.5833333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n8_c2500",
+      "scenario": "static_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.809854537003058,
+          "rmse_m": 3.1349367124674616,
+          "median_m": 2.8165481538334776,
+          "p90_m": 4.3137607358663566,
+          "p95_m": 5.098257230012627,
+          "max_m": 5.939299993521756,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 23.083333333333332,
+          "mean_seconds": 0.005408199999844025,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 14.07157952117975,
+          "rmse_m": 21.12935786641549,
+          "median_m": 6.023192669261981,
+          "p90_m": 34.87837661503557,
+          "p95_m": 44.90608134286505,
+          "max_m": 54.953499442390054,
+          "within_5m": 0.5,
+          "within_30m": 0.8333333333333334,
+          "mean_work_units": 36.333333333333336,
+          "mean_seconds": 0.008320883333150656,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 4.909319797009046,
+          "rmse_m": 5.596408088759063,
+          "median_m": 4.891139732457536,
+          "p90_m": 9.383460665053205,
+          "p95_m": 9.82170075023511,
+          "max_m": 9.892603253355807,
+          "within_5m": 0.5833333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 26.083333333333332,
+          "mean_seconds": 0.004058541666381643,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 11.26172498417669,
+          "median_reduction_m": 3.4619988080985764,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 2.0994652600059887,
+          "median_reduction_m": 1.9088769551632505,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n8_c4000",
+      "scenario": "static_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.375,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 4.936752991409409,
+          "rmse_m": 6.174915702740404,
+          "median_m": 4.116834985087339,
+          "p90_m": 10.9142786229009,
+          "p95_m": 12.067082886387954,
+          "max_m": 13.029614361462459,
+          "within_5m": 0.6666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 32.0,
+          "mean_seconds": 0.005572774999867154,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 21.18123785101877,
+          "rmse_m": 25.102687959806815,
+          "median_m": 20.235950688220434,
+          "p90_m": 38.59708472992623,
+          "p95_m": 40.88941627345567,
+          "max_m": 43.5141594730482,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 0.75,
+          "mean_work_units": 40.166666666666664,
+          "mean_seconds": 0.00664569999980813,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 9.725901589296985,
+          "rmse_m": 11.746921667137594,
+          "median_m": 8.879834025411853,
+          "p90_m": 13.59071512863986,
+          "p95_m": 20.227252964539964,
+          "max_m": 28.136695326494493,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 31.416666666666668,
+          "mean_seconds": 0.003913375000289913,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 16.24448485960936,
+          "median_reduction_m": 13.654078572715807,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 4.789148597887574,
+          "median_reduction_m": 2.54143089735107,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n12_c0000",
+      "scenario": "static_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.2953565452766327,
+          "rmse_m": 3.3084500529842424,
+          "median_m": 1.2263443170323092,
+          "p90_m": 6.7879228263199725,
+          "p95_m": 7.123766883446858,
+          "max_m": 7.166121953909121,
+          "within_5m": 0.8333333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 50.5,
+          "mean_seconds": 0.011253641666674715,
+          "selected_model_counts": {
+            "static": 9,
+            "velocity": 3
+          },
+          "selected_model_rates": {
+            "static": 0.75,
+            "unknown": 0.0,
+            "velocity": 0.25
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 3.941784771063896,
+          "rmse_m": 4.411171600360004,
+          "median_m": 3.7783093769071425,
+          "p90_m": 7.016436676825873,
+          "p95_m": 7.123766883446857,
+          "max_m": 7.166121953909124,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 20.916666666666668,
+          "mean_seconds": 0.003753624999717431,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 0.9141306862149525,
+          "rmse_m": 1.0551825296377666,
+          "median_m": 0.761348476673721,
+          "p90_m": 1.6330656582473662,
+          "p95_m": 1.8526614619312305,
+          "max_m": 2.0810655033281704,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 15.333333333333334,
+          "mean_seconds": 0.0021583999999468992,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.6464282257872644,
+          "median_reduction_m": 1.472626073411363,
+          "chosen_lower_error_fraction": 0.8333333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -1.38122585906168,
+          "median_reduction_m": -0.09339046537575046,
+          "chosen_lower_error_fraction": 0.3333333333333333,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n12_c1000",
+      "scenario": "static_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.08333333333333333,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.38769040343318,
+          "rmse_m": 2.9756415543811015,
+          "median_m": 1.542387374853822,
+          "p90_m": 5.416083273277159,
+          "p95_m": 5.473653213336819,
+          "max_m": 5.493060172770384,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 63.916666666666664,
+          "mean_seconds": 0.013111008333453356,
+          "selected_model_counts": {
+            "static": 9,
+            "velocity": 3
+          },
+          "selected_model_rates": {
+            "static": 0.75,
+            "unknown": 0.0,
+            "velocity": 0.25
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 3.484629611426007,
+          "rmse_m": 3.927829802421026,
+          "median_m": 3.2505655374453495,
+          "p90_m": 5.548590521135687,
+          "p95_m": 5.625235375789879,
+          "max_m": 5.711371261947247,
+          "within_5m": 0.5833333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 21.083333333333332,
+          "mean_seconds": 0.005209458333411021,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 1.8867393918982627,
+          "rmse_m": 2.6015456960686114,
+          "median_m": 1.7429832143446606,
+          "p90_m": 3.006114537648865,
+          "p95_m": 4.795230683285185,
+          "max_m": 6.912038979496971,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 15.333333333333334,
+          "mean_seconds": 0.0031293250000696085,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.0969392079928275,
+          "median_reduction_m": 0.6520173424838117,
+          "chosen_lower_error_fraction": 0.8333333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.5009510115349177,
+          "median_reduction_m": -0.061639531100699974,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n12_c2500",
+      "scenario": "static_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.261038383918604,
+          "rmse_m": 2.8710109744231187,
+          "median_m": 1.8950982253643616,
+          "p90_m": 4.03146365597461,
+          "p95_m": 5.514536518804114,
+          "max_m": 7.131361076084425,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 83.75,
+          "mean_seconds": 0.02323061666644814,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 6.4582878670234,
+          "rmse_m": 8.569575411778596,
+          "median_m": 5.504199539667161,
+          "p90_m": 7.681914056866194,
+          "p95_m": 14.86674224088878,
+          "max_m": 23.566679783359643,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 34.0,
+          "mean_seconds": 0.008614424999905168,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 5.009071068632419,
+          "rmse_m": 6.453353404002901,
+          "median_m": 3.35937224331688,
+          "p90_m": 10.734616718698812,
+          "p95_m": 13.02453178893371,
+          "max_m": 15.232460517518431,
+          "within_5m": 0.6666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 23.25,
+          "mean_seconds": 0.004598566666876043,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 4.1972494831047955,
+          "median_reduction_m": 3.063520570452648,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 2.7480326847138152,
+          "median_reduction_m": 1.924206376822632,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n12_c4000",
+      "scenario": "static_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.4166666666666667,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 11.468594599173107,
+          "rmse_m": 15.256340596677509,
+          "median_m": 7.569759104752661,
+          "p90_m": 15.277388933519712,
+          "p95_m": 27.10601768466731,
+          "max_m": 41.5503080512341,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 106.16666666666667,
+          "mean_seconds": 0.028183874999892094,
+          "selected_model_counts": {
+            "static": 7,
+            "velocity": 5
+          },
+          "selected_model_rates": {
+            "static": 0.5833333333333334,
+            "unknown": 0.0,
+            "velocity": 0.4166666666666667
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 18.41892730214849,
+          "rmse_m": 21.43060863568153,
+          "median_m": 15.081818438410412,
+          "p90_m": 37.22832774841787,
+          "p95_m": 39.75763003435254,
+          "max_m": 41.55030805123403,
+          "within_5m": 0.0,
+          "within_30m": 0.8333333333333334,
+          "mean_work_units": 40.916666666666664,
+          "mean_seconds": 0.010545608333056103,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 8.098550642751604,
+          "rmse_m": 8.491962130180651,
+          "median_m": 7.577891955256308,
+          "p90_m": 11.164214873356114,
+          "p95_m": 12.279572732063553,
+          "max_m": 13.56482780356675,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 25.5,
+          "mean_seconds": 0.0046950083333285875,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 6.950332702975385,
+          "median_reduction_m": 2.6174930980590796,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -3.370043956421501,
+          "median_reduction_m": 0.4447998786995486,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n16_c0000",
+      "scenario": "static_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 1.1892952288559306,
+          "rmse_m": 1.3210230179184845,
+          "median_m": 1.311271295851928,
+          "p90_m": 1.6798388714036763,
+          "p95_m": 1.932447008226861,
+          "max_m": 2.2288956163096185,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 48.083333333333336,
+          "mean_seconds": 0.015070333333217908,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 2.52084608290934,
+          "rmse_m": 2.8068738777920688,
+          "median_m": 2.356011602532602,
+          "p90_m": 4.007756364052364,
+          "p95_m": 4.653885630231019,
+          "max_m": 5.353739754651732,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 19.333333333333332,
+          "mean_seconds": 0.005267508333569519,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 1.1986525651921311,
+          "rmse_m": 1.3119238977626617,
+          "median_m": 1.3358281538815264,
+          "p90_m": 1.6766917929575924,
+          "p95_m": 1.8862177010855414,
+          "max_m": 2.134119030418711,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 14.0,
+          "mean_seconds": 0.0029098666664140183,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.3315508540534093,
+          "median_reduction_m": 1.0403662355532102,
+          "chosen_lower_error_fraction": 1.0,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.0093573363362007,
+          "median_reduction_m": -0.009012440420428702,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n16_c1000",
+      "scenario": "static_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.125,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.861053678873968,
+          "rmse_m": 4.86557600810704,
+          "median_m": 1.1644089799989779,
+          "p90_m": 6.553247570787465,
+          "p95_m": 10.10517338932024,
+          "max_m": 14.248877284432202,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 68.25,
+          "mean_seconds": 0.020266791666472272,
+          "selected_model_counts": {
+            "static": 10,
+            "velocity": 2
+          },
+          "selected_model_rates": {
+            "static": 0.8333333333333334,
+            "unknown": 0.0,
+            "velocity": 0.16666666666666666
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 4.899538649590364,
+          "rmse_m": 6.5120093510981105,
+          "median_m": 3.884680359391761,
+          "p90_m": 10.204511609707371,
+          "p95_m": 12.075423582763259,
+          "max_m": 14.249205722771533,
+          "within_5m": 0.5833333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 26.833333333333332,
+          "mean_seconds": 0.00615225000016532,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 3.0463759784695994,
+          "rmse_m": 4.160326023439971,
+          "median_m": 1.881842475624571,
+          "p90_m": 6.628578882681562,
+          "p95_m": 8.205434020860052,
+          "max_m": 9.88452946726725,
+          "within_5m": 0.8333333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 15.25,
+          "mean_seconds": 0.003244608333261567,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 2.038484970716396,
+          "median_reduction_m": 0.6953065251787854,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.18532229959563062,
+          "median_reduction_m": 0.4488550290442403,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n16_c2500",
+      "scenario": "static_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.3055686986790827,
+          "rmse_m": 2.802143778318994,
+          "median_m": 1.7674757157905587,
+          "p90_m": 4.4143559520070665,
+          "p95_m": 5.226496002038957,
+          "max_m": 6.071896476740452,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 78.16666666666667,
+          "mean_seconds": 0.022365433332955337,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 11.661457857969628,
+          "rmse_m": 15.634466061467052,
+          "median_m": 7.784882988689366,
+          "p90_m": 31.06480889776674,
+          "p95_m": 33.678143618403794,
+          "max_m": 34.334649034198726,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 0.8333333333333334,
+          "mean_work_units": 35.083333333333336,
+          "mean_seconds": 0.008432933333400191,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 3.9197495922758363,
+          "rmse_m": 4.597849298252847,
+          "median_m": 3.557732705367944,
+          "p90_m": 6.496110754373753,
+          "p95_m": 7.491340399427792,
+          "max_m": 8.683251530872626,
+          "within_5m": 0.6666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 19.166666666666668,
+          "mean_seconds": 0.003919349999857029,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 9.355889159290543,
+          "median_reduction_m": 5.960155302418871,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.6141808935967525,
+          "median_reduction_m": 1.4874683078862803,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n16_c4000",
+      "scenario": "static_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.375,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 3.184007281282671,
+          "rmse_m": 3.9950567066496627,
+          "median_m": 2.706190805004265,
+          "p90_m": 5.731987967790597,
+          "p95_m": 7.135954189449525,
+          "max_m": 8.83816577384807,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 86.91666666666667,
+          "mean_seconds": 0.0236270916666399,
+          "selected_model_counts": {
+            "static": 11,
+            "velocity": 1
+          },
+          "selected_model_rates": {
+            "static": 0.9166666666666666,
+            "unknown": 0.0,
+            "velocity": 0.08333333333333333
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 10.206609168375039,
+          "rmse_m": 14.873048821479651,
+          "median_m": 5.374942869707441,
+          "p90_m": 21.36168489460181,
+          "p95_m": 29.422651010827106,
+          "max_m": 38.79384902933178,
+          "within_5m": 0.4166666666666667,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 36.75,
+          "mean_seconds": 0.009168233333639364,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 4.318203785205456,
+          "rmse_m": 5.140211250480565,
+          "median_m": 4.31914485115509,
+          "p90_m": 8.711302959477763,
+          "p95_m": 9.22603871144851,
+          "max_m": 9.434765820931219,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 20.25,
+          "mean_seconds": 0.003911275000064052,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 7.022601887092368,
+          "median_reduction_m": 2.533557175327708,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.1341965039227846,
+          "median_reduction_m": 1.3466366590651013,
+          "chosen_lower_error_fraction": 0.8333333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n24_c0000",
+      "scenario": "static_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 0.8969259280532472,
+          "rmse_m": 1.0559638145520716,
+          "median_m": 0.776348707418802,
+          "p90_m": 1.7838551153196676,
+          "p95_m": 1.8678956856384858,
+          "max_m": 1.9269028770557088,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 46.75,
+          "mean_seconds": 0.015089199999541355,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 1.8610151781227664,
+          "rmse_m": 2.089603981614314,
+          "median_m": 1.8420379355850045,
+          "p90_m": 2.9133936864333503,
+          "p95_m": 3.152615052361547,
+          "max_m": 3.417455028414189,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 18.583333333333332,
+          "mean_seconds": 0.005743124999450326,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 0.9026860770419879,
+          "rmse_m": 1.0396043894966167,
+          "median_m": 0.833714712140063,
+          "p90_m": 1.6389834527396998,
+          "p95_m": 1.7522255930083481,
+          "max_m": 1.8706980100025787,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 13.416666666666666,
+          "mean_seconds": 0.003210283333373809,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.964089250069519,
+          "median_reduction_m": 1.0869302388159185,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.005760148988740582,
+          "median_reduction_m": 0.013032122775703536,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n24_c1000",
+      "scenario": "static_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.08333333333333333,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 1.5062564136409102,
+          "rmse_m": 1.8305168741856943,
+          "median_m": 1.2334523160437285,
+          "p90_m": 3.262660666236743,
+          "p95_m": 3.4970704352540287,
+          "max_m": 3.615865081745229,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 57.5,
+          "mean_seconds": 0.019108600000132963,
+          "selected_model_counts": {
+            "static": 10,
+            "velocity": 2
+          },
+          "selected_model_rates": {
+            "static": 0.8333333333333334,
+            "unknown": 0.0,
+            "velocity": 0.16666666666666666
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 2.7435736033157334,
+          "rmse_m": 3.1488867983938054,
+          "median_m": 2.3404663100589262,
+          "p90_m": 5.093651274462112,
+          "p95_m": 5.449908783242812,
+          "max_m": 5.698482216412863,
+          "within_5m": 0.8333333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 22.583333333333332,
+          "mean_seconds": 0.0060956916666630905,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 2.2295647192605004,
+          "rmse_m": 2.7556095157184948,
+          "median_m": 1.6699520241022237,
+          "p90_m": 4.290167471658161,
+          "p95_m": 5.012169038158297,
+          "max_m": 5.827560641471994,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 14.916666666666666,
+          "mean_seconds": 0.0029982083331863882,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.2373171896748232,
+          "median_reduction_m": 0.611887675095189,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.7233083056195904,
+          "median_reduction_m": 0.5990182052193539,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n24_c2500",
+      "scenario": "static_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 1.9403700492909197,
+          "rmse_m": 2.166652480078462,
+          "median_m": 1.5080814206931126,
+          "p90_m": 3.268617923071664,
+          "p95_m": 3.589299230803532,
+          "max_m": 3.9219560481746973,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 59.416666666666664,
+          "mean_seconds": 0.012292408333451021,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 3.7670455151152624,
+          "rmse_m": 4.474545466888384,
+          "median_m": 3.8694620544936456,
+          "p90_m": 6.230817153802529,
+          "p95_m": 7.521861131957593,
+          "max_m": 8.988974615532422,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 22.333333333333332,
+          "mean_seconds": 0.003783983333505603,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 3.6676433584714094,
+          "rmse_m": 4.155077873500504,
+          "median_m": 3.3726060487442746,
+          "p90_m": 6.377750776858796,
+          "p95_m": 6.61340134485213,
+          "max_m": 6.803530550311594,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 15.5,
+          "mean_seconds": 0.002231216666435406,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.8266754658243434,
+          "median_reduction_m": 1.5691889670096042,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.7272733091804902,
+          "median_reduction_m": 1.3284714741843713,
+          "chosen_lower_error_fraction": 1.0,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "static_outliers_n24_c4000",
+      "scenario": "static_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.4166666666666667,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 6.133056478893239,
+          "rmse_m": 8.203525563524373,
+          "median_m": 3.784985876199012,
+          "p90_m": 12.824226937028177,
+          "p95_m": 17.19728221321332,
+          "max_m": 21.583758783813202,
+          "within_5m": 0.6666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 79.25,
+          "mean_seconds": 0.015299066666557337,
+          "selected_model_counts": {
+            "static": 10,
+            "velocity": 2
+          },
+          "selected_model_rates": {
+            "static": 0.8333333333333334,
+            "unknown": 0.0,
+            "velocity": 0.16666666666666666
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 11.175927974495934,
+          "rmse_m": 14.383270286535538,
+          "median_m": 8.60988389705821,
+          "p90_m": 21.093815168600386,
+          "p95_m": 27.207985453384957,
+          "max_m": 34.12286168664449,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 30.333333333333332,
+          "mean_seconds": 0.005654091666959478,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 7.469912931748504,
+          "rmse_m": 7.6993699037432455,
+          "median_m": 7.526945767063841,
+          "p90_m": 9.259607275495986,
+          "p95_m": 9.63232244518333,
+          "max_m": 10.080487258870473,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 18.666666666666668,
+          "mean_seconds": 0.003629508333536554,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 5.042871495602695,
+          "median_reduction_m": 2.109658399690963,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.3368564528552638,
+          "median_reduction_m": 3.2218244662137465,
+          "chosen_lower_error_fraction": 0.8333333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n8_c0000",
+      "scenario": "moving_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 11.526412703529301,
+          "rmse_m": 12.632605061761073,
+          "median_m": 11.570302392616135,
+          "p90_m": 17.018964862119564,
+          "p95_m": 17.79901235402385,
+          "max_m": 18.698674593368256,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 29.583333333333332,
+          "mean_seconds": 0.007328683333374404,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 4.198847459570878,
+          "rmse_m": 4.765207652326382,
+          "median_m": 3.1385191033949873,
+          "p90_m": 7.4414378003768045,
+          "p95_m": 8.10396887452174,
+          "max_m": 8.748941871594662,
+          "within_5m": 0.5833333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 33.083333333333336,
+          "mean_seconds": 0.007896674999907797,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 10.339428405304142,
+          "rmse_m": 11.340175600621437,
+          "median_m": 10.363947404711073,
+          "p90_m": 15.63292176892547,
+          "p95_m": 16.477113860012835,
+          "max_m": 17.415607147730388,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 24.833333333333332,
+          "mean_seconds": 0.005050025000097473,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -7.327565243958424,
+          "median_reduction_m": -7.868001544191832,
+          "chosen_lower_error_fraction": 0.08333333333333333,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -1.1869842982251593,
+          "median_reduction_m": -1.019720241673519,
+          "chosen_lower_error_fraction": 0.25,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n8_c1000",
+      "scenario": "moving_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.125,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 9.125434473626525,
+          "rmse_m": 10.061778851766434,
+          "median_m": 7.623495812115017,
+          "p90_m": 13.730315357629344,
+          "p95_m": 16.30426226496199,
+          "max_m": 19.22973961174873,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 23.0,
+          "mean_seconds": 0.005352241666514601,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 9.621389179138346,
+          "rmse_m": 11.689710308105395,
+          "median_m": 9.793841885269458,
+          "p90_m": 17.824528720090008,
+          "p95_m": 20.171705732099653,
+          "max_m": 22.90404216965651,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 36.916666666666664,
+          "mean_seconds": 0.010193875000216698,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 8.667136487531996,
+          "rmse_m": 9.37204139361529,
+          "median_m": 7.783361908023847,
+          "p90_m": 12.025462961354418,
+          "p95_m": 14.577101412454274,
+          "max_m": 17.664553407719488,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 23.833333333333332,
+          "mean_seconds": 0.004571266667123079,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.49595470551182136,
+          "median_reduction_m": 1.2004450013625045,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.45829798609452665,
+          "median_reduction_m": -0.48349067872026374,
+          "chosen_lower_error_fraction": 0.3333333333333333,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n8_c2500",
+      "scenario": "moving_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 10.955594899568789,
+          "rmse_m": 12.325803305310407,
+          "median_m": 11.370594203472443,
+          "p90_m": 17.689223723206858,
+          "p95_m": 19.74821148980829,
+          "max_m": 21.96765927826036,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 31.666666666666668,
+          "mean_seconds": 0.006307991666896366,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 14.972761678633924,
+          "rmse_m": 17.916201885402295,
+          "median_m": 11.986407220147461,
+          "p90_m": 30.91897588430632,
+          "p95_m": 32.96822240429266,
+          "max_m": 34.60918303546503,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 0.8333333333333334,
+          "mean_work_units": 44.333333333333336,
+          "mean_seconds": 0.0099337416668277,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 9.994611738825053,
+          "rmse_m": 11.393770166162255,
+          "median_m": 10.109631858441308,
+          "p90_m": 16.126417451856675,
+          "p95_m": 17.996620024337748,
+          "max_m": 20.058177876038286,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 28.75,
+          "mean_seconds": 0.0033103333330473106,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 4.017166779065135,
+          "median_reduction_m": 0.88792727949384,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.9609831607437371,
+          "median_reduction_m": -0.8644483995967416,
+          "chosen_lower_error_fraction": 0.25,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n8_c4000",
+      "scenario": "moving_outliers",
+      "n_observations": 8,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.375,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 14.168632982819963,
+          "rmse_m": 17.059591982323195,
+          "median_m": 11.850589032791259,
+          "p90_m": 24.615889245838893,
+          "p95_m": 31.70851469958245,
+          "max_m": 39.571778273706194,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 38.166666666666664,
+          "mean_seconds": 0.005086825000186461,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 0.0,
+          "mean_completed_cv_folds": 0.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 18.26510608266199,
+          "rmse_m": 19.647733796081052,
+          "median_m": 15.489817787953942,
+          "p90_m": 26.976905109623402,
+          "p95_m": 29.74598460212505,
+          "max_m": 32.76266756593807,
+          "within_5m": 0.0,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 48.833333333333336,
+          "mean_seconds": 0.00847381666653746,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 14.467423650671433,
+          "rmse_m": 17.087739906086163,
+          "median_m": 11.550306591008596,
+          "p90_m": 25.8139221782936,
+          "p95_m": 31.511391068792644,
+          "max_m": 37.815311649695936,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 29.916666666666668,
+          "mean_seconds": 0.003708924999955343,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 4.0964730998420285,
+          "median_reduction_m": 2.516365324796281,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.29879066785146896,
+          "median_reduction_m": 0.29637907264305596,
+          "chosen_lower_error_fraction": 0.5833333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n12_c0000",
+      "scenario": "moving_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 4.647328472148508,
+          "rmse_m": 6.244483996117835,
+          "median_m": 3.2536938058573623,
+          "p90_m": 10.691136429011873,
+          "p95_m": 12.86387092951398,
+          "max_m": 14.981706436826942,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 93.5,
+          "mean_seconds": 0.02087774166663318,
+          "selected_model_counts": {
+            "static": 2,
+            "velocity": 10
+          },
+          "selected_model_rates": {
+            "static": 0.16666666666666666,
+            "unknown": 0.0,
+            "velocity": 0.8333333333333334
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 3.000119194641807,
+          "rmse_m": 4.084541011962982,
+          "median_m": 2.388967413240516,
+          "p90_m": 4.4512550767488746,
+          "p95_m": 7.479146755202432,
+          "max_m": 11.131096423530646,
+          "within_5m": 0.9166666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 33.166666666666664,
+          "mean_seconds": 0.008433833333583607,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 13.756600905140573,
+          "rmse_m": 14.290577608416967,
+          "median_m": 14.234097681498739,
+          "p90_m": 18.618132833013053,
+          "p95_m": 19.35933792508262,
+          "max_m": 20.151669480355096,
+          "within_5m": 0.0,
+          "within_30m": 1.0,
+          "mean_work_units": 23.666666666666668,
+          "mean_seconds": 0.004899499999889183,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -1.6472092775066998,
+          "median_reduction_m": -1.1102230246251565e-15,
+          "chosen_lower_error_fraction": 0.25,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 9.109272432992066,
+          "median_reduction_m": 9.386126845636607,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n12_c1000",
+      "scenario": "moving_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.08333333333333333,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 6.090253892246174,
+          "rmse_m": 7.170807254851308,
+          "median_m": 5.055605983413232,
+          "p90_m": 10.078614650256691,
+          "p95_m": 12.80726363482492,
+          "max_m": 15.773418890052751,
+          "within_5m": 0.4166666666666667,
+          "within_30m": 1.0,
+          "mean_work_units": 86.0,
+          "mean_seconds": 0.02483427499979977,
+          "selected_model_counts": {
+            "static": 3,
+            "velocity": 9
+          },
+          "selected_model_rates": {
+            "static": 0.25,
+            "unknown": 0.0,
+            "velocity": 0.75
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 4.749262907343973,
+          "rmse_m": 5.455078322651734,
+          "median_m": 4.155773019567787,
+          "p90_m": 8.77823677433732,
+          "p95_m": 9.585684907104811,
+          "max_m": 10.380300314268936,
+          "within_5m": 0.5833333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 33.916666666666664,
+          "mean_seconds": 0.009301758333094767,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 10.402507251004675,
+          "rmse_m": 11.54051040991794,
+          "median_m": 9.540853064171994,
+          "p90_m": 17.69465418560317,
+          "p95_m": 18.06730433724604,
+          "max_m": 18.248723387049118,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 23.75,
+          "mean_seconds": 0.004840716666573523,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -1.3409909849022004,
+          "median_reduction_m": 0.0,
+          "chosen_lower_error_fraction": 0.4166666666666667,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 4.312253358758502,
+          "median_reduction_m": 3.4629311577888724,
+          "chosen_lower_error_fraction": 0.6666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n12_c2500",
+      "scenario": "moving_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 10.801396148378307,
+          "rmse_m": 11.872332356693263,
+          "median_m": 11.85008866774049,
+          "p90_m": 14.917838786720997,
+          "p95_m": 17.443983097973724,
+          "max_m": 20.519454667062057,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 108.16666666666667,
+          "mean_seconds": 0.020734275000146834,
+          "selected_model_counts": {
+            "static": 6,
+            "velocity": 6
+          },
+          "selected_model_rates": {
+            "static": 0.5,
+            "unknown": 0.0,
+            "velocity": 0.5
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 7.68830777652433,
+          "rmse_m": 8.485995533334384,
+          "median_m": 7.888678781651052,
+          "p90_m": 12.830240800660203,
+          "p95_m": 13.33720329398103,
+          "max_m": 13.747105062484103,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 39.333333333333336,
+          "mean_seconds": 0.006729374999849824,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 13.460813053376386,
+          "rmse_m": 14.939266595420003,
+          "median_m": 12.49643475315931,
+          "p90_m": 21.802493160700095,
+          "p95_m": 23.199181321596125,
+          "max_m": 24.4285686670669,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 31.166666666666668,
+          "mean_seconds": 0.0038493083338835277,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -3.1130883718539786,
+          "median_reduction_m": -0.0001024923806396405,
+          "chosen_lower_error_fraction": 0.16666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 2.65941690499808,
+          "median_reduction_m": 1.6863949453006146,
+          "chosen_lower_error_fraction": 0.5833333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n12_c4000",
+      "scenario": "moving_outliers",
+      "n_observations": 12,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.4166666666666667,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 14.661439197349138,
+          "rmse_m": 18.73288407691791,
+          "median_m": 11.314414567181515,
+          "p90_m": 27.595393329672703,
+          "p95_m": 36.244062308676426,
+          "max_m": 45.91203971459112,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 144.0,
+          "mean_seconds": 0.03201886666677941,
+          "selected_model_counts": {
+            "static": 8,
+            "velocity": 4
+          },
+          "selected_model_rates": {
+            "static": 0.6666666666666666,
+            "unknown": 0.0,
+            "velocity": 0.3333333333333333
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 17.974637859251306,
+          "rmse_m": 23.06408012508969,
+          "median_m": 12.856318423866771,
+          "p90_m": 44.1536122423373,
+          "p95_m": 47.21044367213321,
+          "max_m": 48.79738184246236,
+          "within_5m": 0.16666666666666666,
+          "within_30m": 0.8333333333333334,
+          "mean_work_units": 47.083333333333336,
+          "mean_seconds": 0.011927183333682478,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 9.473382160359028,
+          "rmse_m": 11.01605925163167,
+          "median_m": 10.115313516293513,
+          "p90_m": 17.55765056558418,
+          "p95_m": 17.794803700505717,
+          "max_m": 17.947343311695338,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 31.833333333333332,
+          "mean_seconds": 0.006308158333467873,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": 3.3131986619021654,
+          "median_reduction_m": 1.043745678665986,
+          "chosen_lower_error_fraction": 0.5833333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -5.188057036990109,
+          "median_reduction_m": -2.7909454109013327,
+          "chosen_lower_error_fraction": 0.16666666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n16_c0000",
+      "scenario": "moving_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 4.661317817715676,
+          "rmse_m": 6.241213705301993,
+          "median_m": 3.35113966518261,
+          "p90_m": 8.314979986778539,
+          "p95_m": 11.868542922763435,
+          "max_m": 16.035433751418026,
+          "within_5m": 0.6666666666666666,
+          "within_30m": 1.0,
+          "mean_work_units": 72.08333333333333,
+          "mean_seconds": 0.014968316667060813,
+          "selected_model_counts": {
+            "static": 2,
+            "velocity": 10
+          },
+          "selected_model_rates": {
+            "static": 0.16666666666666666,
+            "unknown": 0.0,
+            "velocity": 0.8333333333333334
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 3.453372249712833,
+          "rmse_m": 3.968624759401374,
+          "median_m": 3.3511757045198,
+          "p90_m": 5.424715637970458,
+          "p95_m": 6.142166848232572,
+          "max_m": 7.012462162224757,
+          "within_5m": 0.75,
+          "within_30m": 1.0,
+          "mean_work_units": 27.25,
+          "mean_seconds": 0.0047624416667228315,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 11.083974368388574,
+          "rmse_m": 12.032004339323127,
+          "median_m": 10.40563634599522,
+          "p90_m": 16.021486081777876,
+          "p95_m": 18.8166946755148,
+          "max_m": 22.005366753171778,
+          "within_5m": 0.0,
+          "within_30m": 1.0,
+          "mean_work_units": 21.083333333333332,
+          "mean_seconds": 0.0028318166666091806,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -1.207945568002843,
+          "median_reduction_m": -2.220446049250313e-15,
+          "chosen_lower_error_fraction": 0.25,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 6.422656550672898,
+          "median_reduction_m": 5.044682748809864,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n16_c1000",
+      "scenario": "moving_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.125,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 12.93628781429625,
+          "rmse_m": 20.954853252264044,
+          "median_m": 7.688308478522027,
+          "p90_m": 18.61891653695968,
+          "p95_m": 39.22747989434039,
+          "max_m": 64.28338112162567,
+          "within_5m": 0.4166666666666667,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 90.25,
+          "mean_seconds": 0.01960395833354293,
+          "selected_model_counts": {
+            "static": 4,
+            "velocity": 8
+          },
+          "selected_model_rates": {
+            "static": 0.3333333333333333,
+            "unknown": 0.0,
+            "velocity": 0.6666666666666666
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 10.559442851115973,
+          "rmse_m": 19.567132472448172,
+          "median_m": 6.224514484079108,
+          "p90_m": 11.035894266548896,
+          "p95_m": 35.12071686376448,
+          "max_m": 64.28338112162567,
+          "within_5m": 0.5,
+          "within_30m": 0.9166666666666666,
+          "mean_work_units": 32.666666666666664,
+          "mean_seconds": 0.00958098333376256,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 12.575060819375288,
+          "rmse_m": 13.54861414202405,
+          "median_m": 14.225800956387225,
+          "p90_m": 18.02453602934571,
+          "p95_m": 18.50120879691758,
+          "max_m": 18.9527308550025,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 24.75,
+          "mean_seconds": 0.004011308333550308,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -2.3768449631802806,
+          "median_reduction_m": -0.0011749531171103555,
+          "chosen_lower_error_fraction": 0.25,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.3612269949209632,
+          "median_reduction_m": 5.27525326710767,
+          "chosen_lower_error_fraction": 0.8333333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n16_c2500",
+      "scenario": "moving_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 10.409262510499493,
+          "rmse_m": 11.981693224637429,
+          "median_m": 8.442448320062702,
+          "p90_m": 18.886661310179655,
+          "p95_m": 21.008127607547433,
+          "max_m": 23.017894649054597,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 76.83333333333333,
+          "mean_seconds": 0.020660233333122353,
+          "selected_model_counts": {
+            "static": 11,
+            "velocity": 1
+          },
+          "selected_model_rates": {
+            "static": 0.9166666666666666,
+            "unknown": 0.0,
+            "velocity": 0.08333333333333333
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 8.48407753776094,
+          "rmse_m": 10.747272992963868,
+          "median_m": 8.100810200480574,
+          "p90_m": 17.73257124972667,
+          "p95_m": 18.476590728539602,
+          "max_m": 19.36275694450578,
+          "within_5m": 0.4166666666666667,
+          "within_30m": 1.0,
+          "mean_work_units": 29.416666666666668,
+          "mean_seconds": 0.008758825000162082,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 10.2631862274883,
+          "rmse_m": 11.706263234616323,
+          "median_m": 10.638446265159732,
+          "p90_m": 14.80459858942443,
+          "p95_m": 18.435943056057145,
+          "max_m": 22.82343672997017,
+          "within_5m": 0.3333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 20.916666666666668,
+          "mean_seconds": 0.0031877249997099475,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -1.9251849727385524,
+          "median_reduction_m": -1.3281622912603757,
+          "chosen_lower_error_fraction": 0.3333333333333333,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.14607628301119613,
+          "median_reduction_m": 0.03104588960124266,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n16_c4000",
+      "scenario": "moving_outliers",
+      "n_observations": 16,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.375,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 9.317081287473615,
+          "rmse_m": 10.687211941079951,
+          "median_m": 7.38939868392322,
+          "p90_m": 17.39786743343805,
+          "p95_m": 17.90253464605524,
+          "max_m": 18.25567254181164,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 105.33333333333333,
+          "mean_seconds": 0.022878175000490348,
+          "selected_model_counts": {
+            "static": 9,
+            "velocity": 3
+          },
+          "selected_model_rates": {
+            "static": 0.75,
+            "unknown": 0.0,
+            "velocity": 0.25
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 7.175081039171604,
+          "rmse_m": 9.102871478508009,
+          "median_m": 5.448812102171939,
+          "p90_m": 15.142936684001528,
+          "p95_m": 16.468739026106263,
+          "max_m": 17.706235916348934,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 37.416666666666664,
+          "mean_seconds": 0.006260358333444553,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 10.880220174497348,
+          "rmse_m": 12.59830455702916,
+          "median_m": 8.87669107251474,
+          "p90_m": 19.25901076661189,
+          "p95_m": 19.475557044331083,
+          "max_m": 19.65621176419954,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 25.166666666666668,
+          "mean_seconds": 0.003266233332851698,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -2.1420002483020095,
+          "median_reduction_m": -0.9305639179600672,
+          "chosen_lower_error_fraction": 0.25,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.563138887023735,
+          "median_reduction_m": 1.213652756788285,
+          "chosen_lower_error_fraction": 0.75,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n24_c0000",
+      "scenario": "moving_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.0,
+      "actual_contamination": 0.0,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 1.777933397016272,
+          "rmse_m": 2.021328589740963,
+          "median_m": 1.8305200047398564,
+          "p90_m": 2.4378759640900878,
+          "p95_m": 3.2530261680751176,
+          "max_m": 4.209121779634764,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 58.75,
+          "mean_seconds": 0.013288275000377325,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 1.777902471946298,
+          "rmse_m": 2.0213130307986806,
+          "median_m": 1.830520004739857,
+          "p90_m": 2.4378759640900878,
+          "p95_m": 3.2530261680751167,
+          "max_m": 4.209121779634762,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 23.0,
+          "mean_seconds": 0.0059871583330277645,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 8.50522029125811,
+          "rmse_m": 8.820265621178857,
+          "median_m": 9.78567553765619,
+          "p90_m": 11.013048180260574,
+          "p95_m": 11.083290487212356,
+          "max_m": 11.093932761771203,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 16.916666666666668,
+          "mean_seconds": 0.0038730250003027322,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -3.092506997436073e-05,
+          "median_reduction_m": -1.2212453270876722e-15,
+          "chosen_lower_error_fraction": 0.3333333333333333,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 6.727286894241839,
+          "median_reduction_m": 7.484130257926084,
+          "chosen_lower_error_fraction": 1.0,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n24_c1000",
+      "scenario": "moving_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.1,
+      "actual_contamination": 0.08333333333333333,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 2.938467303221767,
+          "rmse_m": 3.8619683744091575,
+          "median_m": 1.7085539128965932,
+          "p90_m": 7.021393418497537,
+          "p95_m": 7.87606756532782,
+          "max_m": 8.525866777485245,
+          "within_5m": 0.8333333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 62.666666666666664,
+          "mean_seconds": 0.020307566666815546,
+          "selected_model_counts": {
+            "static": 1,
+            "velocity": 11
+          },
+          "selected_model_rates": {
+            "static": 0.08333333333333333,
+            "unknown": 0.0,
+            "velocity": 0.9166666666666666
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 2.6983307859211543,
+          "rmse_m": 3.392902990827374,
+          "median_m": 1.708553912896595,
+          "p90_m": 5.49201936090034,
+          "p95_m": 6.4093986207387355,
+          "max_m": 7.343530188715572,
+          "within_5m": 0.8333333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 22.833333333333332,
+          "mean_seconds": 0.004144958333048028,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 10.490955694617178,
+          "rmse_m": 11.391791316344323,
+          "median_m": 8.877026030456102,
+          "p90_m": 14.650820654142146,
+          "p95_m": 17.398286748778403,
+          "max_m": 20.633535845363674,
+          "within_5m": 0.08333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 16.166666666666668,
+          "mean_seconds": 0.002235933333546806,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.24013651730061256,
+          "median_reduction_m": 2.220446049250313e-16,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 7.55248839139541,
+          "median_reduction_m": 5.863256719115903,
+          "chosen_lower_error_fraction": 0.9166666666666666,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n24_c2500",
+      "scenario": "moving_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.25,
+      "actual_contamination": 0.25,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 5.3472584787302155,
+          "rmse_m": 6.140172658286141,
+          "median_m": 4.52109504324866,
+          "p90_m": 9.527802491057214,
+          "p95_m": 10.119426881323285,
+          "max_m": 10.83514349428242,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 76.58333333333333,
+          "mean_seconds": 0.015322550000291812,
+          "selected_model_counts": {
+            "static": 8,
+            "velocity": 4
+          },
+          "selected_model_rates": {
+            "static": 0.6666666666666666,
+            "unknown": 0.0,
+            "velocity": 0.3333333333333333
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 5.24957831319909,
+          "rmse_m": 6.318017399347515,
+          "median_m": 3.4314118942472236,
+          "p90_m": 10.735158995975072,
+          "p95_m": 11.059228484523892,
+          "max_m": 11.333110139263464,
+          "within_5m": 0.5833333333333334,
+          "within_30m": 1.0,
+          "mean_work_units": 28.0,
+          "mean_seconds": 0.004894600000473777,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 6.494911496879283,
+          "rmse_m": 7.591205362179729,
+          "median_m": 5.301956794717867,
+          "p90_m": 10.9287480703236,
+          "p95_m": 12.915361263584176,
+          "max_m": 15.130536875587785,
+          "within_5m": 0.4166666666666667,
+          "within_30m": 1.0,
+          "mean_work_units": 20.333333333333332,
+          "mean_seconds": 0.0027832000002187365,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -0.09768016553112661,
+          "median_reduction_m": -1.5543122344752192e-15,
+          "chosen_lower_error_fraction": 0.5,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 1.1476530181490665,
+          "median_reduction_m": -0.1810565794781578,
+          "chosen_lower_error_fraction": 0.4166666666666667,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    },
+    {
+      "cell_id": "moving_outliers_n24_c4000",
+      "scenario": "moving_outliers",
+      "n_observations": 24,
+      "nominal_contamination": 0.4,
+      "actual_contamination": 0.4166666666666667,
+      "cases": 12,
+      "methods": {
+        "llm_selected": {
+          "n": 12,
+          "mean_m": 8.704152237934643,
+          "rmse_m": 9.721588082467392,
+          "median_m": 9.441425463958785,
+          "p90_m": 13.548331143820787,
+          "p95_m": 14.117715438696212,
+          "max_m": 14.752763872176917,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 85.66666666666667,
+          "mean_seconds": 0.028103374999924807,
+          "selected_model_counts": {
+            "static": 10,
+            "velocity": 2
+          },
+          "selected_model_rates": {
+            "static": 0.8333333333333334,
+            "unknown": 0.0,
+            "velocity": 0.16666666666666666
+          },
+          "cv_diagnostic_n": 12,
+          "cv_admissibility_diagnostic_n": 12,
+          "cv_dynamic_admissible_rate": 1.0,
+          "mean_completed_cv_folds": 3.0
+        },
+        "dynamic_robust": {
+          "n": 12,
+          "mean_m": 6.506213318818362,
+          "rmse_m": 7.877625599809359,
+          "median_m": 5.067866668381578,
+          "p90_m": 13.33367060827747,
+          "p95_m": 14.801107420260719,
+          "max_m": 16.27141272009802,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 30.083333333333332,
+          "mean_seconds": 0.008828408333405,
+          "selected_model_counts": {
+            "velocity": 12
+          },
+          "selected_model_rates": {
+            "static": 0.0,
+            "unknown": 0.0,
+            "velocity": 1.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        },
+        "static_wls": {
+          "n": 12,
+          "mean_m": 9.200273627709736,
+          "rmse_m": 10.14793028765769,
+          "median_m": 9.081639615729992,
+          "p90_m": 14.270525728255762,
+          "p95_m": 16.01617944234953,
+          "max_m": 17.941643099099302,
+          "within_5m": 0.25,
+          "within_30m": 1.0,
+          "mean_work_units": 23.416666666666668,
+          "mean_seconds": 0.002953199999865319,
+          "selected_model_counts": {
+            "static": 12
+          },
+          "selected_model_rates": {
+            "static": 1.0,
+            "unknown": 0.0,
+            "velocity": 0.0
+          },
+          "cv_diagnostic_n": 0,
+          "cv_admissibility_diagnostic_n": 0,
+          "cv_dynamic_admissible_rate": null,
+          "mean_completed_cv_folds": null
+        }
+      },
+      "paired_comparisons": {
+        "dynamic_robust": {
+          "n_pairs": 12,
+          "mean_reduction_m": -2.19793891911628,
+          "median_reduction_m": -0.7436766326331852,
+          "chosen_lower_error_fraction": 0.4166666666666667,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        },
+        "static_wls": {
+          "n_pairs": 12,
+          "mean_reduction_m": 0.4961213897750925,
+          "median_reduction_m": 0.5610037534700214,
+          "chosen_lower_error_fraction": 0.5833333333333334,
+          "sign_convention": "baseline error minus frozen chosen error; positive favours chosen",
+          "interpretation": "Descriptive paired comparison; no cellwise significance claim"
+        }
+      }
+    }
+  ],
+  "wall_seconds": 12.676138299999366,
+  "interpretation": "Exploratory fixed-grid sensitivity description with only 12 cases per cell. No per-cell significance declarations, universal superiority claims, or multiple-comparison-confirmed conclusions.",
+  "work_unit_caveat": "Modern solvers count residual evaluations including CV and initialization; legacy baselines expose legacy nfev. Counts are implementation-dependent, so retain wall-clock time as well."
+}

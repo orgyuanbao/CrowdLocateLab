@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "date": "2026-09-25",
+  "method": "Actual local browser interaction and visual inspection through the Codex in-app browser; no fabricated screenshots or model replay.",
+  "application": "dashboard_revision.py",
+  "checks": [
+    "Revision overview displays frozen, 12 actions, 13 successful model requests, main error 3.920 m, and 15860 predictions.",
+    "Global and Mondrian calibration rows display both 90% and 95% nominal levels and actual stored results.",
+    "Mondrian 90% IID details expand to the accepted-count and conditional coverage table; threshold 2 m shows zero accepted with undefined error and coverage.",
+    "Edge plot switches from mean error to CV availability; four-fold curve changes at n=8 and previous three-fold curve at n=9.",
+    "Selected failure main-1814711-00221-moving_outliers-567611743 shows 55.311 m, 16 observations, and all paired method estimates.",
+    "Case search reduces results to one matching saved case; historical circles, truth and velocity controls render their stored geometry.",
+    "Case and edge chart axes and labels visually inspected; no overlapping axis label after layout correction.",
+    "Browser console inspection reports no application errors or warnings."
+  ],
+  "limitations": "Manual UI checks cover the listed interactions in the local desktop browser; they are not a claim of testing all browsers or devices. Unit tests separately cover saved-data readers and read-only routes."
+}

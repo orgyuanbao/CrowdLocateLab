@@ -1,0 +1,16 @@
+{
+  "position": [
+    19.385036665585677,
+    21.668123895274793
+  ],
+  "selected_model": "velocity",
+  "application_matches_saved_example": true,
+  "run_integrity": {
+    "verified_source_files": 14,
+    "verified_evidence_files": 15,
+    "controller_and_toolkit_frozen": true,
+    "is_replay": false,
+    "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+  },
+  "checked_at_utc": "2026-09-24T18:11:32.694738+00:00"
+}

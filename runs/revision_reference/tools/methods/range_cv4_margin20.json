@@ -1,0 +1,34 @@
+{
+  "spec": {
+    "consensus_trials": 0,
+    "cv_folds": 4,
+    "f_scale": 1.5,
+    "gate_margin": 0.2,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "cv_select",
+    "residual": "range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 3,
+    "trim_fraction": 0.0
+  },
+  "hypothesis": "Single-component ablation of range_cv4_reported: {'gate_margin': 0.2}",
+  "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: gate_margin: 0.05 -> 0.2.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.2, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 3, \"trim_fraction\": 0.0}",
+  "registration_kind": "single_component_ablation",
+  "registered_after_diagnosis_count": 1,
+  "diagnosis_evidence": [
+    {
+      "method_id": "range_cv4_reported",
+      "split": "discovery",
+      "diagnosis_number": 1,
+      "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+      "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+    }
+  ],
+  "parent_method_id": "range_cv4_reported",
+  "controlled_changes": {
+    "gate_margin": 0.2
+  }
+}

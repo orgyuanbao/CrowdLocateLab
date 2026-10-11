@@ -1,0 +1,11 @@
+{
+  "captured_at_utc": "2026-09-24T17:41:25.704706+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "scipy": "1.18.1",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "codex_cli": "0.155.0-alpha.16.4",
+  "model_identifier": "not_reported_by_cli",
+  "transport": "Default Codex CLI; raw request logs retain HTTP fallback and internal retry events",
+  "formal_run": "runs/live_reference"
+}

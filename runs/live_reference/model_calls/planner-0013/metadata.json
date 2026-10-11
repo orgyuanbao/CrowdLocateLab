@@ -1,0 +1,26 @@
+{
+  "provider": "codex_cli",
+  "request_id": "planner-0013",
+  "prompt_sha256": "c2d7a14dc0ffce4d14bcc4a21e1bd229acbfdd90cb16b4735be3a919b69f7cf7",
+  "schema_sha256": "7b99f7cffc297595dd763766ca1f411705b7bc03e94440fc55274e9e7078588a",
+  "model_selection": "user_configured_default; no --model override",
+  "reasoning_effort_override": "medium",
+  "sandbox_requested": "read-only",
+  "complete_tool_isolation_claimed": false,
+  "timeout_seconds": 300.0,
+  "returncode": 0,
+  "status": "completed",
+  "elapsed_seconds": 135.21800000000076,
+  "unexpected_tools": [],
+  "raw_event_count": 9,
+  "usage": {
+    "input_tokens": 35449,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 571,
+    "reasoning_output_tokens": 103
+  },
+  "model_identifier": null,
+  "model_identifier_source": "not_reported_by_cli",
+  "cli_error_event_count": 4
+}

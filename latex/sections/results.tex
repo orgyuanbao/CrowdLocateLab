@@ -1,0 +1,191 @@
+\section{第一轮独立评测、消融与失败分析}\label{sec:results}
+
+\subsection{常规测试的总体误差与对照}
+
+本次基准累计完成5040次定位预测，壁钟时间为0.8分钟。主测试360例采用三个独立数据种子，各常规场景样本数相同。所有方法使用同一案例；所选配置在评测前已冻结。
+
+\begin{table}[H]\centering\small
+\caption{独立主测试总体性能。CEP90是案例位置误差的经验90\%分位数。}
+
+\begin{tabular}{lrrrrr}
+\toprule
+方法 & 均值/m & 中位/m & CEP90/m & RMSE/m & 平均工作量\\
+\midrule
+静态WLS & 6.532 & 5.340 & 14.959 & 8.504 & 19.3\\
+静态稳健 & 6.196 & 3.928 & 14.993 & 8.395 & 20.6\\
+恒速稳健 & 4.674 & 2.993 & 9.853 & 6.781 & 27.2\\
+旧BIC门控 & 4.347 & 2.142 & 12.203 & 6.790 & 47.8\\
+智能体所选 & 4.189 & 2.252 & 9.966 & 6.434 & 71.3\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{场景内配对bootstrap比较：对照误差减去所选方法误差。正值表示所选方法较低。}
+
+\begin{tabular}{lrr}
+\toprule
+对照 & 均值减少/m & 95\%区间/m\\
+\midrule
+静态WLS & 2.343 & [1.890, 2.776]\\
+静态稳健 & 2.007 & [1.578, 2.424]\\
+恒速稳健 & 0.485 & [0.064, 0.912]\\
+旧BIC门控 & 0.158 & [-0.091, 0.425]\\
+\bottomrule\end{tabular}\end{table}
+
+区间描述固定生成机制下的有限样本差异，没有对众多方法比较作多重校正。它不能度量重新运行一次大模型规划器时的方差，也不能据此归因规划器优于其它研究策略。
+
+\subsection{逐场景结果与误差分布}
+
+\begin{table}[H]\centering\small
+\caption{四类常规场景的平均当前位置误差（m），每类90例。}
+
+\begin{tabular}{lrrrr}
+\toprule
+方法 & 静态正常 & 静态异常 & 移动正常 & 移动异常\\
+\midrule
+静态WLS & 1.031 & 3.492 & 10.349 & 11.259\\
+静态稳健 & 1.059 & 2.080 & 10.429 & 11.217\\
+恒速稳健 & 2.636 & 6.229 & 2.619 & 7.213\\
+旧BIC门控 & 1.305 & 2.080 & 2.984 & 11.019\\
+智能体所选 & 1.419 & 2.329 & 3.681 & 9.328\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[ybar,bar width=9pt,width=0.94\linewidth,height=6.3cm,
+ylabel={平均位置误差（m）},ymin=0,grid=major,enlarge x limits=0.15,
+xtick={0,1,2,3},xticklabels={静态正常,静态异常,移动正常,移动异常},
+legend style={at={(0.5,1.04)},anchor=south,legend columns=3},
+x tick label style={font=\small,text width=17mm,align=center},]
+\addplot[fill=navy,draw=navy] coordinates {(0,1.030812) (1,3.491518) (2,10.348803) (3,11.258691)};
+\addlegendentry{静态WLS}
+\addplot[fill=orange,draw=orange] coordinates {(0,2.635838) (1,6.229444) (2,2.619052) (3,7.212711)};
+\addlegendentry{恒速稳健}
+\addplot[fill=teal,draw=teal] coordinates {(0,1.418681) (1,2.329268) (2,3.681274) (3,9.327780)};
+\addlegendentry{智能体所选}
+\end{axis}\end{tikzpicture}
+\caption{常规场景的配对误差比较。总体改善不能替代逐场景非劣分析。}
+\label{fig:main-bars}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[width=0.92\linewidth,height=7cm,xlabel={位置误差（m）},ylabel={经验累计概率},xmin=0,xmax=30,ymin=0,ymax=1,grid=major,legend pos=south east]\addplot[thick,no marks,color=navy] table[x=error,y=cdf] {data/cdf_static_wls.dat};\addlegendentry{静态WLS}
+\addplot[thick,no marks,color=orange] table[x=error,y=cdf] {data/cdf_static_robust.dat};\addlegendentry{静态稳健}
+\addplot[thick,no marks,color=brick] table[x=error,y=cdf] {data/cdf_dynamic_robust.dat};\addlegendentry{恒速稳健}
+\addplot[thick,no marks,color=gray] table[x=error,y=cdf] {data/cdf_legacy_bic.dat};\addlegendentry{旧BIC门控}
+\addplot[thick,no marks,color=teal] table[x=error,y=cdf] {data/cdf_llm_selected.dat};\addlegendentry{智能体所选}\end{axis}\end{tikzpicture}
+\caption{独立主测试误差的经验分布。横轴显示0--30米；超过30米的样本仍保留在全部统计中。}
+\label{fig:cdf}
+\end{figure}
+
+\subsection{组件消融与开发前驱}
+
+\begin{table}[H]\centering\small
+\caption{冻结方法的控制消融与开发前驱。消融不重新调参。}
+
+\begin{tabular}{lrrrr}
+\toprule
+方法 & 主测试均值 & 主测试CEP90 & 压力均值 & 与所选均值差\\
+\midrule
+固定恒速模型 & 4.674 & 9.850 & 8.814 & 0.485\\
+固定静态模型 & 6.196 & 14.994 & 12.839 & 2.007\\
+开发前驱1 & 4.704 & 12.564 & 12.396 & 0.515\\
+\bottomrule\end{tabular}\end{table}
+
+某个消融若优于冻结方法，应作为预先冻结方案的负面证据报告，不能用该测试结果悄悄替换最终方法。未触发的消融表示冻结配置本来没有该组件，避免重复计算伪造独立对照。
+
+\subsection{分布外压力测试}
+
+每类压力场景独立生成40例，改变几何、运动、观测数量、标定或污染条件。下表同时保留均值与尾部误差，以检验常规场景的改善能否延续到这些变化。
+
+\begin{table}[H]\centering\small
+\caption{压力场景的均值／CEP90（m），每类40例。}
+
+\begin{tabular}{lrrr}
+\toprule
+场景 & 静态WLS & 恒速稳健 & 智能体所选\\
+\midrule
+狭窄几何 & 14.503 / 21.270 & 9.817 / 24.461 & 9.432 / 22.286\\
+加速运动 & 10.846 / 15.653 & 4.414 / 7.723 & 5.313 / 11.554\\
+稀疏观测 & 10.805 / 17.493 & 5.976 / 14.303 & 11.121 / 18.090\\
+标定漂移 & 15.044 / 21.988 & 11.221 / 21.014 & 13.278 / 24.098\\
+高比例污染 & 10.862 / 21.049 & 12.641 / 25.044 & 11.734 / 22.187\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[ybar,bar width=9pt,width=0.94\linewidth,height=6.3cm,
+ylabel={平均位置误差（m）},ymin=0,grid=major,enlarge x limits=0.15,
+xtick={0,1,2,3,4},xticklabels={狭窄几何,加速运动,稀疏观测,标定漂移,高比例污染},
+legend style={at={(0.5,1.04)},anchor=south,legend columns=3},
+x tick label style={font=\small,text width=17mm,align=center},]
+\addplot[fill=navy,draw=navy] coordinates {(0,14.502767) (1,10.845790) (2,10.804917) (3,15.044343) (4,10.861705)};
+\addlegendentry{静态WLS}
+\addplot[fill=orange,draw=orange] coordinates {(0,9.817206) (1,4.414207) (2,5.976103) (3,11.221198) (4,12.640590)};
+\addlegendentry{恒速稳健}
+\addplot[fill=teal,draw=teal] coordinates {(0,9.431836) (1,5.312884) (2,11.121400) (3,13.277567) (4,11.734202)};
+\addlegendentry{智能体所选}
+\end{axis}\end{tikzpicture}
+\caption{冻结估计器在五类压力条件下的误差。压力输入不参与方法选择。}
+\label{fig:stress-bars}
+\end{figure}
+
+\begin{table}[H]\centering\small
+\caption{所选方法实际使用的运动模型次数。标签来自求解器诊断。}
+
+\begin{tabular}{lrrr}
+\toprule
+场景 & 静态 & 恒速 & 其它\\
+\midrule
+静态正常 & 78 & 12 & 0\\
+静态异常 & 85 & 5 & 0\\
+移动正常 & 12 & 78 & 0\\
+移动异常 & 49 & 41 & 0\\
+狭窄几何 & 11 & 29 & 0\\
+加速运动 & 5 & 35 & 0\\
+稀疏观测 & 40 & 0 & 0\\
+标定漂移 & 21 & 19 & 0\\
+高比例污染 & 30 & 10 & 0\\
+\bottomrule\end{tabular}\end{table}
+
+\subsection{独立校准、覆盖与拒绝}
+
+使用240个独立混合场景案例校准尺度，再在320个同分布案例及200个压力案例上检查覆盖。名义水平来自预定协议，实测覆盖与区域大小均由已保存的逐例结果计算。
+
+\begin{table}[H]\centering\small
+\caption{独立校准后的实际覆盖。压力分布的覆盖没有交换性保证。}
+
+\begin{tabular}{lrrrrrr}
+\toprule
+名义覆盖 & 分位数$q$ & 评估总体 & 样本 & 实际覆盖 & 均值半径/m & 中位半径/m\\
+\midrule
+90.0\% & 3.548 & 同分布混合 & 320 & 85.6\% & 8.481 & 7.084\\
+90.0\% & 3.548 & 压力分布 & 200 & 74.0\% & 20.147 & 14.300\\
+95.0\% & 5.199 & 同分布混合 & 320 & 94.7\% & 12.429 & 10.383\\
+95.0\% & 5.199 & 压力分布 & 200 & 85.5\% & 29.527 & 20.958\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{90\%名义区域的拒绝曲线：只接受半径不超过阈值的案例。}
+
+\begin{tabular}{lrrrr}
+\toprule
+半径阈值/m & 接受数 & 接受率 & 接受均值误差/m & 接受后覆盖\\
+\midrule
+2 & 0 & 0.0\% & -- & --\\
+5 & 85 & 26.6\% & 2.034 & 88.2\%\\
+10 & 229 & 71.6\% & 3.165 & 83.8\%\\
+15 & 291 & 90.9\% & 3.540 & 84.5\%\\
+20 & 311 & 97.2\% & 3.702 & 85.2\%\\
+30 & 318 & 99.4\% & 3.870 & 85.5\%\\
+50 & 320 & 100.0\% & 3.955 & 85.6\%\\
+\bottomrule\end{tabular}\end{table}
+
+拒绝阈值越小通常会减少输出数量。表中的接受后覆盖是实际样本统计，不继承总体边际覆盖定理；缺失的接受子集以空值表示。较大的预测圆盘即使覆盖充分，也可能缺乏实际定位价值，因此必须同时报告半径与接受率。
+
+\subsection{独立数学见证}
+
+在标量检验中，真距离为20米，对数噪声标准差为0.35。解析自加权最优值为15.65409米，200000次独立模拟得到15.67145米；修正后对数目标给出20.01864米。该见证用于核对解析公式，不构成新的泛化实验。
+
+镜像构造的两条轨迹当前位置相差6.0米，所有距离差的最大绝对值为0.0e+00米；数据Jacobian秩为4，最小奇异值为0.96509。因此，这个实例直接展示了局部满秩与全局镜像歧义能够共存。
+
+\input{sections/empirical_interpretation}
+
+\input{sections/coverage_variability}

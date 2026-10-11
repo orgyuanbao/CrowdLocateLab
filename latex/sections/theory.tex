@@ -1,0 +1,212 @@
+\section{数学建模、方法组合与可验证结论}
+\label{sec:theory}
+
+\subsection{异步观测、对数残差与解析导数}
+
+以下以 $y_i>0$ 表示反演距离，以 $a_i\in\mathbb R^2$ 表示上报坐标，当前时刻为0，历史时刻满足 $t_i\leq0$。静态模型的参数是 $x_0$；恒速模型的参数是 $\theta=(x_0,v)$，对应距离
+\begin{equation}
+ d_i(\theta)=\|x_0+v t_i-a_i\|_2.
+ \label{eq:trajectory-range}
+\end{equation}
+真实位置与污染标签不进入定位器。上报坐标可带误差，因此式\eqref{eq:trajectory-range}中的 $a_i$ 不是默认无误差的物理基站；相关误差进入观测模型失配。
+
+对数距离传播模型可写为
+\begin{equation}
+ p_i=P_0-10n_p\log_{10}(d_i/d_0)+\varepsilon_i,
+ \qquad \varepsilon_i\sim N(0,\sigma_p^2),
+ \label{eq:rssi-model}
+\end{equation}
+其中 $p_i$ 是RSSI，$n_p$ 为路径损耗系数。已知参数的直接反演导致对数距离上的高斯噪声\cite{patwari2003relative}。一般记
+\begin{equation}
+ \log y_i=\log d_i+\mu_i+e_i,
+ \qquad e_i\sim N(0,s_i^2).
+ \label{eq:log-observation}
+\end{equation}
+直接反演的典型约定是 $\mu_i=0$；若模拟器采用均值为1的距离乘子，则 $\mu_i=-s_i^2/2$。后者需要在残差中作负号修正：$\log d_i-\log y_i-s_i^2/2$。距离无偏与对数中心为零不是同一条件。
+
+实现允许距离残差与对数残差，分别为
+\begin{align}
+ r_i^{\mathrm{range}}(\theta)&=(d_i(\theta)-y_i)/q_i,\\
+ r_i^{\log}(\theta)&=
+ \frac{\log\max(d_i(\theta),d_{\min})-
+       \log\max(y_i,d_{\min})-b}{q_i},
+ \label{eq:implemented-log-residual}
+\end{align}
+其中 $d_{\min}=0.1$ 米，修正开启时 $b=s_0^2/2$，关闭时 $b=0$；$s_0$ 对应配置中的标定对数噪声。对于距离残差，报告尺度为 $q_i=\sigma_i$；对于对数残差，实现使用
+\begin{equation}
+ q_i=\max\left\{10^{-5},\sqrt{\log\left(1+
+       \left(\frac{\sigma_i}{\max(y_i,0.1)}\right)^2\right)}\right\}.
+ \label{eq:implemented-log-scale}
+\end{equation}
+这是由相对误差构造的观测尺度近似，不是已知的真实对数方差。另一选项将 $q_i$ 固定为该拟合数据内尺度的中位数。偏差修正参数 $s_0$ 与式\eqref{eq:implemented-log-scale}中的有效尺度不同；当存在坐标误差、加性误差或标定失配时，不能把该实现称为精确最大似然。
+
+令 $u_i=(x_0+vt_i-a_i)/d_i$。在 $d_i>0$ 处，距离的参数导数为
+\begin{equation}
+ D_\theta d_i=[u_i^{\mathsf T},\ t_i u_i^{\mathsf T}],
+ \qquad
+ D_\theta\log d_i=d_i^{-1}[u_i^{\mathsf T},\ t_i u_i^{\mathsf T}].
+ \label{eq:range-jacobian}
+\end{equation}
+静态模型只保留位置列，标准化后再除以 $q_i$。实现对硬截断区 $d_i\leq d_{\min}$ 使用零导数；截断边界不可微，因而随后理论命题的光滑邻域必须远离该边界。解析导数用于数值求解，数值差分可以检验其局部实现，却不能证明优化器找到全局最小值。
+
+\subsection{稳健拟合、截尾与子集初始化}
+
+使用SciPy的平方残差接口记损失为 $\rho(z)$，$z\geq0$。当前实现的线性、soft-L1、Huber和Cauchy损失依次为
+\begin{equation}
+ z,\qquad 2(\sqrt{1+z}-1),\qquad
+ \begin{cases}z,&z\leq1,\\2\sqrt z-1,&z>1,\end{cases}
+ \qquad \log(1+z).
+ \label{eq:loss-family}
+\end{equation}
+Huber测距定位已有相关研究\cite{soares2016badapples}。所有这些几何目标仍可能非凸；更强的降权还可能牺牲有效运动信息。
+
+给定截尾比例 $\gamma$ 和参数维数 $p$，保留数为
+\begin{equation}
+ h=\min\{n,\max\{p+1,\lceil(1-\gamma)n\rceil\}\}.
+\end{equation}
+令 $I_h(\theta)$ 是绝对标准化残差最小的 $h$ 个观测，候选评分为
+\begin{equation}
+ L(\theta)=\sum_{i\in I_h(\theta)}
+ C^2\rho\left(\frac{r_i(\theta)^2}{C^2}\right)
+ +\lambda\|v\|_2^2,
+ \label{eq:trimmed-robust-objective}
+\end{equation}
+静态模型没有速度惩罚。正则项始终保持二次，不随观测稳健损失一起降权。求解过程从多个观测导出的起点开始，先拟合再更新保留集合；启用截尾时最多执行有限次重拟合，最后按式\eqref{eq:trimmed-robust-objective}选择候选。有限轮交替不等于截尾目标的全局求解，也不保证返回值已经达到保留集合不变的固定点。
+
+可选的子集初始化受抽样一致思想启发\cite{fischler1981random}，但当前实现不是经典硬阈值RANSAC。每次均匀抽取
+\begin{equation}
+ m=\min\{n,\max\{p+2,\lceil n/2\rceil\}\}
+\end{equation}
+个观测，在子集上拟合；各结果以全体观测上的截尾稳健目标评分，最佳结果作为一个额外起点，再进行正常重拟合。随机性由观测字节内容及声明种子共同确定，不读取真实场景标签。它没有按时间或几何预筛选子集，因此一次抽到内点不等于抽到可辨识且条件良好的子问题。
+
+若恰有 $h_0$ 个内点、每次独立均匀抽取大小为 $m$ 的子集，全内点概率为 $\binom{h_0}{m}/\binom{n}{m}$。多次抽样的成功事件只说明出现过全内点子集，不证明该子集拟合成功或后续评分能识别正确轨迹。截尾数、子集数、起点数和迭代上限均影响计算量；公平比较不能只数最终登记了多少个方法。
+
+\subsection{以留出观测比较静态和恒速模型}
+
+模型选择采用案例内的观测交叉验证，而不是直接比较两个模型的训练拟合损失。交叉验证是预测评估方法\cite{stone1974crossvalidatory}；本实现首先按时间排序，再交错分成 $K$ 折，使每个观测恰好作为验证点一次。每折在剩余观测上分别拟合静态模型 $M_0$ 和恒速模型 $M_1$，折内使用一个起点，并限制子集初始化次数；最终选定模型再以完整声明预算在全部观测上重拟合。因此，这里验证的是计算预算缩减的代理拟合过程，不是对完整最终求解过程逐字等同的交叉验证。
+
+验证评分不使用拟合时的截尾，也不跟随候选优化损失改变。它始终对全部留出标准化残差使用尺度为1的soft-L1：
+\begin{equation}
+ \widehat R_M=\frac1n\sum_{k=1}^{K}\sum_{i\in V_k}
+ 2\left(\sqrt{1+r_i(\widehat\theta_{M,-k})^2}-1\right).
+ \label{eq:cv-score}
+\end{equation}
+若采用常数尺度，验证折沿用训练折的常数；报告尺度模式则从该条验证观测的公开距离与尺度计算。满足训练样本数与时间跨度要求、各折恒速拟合未回退、数据Jacobian满列秩且没有活跃数值边界时，才允许比较
+\begin{equation}
+ \widehat R_{M_1}<(1-\delta)\widehat R_{M_0},
+ \qquad 0\leq\delta<1.
+ \label{eq:cv-gate}
+\end{equation}
+否则选静态模型。这里 $\delta$ 是相对收益门槛，不是显著性水平；实现没有在这一门控中额外施加条件数阈值。
+
+训练和验证分离降低了直接奖励模型自由度的倾向，但式\eqref{eq:cv-gate}不是运动假设检验。相依上报、污染验证点、标定误差和加速轨迹仍会使其失效。交错折主要检验窗口内部的预测，不等价于从早期观测外推到当前时刻；折间训练集重叠，也不能把各折当成独立样本计算常规显著性。最终位置误差的改进需要独立案例验证。
+
+\subsection{三个精确结论：偏差、歧义与局部稳定性}
+
+\begin{proposition}[由观测自身决定尺度的标量偏差]
+\label{prop:self-weight-bias}
+设 $d>0$，$Y=d\exp(\varepsilon+\mu)$，$\varepsilon\sim N(0,s^2)$ 且 $s>0$。在 $q>0$ 上，相对平方风险
+\begin{equation}
+ R(q)=\mathbb E\left[\frac{(q-Y)^2}{Y^2}\right]
+\end{equation}
+的唯一最小点为 $q_*=d\exp(\mu-3s^2/2)$。正确中心化的对数平方风险 $\mathbb E[(\log q-\log Y+\mu)^2]$ 则在 $q=d$ 处唯一最小。特别地，均值为1的乘子对应 $\mu=-s^2/2$，此时 $q_*=d e^{-2s^2}$。
+\end{proposition}
+
+\begin{proof}
+展开风险得 $R(q)=q^2\mathbb E[Y^{-2}]-2q\mathbb E[Y^{-1}]+1$。其二阶导数严格为正，唯一驻点为 $\mathbb E[Y^{-1}]/\mathbb E[Y^{-2}]$。由高斯指数矩，
+\[
+ \mathbb E[Y^{-1}]=d^{-1}e^{-\mu+s^2/2},\qquad
+ \mathbb E[Y^{-2}]=d^{-2}e^{-2\mu+2s^2}.
+\]
+相除即得第一式。另一方面，$\log Y=\log d+\mu+\varepsilon$，故中心化的对数风险等于 $(\log q-\log d)^2+s^2$，其唯一最小点为 $d$。
+\end{proof}
+
+\begin{remark}
+该结论给出观测依赖权重的一个精确简化反例，并非完整定位器的偏差公式。式\eqref{eq:implemented-log-scale}还含加性尺度近似；实际多维目标具有坐标误差、非线性几何、正则项和局部极小值。不能由命题\ref{prop:self-weight-bias}推断对数方法在所有场景均优，也不能把它当成第一版全部失败的已证实原因。
+\end{remark}
+
+\begin{proposition}[动态镜像歧义与不可区分性下界]
+\label{prop:mirror}
+设全部已知报告者坐标为 $a_i=(b_i,0)$，$R=\operatorname{diag}(1,-1)$。两条恒速轨迹 $(x_0,v)$ 与 $(Rx_0,Rv)$ 在任意观测时刻产生完全相同的精确距离。若其当前位置间距为 $D>0$，任意确定点估计至少对其中一个真值产生 $D/2$ 的欧氏误差。若加入同一仅依赖距离的噪声机制，则任意随机估计器至少在其中一个世界具有不小于 $D/2$ 的期望误差。
+\end{proposition}
+
+\begin{proof}
+由 $Ra_i=a_i$ 及反射保持范数，
+\[
+ \|Rx_0+Rv t_i-a_i\|
+ =\|R(x_0+v t_i-a_i)\|=\|x_0+v t_i-a_i\|.
+\]
+对于同一观测得到的点估计 $\widehat x$，三角不等式给出 $D\leq\|x_0-\widehat x\|+\|Rx_0-\widehat x\|$，所以至少一个误差不小于 $D/2$。两个世界加入题设噪声后具有相同观测分布；再对同一观测与估计器随机性积分，两个期望误差之和仍至少为 $D$，从而得到最后一个结论。
+\end{proof}
+
+局部满列秩不能排除这种全局歧义。例如，取 $x_0=(1.5,3)$、$v=(0.2,0.1)$、$b=(-7,-2,5,-5,7,1)$ 和 $t=(-8,-6,-4,-2,-1,0)$，距离Jacobian可以为四列满秩，而镜像轨迹仍给出相同距离。正的逐行标准化及对数变换不改变该秩。这里的反例由等距关系直接证明；网络刚性理论提供了更一般的唯一定位背景\cite{eren2004rigidity}。增加同轴观测或更换稳健损失不会产生原本缺失的两侧信息。
+
+\input{sections/mirror_figure}
+
+\begin{proposition}[含曲率条件的局部非线性误差界]
+\label{prop:local-bound}
+取固定时间尺度 $T>0$，令 $\bar\theta=(x_0,u)$、$u=Tv$、$\tau_i=t_i/T$，并定义
+\[
+ A_i=[I_2\ \tau_i I_2],\qquad
+ F_i(\bar\theta)=s_i^{-1}\log\|A_i\bar\theta-a_i\|,
+ \quad s_i>0.
+\]
+设在闭球 $B(\bar\theta_*,R_0)$ 内所有距离至少为 $r_{\min}>0$，$J_*=DF(\bar\theta_*)$ 的最小奇异值为 $\sigma_*>0$。令
+\begin{equation}
+ L=\left[\sum_i\left(\frac{1+\tau_i^2}{s_i r_{\min}^2}\right)^2\right]^{1/2}.
+\end{equation}
+对球内的 $\bar\theta_*+h$，有
+\begin{equation}
+ \|F(\bar\theta_*+h)-F(\bar\theta_*)\|
+ \geq\sigma_*\|h\|-\tfrac12L\|h\|^2.
+ \label{eq:nonlinear-local-lower}
+\end{equation}
+进一步，若观测向量 $b=F(\bar\theta_*)+e$ 满足 $\|e\|\leq\eta$，估计值位于上述球内、$\|\widehat{\bar\theta}-\bar\theta_*\|\leq\sigma_*/L$，且 $\|F(\widehat{\bar\theta})-b\|\leq\beta$，则
+\begin{equation}
+ \|\widehat x_0-x_{0,*}\|
+ \leq\|\widehat{\bar\theta}-\bar\theta_*\|
+ \leq\frac{2(\eta+\beta)}{\sigma_*}.
+ \label{eq:conditional-position-bound}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+对于 $z\ne0$，令 $q=z/\|z\|$，则
+\[
+ \nabla^2\log\|z\|=(I-2qq^{\mathsf T})/\|z\|^2,
+ \qquad \|\nabla^2\log\|z\|\|_2=\|z\|^{-2}.
+\]
+又 $\|A_i\|_2^2=1+\tau_i^2$，每个 $F_i$ 的Hessian在该球内至多为 $(1+\tau_i^2)/(s_i r_{\min}^2)$。Taylor余项组成的向量范数不超过 $L\|h\|^2/2$。结合 $\|J_*h\|\geq\sigma_*\|h\|$，得到式\eqref{eq:nonlinear-local-lower}。在 $\|h\|\leq\sigma_*/L$ 时，下界至少为 $\sigma_*\|h\|/2$；另一方面，三角不等式将映射差上界控制为 $\eta+\beta$，从而得到式\eqref{eq:conditional-position-bound}。
+\end{proof}
+
+若另有 $\beta\leq\eta$，上界可化为 $4\eta/\sigma_*$。但鲁棒目标的小值不自动意味着未截尾二范数残差满足这一条件。真值邻域、噪声界与真值处Jacobian通常也未知，所以该命题是有条件的局部结论，不是把拟合点奇异值代入即可得到的全局证书。它不排除命题\ref{prop:mirror}中的远处镜像，也不适用于跨越硬截断边界的邻域。时间重参数化用于使条件数与状态范数具有明确尺度；实现直接优化 $v$，若换成 $u$，同一速度惩罚应相应写成 $\lambda\|u\|^2/T^2$。
+
+\subsection{从几何尺度到校准预测区域}
+
+定位模块输出一个\emph{未校准}的几何尺度。记保留观测的数据Jacobian为 $J_I$，不包含速度正则行，$r$ 则包含全部观测的标准化残差。满列秩时，实现使用
+\begin{equation}
+ g(Z)=\operatorname{clip}_{[0.2,100]}\left[
+ \sqrt{\operatorname{tr}\left\{(J_I^{\mathsf T}J_I)^\dagger_{xx}\right\}}
+ \max\left\{1,\frac{\operatorname{median}_i|r_i|}{0.6745}\right\}\right],
+\end{equation}
+其中下标 $xx$ 表示伪逆的位置块；秩亏时返回上限100米。这个量只是观测驱动的代理量，不是Cram\'{e}r--Rao下界或95\%置信半径；固定模型下的局部线性近似也没有处理门控、不正确内点集合和全局多解。
+
+一个独立校准层可以将其转化为案例级预测圆盘。方法和 $g$ 冻结后，取 $m$ 个未参与选择的校准案例，定义
+\begin{equation}
+ S_j=\frac{\|\widehat x(Z_j)-x_j\|_2}{g(Z_j)},\quad
+ k=\lceil(m+1)(1-\alpha)\rceil,\quad q=S_{(k)},
+ \label{eq:conformal-score}
+\end{equation}
+若 $k>m$，规定 $q=+\infty$。圆盘为
+\begin{equation}
+ C(Z)=\{x:\|x-\widehat x(Z)\|_2\leq qg(Z)\}.
+\end{equation}
+在校准与新案例可交换，且估计器和尺度函数已独立冻结的条件下，split conformal的秩论证给出
+\begin{equation}
+ \Pr\{x_{\mathrm{new}}\in C(Z_{\mathrm{new}})\}\geq1-\alpha.
+\end{equation}
+原因是新分数在 $m+1$ 个可交换分数中的秩对称；上述取整提供保守覆盖，平局不会降低覆盖下界。这是已有预测覆盖思想在二维欧氏非符合度上的直接构造\cite{lei2018distributionfree}，并非本项目新定理，也不是单个条件样本的覆盖保证。
+
+校准单位应是完整定位案例，而非同一轨迹中的各条上报。按真实场景固定配额构造的分层样本，不自动满足合并分数的交换性；若部署分布或压力分布变化，亦不能无条件沿用上述保证。校准结果可以实证评价，但保证范围必须与实际抽样协议一致。
+
+以大预测半径、数值边界或拟合分歧拒绝定位后，需要同时报告接受率、被接受案例误差和区域覆盖。总体的边际覆盖不自动成为拒绝后子集的条件覆盖。几何拒绝也可能遗漏局部满秩的镜像歧义。由此留下的研究问题是：能否在明确污染类、时间跨度、几何与计算预算条件下，兼顾静态非劣、运动收益和有意义的拒绝率？本文的命题给出了部分限制和局部工具，并未解决这一完整问题。

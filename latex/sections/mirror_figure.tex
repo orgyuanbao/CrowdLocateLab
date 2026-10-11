@@ -1,0 +1,18 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=0.75cm,y=0.70cm,font=\small]
+\draw[->,black!35] (-8,0)--(8.3,0) node[right] {$x$};
+\draw[->,black!35] (0,-4)--(0,4) node[above] {$y$};
+\foreach \x in {-7,-2,5,-5,7,1} {\fill[navy] (\x,0) circle (2.3pt);}
+\draw[-{Stealth[length=2.5mm]},thick,teal] (-.1,2.2)--(1.5,3);
+\draw[-{Stealth[length=2.5mm]},thick,orange] (-.1,-2.2)--(1.5,-3);
+\fill[teal] (1.5,3) circle (2.5pt) node[above right] {$x_0=(1.5,3)$};
+\fill[orange] (1.5,-3) circle (2.5pt) node[below right] {$Rx_0=(1.5,-3)$};
+\draw[dashed,navy!50] (-2,0)--(1.5,3);
+\draw[dashed,navy!50] (-2,0)--(1.5,-3);
+\node[align=left,text=muted] at (-5,2.7) {同轴报告者\\观测距离无法区分两侧};
+\draw[<->,brick] (6,3)--(6,-3) node[midway,right,fill=white] {$D=6\,\mathrm m$};
+\end{tikzpicture}
+\caption{动态镜像反例。报告者横坐标与观测时刻取命题中的六组数值；上下两条轨迹对应各时刻的测距完全相同。两条轨迹的当前位置相隔6米，任何只看这些观测的点估计至少在一个世界中误差不小于3米。}
+\label{fig:mirror}
+\end{figure}

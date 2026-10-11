@@ -1,0 +1,257 @@
+\section{第二轮冻结研究与全新独立评价}
+
+\label{sec:revision-results}
+
+第一轮失败结果是第二轮的已知先验；以下是新智能体冻结方法后，按预登记种子首次生成的独立数据。它们不构成对第一轮研究过程的盲重复，也未用于再次调整方法。
+
+本轮冻结方法为\texttt{range\_\allowbreak{}cv4\_\allowbreak{}single\_\allowbreak{}start}。主测试、压力、观测数边界、校准和独立覆盖样本量依次为720、400、420、800、1200。
+
+\begin{table}[H]\centering\small
+
+\caption{第二轮所有预定比较的平均定位误差与主测试成本。误差单位为米。}
+
+\begin{tabular}{@{}lrrrr@{}}\toprule
+
+方法 & 主测试 & 压力 & 边界 & 主测试工作量\\\midrule
+
+静态WLS & 6.643 & 12.772 & 6.177 & 19.5\\
+
+静态稳健 & 6.171 & 12.849 & 6.229 & 21.4\\
+
+恒速稳健 & 4.537 & 9.210 & 4.830 & 28.1\\
+
+BIC门控 & 3.996 & 9.189 & 4.082 & 49.5\\
+
+第一轮冻结 & 4.064 & 10.591 & 4.786 & 71.7\\
+
+第二轮冻结 & 3.920 & 9.430 & 4.361 & 68.7\\
+
+改为三折门控 & 4.076 & 10.587 & 4.769 & 55.1\\
+
+改为四折门控$^{*}$ & 3.920 & 9.430 & 4.361 & 68.7\\
+
+固定恒速 & 4.578 & 9.297 & 4.747 & 8.4\\
+
+固定静态 & 6.180 & 12.855 & 6.220 & 5.9\\
+
+\bottomrule\end{tabular}\end{table}
+
+旧基线工作量为求解器nfev，新组合方法为含CV等步骤的残差调用数，口径并不完全相同；其比值不能直接解释为加速比，耗时只代表本次机器实测。
+
+星号表示有效参数完全重合，复用同一预测而不视为独立方法：改为四折门控$=$第二轮冻结。
+
+\begin{table}[H]\centering\small
+
+\caption{主测试配对平均误差减少量及95\%区间；正值有利于第二轮冻结方法。}
+
+\begin{tabular}{@{}lrrr@{}}\toprule
+
+参照方法 & 减少量/m & 95\%区间/m & 相对减少/\%\\\midrule
+
+静态WLS & 2.723 & [2.399, 3.036] & 40.99\\
+
+静态稳健 & 2.252 & [1.944, 2.553] & 36.49\\
+
+恒速稳健 & 0.617 & [0.330, 0.920] & 13.61\\
+
+BIC门控 & 0.076 & [-0.158, 0.314] & 1.91\\
+
+第一轮冻结 & 0.145 & [-0.043, 0.334] & 3.56\\
+
+\bottomrule\end{tabular}\end{table}
+
+区间在同一根种子与场景内重抽配对案例，并等权汇总固定单元；未校正多重比较，也不包含智能体搜索或方法选择的不确定性，因此属于探索性证据。
+
+静止干净场景相对WLS的平均误差比为1.299，95\%区间为[1.165, 1.446]。预定容忍界为1.10；点估计未满足该界，配对差额的95\%区间上界未低于零。两者应分开陈述，不作确认性非劣结论。
+
+\begin{table}[H]\centering\small
+
+\caption{全局与观测选模分组的Mondrian区域：独立同分布覆盖检验。}
+
+\begin{tabular}{@{}lrrrr@{}}\toprule
+
+校准规则 & 名义/\% & 实测覆盖/\% & 平均半径/m & 无界数\\\midrule
+
+global & 90 & 88.33 & 7.690 & 0\\
+
+global & 95 & 94.58 & 11.779 & 0\\
+
+mondrian & 90 & 88.17 & 7.247 & 0\\
+
+mondrian & 95 & 95.00 & 10.802 & 0\\
+
+\bottomrule\end{tabular}\end{table}
+
+Mondrian分组仅使用冻结定位器根据观测选择的静态或恒速标签；真实场景仅用于事后评价。其保证依赖校准与测试可交换，并对随机校准评分取平均；不保证给定本次校准集、真实场景、按半径拒绝后的子集或分布偏移案例的覆盖。校准组为空或秩超过组样本数时区域无界，明确保留该代价。
+
+全部场景、观测数边界、逐根种子结果、尾部与成本、压力与拒绝覆盖均保存在\nolinkurl{results/revision_benchmark/summary.json}及配套逐例文件。三个测试根种子代表数据批次，不能解释为三个独立智能体研究过程。
+
+\subsection{全场景与跨种子的结果}
+
+\begin{table}[H]\centering\small
+\caption{主测试的逐场景均值，单位m。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+场景 & 静态WLS & 恒速稳健 & BIC门控 & 第一轮冻结 & 第二轮冻结\\
+\midrule
+移动正常 & 10.635 & 2.579 & 2.878 & 3.390 & 3.585\\
+移动异常 & 11.168 & 7.245 & 9.805 & 9.186 & 8.562\\
+静态正常 & 1.093 & 2.379 & 1.253 & 1.402 & 1.419\\
+静态异常 & 3.675 & 5.944 & 2.048 & 2.280 & 2.112\\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{压力测试的逐场景均值，单位m。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+场景 & 静态WLS & 恒速稳健 & BIC门控 & 第一轮冻结 & 第二轮冻结\\
+\midrule
+加速运动 & 11.291 & 4.705 & 4.839 & 5.296 & 5.018\\
+标定漂移 & 14.389 & 12.453 & 12.375 & 12.553 & 13.020\\
+高污染 & 11.526 & 12.386 & 11.896 & 12.304 & 11.457\\
+狭窄几何 & 15.540 & 10.464 & 10.835 & 11.380 & 10.660\\
+稀疏观测 & 11.114 & 6.045 & 6.000 & 11.422 & 6.991\\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{三个新主测试数据批次的总体均值。它们不是三次智能体研究。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+根种子 & 第一轮冻结/m & 第二轮冻结/m & 恒速稳健/m\\
+\midrule
+1814711 & 4.228 & 4.047 & 4.812\\
+1826013 & 3.839 & 3.724 & 4.013\\
+1837901 & 4.126 & 3.988 & 4.786\\
+\bottomrule\end{tabularx}\end{table}
+
+\subsection{观测数边界与计算成本}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[width=.92\linewidth,height=6.6cm,xlabel={观测数量},ylabel={平均位置误差（m）},xtick={6,7,8,9,10,11,12},ymin=0,grid=major,legend style={at={(.5,1.04)},anchor=south,legend columns=3}]\addplot[thick,color=navy,mark=square*] coordinates {(6,1.672230) (7,1.793390) (8,1.887981) (9,1.955519) (10,1.757617) (11,1.510640) (12,1.689420)};\addlegendentry{第一轮冻结}
+\addplot[thick,color=teal,mark=*] coordinates {(6,1.672405) (7,1.793398) (8,2.745938) (9,1.921730) (10,1.366116) (11,1.595903) (12,1.577056)};\addlegendentry{第二轮冻结}
+\addplot[thick,color=orange,mark=triangle*] coordinates {(6,7.641730) (7,6.841625) (8,4.583020) (9,4.062102) (10,3.976314) (11,3.964654) (12,3.249252)};\addlegendentry{恒速稳健}\end{axis}\end{tikzpicture}
+\caption{静态正常的完整观测数边界；每格30例，连线只表示离散格点。}
+\label{fig:revision-edge-static_clean}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}\begin{axis}[width=.92\linewidth,height=6.6cm,xlabel={观测数量},ylabel={平均位置误差（m）},xtick={6,7,8,9,10,11,12},ymin=0,grid=major,legend style={at={(.5,1.04)},anchor=south,legend columns=3}]\addplot[thick,color=navy,mark=square*] coordinates {(6,9.798988) (7,10.724031) (8,10.788175) (9,7.003231) (10,6.140565) (11,4.586809) (12,5.697341)};\addlegendentry{第一轮冻结}
+\addplot[thick,color=teal,mark=*] coordinates {(6,9.565939) (7,10.723940) (8,6.216563) (9,6.609238) (10,5.850167) (11,5.202763) (12,4.218404)};\addlegendentry{第二轮冻结}
+\addplot[thick,color=orange,mark=triangle*] coordinates {(6,7.708461) (7,5.612531) (8,5.106972) (9,4.495001) (10,3.214075) (11,3.738599) (12,3.421666)};\addlegendentry{恒速稳健}\end{axis}\end{tikzpicture}
+\caption{移动正常的完整观测数边界；每格30例，连线只表示离散格点。}
+\label{fig:revision-edge-moving_clean}
+\end{figure}
+
+\begin{table}[H]\centering\small
+\caption{边界误差表（m），同时保留静态和运动表现。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+观测数 & 旧静态场景 & 新静态场景 & 旧运动场景 & 新运动场景\\
+\midrule
+6 & 1.672 & 1.672 & 9.799 & 9.566\\
+7 & 1.793 & 1.793 & 10.724 & 10.724\\
+8 & 1.888 & 2.746 & 10.788 & 6.217\\
+9 & 1.956 & 1.922 & 7.003 & 6.609\\
+10 & 1.758 & 1.366 & 6.141 & 5.850\\
+11 & 1.511 & 1.596 & 4.587 & 5.203\\
+12 & 1.689 & 1.577 & 5.697 & 4.218\\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{新主测试的成本与尾部。不同实现的工作量口径不同，耗时为本机单次测量。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+方法 & P90/m & P95/m & 最大/m & 工作量 & 耗时/ms\\
+\midrule
+静态WLS & 14.789 & 17.598 & 24.744 & 19.5 & 3.70\\
+恒速稳健 & 9.302 & 13.443 & 55.311 & 28.1 & 6.76\\
+第一轮冻结 & 10.008 & 14.171 & 55.311 & 71.7 & 20.14\\
+第二轮冻结 & 9.973 & 13.970 & 55.311 & 68.7 & 16.92\\
+\bottomrule\end{tabularx}\end{table}
+
+\subsection{覆盖区间、分组差异和分布偏移}
+
+\begin{table}[H]\centering\small
+\caption{有限样本秩与实际校准阈值。空组或秩超过样本数时明确保留无界区域。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+规则 & 名义/\% & 校准组 & 样本 & 秩 & 阈值q & 无界\\
+\midrule
+全局 & 90 & 全部 & 800 & 721 & 3.244 & 否\\
+全局 & 95 & 全部 & 800 & 761 & 4.968 & 否\\
+分组 & 90 & 输出静态 & 480 & 433 & 4.200 & 否\\
+分组 & 90 & 输出恒速 & 320 & 289 & 2.131 & 否\\
+分组 & 95 & 输出静态 & 480 & 457 & 6.370 & 否\\
+分组 & 95 & 输出恒速 & 320 & 305 & 3.087 & 否\\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{90\%名义水平的IID总体、真实场景与观测选模分组覆盖。区间为Wilson95\%，覆盖和区间单位为\%。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+规则 & 评价组 & 样本 & 覆盖 & 区间 & 半径/m\\
+\midrule
+全局 & 总体 & 1200 & 88.33 & [86.39, 90.03] & 7.690\\
+全局 & 移动正常 & 270 & 90.74 & [86.69, 93.65] & 9.523\\
+全局 & 移动异常 & 304 & 64.80 & [59.28, 69.96] & 10.706\\
+全局 & 静态正常 & 329 & 100.00 & [98.85, 100.00] & 4.927\\
+全局 & 静态异常 & 297 & 97.31 & [94.78, 98.63] & 5.997\\
+全局 & 输出静态 & 744 & 84.27 & [81.48, 86.71] & 5.550\\
+全局 & 输出恒速 & 456 & 94.96 & [92.55, 96.62] & 11.181\\
+分组 & 总体 & 1200 & 88.17 & [86.22, 89.87] & 7.247\\
+分组 & 移动正常 & 270 & 89.26 & [85.00, 92.42] & 6.603\\
+分组 & 移动异常 & 304 & 66.78 & [61.30, 71.83] & 9.749\\
+分组 & 静态正常 & 329 & 99.39 & [97.81, 99.83] & 5.647\\
+分组 & 静态异常 & 297 & 96.63 & [93.91, 98.16] & 7.045\\
+分组 & 输出静态 & 744 & 88.04 & [85.51, 90.18] & 7.186\\
+分组 & 输出恒速 & 456 & 88.38 & [85.11, 91.00] & 7.347\\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{95\%名义水平的IID总体、真实场景与观测选模分组覆盖。区间为Wilson95\%，覆盖和区间单位为\%。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+规则 & 评价组 & 样本 & 覆盖 & 区间 & 半径/m\\
+\midrule
+全局 & 总体 & 1200 & 94.58 & [93.15, 95.73] & 11.779\\
+全局 & 移动正常 & 270 & 93.33 & [89.71, 95.74] & 14.586\\
+全局 & 移动异常 & 304 & 85.53 & [81.13, 89.04] & 16.398\\
+全局 & 静态正常 & 329 & 100.00 & [98.85, 100.00] & 7.547\\
+全局 & 静态异常 & 297 & 98.99 & [97.07, 99.66] & 9.186\\
+全局 & 输出静态 & 744 & 92.07 & [89.91, 93.80] & 8.501\\
+全局 & 输出恒速 & 456 & 98.68 & [97.16, 99.40] & 17.126\\
+分组 & 总体 & 1200 & 95.00 & [93.62, 96.10] & 10.802\\
+分组 & 移动正常 & 270 & 94.81 & [91.49, 96.89] & 9.612\\
+分组 & 移动异常 & 304 & 87.17 & [82.94, 90.47] & 14.497\\
+分组 & 静态正常 & 329 & 100.00 & [98.85, 100.00] & 8.514\\
+分组 & 静态异常 & 297 & 97.64 & [95.22, 98.85] & 10.635\\
+分组 & 输出静态 & 744 & 95.16 & [93.37, 96.48] & 10.900\\
+分组 & 输出恒速 & 456 & 94.74 & [92.29, 96.44] & 10.642\\
+\bottomrule\end{tabularx}\end{table}
+
+\begin{table}[H]\centering\small
+\caption{偏移分布上的描述性覆盖与半径，不赋予名义覆盖保证。}
+
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+规则 & 名义/\% & 总体 & 覆盖/\% & 半径/m & 无界数\\
+\midrule
+全局 & 90 & 压力 & 81.25 & 20.476 & 0\\
+全局 & 90 & 边界 & 86.67 & 9.581 & 0\\
+全局 & 95 & 压力 & 90.25 & 31.363 & 0\\
+全局 & 95 & 边界 & 93.33 & 14.675 & 0\\
+分组 & 90 & 压力 & 75.25 & 16.637 & 0\\
+分组 & 90 & 边界 & 90.95 & 9.449 & 0\\
+分组 & 95 & 压力 & 93.25 & 24.538 & 0\\
+分组 & 95 & 边界 & 95.71 & 14.124 & 0\\
+\bottomrule\end{tabularx}\end{table}
+
+Wilson区间描述固定本次校准规则后，IID测试抽样对覆盖概率估计的不确定性；它与对校准评分取平均的共形保证不同，也不是第二次独立校准实验。逐真实场景和多个水平的区间未校正多重比较。

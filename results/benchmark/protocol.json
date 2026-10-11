@@ -1,0 +1,203 @@
+{
+  "version": "v2.1-independent-benchmark",
+  "main_seeds": [
+    814711,
+    826013,
+    837901
+  ],
+  "stress_seed": 849391,
+  "calibration_seed": 862193,
+  "coverage_seed": 875149,
+  "main_per_scenario_per_seed": 30,
+  "stress_per_scenario": 40,
+  "calibration_size": 240,
+  "coverage_size": 320,
+  "methods": {
+    "static_wls": {
+      "baseline": "static_wls"
+    },
+    "static_robust": {
+      "baseline": "static_robust"
+    },
+    "dynamic_robust": {
+      "baseline": "dynamic_robust"
+    },
+    "legacy_bic": {
+      "baseline": "bic_select"
+    },
+    "llm_selected": {
+      "consensus_trials": 0,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 3,
+      "trim_fraction": 0.0
+    },
+    "ablate_force_velocity": {
+      "consensus_trials": 0,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "velocity",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 3,
+      "trim_fraction": 0.0
+    },
+    "ablate_force_static": {
+      "consensus_trials": 0,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "static",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 3,
+      "trim_fraction": 0.0
+    },
+    "predecessor_log_cv_reported": {
+      "model": "cv_select",
+      "residual": "log_range",
+      "loss": "soft_l1",
+      "scale": "reported",
+      "f_scale": 1.5,
+      "ridge": 0.05,
+      "trim_fraction": 0.0,
+      "consensus_trials": 0,
+      "starts": 3,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1
+    }
+  },
+  "ablations": [
+    {
+      "method": "ablate_force_velocity",
+      "change": {
+        "model": "velocity"
+      }
+    },
+    {
+      "method": "ablate_force_static",
+      "change": {
+        "model": "static"
+      }
+    }
+  ],
+  "frozen_method_sha256": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+  "pre_holdout_integrity_check": {
+    "verified_source_files": 14,
+    "verified_evidence_files": 15,
+    "controller_and_toolkit_frozen": true,
+    "is_replay": false,
+    "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+  },
+  "evaluator_provenance": {
+    "evaluator_version": "v2.1-baseline-shorthand-guard",
+    "original_benchmark_sha256": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+    "evaluator_source_sha256": "f4ed7a18c722536b0d1daa6197a8dd23d38a929ff6f97827741b5ada259810c5",
+    "research_initialization_manifest": {
+      "study": "CrowdLocateLab-v2",
+      "discovery_seed": 46191,
+      "validation_seed": 57383,
+      "source_hashes": {
+        "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+        "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+        "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+        "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+        "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+        "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+        "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+        "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18",
+        "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+        "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+        "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+        "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+        "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+        "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5"
+      },
+      "reasoning_effort": "medium",
+      "test_access": false,
+      "goal_sha256": "45ad7bf60fff02ba57345bc5a1965439688c7ffb269d85bccd857b27b5faac1d"
+    },
+    "research_initialization_manifest_sha256": "6a146e5f816237f72a1f83d500c1f64cfc48833c51233d9b504e3e52fa36625d",
+    "amendment": {
+      "amendment_id": "evaluator-v2.1-baseline-shorthand-guard",
+      "created_at_utc": "2026-09-24T17:40:54.714109+00:00",
+      "first_review_observation_utc": "2026-09-24T17:37:03Z",
+      "first_review_run_state": {
+        "status": "running",
+        "frozen": false,
+        "steps": 7,
+        "experiment_calls": 2,
+        "results_directory_existed": false
+      },
+      "creation_run_state": {
+        "status": "running",
+        "frozen": false,
+        "steps": 9,
+        "experiment_calls": 3
+      },
+      "creation_results_directory_exists": false,
+      "phase": "Pre-freeze, pre-holdout code-review amendment",
+      "original_benchmark_sha256": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+      "original_source_snapshot": "research/benchmark_v2_initialization_snapshot.py",
+      "original_source_snapshot_sha256": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+      "original_research_manifest_snapshot": "research/initial_research_protocol_snapshot.json",
+      "original_research_manifest_sha256": "6a146e5f816237f72a1f83d500c1f64cfc48833c51233d9b504e3e52fa36625d",
+      "amended_evaluator_sha256": "f4ed7a18c722536b0d1daa6197a8dd23d38a929ff6f97827741b5ada259810c5",
+      "exact_diff_file": "research/evaluator_v2_1.patch",
+      "exact_diff_sha256": "59efd1d33081d6eb516ce72064695f5a635e8d80bb0c6cea6a79cc16f699b353",
+      "semantic_change": "Skip compositional ablations only when the frozen spec is baseline shorthand; keep chosen spec unchanged.",
+      "unchanged": [
+        "research tools",
+        "numerical solvers",
+        "live model decisions",
+        "initialization source hashes",
+        "dataset seeds and CLI options",
+        "predecessor policy",
+        "metrics/bootstrap/conformal helpers"
+      ],
+      "formal_evaluation_policy": "First formal holdout uses benchmark_v2_1.py only; no version selection using holdout outcomes.",
+      "verification": "4 fixture-only evaluator amendment tests passed; no holdout generation or scoring was called."
+    },
+    "evaluation_policy": "Use v2.1 for the first formal holdout; do not evaluate both versions and select favourable results."
+  },
+  "ablation_policy": "No compositional ablations for baseline shorthand; unchanged component ablations otherwise.",
+  "source_sha256": {
+    "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+    "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+    "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+    "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+    "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+    "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+    "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+    "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18",
+    "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+    "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+    "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+    "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+    "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+    "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+    "benchmark_v2_1.py": "f4ed7a18c722536b0d1daa6197a8dd23d38a929ff6f97827741b5ada259810c5"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "prohibition": "No test-driven revisions to the frozen method; report failures without retuning."
+}

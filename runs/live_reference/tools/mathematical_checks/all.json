@@ -1,0 +1,86 @@
+{
+  "self_weight_bias": {
+    "status": "analytical result with independent Monte Carlo witness",
+    "assumptions": "Scalar range q>0; Y=d*exp(eps-s²/2); eps~N(0,s²); weight=Y^-2; no coordinate/additive error.",
+    "formula": "argmin_q E[(q-Y)^2/Y^2] = d*exp(-2*s^2)",
+    "log_formula": "argmin_q E[(log(q)-log(Y)-s²/2)^2] = d",
+    "derivation": "E[Y^k]=d^k exp((k²-k)s²/2). Setting derivative to zero gives E[Y^-1]/E[Y^-2].",
+    "truth_m": 20.0,
+    "noise_log_sd": 0.35,
+    "mc_samples": 200000,
+    "analytical_weighted_optimum_m": 15.654090764837363,
+    "mc_weighted_optimum_m": 15.671449031755385,
+    "mc_corrected_log_optimum_m": 20.018638146987602,
+    "limitation": "Not a theorem about the full nonlinear multianchor problem or its finite-sample optimizer."
+  },
+  "mirror": {
+    "status": "exact identity plus numerical witness",
+    "max_distance_difference_m": 0.0,
+    "position_separation_m": 6.0,
+    "anchors": [
+      [
+        -7.0,
+        0.0
+      ],
+      [
+        -2.0,
+        0.0
+      ],
+      [
+        5.0,
+        0.0
+      ],
+      [
+        -5.0,
+        0.0
+      ],
+      [
+        7.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ]
+    ],
+    "times": [
+      -8.0,
+      -6.0,
+      -4.0,
+      -2.0,
+      -1.0,
+      0.0
+    ],
+    "position": [
+      1.5,
+      3.0
+    ],
+    "velocity": [
+      0.2,
+      0.1
+    ],
+    "jacobian_rank": 4,
+    "singular_values": [
+      10.320627257717938,
+      4.285072985975744,
+      1.0915107670541162,
+      0.9650941702835486
+    ],
+    "proof": "R a_i=a_i and ||Rz||=||z||; thus ranges of (x,v) and (Rx,Rv) coincide for all times.",
+    "limitation": "A full-rank local Jacobian does not remove global reflection ambiguity."
+  },
+  "conformal": {
+    "status": "theorem conditions checked; empirical coverage requires frozen benchmark",
+    "statement": "For m exchangeable calibration cases and one new case, frozen estimator and positive frozen scale g, use k=ceil((m+1)*(1-alpha)); q=S_(k), S=error/g, q=inf if k>m. Then marginal coverage is >=1-alpha.",
+    "assumptions": [
+      "estimator frozen before calibration",
+      "calibration and test cases exchangeable",
+      "true positions available for calibration only"
+    ],
+    "not_implied": [
+      "conditional coverage for each scenario",
+      "coverage after data-dependent rejection",
+      "coverage under distribution shift"
+    ]
+  }
+}

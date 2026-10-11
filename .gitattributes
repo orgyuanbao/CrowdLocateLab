@@ -1,0 +1,2 @@
+# Preserve audited source and evidence bytes across Windows/Linux Git checkouts.
+* -text

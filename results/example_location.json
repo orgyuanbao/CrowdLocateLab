@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "method_id": "range_cv_reported",
+  "method_spec": {
+    "consensus_trials": 0,
+    "f_scale": 1.5,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "cv_select",
+    "residual": "range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 3,
+    "trim_fraction": 0.0
+  },
+  "run_integrity": {
+    "verified_source_files": 14,
+    "verified_evidence_files": 15,
+    "controller_and_toolkit_frozen": true,
+    "is_replay": false,
+    "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+  },
+  "observations": {
+    "n": 12,
+    "reference_time_s": 0.0,
+    "coordinate_units": "local planar metres",
+    "time_units": "seconds",
+    "input_sha256": "cc00dbcfc1356906ee8647e8988845af1b16cbe7a7c0963e70ba56376ccefdee"
+  },
+  "position": [
+    19.385036665585677,
+    21.668123895274793
+  ],
+  "velocity": [
+    -0.5359212964940756,
+    0.747145237438384
+  ],
+  "selected_model": "velocity",
+  "diagnostics": {
+    "selected_model": "velocity",
+    "fit_cost": 8.00918891567229,
+    "regularized_objective": 8.051460797765428,
+    "all_observation_robust_cost": 8.00918891567229,
+    "standardized_residuals": [
+      -0.4945567263735582,
+      -0.10302229181939593,
+      -0.17191361537600033,
+      1.5194326192034118,
+      -0.3650211208314023,
+      -0.33894893450110547,
+      0.4068930490165159,
+      -0.055408131134446446,
+      0.6287004356996562,
+      -2.6700590845949246,
+      -0.36853986729667987,
+      -0.4684036256529578
+    ],
+    "retained_indices": [
+      7,
+      1,
+      2,
+      5,
+      4,
+      10,
+      6,
+      11,
+      0,
+      8,
+      3,
+      9
+    ],
+    "retained_count": 12,
+    "trim_rounds": 1,
+    "starts_attempted": 3,
+    "consensus_trials": 0,
+    "jacobian_singular_values": [
+      24.39151106591872,
+      14.023260589911608,
+      0.5546403307909502,
+      0.34941302439073163
+    ],
+    "jacobian_condition": 69.80710323677825,
+    "jacobian_rank": 4,
+    "ill_conditioned": false,
+    "solver_success": true,
+    "solver_status": 2,
+    "at_numerical_bound": false,
+    "constant_scale": null,
+    "fallback_reason": null,
+    "geometry_scale_m": 3.377788555181006,
+    "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+    "cv": {
+      "scores": {
+        "static": 3.1028128952634404,
+        "velocity": 0.7307461515331672
+      },
+      "dynamic_admissible": true,
+      "gate_margin": 0.05,
+      "folds": [
+        {
+          "train_indices": [
+            1,
+            2,
+            4,
+            5,
+            7,
+            8,
+            10,
+            11
+          ],
+          "validation_indices": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "static": 4.344092837153955,
+          "velocity": 1.5259232864888643
+        },
+        {
+          "train_indices": [
+            0,
+            2,
+            3,
+            5,
+            6,
+            8,
+            9,
+            11
+          ],
+          "validation_indices": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "static": 2.337536316913351,
+          "velocity": 0.2730078844835052
+        },
+        {
+          "train_indices": [
+            0,
+            1,
+            3,
+            4,
+            6,
+            7,
+            9,
+            10
+          ],
+          "validation_indices": [
+            2,
+            5,
+            8,
+            11
+          ],
+          "static": 2.6268095317230165,
+          "velocity": 0.39330728362713174
+        }
+      ],
+      "selection_rule": "velocity_score < (1-gate_margin)*static_score",
+      "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+      "inner_starts": 1,
+      "inner_consensus_trials": 0,
+      "fold_assignment": "time-sorted interleaving; every observation held out once"
+    },
+    "computation": {
+      "nfev": 82,
+      "njev": 73,
+      "solves": 9
+    },
+    "spec": {
+      "model": "cv_select",
+      "residual": "range",
+      "scale": "reported",
+      "loss": "soft_l1",
+      "f_scale": 1.5,
+      "starts": 3,
+      "ridge": 0.05,
+      "trim_fraction": 0.0,
+      "consensus_trials": 0,
+      "gate_margin": 0.05,
+      "seed": 0,
+      "cv_folds": 3,
+      "log_bias_correction": true,
+      "log_sd": 0.1
+    }
+  },
+  "work_units": 82,
+  "elapsed_seconds": 0.026332999999794993,
+  "calibration": {
+    "alpha": 0.1,
+    "nominal_marginal_coverage": 0.9,
+    "coverage_guarantee_asserted_for_this_input": false,
+    "exchangeability_verified_for_this_input": false,
+    "scope": "该半径沿用提供的校准样本分布。标称边际覆盖需要校准样本与新样本的交换性及同一冻结估计器；未核验本次现场输入满足这些假设，不声称对任意现场输入、每个场景、拒识子集或分布偏移具有标称覆盖率。",
+    "status": "available_under_assumptions",
+    "radius_m": 11.98331510693696,
+    "center": [
+      19.385036665585677,
+      21.668123895274793
+    ],
+    "q": 3.547680652939748,
+    "geometry_scale_m": 3.377788555181006,
+    "calibration_n": 240,
+    "order_statistic_k": 217,
+    "formula": "radius_m = q * benchmark.scale(prediction)",
+    "frozen_method_sha256": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+    "calibration_sha256": "6747d36d36b4eca7656481a77132b4c453f3d98eb3c5bf3464a2d68d06fdef54",
+    "provenance": "Adjacent benchmark protocol matches the verified frozen record and solver specification."
+  },
+  "interpretation": "position 是输入坐标系中 t=0 的二维点估计，velocity 的单位是米/秒；本输入不含真实位置，不能据此计算定位误差。"
+}

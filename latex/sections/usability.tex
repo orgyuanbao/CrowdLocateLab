@@ -1,0 +1,40 @@
+\section{应用入口、交互核查与提交准备}
+\label{app:usability}
+
+\subsection{从保存研究到可使用的定位程序}
+第二轮提供\path{locate_revision.py}。输入只含观测坐标\texttt{anchors}、相对时刻\texttt{times}、距离\texttt{ranges}与报告尺度\texttt{sigma}；位置单位为米，时刻单位为秒，参考时刻为0。输入不允许携带求解器可读取的目标真值或场景标签。文件\path{examples/observations.json}给出最小使用示例，其用途是接口演示，不属于工业现场验证。
+
+\begin{lstlisting}
+python locate_revision.py --input examples/observations.json \
+  --run runs/revision_reference \
+  --calibration results/revision_benchmark/conformal.json \
+  --region mondrian --alpha 0.1 --max-radius 10 \
+  --output results/my_location.json
+\end{lstlisting}
+上例用反斜杠示意分行；Windows PowerShell中请合并为一行运行，或依照README中的单行命令执行。程序验证冻结方法与校准记录的一致性，给出当前位置、速度、选中模型、几何诊断、名义区域及接受状态。选择\texttt{global}可使用全局校准，\texttt{mondrian}使用实际输出模型分组；两者均只能请求已保存的$\alpha$水平。
+
+设置最大半径阈值后，半径超过阈值时状态为拒绝，点估计仍保留供诊断。未设阈值时状态为未应用拒绝规则，不能解释成通过了可靠性检查。对于空校准组或秩超出校准数量的情形，半径明确为无界；程序不会用零、缺失值或临时经验常数替代。现场新输入没有真值，所以输出也不计算无法观察到的实际误差。
+
+\subsection{只读研究浏览器}
+运行\path{dashboard_revision.py}后，用浏览器打开本机8766端口。页面可切换两轮研究，并提供五个视图：概览、智能体迭代、失败案例、校准与拒绝、观测数边界。它读取保存记录，不调用模型或定位器；使用者不需要模型账号即可检查成果。
+
+迭代视图将公开模型决策摘要、假设、工具输入输出与审阅反馈连接起来。案例视图可以按方法误差排序，选择同一个\texttt{case\_id}比较多种方法。几何图使用相同米制比例显示锚点、历史测距圆、估计位置和五秒速度向量；评测真值明确标为离线专用，并可隐藏。因为圆属于不同历史时刻，不能把它们的静态交点当作正确的当前位置解释。
+
+校准视图同时展示样本量、覆盖率、半径和拒绝曲线；边界图覆盖全部预登记观测数量。未开始、执行中、失败与完成分别显示，缺失证据不会自动变成零误差或虚构指标。浏览器用于核查研究结果，命令行应用用于计算一组新观测，两者承担不同的工作。
+
+\subsection{环境自检、测试与报告重建}
+\path{doctor.py}检查Python、数值依赖和可选的CLI版本。检查结果只表示本地依赖状况，不表示远端模型额度、登录或服务可用。已有结果浏览、数值重算、真实模型研究和LaTeX编译需要的环境不同，应按需要准备，详见README与分项指南。
+
+\begin{lstlisting}
+python doctor.py --json
+python -m unittest discover -s tests -v
+python reporting/compile_report.py
+\end{lstlisting}
+最后一个命令从保存证据更新实证章节，再执行XeLaTeX、BibTeX及必要的重复编译。未找到编译器、证据未完成、引用缺失、字体缺字或内容溢出时，脚本会报错，不把旧PDF标为新结果。\texttt{--xelatex}与\texttt{--bibtex}可指定编译器路径；\texttt{--skip-refresh}适合只修改文字和身份信息后的排版。新模板在Windows字体不可用时提供Fandol和TeX Gyre回退，实际交付版在Windows上编译并检查。
+
+项目提供Windows与Linux、Python 3.11与3.12的离线CI配置。该配置文件随源码交付，不代表本次已经执行了远端四种组合；本机通过记录与平台范围以\path{verification/}为准。测试中的模拟模型用于验证预算、恢复、冻结、校准和输入边界，不能计作实际研究调用。
+
+\subsection{建议的答辩展示路径}
+先说明原工业问题与本项目合成子问题的区别，再从第一轮的静态退化或稀疏失败进入第二轮假设。接着展示一条真实“诊断--修订--消融--验证”的证据路径，最后用新的主测试、完整观测数边界与覆盖/半径取舍回答假设是否得到支持。对于没有改善的指标，应说明它约束了方法的适用范围。
+
+完整代码、两轮原始轨迹、生成器输入、逐例结果、LaTeX和PDF一同构成提交项目。学生需补充姓名、学号及课程信息，并按课程要求说明开发辅助工具的使用。个人GitHub仓库由提交者创建并上传，本项目没有代为发布；课程原始课件、账号凭据及本地虚拟环境不属于交付内容。

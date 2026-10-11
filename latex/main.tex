@@ -1,0 +1,115 @@
+\documentclass[UTF8,a4paper,zihao=-4,fontset=none]{ctexart}
+\usepackage[margin=25mm,headheight=16pt]{geometry}
+\usepackage{fontspec}
+\IfFontExistsTF{SimSun}{
+  \setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]
+  \setCJKsansfont{SimHei}\setCJKmonofont{FangSong}
+}{
+  \setCJKmainfont{FandolSong-Regular}[BoldFont=FandolSong-Bold,ItalicFont=FandolKai-Regular]
+  \setCJKsansfont{FandolHei-Regular}\setCJKmonofont{FandolFang-Regular}
+}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\IfFontExistsTF{Arial}{\setsansfont{Arial}}{\setsansfont{TeX Gyre Heros}}
+\IfFontExistsTF{Consolas}{\setmonofont[Scale=0.85]{Consolas}}{\setmonofont[Scale=0.85]{Latin Modern Mono}}
+\usepackage{amsmath,amssymb,amsthm,bm,mathtools}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{graphicx,xcolor,float,caption,subcaption}
+\usepackage[section]{placeins}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{arrows.meta,positioning,fit,calc}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{enumitem,fancyhdr,lastpage,listings}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=navy,citecolor=teal,urlcolor=teal,breaklinks=true]{hyperref}
+\usepackage{bookmark}
+\definecolor{navy}{HTML}{17324D}
+\definecolor{teal}{HTML}{087F8C}
+\definecolor{muted}{HTML}{586579}
+\definecolor{paleblue}{HTML}{EDF4F7}
+\definecolor{orange}{HTML}{C47722}
+\definecolor{brick}{HTML}{B24B4B}
+\hypersetup{pdftitle={CrowdLocateLab：面向异步众包定位的科研智能体},pdfauthor={课程研究项目},pdfsubject={实际大模型智能体运行、稳健估计、几何可辨识性与分割共形校准}}
+\ctexset{section={format=\Large\bfseries\color{navy}},subsection={format=\large\bfseries\color{navy}},subsubsection={format=\normalsize\bfseries}}
+\newtheorem{proposition}{命题}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}{引理}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{说明}[section]
+\newtheorem{definition}{定义}[section]
+\renewcommand{\proofname}{证明}
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{图}
+\SetAlgorithmName{算法}{算法}{算法目录}
+\captionsetup{font=small,labelfont=bf,labelsep=quad}
+\setlist{nosep,leftmargin=2em,topsep=4pt}
+\setlength{\parskip}{3pt}
+\linespread{1.16}
+\setlength{\emergencystretch}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{muted}CrowdLocateLab}
+\fancyhead[R]{\small\color{muted}科研智能体开发与应用}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,keepspaces=true,frame=single,rulecolor=\color{black!15},backgroundcolor=\color{black!2},showstringspaces=false}
+\pgfplotsset{every axis/.append style={font=\small,tick label style={font=\footnotesize},label style={font=\small},legend style={font=\footnotesize,draw=none},axis line style={black!35},grid style={black!10},major grid style={black!10}}}
+
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+\setlength{\parindent}{0pt}
+\vspace*{14mm}
+{\sffamily\large\color{teal}AI FOR MATHEMATICS\hfill 课程研究项目\par}
+\vspace{18mm}
+{\Huge\bfseries\color{navy}CrowdLocateLab\par}
+\vspace{6mm}
+{\LARGE\bfseries 面向异步众包定位的\par 科研智能体开发与实证研究\par}
+\vspace{8mm}
+{\large\color{muted}从问题建模、假设修订到独立测试与误差校准\par}
+\vspace{12mm}
+\noindent\color{teal}\rule{\textwidth}{1.1pt}\color{black}
+\vspace{6mm}
+\begin{tabularx}{\textwidth}{@{}p{27mm}Y@{}}
+研究来源 & 《HarmonyOS难题发布》第七期：基于非线性优化的众包离线高精度位置聚合难题\\[4mm]
+研究对象 & 污染距离观测与运动模型失配下的当前位置估计\\[4mm]
+系统形式 & 实际大模型规划器、研究工具、独立审阅调用、可恢复记忆与可核查轨迹\\[4mm]
+交付内容 & Python源代码、真实运行记录、合成数据、独立评测、LaTeX源码与本文PDF
+\end{tabularx}
+\vfill
+{\color{muted}研究版本 3.0\quad /\quad 2026年9月25日\par}
+\vspace{3mm}
+{\small 姓名、学号及课程信息请在提交前补充。\par}
+\end{titlepage}
+\pagenumbering{Roman}
+\input{sections/abstract}
+\clearpage
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\input{sections/background}
+\input{sections/theory}
+\input{sections/agent_system}
+\input{sections/experimental_protocol}
+\input{sections/research_trace}
+\input{sections/results}
+\input{sections/sensitivity_results}
+\clearpage
+\input{sections/revision_design}
+\input{sections/revision_trace}
+\input{sections/revision_results}
+\input{sections/revision_synthesis}
+\clearpage
+\input{sections/rejection_question}
+\clearpage
+\input{sections/discussion}
+\clearpage
+\bibliographystyle{unsrtnat}
+\bibliography{../docs/references}
+\clearpage
+\appendix
+\input{sections/reproduction}
+\input{sections/usability}
+\end{document}

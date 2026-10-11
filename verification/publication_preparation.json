@@ -1,0 +1,13 @@
+{
+  "prepared_on": "2026-10-12",
+  "source_delivery": "CrowdLocateLab_v3",
+  "source_manifest_sha256": "92275bad829bbffc2d8893a93a5018de16b63896d2dae14a3734e7a1b6472207",
+  "documentation_edits": [
+    "README.md",
+    "START_HERE.md",
+    "docs/SUBMISSION.md"
+  ],
+  "other_delivered_files_byte_identical": 429,
+  "scope": "Only publishing guidance was reworded. Research code, raw model records, datasets, predictions and PDF remain unchanged.",
+  "notice": "This preparation record is not evidence that a remote repository was created or uploaded."
+}

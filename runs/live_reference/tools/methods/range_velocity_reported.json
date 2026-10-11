@@ -1,0 +1,18 @@
+{
+  "spec": {
+    "consensus_trials": 0,
+    "f_scale": 1.5,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "velocity",
+    "residual": "range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 3,
+    "trim_fraction": 0.0
+  },
+  "hypothesis": "Ablation of range_cv_reported: {'model': 'velocity'}",
+  "mathematical_definition": "静态模型d_i=||x-a_i||，恒速模型d_i=||x+t_i v-a_i||；残差r_i=(d_i-y_i)/sigma_i。各模型最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5，lambda=0.05，静态模型无速度罚项。按时间排序作三折交错观测验证，用所有留出观测的平均单位尺度soft-L1残差损失评分；仅当全部恒速训练折满足实现规定的可用性条件且CV_velocity<0.95 CV_static时选择恒速，否则选择静态。内折按实现使用一个普通起点，最终全数据使用三个起点重拟合；不截尾、不添加抽样初始化。该候选与legacy_bic的比较是完整方法比较，不能单独归因于门控。"
+}

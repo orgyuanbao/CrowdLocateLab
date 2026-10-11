@@ -1,0 +1,50 @@
+{
+  "version": "v3-preregistered-second-study-1",
+  "status": "declared_before_revision_agent_and_fresh_holdout",
+  "purpose": "Use v2 failures as prior evidence for a new LLM research cycle, then evaluate exactly one frozen revision on new data; this is not an independent replication of the original discovery process.",
+  "development": {"discovery_seed": 1646191, "validation_seed": 1657383, "scenarios": ["static_clean", "static_outliers", "moving_clean", "moving_outliers", "sparse"], "discovery_per_scenario": 20, "validation_per_scenario": 30},
+  "main": {"seeds": [1814711, 1826013, 1837901], "scenarios": ["static_clean", "static_outliers", "moving_clean", "moving_outliers"], "per_scenario_per_seed": 60, "expected_n": 720},
+  "stress": {"seed": 1849391, "scenarios": ["poor_geometry", "accelerating", "sparse", "calibration_shift", "high_contamination"], "per_scenario": 80, "expected_n": 400},
+  "edge": {"seed": 1980221, "scenarios": ["static_clean", "moving_clean"], "observation_n": [6, 7, 8, 9, 10, 11, 12], "per_cell": 30, "expected_n": 420},
+  "calibration": {"seed": 1862193, "size": 800, "scenarios": ["static_clean", "static_outliers", "moving_clean", "moving_outliers"], "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"},
+  "coverage": {"seed": 1875149, "size": 1200, "scenarios": ["static_clean", "static_outliers", "moving_clean", "moving_outliers"], "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"},
+  "methods": {
+    "fixed_baselines": ["static_wls", "static_robust", "dynamic_robust", "legacy_bic"],
+    "v2_frozen_spec": {"consensus_trials": 0, "f_scale": 1.5, "gate_margin": 0.05, "log_bias_correction": true, "log_sd": 0.1, "loss": "soft_l1", "model": "cv_select", "residual": "range", "ridge": 0.05, "scale": "reported", "starts": 3, "trim_fraction": 0.0},
+    "revision_selected": "Exactly one method frozen by runs/revision_reference before generating any fresh dataset",
+    "ablations": {"ablate_k3": {"model": "cv_select", "cv_folds": 3}, "ablate_k4": {"model": "cv_select", "cv_folds": 4}, "ablate_force_velocity": {"model": "velocity"}, "ablate_force_static": {"model": "static"}},
+    "ablation_policy": "For composed selected specs, apply these declared changes. K3/K4 are a paired selection-fold contrast; if selected is not CV they also enable CV, so do not call them single-component ablations of selected. Baseline shorthand has no compositional ablations. Normalize defaults and ignore cv_folds for non-CV when marking exact aliases; aliases reuse numerical predictions and are not independent methods."
+  },
+  "statistics": {
+    "bootstrap_seed": 1912303, "bootstrap_repetitions": 4000,
+    "paired_endpoint": "reference error minus revision_selected error, positive favours revision; use identical case IDs",
+    "strata": {"main": ["study_seed", "scenario"], "stress": ["scenario"], "edge": ["observation_n", "scenario"]},
+    "strata_weight": "equal weight per predeclared balanced cell; resample paired cases within each fixed cell",
+    "confidence_intervals": "two-sided percentile 95%; descriptive approximate sampling intervals, no multiplicity adjustment or uncertainty from LLM search",
+    "static_noninferiority": {"scenario": "static_clean", "reference": "static_wls", "ratio_margin": 1.1, "endpoint": "ratio of mean errors and mean(selected error minus 1.1*WLS error)", "interpretation": "point estimate and two-sided 95% bootstrap upper bound reported separately; exploratory noninferiority diagnostic, not a confirmatory trial"},
+    "per_seed": "Report each of the three main root seeds; these are data batches, not independent LLM research replications",
+    "tail_and_cost": ["median_m", "p90_m", "p95_m", "max_m", "mean_work_units", "mean_seconds"],
+    "cost_caveat": "Legacy work_units is solver nfev; composed solver work_units counts residual calls including CV/initialization rounds. They are not guaranteed identical compute units. Report wall time as observed machine timing, not a controlled speed benchmark; no direct acceleration claim from work-unit ratios.",
+    "failures": "Report every predefined scenario and n-boundary cell, including deterioration; no choice of favourable evaluation version or subset"
+  },
+  "regions": {
+    "methods": ["revision_selected"], "alphas": [0.1, 0.05],
+    "score": "Euclidean position error divided by frozen positive observation-only geometry_scale_m, clipped/fallback exactly as the original scale(row) helper",
+    "global": "k=ceil((m+1)*(1-alpha)); kth calibration score, infinity if k>m or m=0",
+    "mondrian": "Same rank independently within a frozen observation-derived selected_model group: static or velocity (legacy dynamic is mapped to velocity). Unknown output raises an error, never truth-based fallback.",
+    "empty_group": "Use an unbounded region and q=infinity. JSON stores string infinity and explicit unbounded indicators, not null.",
+    "populations": ["iid_test", "shifted_stress", "edge"],
+    "subgroups": "Report true scenario only after prediction as evaluation labels; true scenario is not the Mondrian group function",
+    "coverage_intervals": "Wilson 95% intervals for the IID test population and its scenario/observed-model subgroups. They estimate test-sampling coverage probability conditional on this realized calibration rule, not a conformal guarantee or recalibration interval. No pooled binomial interval for fixed-mixture shifted stress/edge.",
+    "radius_rejection_thresholds_m": [2, 5, 10, 15, 20, 30, 50],
+    "guarantee_scope": "IID calibration/test plus frozen estimator/scale/group implies marginal global coverage and group-conditional Mondrian coverage conditional on group membership and calibration group count, marginal over calibration scores. No guarantee conditional on a realized calibration set, true scenario, radius acceptance, or shifted stress/edge population."
+  },
+  "integrity": {
+    "must_freeze_before_generation": true,
+    "required_new_source_hashes": ["run_revision.py", "revision/agent.py", "revision/evaluation.py", "benchmark_revision.py", "research/revision_plan.json"],
+    "original_v2_sources": "Preserve every original frozen byte. New study uses separate files and includes original and new sources in its initialization hash manifest.",
+    "case_identity": "Prefix split, root seed and case index; retain generator_seed in case metadata. Identical case object across methods.",
+    "output_policy": "Refuse existing output directory. Save initialization provenance, input cases, every unique method result, aliases, complete statistics and completion marker.",
+    "fresh_results_policy": "Never generate these fresh datasets or inspect their outcomes before revision freeze. Fixtures use unrelated small seeds only. Old v2 test data are acknowledged prior evidence, never relabelled fresh holdout."
+  }
+}

@@ -1,0 +1,18 @@
+2026-09-24T18:56:34.171877Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:56:34.171957Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:56:34.180228Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+2026-09-24T18:56:35.039980Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:56:35.040019Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-09-24T18:56:36.895102Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: 由于目标计算机积极拒绝，无法连接。 (os error 10061), url: wss://chatgpt.com/backend-api/codex/responses
+2026-09-24T18:56:36.896241Z  WARN codex_core::session_startup_prewarm: startup websocket prewarm setup failed: stream disconnected before completion: 由于目标计算机积极拒绝，无法连接。 (os error 10061)
+2026-09-24T18:56:52.601799Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 219ms)... turn_id=01a0d4c6-cfd9-7511-9865-ae8f8cfa4162 retries=1 max_retries=5 sampling_error=request timed out
+2026-09-24T18:57:07.849054Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (2/5 in 361ms)... turn_id=01a0d4c6-cfd9-7511-9865-ae8f8cfa4162 retries=2 max_retries=5 sampling_error=request timed out
+2026-09-24T18:57:11.943788Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: 由于目标计算机积极拒绝，无法连接。 (os error 10061), url: wss://chatgpt.com/backend-api/codex/responses
+2026-09-24T18:57:11.943931Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (3/5 in 744ms)... turn_id=01a0d4c6-cfd9-7511-9865-ae8f8cfa4162 retries=3 max_retries=5 sampling_error=stream disconnected before completion: 由于目标计算机积极拒绝，无法连接。 (os error 10061)
+2026-09-24T18:57:14.922632Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: 由于目标计算机积极拒绝，无法连接。 (os error 10061), url: wss://chatgpt.com/backend-api/codex/responses
+2026-09-24T18:57:14.922774Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (4/5 in 1.759s)... turn_id=01a0d4c6-cfd9-7511-9865-ae8f8cfa4162 retries=4 max_retries=5 sampling_error=stream disconnected before completion: 由于目标计算机积极拒绝，无法连接。 (os error 10061)
+2026-09-24T18:57:18.951542Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: 由于目标计算机积极拒绝，无法连接。 (os error 10061), url: wss://chatgpt.com/backend-api/codex/responses
+2026-09-24T18:57:18.951773Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (5/5 in 2.899s)... turn_id=01a0d4c6-cfd9-7511-9865-ae8f8cfa4162 retries=5 max_retries=5 sampling_error=stream disconnected before completion: 由于目标计算机积极拒绝，无法连接。 (os error 10061)
+2026-09-24T18:57:24.258541Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: 由于目标计算机积极拒绝，无法连接。 (os error 10061), url: wss://chatgpt.com/backend-api/codex/responses
+2026-09-24T18:57:24.258707Z  WARN codex_core::client: falling back to HTTP
+2026-09-24T18:57:49.519194Z  WARN codex_core::hook_runtime: after_agent hook failed; continuing turn_id=01a0d4c6-cfd9-7511-9865-ae8f8cfa4162 hook_name=legacy_notify error=文件名或扩展名太长。 (os error 206)

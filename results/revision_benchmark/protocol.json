@@ -1,0 +1,487 @@
+{
+  "version": "v3-second-study-independent-evaluation",
+  "plan": {
+    "version": "v3-preregistered-second-study-1",
+    "status": "declared_before_revision_agent_and_fresh_holdout",
+    "purpose": "Use v2 failures as prior evidence for a new LLM research cycle, then evaluate exactly one frozen revision on new data; this is not an independent replication of the original discovery process.",
+    "development": {
+      "discovery_seed": 1646191,
+      "validation_seed": 1657383,
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers",
+        "sparse"
+      ],
+      "discovery_per_scenario": 20,
+      "validation_per_scenario": 30
+    },
+    "main": {
+      "seeds": [
+        1814711,
+        1826013,
+        1837901
+      ],
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers"
+      ],
+      "per_scenario_per_seed": 60,
+      "expected_n": 720
+    },
+    "stress": {
+      "seed": 1849391,
+      "scenarios": [
+        "poor_geometry",
+        "accelerating",
+        "sparse",
+        "calibration_shift",
+        "high_contamination"
+      ],
+      "per_scenario": 80,
+      "expected_n": 400
+    },
+    "edge": {
+      "seed": 1980221,
+      "scenarios": [
+        "static_clean",
+        "moving_clean"
+      ],
+      "observation_n": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "per_cell": 30,
+      "expected_n": 420
+    },
+    "calibration": {
+      "seed": 1862193,
+      "size": 800,
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers"
+      ],
+      "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+    },
+    "coverage": {
+      "seed": 1875149,
+      "size": 1200,
+      "scenarios": [
+        "static_clean",
+        "static_outliers",
+        "moving_clean",
+        "moving_outliers"
+      ],
+      "sampling": "independent uniformly random scenario for each case, not fixed balanced counts"
+    },
+    "methods": {
+      "fixed_baselines": [
+        "static_wls",
+        "static_robust",
+        "dynamic_robust",
+        "legacy_bic"
+      ],
+      "v2_frozen_spec": {
+        "consensus_trials": 0,
+        "f_scale": 1.5,
+        "gate_margin": 0.05,
+        "log_bias_correction": true,
+        "log_sd": 0.1,
+        "loss": "soft_l1",
+        "model": "cv_select",
+        "residual": "range",
+        "ridge": 0.05,
+        "scale": "reported",
+        "starts": 3,
+        "trim_fraction": 0.0
+      },
+      "revision_selected": "Exactly one method frozen by runs/revision_reference before generating any fresh dataset",
+      "ablations": {
+        "ablate_k3": {
+          "model": "cv_select",
+          "cv_folds": 3
+        },
+        "ablate_k4": {
+          "model": "cv_select",
+          "cv_folds": 4
+        },
+        "ablate_force_velocity": {
+          "model": "velocity"
+        },
+        "ablate_force_static": {
+          "model": "static"
+        }
+      },
+      "ablation_policy": "For composed selected specs, apply these declared changes. K3/K4 are a paired selection-fold contrast; if selected is not CV they also enable CV, so do not call them single-component ablations of selected. Baseline shorthand has no compositional ablations. Normalize defaults and ignore cv_folds for non-CV when marking exact aliases; aliases reuse numerical predictions and are not independent methods."
+    },
+    "statistics": {
+      "bootstrap_seed": 1912303,
+      "bootstrap_repetitions": 4000,
+      "paired_endpoint": "reference error minus revision_selected error, positive favours revision; use identical case IDs",
+      "strata": {
+        "main": [
+          "study_seed",
+          "scenario"
+        ],
+        "stress": [
+          "scenario"
+        ],
+        "edge": [
+          "observation_n",
+          "scenario"
+        ]
+      },
+      "strata_weight": "equal weight per predeclared balanced cell; resample paired cases within each fixed cell",
+      "confidence_intervals": "two-sided percentile 95%; descriptive approximate sampling intervals, no multiplicity adjustment or uncertainty from LLM search",
+      "static_noninferiority": {
+        "scenario": "static_clean",
+        "reference": "static_wls",
+        "ratio_margin": 1.1,
+        "endpoint": "ratio of mean errors and mean(selected error minus 1.1*WLS error)",
+        "interpretation": "point estimate and two-sided 95% bootstrap upper bound reported separately; exploratory noninferiority diagnostic, not a confirmatory trial"
+      },
+      "per_seed": "Report each of the three main root seeds; these are data batches, not independent LLM research replications",
+      "tail_and_cost": [
+        "median_m",
+        "p90_m",
+        "p95_m",
+        "max_m",
+        "mean_work_units",
+        "mean_seconds"
+      ],
+      "cost_caveat": "Legacy work_units is solver nfev; composed solver work_units counts residual calls including CV/initialization rounds. They are not guaranteed identical compute units. Report wall time as observed machine timing, not a controlled speed benchmark; no direct acceleration claim from work-unit ratios.",
+      "failures": "Report every predefined scenario and n-boundary cell, including deterioration; no choice of favourable evaluation version or subset"
+    },
+    "regions": {
+      "methods": [
+        "revision_selected"
+      ],
+      "alphas": [
+        0.1,
+        0.05
+      ],
+      "score": "Euclidean position error divided by frozen positive observation-only geometry_scale_m, clipped/fallback exactly as the original scale(row) helper",
+      "global": "k=ceil((m+1)*(1-alpha)); kth calibration score, infinity if k>m or m=0",
+      "mondrian": "Same rank independently within a frozen observation-derived selected_model group: static or velocity (legacy dynamic is mapped to velocity). Unknown output raises an error, never truth-based fallback.",
+      "empty_group": "Use an unbounded region and q=infinity. JSON stores string infinity and explicit unbounded indicators, not null.",
+      "populations": [
+        "iid_test",
+        "shifted_stress",
+        "edge"
+      ],
+      "subgroups": "Report true scenario only after prediction as evaluation labels; true scenario is not the Mondrian group function",
+      "coverage_intervals": "Wilson 95% intervals for the IID test population and its scenario/observed-model subgroups. They estimate test-sampling coverage probability conditional on this realized calibration rule, not a conformal guarantee or recalibration interval. No pooled binomial interval for fixed-mixture shifted stress/edge.",
+      "radius_rejection_thresholds_m": [
+        2,
+        5,
+        10,
+        15,
+        20,
+        30,
+        50
+      ],
+      "guarantee_scope": "IID calibration/test plus frozen estimator/scale/group implies marginal global coverage and group-conditional Mondrian coverage conditional on group membership and calibration group count, marginal over calibration scores. No guarantee conditional on a realized calibration set, true scenario, radius acceptance, or shifted stress/edge population."
+    },
+    "integrity": {
+      "must_freeze_before_generation": true,
+      "required_new_source_hashes": [
+        "run_revision.py",
+        "revision/agent.py",
+        "revision/evaluation.py",
+        "benchmark_revision.py",
+        "research/revision_plan.json"
+      ],
+      "original_v2_sources": "Preserve every original frozen byte. New study uses separate files and includes original and new sources in its initialization hash manifest.",
+      "case_identity": "Prefix split, root seed and case index; retain generator_seed in case metadata. Identical case object across methods.",
+      "output_policy": "Refuse existing output directory. Save initialization provenance, input cases, every unique method result, aliases, complete statistics and completion marker.",
+      "fresh_results_policy": "Never generate these fresh datasets or inspect their outcomes before revision freeze. Fixtures use unrelated small seeds only. Old v2 test data are acknowledged prior evidence, never relabelled fresh holdout."
+    }
+  },
+  "methods": {
+    "static_wls": {
+      "baseline": "static_wls"
+    },
+    "static_robust": {
+      "baseline": "static_robust"
+    },
+    "dynamic_robust": {
+      "baseline": "dynamic_robust"
+    },
+    "legacy_bic": {
+      "baseline": "bic_select"
+    },
+    "v2_frozen": {
+      "consensus_trials": 0,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 3,
+      "trim_fraction": 0.0
+    },
+    "revision_selected": {
+      "consensus_trials": 0,
+      "cv_folds": 4,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    },
+    "ablate_k3": {
+      "consensus_trials": 0,
+      "cv_folds": 3,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    },
+    "ablate_k4": {
+      "consensus_trials": 0,
+      "cv_folds": 4,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    },
+    "ablate_force_velocity": {
+      "consensus_trials": 0,
+      "cv_folds": 4,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "velocity",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    },
+    "ablate_force_static": {
+      "consensus_trials": 0,
+      "cv_folds": 4,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "static",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    }
+  },
+  "aliases": {
+    "ablate_k4": "revision_selected"
+  },
+  "ablations": {
+    "ablate_k3": {
+      "model": "cv_select",
+      "cv_folds": 3
+    },
+    "ablate_k4": {
+      "model": "cv_select",
+      "cv_folds": 4
+    },
+    "ablate_force_velocity": {
+      "model": "velocity"
+    },
+    "ablate_force_static": {
+      "model": "static"
+    }
+  },
+  "alias_policy": "Exact effective specs reuse the same saved predictions. Aliases are not independent methods; timing is reused from their canonical method.",
+  "freeze": {
+    "method_id": "range_cv4_single_start",
+    "spec": {
+      "consensus_trials": 0,
+      "cv_folds": 4,
+      "f_scale": 1.5,
+      "gate_margin": 0.05,
+      "log_bias_correction": true,
+      "log_sd": 0.1,
+      "loss": "soft_l1",
+      "model": "cv_select",
+      "residual": "range",
+      "ridge": 0.05,
+      "scale": "reported",
+      "starts": 1,
+      "trim_fraction": 0.0
+    },
+    "hypothesis": "Single-component ablation of range_cv4_reported: {'starts': 1}",
+    "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: starts: 3 -> 1.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.05, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 1, \"trim_fraction\": 0.0}",
+    "registration_kind": "single_component_ablation",
+    "registered_after_diagnosis_count": 1,
+    "diagnosis_evidence": [
+      {
+        "method_id": "range_cv4_reported",
+        "split": "discovery",
+        "diagnosis_number": 1,
+        "evidence_path": "experiments/call_001_discovery_range_cv4_reported.json",
+        "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c"
+      }
+    ],
+    "parent_method_id": "range_cv4_reported",
+    "controlled_changes": {
+      "starts": 1
+    },
+    "validation": {
+      "overall": {
+        "n": 150,
+        "mean_m": 4.1130458342795695,
+        "rmse_m": 6.093931112769121,
+        "median_m": 2.2171029126853825,
+        "p90_m": 11.57809991951046,
+        "p95_m": 15.55081726422429,
+        "max_m": 19.538825417941094,
+        "within_5m": 0.7733333333333333,
+        "within_30m": 1.0,
+        "mean_work_units": 73.86666666666666,
+        "mean_seconds": 0.0154658720000225
+      },
+      "by_scenario": {
+        "moving_clean": {
+          "n": 30,
+          "mean_m": 2.867392691985055,
+          "rmse_m": 3.793360223979726,
+          "median_m": 2.46411785887158,
+          "p90_m": 4.519691183752024,
+          "p95_m": 6.403889633698432,
+          "max_m": 13.413262086265679,
+          "within_5m": 0.9333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 73.73333333333333,
+          "mean_seconds": 0.015142883333404219
+        },
+        "moving_outliers": {
+          "n": 30,
+          "mean_m": 7.3126109315775425,
+          "rmse_m": 9.064779895612944,
+          "median_m": 5.598828401063045,
+          "p90_m": 15.99440626484744,
+          "p95_m": 16.786227635482458,
+          "max_m": 18.19452160374674,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 86.3,
+          "mean_seconds": 0.016554059999786357
+        },
+        "sparse": {
+          "n": 30,
+          "mean_m": 6.607911472039877,
+          "rmse_m": 8.334652190628812,
+          "median_m": 4.986820622144599,
+          "p90_m": 15.081787219522239,
+          "p95_m": 15.928770467712187,
+          "max_m": 19.538825417941094,
+          "within_5m": 0.5,
+          "within_30m": 1.0,
+          "mean_work_units": 89.93333333333334,
+          "mean_seconds": 0.017387176666731344
+        },
+        "static_clean": {
+          "n": 30,
+          "mean_m": 1.2481545286220959,
+          "rmse_m": 1.4631677882334517,
+          "median_m": 1.1103361319514762,
+          "p90_m": 1.9550619237348574,
+          "p95_m": 2.4551915110394726,
+          "max_m": 3.897595412343032,
+          "within_5m": 1.0,
+          "within_30m": 1.0,
+          "mean_work_units": 47.96666666666667,
+          "mean_seconds": 0.012329053333511789
+        },
+        "static_outliers": {
+          "n": 30,
+          "mean_m": 2.529159547173272,
+          "rmse_m": 4.18483913380427,
+          "median_m": 1.347881822636297,
+          "p90_m": 4.68474430408715,
+          "p95_m": 9.265126819060448,
+          "max_m": 15.395191473792206,
+          "within_5m": 0.9333333333333333,
+          "within_30m": 1.0,
+          "mean_work_units": 71.4,
+          "mean_seconds": 0.01591618666667879
+        }
+      },
+      "macro_mean_m": 4.113045834279569,
+      "evidence_path": "experiments/call_006_validation_range_cv4_single_start.json",
+      "evidence_sha256": "870f68dfd503ae04f45fb7b452fe1b4769fdb2c6fc88c8f24d3a302d54373eee"
+    },
+    "scientific_conclusion": "依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy_bic为4.397米、dynamic_robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic_robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。相对三起点父方法，同次验证总体耗时下降约19.6%，宏均值由4.064升至4.113米，稀疏均值增加约3.85%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8%；最新同次候选耗时0.01547秒，static_robust、dynamic_robust、legacy_bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。",
+    "frozen_before_test": true,
+    "registry_sha256": "a268897cd96eb7ee786a2dcecb6255bade7a6ec5e413dda27f38e2e82c3bdc40"
+  },
+  "pre_holdout_integrity_check": {
+    "verified_source_files": 21,
+    "verified_evidence_files": 14,
+    "controller_and_toolkit_frozen": true,
+    "is_replay": false,
+    "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+  },
+  "revision_provenance": {
+    "plan_sha256": "da76f76e9a4d3c6e2259039db548f29b0185cd7f810dc998411d3cf04250ec6a",
+    "run_protocol_sha256": "595a6043c90aa8486bdb862887158d638538bebe38697498c02f826bf69cfb30",
+    "original_v2_frozen_sha256": "96ae13491ef0cdf5f61444dec04636956e70de5c7e734ff0936db96f81a132e7",
+    "new_sources_checked": [
+      "benchmark_revision.py",
+      "research/revision_plan.json",
+      "revision/__init__.py",
+      "revision/agent.py",
+      "revision/evaluation.py",
+      "revision/report.py",
+      "run_revision.py"
+    ],
+    "fresh_data_generated_after_this_check": true
+  },
+  "frozen_file_sha256": "73d18651535fcc4bbf4babd13266cfb2d4ca6902cbd1c032948158515458724c",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "entrypoint": "benchmark_revision.py",
+  "policy": "One designated evaluator and all preregistered populations. Never tune on these results."
+}

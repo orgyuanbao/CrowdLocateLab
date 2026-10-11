@@ -1,0 +1,22 @@
+{
+  "spec": {
+    "consensus_trials": 0,
+    "cv_folds": 4,
+    "f_scale": 1.5,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "cv_select",
+    "residual": "range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 3,
+    "trim_fraction": 0.0
+  },
+  "hypothesis": "仅将v2的交错观测验证从三折改为四折：预计sparse恒速选择率提高且平均定位误差降低，static_clean相对v2平均误差增幅不超过10%，moving_outliers平均误差不增加；预计平均耗时上升。四折只解除n=8的训练数量障碍，不保证几何可用性或定位改善。",
+  "mathematical_definition": "静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。",
+  "registration_kind": "new_composition",
+  "registered_after_diagnosis_count": 0,
+  "diagnosis_evidence": []
+}

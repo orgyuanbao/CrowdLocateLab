@@ -1,0 +1,45 @@
+\subsection{校准随机性的事后数学参考}
+\label{sec:coverage-variability-reference}
+
+名义90\%区域在本次独立覆盖检验中的经验覆盖率为
+$274/320=85.625\%$，这一不足必须保留。以下计算只解释有限校准样本的随机性，
+不是新增实验、事后重新校准或方法修订，也不把未达名义水平改写成成功。
+
+假设位置估计器与正尺度函数均已在校准前冻结，校准分数和测试分数独立同分布，
+且其共同累积分布函数$F$连续。令校准样本数$m=240$，
+$q=S_{(k)}$，$k=\lceil(m+1)(1-\alpha)\rceil$。
+概率积分变换与次序统计量给出
+\[
+ U=F(q)\sim\operatorname{Beta}(k,m+1-k),\qquad
+ K\mid U\sim\operatorname{Binomial}(320,U),
+\]
+其中$K$为320个新案例中被区域覆盖的数量。对随机$U$积分后，
+得到
+\[
+ K\sim\operatorname{BetaBinomial}(320,k,m+1-k).
+\]
+这是\emph{校准集和测试集共同重新抽样}的无条件分布；
+固定本次校准集后的覆盖概率$F(q)$仍未知，因此下表不是该条件覆盖率的置信区间。
+
+\begin{table}[H]
+\centering\small
+\caption{理想连续IID评分模型下的事后覆盖计数参考。预测区间取离散分布的2.5\%和97.5\%分位数。}
+\label{tab:coverage-variability-reference}
+\begin{tabular}{@{}crrrcr@{}}
+\toprule
+名义覆盖 & $k$ & 实测$K$ & $\mathbb{E}[K]$ & 95\%预测区间 & $\Pr(K\le K_{\rm obs})$\\
+\midrule
+90\% & 217 & 274 & 288.13 & $[271,303]$ & 0.0563\\
+95\% & 229 & 303 & 304.07 & $[291,314]$ & 0.4258\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+对应的覆盖比例预测区间分别为$[84.6875\%,94.6875\%]$与
+$[90.9375\%,98.125\%]$。数值使用\texttt{scipy.stats.betabinom}计算，
+参数、软件版本及完整小数保存在
+\nolinkurl{research/coverage_variability_reference.json}。
+这些参考说明本次较低覆盖与理想联合抽样模型并不必然矛盾，但不能验证实际
+评分分布的连续IID假设、保证给定校准集的覆盖，或弥补已观察到的85.625\%覆盖率。
+它们也不提供分场景、拒绝子集或分布偏移下的保证；研究未据此调整$q$、
+尺度函数、阈值或定位方法。

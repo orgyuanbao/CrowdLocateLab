@@ -1,0 +1,4296 @@
+{
+  "overall": {
+    "n": 96,
+    "mean_m": 6.021822842368143,
+    "rmse_m": 8.00721144474413,
+    "median_m": 4.457302813159554,
+    "p90_m": 12.83218369995739,
+    "p95_m": 16.340248100245326,
+    "max_m": 23.27959585968835,
+    "within_5m": 0.53125,
+    "within_30m": 1.0,
+    "mean_work_units": 19.427083333333332,
+    "mean_seconds": 0.0033209406249549525
+  },
+  "by_scenario": {
+    "moving_clean": {
+      "n": 24,
+      "mean_m": 9.393301294408735,
+      "rmse_m": 10.330277060551529,
+      "median_m": 8.83600176884591,
+      "p90_m": 15.608720350820422,
+      "p95_m": 17.5361417960795,
+      "max_m": 21.122133179315316,
+      "within_5m": 0.20833333333333334,
+      "within_30m": 1.0,
+      "mean_work_units": 18.708333333333332,
+      "mean_seconds": 0.0030409124997277104
+    },
+    "moving_outliers": {
+      "n": 24,
+      "mean_m": 10.399878606365581,
+      "rmse_m": 11.441586794793933,
+      "median_m": 9.529490159511184,
+      "p90_m": 16.369418164210934,
+      "p95_m": 16.66307719046041,
+      "max_m": 23.27959585968835,
+      "within_5m": 0.125,
+      "within_30m": 1.0,
+      "mean_work_units": 24.25,
+      "mean_seconds": 0.0035902083333591386
+    },
+    "static_clean": {
+      "n": 24,
+      "mean_m": 0.9231788277608067,
+      "rmse_m": 0.9921284054146035,
+      "median_m": 0.860984319754601,
+      "p90_m": 1.3708344278818354,
+      "p95_m": 1.4817206724054321,
+      "max_m": 1.669421056191941,
+      "within_5m": 1.0,
+      "within_30m": 1.0,
+      "mean_work_units": 15.125,
+      "mean_seconds": 0.0031681374997939806
+    },
+    "static_outliers": {
+      "n": 24,
+      "mean_m": 3.3709326409374474,
+      "rmse_m": 4.225267941796685,
+      "median_m": 2.395507958246239,
+      "p90_m": 6.948329704402266,
+      "p95_m": 7.874556385272967,
+      "max_m": 11.465058151976914,
+      "within_5m": 0.7916666666666666,
+      "within_30m": 1.0,
+      "mean_work_units": 19.625,
+      "mean_seconds": 0.0034845041669389807
+    }
+  },
+  "macro_mean_m": 6.021822842368143,
+  "rows": [
+    {
+      "case_id": "static_clean-3157458844",
+      "scenario": "static_clean",
+      "position": [
+        19.31299999111477,
+        9.121087271843034
+      ],
+      "error_m": 0.729768478893484,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 13.760395815049804,
+        "objective_with_ridge": 13.760395815049804,
+        "standardized_residual_rmse": 0.9273751875269323,
+        "jacobian_singular_values": [
+          1.5706031309257276,
+          1.1157492442200867
+        ],
+        "jacobian_condition": 1.4076667665803222,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 3.1324714521645722,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.153083927791468,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0024386999994021608
+    },
+    {
+      "case_id": "static_clean-1535670093",
+      "scenario": "static_clean",
+      "position": [
+        -19.845956813363692,
+        -17.491642276669968
+      ],
+      "error_m": 0.8494597301690817,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 21.576490620622366,
+        "objective_with_ridge": 21.576490620622366,
+        "standardized_residual_rmse": 1.1612625300890829,
+        "jacobian_singular_values": [
+          1.8782850235675066,
+          1.2356056904442758
+        ],
+        "jacobian_condition": 1.52013303118744,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 10.329427084840807,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.3618960961799118,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.002281799999764189
+    },
+    {
+      "case_id": "static_clean-4064420153",
+      "scenario": "static_clean",
+      "position": [
+        1.6144909742203724,
+        -11.73115075467079
+      ],
+      "error_m": 0.6723815905474957,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 14.472978904480287,
+        "objective_with_ridge": 14.472978904480287,
+        "standardized_residual_rmse": 0.9510842136898383,
+        "jacobian_singular_values": [
+          1.4949991982308173,
+          1.0351779407297959
+        ],
+        "jacobian_condition": 1.4441953787933788,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 3.940292081872933,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.4718347356970214,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.0032362999991164543
+    },
+    {
+      "case_id": "static_clean-1822017770",
+      "scenario": "static_clean",
+      "position": [
+        -16.457167840061594,
+        -2.661038326487556
+      ],
+      "error_m": 1.3942511675896705,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 7.764432646947239,
+        "objective_with_ridge": 7.764432646947239,
+        "standardized_residual_rmse": 0.6966182889030422,
+        "jacobian_singular_values": [
+          1.6580105758874641,
+          1.0365119977427741
+        ],
+        "jacobian_condition": 1.599605773496241,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -6.023387895314012,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1377864303222556,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.004164500000115368
+    },
+    {
+      "case_id": "static_clean-8444938",
+      "scenario": "static_clean",
+      "position": [
+        -16.205331611830143,
+        16.92211836194463
+      ],
+      "error_m": 1.2216769278961672,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 23.394260557744843,
+        "objective_with_ridge": 23.394260557744843,
+        "standardized_residual_rmse": 1.2091903426917752,
+        "jacobian_singular_values": [
+          1.6515220281120802,
+          1.0686466584666126
+        ],
+        "jacobian_condition": 1.5454332028528757,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 11.623609360142229,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.4484572591400795,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0023065999994287267
+    },
+    {
+      "case_id": "static_clean-1289169177",
+      "scenario": "static_clean",
+      "position": [
+        3.737544026457185,
+        1.886578119516823
+      ],
+      "error_m": 0.4544824757643501,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 14.23769155186616,
+        "objective_with_ridge": 14.23769155186616,
+        "standardized_residual_rmse": 0.9433216429148835,
+        "jacobian_singular_values": [
+          1.755964299041377,
+          1.198324016286159
+        ],
+        "jacobian_condition": 1.4653501683822165,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 3.6780424121759463,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.0102992165231983,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.004128000000491738
+    },
+    {
+      "case_id": "static_clean-1424823823",
+      "scenario": "static_clean",
+      "position": [
+        3.8911498490857235,
+        -12.144769657358118
+      ],
+      "error_m": 1.2274109779751399,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 13.467829468571859,
+        "objective_with_ridge": 13.467829468571859,
+        "standardized_residual_rmse": 0.9174635370333478,
+        "jacobian_singular_values": [
+          1.497910439782997,
+          1.025732995504011
+        ],
+        "jacobian_condition": 1.460331729942034,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 2.788619316602473,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1815836116198923,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.003250300000217976
+    },
+    {
+      "case_id": "static_clean-1688024416",
+      "scenario": "static_clean",
+      "position": [
+        -25.027370821287168,
+        19.46863895808307
+      ],
+      "error_m": 0.9090085154024931,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 11.948844106426861,
+        "objective_with_ridge": 11.948844106426861,
+        "standardized_residual_rmse": 0.8641775029770671,
+        "jacobian_singular_values": [
+          1.2923727323458,
+          1.1096368564231642
+        ],
+        "jacobian_condition": 1.1646807916165223,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 0.8739106278983204,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1878024502929718,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.002544399998441804
+    },
+    {
+      "case_id": "static_clean-3323867358",
+      "scenario": "static_clean",
+      "position": [
+        -16.288767823356043,
+        20.153893297471267
+      ],
+      "error_m": 1.669421056191941,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 13.328703490060372,
+        "objective_with_ridge": 13.328703490060372,
+        "standardized_residual_rmse": 0.912712423564385,
+        "jacobian_singular_values": [
+          1.3626192121287897,
+          1.058862349045212
+        ],
+        "jacobian_condition": 1.286870964254682,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 2.6224757590301873,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.196031292407055,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.002674400000614696
+    },
+    {
+      "case_id": "static_clean-1110878653",
+      "scenario": "static_clean",
+      "position": [
+        -13.512241647464057,
+        -23.11372417068645
+      ],
+      "error_m": 0.7580427818813247,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 10.749490512043641,
+        "objective_with_ridge": 10.749490512043641,
+        "standardized_residual_rmse": 0.8196603912613611,
+        "jacobian_singular_values": [
+          1.345645186261339,
+          0.9477648803781561
+        ],
+        "jacobian_condition": 1.4198090835824488,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -0.8185083638044359,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.440896812824632,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.0024635000008856878
+    },
+    {
+      "case_id": "static_clean-2723590968",
+      "scenario": "static_clean",
+      "position": [
+        23.26479455848466,
+        -0.3063439026085123
+      ],
+      "error_m": 0.40893925906828255,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 5.512316303392812,
+        "objective_with_ridge": 5.512316303392812,
+        "standardized_residual_rmse": 0.586958064057434,
+        "jacobian_singular_values": [
+          1.6079641659627375,
+          1.3097327641555934
+        ],
+        "jacobian_condition": 1.2277040095270266,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -11.504483446234424,
+        "solver_success": true,
+        "solver_status": 4,
+        "solver_message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 0.9847433843123672,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.002633499998410116
+    },
+    {
+      "case_id": "static_clean-1552351261",
+      "scenario": "static_clean",
+      "position": [
+        2.2644795827269313,
+        -1.5650847444919147
+      ],
+      "error_m": 0.7751994087444413,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 14.303454620880336,
+        "objective_with_ridge": 14.303454620880336,
+        "standardized_residual_rmse": 0.9454977069274262,
+        "jacobian_singular_values": [
+          1.4352894327711077,
+          1.142033130222781
+        ],
+        "jacobian_condition": 1.2567844091275355,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 3.751775328153493,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1189968713673426,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.0035588000009738607
+    },
+    {
+      "case_id": "static_clean-3481171067",
+      "scenario": "static_clean",
+      "position": [
+        19.848620562156768,
+        17.071694922756272
+      ],
+      "error_m": 1.316195368563554,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 14.678839749634845,
+        "objective_with_ridge": 14.678839749634845,
+        "standardized_residual_rmse": 0.9578243494253932,
+        "jacobian_singular_values": [
+          1.2144697076607271,
+          1.1232954721335626
+        ],
+        "jacobian_condition": 1.0811667435585672,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 4.166269631594,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.212649334950225,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0038076000000728527
+    },
+    {
+      "case_id": "static_clean-2798988451",
+      "scenario": "static_clean",
+      "position": [
+        0.4368703041603026,
+        -1.6934257891968838
+      ],
+      "error_m": 0.6102046635312863,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 12.475255245868336,
+        "objective_with_ridge": 12.475255245868336,
+        "standardized_residual_rmse": 0.8830081839183435,
+        "jacobian_singular_values": [
+          1.76823902119021,
+          1.0358456708730401
+        ],
+        "jacobian_condition": 1.7070487147954077,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 1.5637115209457106,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.118845939404804,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.0040973999984998954
+    },
+    {
+      "case_id": "static_clean-2199857110",
+      "scenario": "static_clean",
+      "position": [
+        -15.870006463523342,
+        14.527301423479702
+      ],
+      "error_m": 0.8725089093401202,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 22.778755547840525,
+        "objective_with_ridge": 22.778755547840525,
+        "standardized_residual_rmse": 1.1931773639069896,
+        "jacobian_singular_values": [
+          1.2733739594202107,
+          0.8291804110243948
+        ],
+        "jacobian_condition": 1.5357019322815957,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 11.197011126585991,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.484227314162815,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 23,
+      "elapsed_seconds": 0.004481399999349378
+    },
+    {
+      "case_id": "static_clean-666562204",
+      "scenario": "static_clean",
+      "position": [
+        10.03536723672193,
+        -0.36595829601046037
+      ],
+      "error_m": 0.4861034619239148,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 7.077556341155372,
+        "objective_with_ridge": 7.077556341155372,
+        "standardized_residual_rmse": 0.6650919269711599,
+        "jacobian_singular_values": [
+          1.3581890228240305,
+          1.0166568438118369
+        ],
+        "jacobian_condition": 1.3359365365914997,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -7.505382934181166,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.2286581117920976,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 21,
+      "elapsed_seconds": 0.0036094999995839316
+    },
+    {
+      "case_id": "static_clean-4053933874",
+      "scenario": "static_clean",
+      "position": [
+        1.4914396247549218,
+        -12.82652202783649
+      ],
+      "error_m": 0.726471452607097,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 10.081282860307645,
+        "objective_with_ridge": 10.081282860307645,
+        "standardized_residual_rmse": 0.793775899589568,
+        "jacobian_singular_values": [
+          1.1564668743827227,
+          0.8317091174483866
+        ],
+        "jacobian_condition": 1.390470358111097,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -1.8453537524286938,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.4932383774240734,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0023736000002827495
+    },
+    {
+      "case_id": "static_clean-1252438615",
+      "scenario": "static_clean",
+      "position": [
+        -24.245323185438696,
+        21.949581406321496
+      ],
+      "error_m": 0.3436239006808048,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 17.954945055388254,
+        "objective_with_ridge": 17.954945055388254,
+        "standardized_residual_rmse": 1.0593318960371985,
+        "jacobian_singular_values": [
+          1.2882535719849209,
+          0.8952603485220634
+        ],
+        "jacobian_condition": 1.4389708804948511,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 7.3896069693568505,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.5184573469069005,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0021520000009331852
+    },
+    {
+      "case_id": "static_clean-652576674",
+      "scenario": "static_clean",
+      "position": [
+        -23.376865171359334,
+        23.721929913390465
+      ],
+      "error_m": 1.4971564673729199,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 8.342241076220617,
+        "objective_with_ridge": 8.342241076220617,
+        "standardized_residual_rmse": 0.7220734500477002,
+        "jacobian_singular_values": [
+          1.4678874295967514,
+          1.0400244599425497
+        ],
+        "jacobian_condition": 1.4113970258717152,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -4.874931800179309,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1783954577340074,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0029969000006531132
+    },
+    {
+      "case_id": "static_clean-3326791905",
+      "scenario": "static_clean",
+      "position": [
+        -24.26465219977748,
+        20.222548876986515
+      ],
+      "error_m": 1.1954330325502711,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 11.354630529035976,
+        "objective_with_ridge": 11.354630529035976,
+        "standardized_residual_rmse": 0.8424158166040976,
+        "jacobian_singular_values": [
+          1.2606956088473398,
+          0.8649038469873133
+        ],
+        "jacobian_condition": 1.4576135985967376,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 0.05776807831182573,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.4021341707026451,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0030062999994697748
+    },
+    {
+      "case_id": "static_clean-9509692",
+      "scenario": "static_clean",
+      "position": [
+        -24.145997053875174,
+        0.726313512081545
+      ],
+      "error_m": 1.2088108182369284,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 17.154929221588016,
+        "objective_with_ridge": 17.154929221588016,
+        "standardized_residual_rmse": 1.0354627353745045,
+        "jacobian_singular_values": [
+          1.6515199738853121,
+          1.3126527627671558
+        ],
+        "jacobian_condition": 1.258154495027156,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 6.66032669638158,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 0.9731379267262846,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.004344699998910073
+    },
+    {
+      "case_id": "static_clean-1340839144",
+      "scenario": "static_clean",
+      "position": [
+        -4.765898299189064,
+        8.576769078704586
+      ],
+      "error_m": 1.0904024942077255,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 26.537166919137885,
+        "objective_with_ridge": 26.537166919137885,
+        "standardized_residual_rmse": 1.2878559439805828,
+        "jacobian_singular_values": [
+          1.5189008994180062,
+          0.9324420965052206
+        ],
+        "jacobian_condition": 1.6289492989546748,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 13.640498298607582,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.2587773372724085,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0035045000004174653
+    },
+    {
+      "case_id": "static_clean-1383407780",
+      "scenario": "static_clean",
+      "position": [
+        10.21082303202552,
+        15.694274177492952
+      ],
+      "error_m": 0.5303214907547746,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 12.61478883893776,
+        "objective_with_ridge": 12.61478883893776,
+        "standardized_residual_rmse": 0.8879326001637793,
+        "jacobian_singular_values": [
+          1.658166358921027,
+          1.0561559564389114
+        ],
+        "jacobian_condition": 1.5700014271679545,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 1.7416753776943819,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1989565127057134,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.00330740000026708
+    },
+    {
+      "case_id": "static_clean-586659373",
+      "scenario": "static_clean",
+      "position": [
+        9.888254087840469,
+        -14.770189416491707
+      ],
+      "error_m": 1.2090174363660955,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 11.989413052069656,
+        "objective_with_ridge": 11.989413052069656,
+        "standardized_residual_rmse": 0.8656432959102459,
+        "jacobian_singular_values": [
+          1.2515862523543195,
+          1.159340433225496
+        ],
+        "jacobian_condition": 1.0795674993169857,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 0.9281421241531884,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1757497607656462,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0026731999987532618
+    },
+    {
+      "case_id": "static_outliers-938414870",
+      "scenario": "static_outliers",
+      "position": [
+        -0.5027969728164752,
+        19.79590565168344
+      ],
+      "error_m": 1.0678560651019473,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 144.83022873194426,
+        "objective_with_ridge": 144.83022873194426,
+        "standardized_residual_rmse": 3.0086357864897035,
+        "jacobian_singular_values": [
+          1.2461684128384962,
+          0.834752092568053
+        ],
+        "jacobian_condition": 1.4928604838889967,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 40.79275341064004,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.4138446251138155,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.0032814000005600974
+    },
+    {
+      "case_id": "static_outliers-2273376504",
+      "scenario": "static_outliers",
+      "position": [
+        -2.4459950372253685,
+        -1.172014204243074
+      ],
+      "error_m": 1.3692213612085713,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 135.34685587837185,
+        "objective_with_ridge": 135.34685587837185,
+        "standardized_residual_rmse": 2.908466690955604,
+        "jacobian_singular_values": [
+          1.440958711011603,
+          1.0806713237652532
+        ],
+        "jacobian_condition": 1.333392197352886,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 39.70921046825042,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.2498677793312867,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0022564000009879237
+    },
+    {
+      "case_id": "static_outliers-3348014969",
+      "scenario": "static_outliers",
+      "position": [
+        17.444063763729574,
+        -8.368989424087932
+      ],
+      "error_m": 11.465058151976914,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 305.5423648437489,
+        "objective_with_ridge": 305.5423648437489,
+        "standardized_residual_rmse": 4.369942539980853,
+        "jacobian_singular_values": [
+          1.635104762715176,
+          1.0496213394918876
+        ],
+        "jacobian_condition": 1.5578044206939579,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 52.737172973287656,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 5.066070178964165,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 43,
+      "elapsed_seconds": 0.008611499999460648
+    },
+    {
+      "case_id": "static_outliers-772990165",
+      "scenario": "static_outliers",
+      "position": [
+        2.4700093231916145,
+        9.05193307822181
+      ],
+      "error_m": 0.34960750115456024,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 86.15977188682189,
+        "objective_with_ridge": 86.15977188682189,
+        "standardized_residual_rmse": 2.320557205269107,
+        "jacobian_singular_values": [
+          1.6405590250849387,
+          1.1438413733682342
+        ],
+        "jacobian_condition": 1.43425396500044,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 32.48301205330696,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.149126486386776,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0026503999997657957
+    },
+    {
+      "case_id": "static_outliers-2130145354",
+      "scenario": "static_outliers",
+      "position": [
+        -24.292685368209817,
+        -10.24742839608733
+      ],
+      "error_m": 1.5578442866131297,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 80.32445488790262,
+        "objective_with_ridge": 80.32445488790262,
+        "standardized_residual_rmse": 2.2405977841848173,
+        "jacobian_singular_values": [
+          1.6124267572580255,
+          1.0443413221277948
+        ],
+        "jacobian_condition": 1.5439652947685572,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 31.36094378699747,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.1408385732588533,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 24,
+      "elapsed_seconds": 0.004992400001356145
+    },
+    {
+      "case_id": "static_outliers-3711200111",
+      "scenario": "static_outliers",
+      "position": [
+        -10.69989503539876,
+        2.4478890943020772
+      ],
+      "error_m": 2.9940385864906442,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 136.01931163215542,
+        "objective_with_ridge": 136.01931163215542,
+        "standardized_residual_rmse": 2.91568293492446,
+        "jacobian_singular_values": [
+          1.1152966076073767,
+          0.8253545610980917
+        ],
+        "jacobian_condition": 1.3512939289067865,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 39.788507855853474,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.1157550574320543,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 17,
+      "elapsed_seconds": 0.00351300000147603
+    },
+    {
+      "case_id": "static_outliers-3999217018",
+      "scenario": "static_outliers",
+      "position": [
+        -22.411705199462304,
+        -1.7289172823539727
+      ],
+      "error_m": 1.9850005684490568,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 80.50798847368878,
+        "objective_with_ridge": 80.50798847368878,
+        "standardized_residual_rmse": 2.2431560979132836,
+        "jacobian_singular_values": [
+          1.2518438752048362,
+          1.0398060879632518
+        ],
+        "jacobian_condition": 1.2039205095028047,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 31.397460531826724,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.3685908725154174,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 18,
+      "elapsed_seconds": 0.003205500001058681
+    },
+    {
+      "case_id": "static_outliers-4047825661",
+      "scenario": "static_outliers",
+      "position": [
+        -16.931466762983945,
+        -21.157414971224725
+      ],
+      "error_m": 1.843396487574823,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 86.21365309350949,
+        "objective_with_ridge": 86.21365309350949,
+        "standardized_residual_rmse": 2.3212826881584983,
+        "jacobian_singular_values": [
+          1.1719729079823842,
+          0.918429929962403
+        ],
+        "jacobian_condition": 1.2760613191584036,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 32.49301474757585,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.042466444985208,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 20,
+      "elapsed_seconds": 0.00323240000034275
+    },
+    {
+      "case_id": "static_outliers-641419263",
+      "scenario": "static_outliers",
+      "position": [
+        -22.967225678066967,
+        -14.06072588137816
+      ],
+      "error_m": 2.2552724231474253,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 70.81941083722475,
+        "objective_with_ridge": 70.81941083722475,
+        "standardized_residual_rmse": 2.1038567387839286,
+        "jacobian_singular_values": [
+          1.2453118203575617,
+          0.5758424584948123
+        ],
+        "jacobian_condition": 2.1625911774770263,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 29.34588792850023,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.1858124842270574,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 11,
+      "elapsed_seconds": 0.002108599999701255
+    },
+    {
+      "case_id": "static_outliers-2464112840",
+      "scenario": "static_outliers",
+      "position": [
+        -15.095715202273173,
+        27.819375331795584
+      ],
+      "error_m": 4.812768359044139,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 82.17712914551656,
+        "objective_with_ridge": 82.17712914551656,
+        "standardized_residual_rmse": 2.2662900457785153,
+        "jacobian_singular_values": [
+          1.1020732603394354,
+          0.7282686765537124
+        ],
+        "jacobian_condition": 1.5132784037268059,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 31.72579035437665,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.9832828970520877,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.0030119000002741814
+    },
+    {
+      "case_id": "static_outliers-3407663951",
+      "scenario": "static_outliers",
+      "position": [
+        -14.341079186591717,
+        5.203027830264214
+      ],
+      "error_m": 3.025949635567824,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 263.88652711184267,
+        "objective_with_ridge": 263.88652711184267,
+        "standardized_residual_rmse": 4.061146136805491,
+        "jacobian_singular_values": [
+          1.5064853966268437,
+          1.0272139938026177
+        ],
+        "jacobian_condition": 1.466574059266875,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 50.39206491585118,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.8752732303671753,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 20,
+      "elapsed_seconds": 0.0054751999996369705
+    },
+    {
+      "case_id": "static_outliers-4265763333",
+      "scenario": "static_outliers",
+      "position": [
+        -1.6138783070615348,
+        17.792698075066028
+      ],
+      "error_m": 5.685268952601441,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 171.46679605554763,
+        "objective_with_ridge": 171.46679605554763,
+        "standardized_residual_rmse": 3.273633264962911,
+        "jacobian_singular_values": [
+          1.3565011371458993,
+          0.8712392170378347
+        ],
+        "jacobian_condition": 1.5569789681391162,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 43.49399211033584,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.432763695114446,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.0048117000005731825
+    },
+    {
+      "case_id": "static_outliers-1073674702",
+      "scenario": "static_outliers",
+      "position": [
+        16.72459621355288,
+        4.984257542302906
+      ],
+      "error_m": 1.5769535855416874,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 98.50285513040613,
+        "objective_with_ridge": 98.50285513040613,
+        "standardized_residual_rmse": 2.481215114747285,
+        "jacobian_singular_values": [
+          1.241244027351069,
+          0.8950072972203178
+        ],
+        "jacobian_condition": 1.386853527570201,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 34.62512643029823,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.7191700371970788,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.002952000000732369
+    },
+    {
+      "case_id": "static_outliers-94880917",
+      "scenario": "static_outliers",
+      "position": [
+        3.6320205687127007,
+        -15.786952127918147
+      ],
+      "error_m": 2.457870693610062,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 149.70441435835824,
+        "objective_with_ridge": 149.70441435835824,
+        "standardized_residual_rmse": 3.058843882481973,
+        "jacobian_singular_values": [
+          1.2285846895082297,
+          0.9340279840510123
+        ],
+        "jacobian_condition": 1.315361756271673,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 41.322362353004735,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.9192474804017459,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 20,
+      "elapsed_seconds": 0.004070199998750468
+    },
+    {
+      "case_id": "static_outliers-979827680",
+      "scenario": "static_outliers",
+      "position": [
+        10.190269593326345,
+        20.543386817564606
+      ],
+      "error_m": 7.942482549408072,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 193.67673208105649,
+        "objective_with_ridge": 193.67673208105649,
+        "standardized_residual_rmse": 3.479194699217914,
+        "jacobian_singular_values": [
+          1.2739935577953212,
+          1.210972097387466
+        ],
+        "jacobian_condition": 1.0520420417149303,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 45.44280492405215,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.483295862089102,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 24,
+      "elapsed_seconds": 0.004065600000103586
+    },
+    {
+      "case_id": "static_outliers-440144597",
+      "scenario": "static_outliers",
+      "position": [
+        -15.173558840479933,
+        -3.0395498891486663
+      ],
+      "error_m": 1.5155800136682664,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 68.38724529378646,
+        "objective_with_ridge": 68.38724529378646,
+        "standardized_residual_rmse": 2.0674145280667964,
+        "jacobian_singular_values": [
+          1.1656304529911512,
+          1.0070323360857907
+        ],
+        "jacobian_condition": 1.1574905901451107,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 28.786739247480153,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.423761626149537,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0025598000011086697
+    },
+    {
+      "case_id": "static_outliers-3191440326",
+      "scenario": "static_outliers",
+      "position": [
+        17.903318870770494,
+        -9.281168506807854
+      ],
+      "error_m": 1.8144579512255086,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 75.94555091059796,
+        "objective_with_ridge": 75.94555091059796,
+        "standardized_residual_rmse": 2.1786686145241023,
+        "jacobian_singular_values": [
+          1.3303582468484316,
+          0.9326233987116116
+        ],
+        "jacobian_condition": 1.4264688712359967,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 30.464024258834858,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.7009995532942692,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 12,
+      "elapsed_seconds": 0.002236400001493166
+    },
+    {
+      "case_id": "static_outliers-2668505571",
+      "scenario": "static_outliers",
+      "position": [
+        -25.091360055033032,
+        14.304968227912235
+      ],
+      "error_m": 2.333145222882416,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 108.44840508056568,
+        "objective_with_ridge": 108.44840508056568,
+        "standardized_residual_rmse": 2.6034640995288094,
+        "jacobian_singular_values": [
+          1.2016745011889105,
+          1.0173794956809301
+        ],
+        "jacobian_condition": 1.1811467660694617,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 36.16415037935132,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.395885606404365,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.002472199999829172
+    },
+    {
+      "case_id": "static_outliers-448869514",
+      "scenario": "static_outliers",
+      "position": [
+        19.149608379907864,
+        -8.87981926796068
+      ],
+      "error_m": 2.6484567013379006,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 227.8291735973865,
+        "objective_with_ridge": 227.8291735973865,
+        "standardized_residual_rmse": 3.7735027957902267,
+        "jacobian_singular_values": [
+          1.941940921044515,
+          1.3914906822393653
+        ],
+        "jacobian_condition": 1.3955831295393906,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 48.041295641074505,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.8756580656097726,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 22,
+      "elapsed_seconds": 0.002715300001000287
+    },
+    {
+      "case_id": "static_outliers-2832219974",
+      "scenario": "static_outliers",
+      "position": [
+        11.897392948259638,
+        24.604526202125292
+      ],
+      "error_m": 2.9092193639032944,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 92.16997387934055,
+        "objective_with_ridge": 92.16997387934055,
+        "standardized_residual_rmse": 2.4001298647070715,
+        "jacobian_singular_values": [
+          1.3006703618067903,
+          0.8842806100013395
+        ],
+        "jacobian_condition": 1.470879658669458,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 33.56190852238688,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.950628212443761,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.0024895000005926704
+    },
+    {
+      "case_id": "static_outliers-3936386505",
+      "scenario": "static_outliers",
+      "position": [
+        16.47768011284583,
+        -15.530071111193816
+      ],
+      "error_m": 5.287990340842784,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 251.97536031576425,
+        "objective_with_ridge": 251.97536031576425,
+        "standardized_residual_rmse": 3.96843294257762,
+        "jacobian_singular_values": [
+          1.6224947555465972,
+          0.871830348320727
+        ],
+        "jacobian_condition": 1.8610211937124692,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 49.65305878794294,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.5393478827397984,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 34,
+      "elapsed_seconds": 0.004123499998968327
+    },
+    {
+      "case_id": "static_outliers-1408366014",
+      "scenario": "static_outliers",
+      "position": [
+        -0.0434077322096821,
+        12.08788293358191
+      ],
+      "error_m": 7.489641455174049,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 397.3743095071887,
+        "objective_with_ridge": 397.3743095071887,
+        "standardized_residual_rmse": 4.983562414999866,
+        "jacobian_singular_values": [
+          1.9818774899984588,
+          1.1216100790927503
+        ],
+        "jacobian_condition": 1.7669932955680667,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 56.94181679415022,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.39547809816997,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 35,
+      "elapsed_seconds": 0.003993099999206606
+    },
+    {
+      "case_id": "static_outliers-1536980537",
+      "scenario": "static_outliers",
+      "position": [
+        12.52104908702159,
+        8.61263498884491
+      ],
+      "error_m": 2.251779770128813,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 126.32064631484081,
+        "objective_with_ridge": 126.32064631484081,
+        "standardized_residual_rmse": 2.80981145180198,
+        "jacobian_singular_values": [
+          1.390809458137881,
+          0.9383619768740727
+        ],
+        "jacobian_condition": 1.4821673217951863,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 38.60493367140953,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.2919662366689835,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.0019220999984099763
+    },
+    {
+      "case_id": "static_outliers-1636530405",
+      "scenario": "static_outliers",
+      "position": [
+        13.967035228775288,
+        10.881427369111687
+      ],
+      "error_m": 4.2635233558454155,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 138.412855375172,
+        "objective_with_ridge": 138.412855375172,
+        "standardized_residual_rmse": 2.9412248232578633,
+        "jacobian_singular_values": [
+          1.4422466855833198,
+          0.7565188429586005
+        ],
+        "jacobian_condition": 1.9064253309844457,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 40.067612681102595,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.510354252458565,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 17,
+      "elapsed_seconds": 0.0028780000011465745
+    },
+    {
+      "case_id": "moving_clean-1173761655",
+      "scenario": "moving_clean",
+      "position": [
+        14.39141624394234,
+        6.800026250298984
+      ],
+      "error_m": 3.4276550632436447,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 27.293853390776082,
+        "objective_with_ridge": 27.293853390776082,
+        "standardized_residual_rmse": 1.3060879897325084,
+        "jacobian_singular_values": [
+          1.1291216548986043,
+          0.8914472052055553
+        ],
+        "jacobian_condition": 1.26661640566616,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 14.090342309758388,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.9177677687454258,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.001692600000751554
+    },
+    {
+      "case_id": "moving_clean-37154374",
+      "scenario": "moving_clean",
+      "position": [
+        -16.499792589167335,
+        18.133414201033325
+      ],
+      "error_m": 5.916721389687726,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 13.29402448954912,
+        "objective_with_ridge": 13.29402448954912,
+        "standardized_residual_rmse": 0.9115242896362225,
+        "jacobian_singular_values": [
+          1.3883915960722142,
+          0.9840712450435672
+        ],
+        "jacobian_condition": 1.410864917621637,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 2.5807922529346046,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.2455547384387036,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0023581999994348735
+    },
+    {
+      "case_id": "moving_clean-3309693494",
+      "scenario": "moving_clean",
+      "position": [
+        20.22034759566863,
+        -5.8900058960394865
+      ],
+      "error_m": 10.087716841072547,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 114.28318366267729,
+        "objective_with_ridge": 114.28318366267729,
+        "standardized_residual_rmse": 2.672582829196755,
+        "jacobian_singular_values": [
+          1.7856919793383714,
+          1.1444392361297384
+        ],
+        "jacobian_condition": 1.5603204809520685,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 37.00262885529717,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.499113926395378,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.001711000000796048
+    },
+    {
+      "case_id": "moving_clean-2179010579",
+      "scenario": "moving_clean",
+      "position": [
+        -28.067094650615218,
+        -11.427721421606554
+      ],
+      "error_m": 17.799083398183566,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 79.22893820387668,
+        "objective_with_ridge": 79.22893820387668,
+        "standardized_residual_rmse": 2.225265970112852,
+        "jacobian_singular_values": [
+          1.2351978746365753,
+          1.16473438268705
+        ],
+        "jacobian_condition": 1.060497477362148,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 31.141223703794186,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.7593655376933697,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 56,
+      "elapsed_seconds": 0.006793399999878602
+    },
+    {
+      "case_id": "moving_clean-1147886446",
+      "scenario": "moving_clean",
+      "position": [
+        -12.357404851773257,
+        -19.16210099500241
+      ],
+      "error_m": 4.862506180599029,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 9.801484049216018,
+        "objective_with_ridge": 9.801484049216018,
+        "standardized_residual_rmse": 0.7826830476482809,
+        "jacobian_singular_values": [
+          1.3816937189116993,
+          0.819879812000584
+        ],
+        "jacobian_condition": 1.6852393468991955,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": -2.295701186475525,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.4182592311643853,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0017958999997063074
+    },
+    {
+      "case_id": "moving_clean-2650671313",
+      "scenario": "moving_clean",
+      "position": [
+        -29.35267395068531,
+        6.433264509875411
+      ],
+      "error_m": 8.310791537270912,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 20.952682067217317,
+        "objective_with_ridge": 20.952682067217317,
+        "standardized_residual_rmse": 1.144352493421971,
+        "jacobian_singular_values": [
+          1.760561053372461,
+          1.1454891889320935
+        ],
+        "jacobian_condition": 1.5369512609837734,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 9.860024456251605,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.102759698767027,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.002585199999884935
+    },
+    {
+      "case_id": "moving_clean-4291451623",
+      "scenario": "moving_clean",
+      "position": [
+        -32.63950478552604,
+        6.9489535908733515
+      ],
+      "error_m": 9.087529962321781,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 59.93468850280658,
+        "objective_with_ridge": 59.93468850280658,
+        "standardized_residual_rmse": 1.9354374263781848,
+        "jacobian_singular_values": [
+          1.5314783577996676,
+          1.1592227245264404
+        ],
+        "jacobian_condition": 1.3211252034636392,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 26.675844998968067,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.213571926583759,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 13,
+      "elapsed_seconds": 0.0017021999992721248
+    },
+    {
+      "case_id": "moving_clean-408481049",
+      "scenario": "moving_clean",
+      "position": [
+        -13.726227752915515,
+        8.80417855629355
+      ],
+      "error_m": 7.5827484564595515,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 40.011659724372166,
+        "objective_with_ridge": 40.011659724372166,
+        "standardized_residual_rmse": 1.5813692588302266,
+        "jacobian_singular_values": [
+          1.6022828997016338,
+          1.059054852789848
+        ],
+        "jacobian_condition": 1.512936648636065,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 20.210492364601112,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.3167655164311376,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.002442299999529496
+    },
+    {
+      "case_id": "moving_clean-668375946",
+      "scenario": "moving_clean",
+      "position": [
+        10.452088440523394,
+        1.7467619562311276
+      ],
+      "error_m": 11.587919538015427,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 67.59030599407828,
+        "objective_with_ridge": 67.59030599407828,
+        "standardized_residual_rmse": 2.0553330933524845,
+        "jacobian_singular_values": [
+          1.2454306407482296,
+          0.8662675724750597
+        ],
+        "jacobian_condition": 1.437697404728937,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 28.599191013624502,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.668783022112907,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 20,
+      "elapsed_seconds": 0.0025640999992901925
+    },
+    {
+      "case_id": "moving_clean-1291387837",
+      "scenario": "moving_clean",
+      "position": [
+        32.415140213061726,
+        -12.079155954009504
+      ],
+      "error_m": 8.617693738845732,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 46.177455694307056,
+        "objective_with_ridge": 46.177455694307056,
+        "standardized_residual_rmse": 1.6988498994596877,
+        "jacobian_singular_values": [
+          1.0621293171423098,
+          0.7439357159399924
+        ],
+        "jacobian_condition": 1.4277165276307069,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 22.50362520073783,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.5564254183263175,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.00215329999991809
+    },
+    {
+      "case_id": "moving_clean-29614508",
+      "scenario": "moving_clean",
+      "position": [
+        0.7354543630826648,
+        24.24347981048418
+      ],
+      "error_m": 8.1250068586066,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 100.58369933579482,
+        "objective_with_ridge": 100.58369933579482,
+        "standardized_residual_rmse": 2.5072856256292733,
+        "jacobian_singular_values": [
+          1.0965574720159577,
+          0.9069124125944145
+        ],
+        "jacobian_condition": 1.2091106669044516,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 34.959601250262295,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.859082381738333,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.0026201999990007607
+    },
+    {
+      "case_id": "moving_clean-2748374235",
+      "scenario": "moving_clean",
+      "position": [
+        -1.1020800226956304,
+        -9.523276108056413
+      ],
+      "error_m": 14.5880759397029,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 29.892922461107265,
+        "objective_with_ridge": 29.892922461107265,
+        "standardized_residual_rmse": 1.366860510007954,
+        "jacobian_singular_values": [
+          1.7580244056098022,
+          1.3722639401737013
+        ],
+        "jacobian_condition": 1.2811124406484595,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 15.545705814894923,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.5247067590481056,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.002250800000183517
+    },
+    {
+      "case_id": "moving_clean-1081892036",
+      "scenario": "moving_clean",
+      "position": [
+        -13.701184937197517,
+        4.488700994863224
+      ],
+      "error_m": 10.029013308869798,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 44.599402643584405,
+        "objective_with_ridge": 44.599402643584405,
+        "standardized_residual_rmse": 1.669569604785624,
+        "jacobian_singular_values": [
+          1.41999308261518,
+          0.8550395592735914
+        ],
+        "jacobian_condition": 1.6607337838515348,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 21.947285333358543,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.5321980601567013,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 17,
+      "elapsed_seconds": 0.002834499999153195
+    },
+    {
+      "case_id": "moving_clean-2336568579",
+      "scenario": "moving_clean",
+      "position": [
+        -18.953552815322034,
+        11.2338805024794
+      ],
+      "error_m": 9.054309798846086,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 50.97695413046341,
+        "objective_with_ridge": 50.97695413046341,
+        "standardized_residual_rmse": 1.7849536781535713,
+        "jacobian_singular_values": [
+          1.262603372168286,
+          1.0264796325224907
+        ],
+        "jacobian_condition": 1.2300325619374837,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 24.08573630145984,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.1619541617988958,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 12,
+      "elapsed_seconds": 0.0026419999994686805
+    },
+    {
+      "case_id": "moving_clean-2293982481",
+      "scenario": "moving_clean",
+      "position": [
+        1.5467938513406765,
+        24.77575767003447
+      ],
+      "error_m": 4.5819327247855455,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 15.901015575447797,
+        "objective_with_ridge": 15.901015575447797,
+        "standardized_residual_rmse": 0.9969019377378536,
+        "jacobian_singular_values": [
+          1.2582799651628214,
+          0.9915763201582407
+        ],
+        "jacobian_condition": 1.2689693567531128,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 5.445885566340446,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.5317153415656426,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 14,
+      "elapsed_seconds": 0.00304859999960172
+    },
+    {
+      "case_id": "moving_clean-3508257578",
+      "scenario": "moving_clean",
+      "position": [
+        19.900414651601256,
+        -2.5903605733201056
+      ],
+      "error_m": 21.122133179315316,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 123.1490925850469,
+        "objective_with_ridge": 123.1490925850469,
+        "standardized_residual_rmse": 2.77431402090056,
+        "jacobian_singular_values": [
+          1.662545919259366,
+          1.4205397303564284
+        ],
+        "jacobian_condition": 1.1703621403409925,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 38.1980899873291,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.3528725538917503,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.003214500000467524
+    },
+    {
+      "case_id": "moving_clean-154545877",
+      "scenario": "moving_clean",
+      "position": [
+        1.2772021079023579,
+        -10.878490035625566
+      ],
+      "error_m": 10.5058145389307,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 35.91771950935042,
+        "objective_with_ridge": 35.91771950935042,
+        "standardized_residual_rmse": 1.4982848425230768,
+        "jacobian_singular_values": [
+          1.8819550312114781,
+          1.4746734391476957
+        ],
+        "jacobian_condition": 1.2761842596820456,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 18.483449942587225,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.235257592250717,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.0033994000004895497
+    },
+    {
+      "case_id": "moving_clean-396721993",
+      "scenario": "moving_clean",
+      "position": [
+        -15.54230226251103,
+        23.53749795109272
+      ],
+      "error_m": 8.244239026222937,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 73.14962992200853,
+        "objective_with_ridge": 73.14962992200853,
+        "standardized_residual_rmse": 2.1381889229264877,
+        "jacobian_singular_values": [
+          1.592893062772188,
+          1.3241132816771155
+        ],
+        "jacobian_condition": 1.2029885092268218,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 29.863870981240748,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.378407339813019,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.003359299998919596
+    },
+    {
+      "case_id": "moving_clean-4231759748",
+      "scenario": "moving_clean",
+      "position": [
+        4.584457550554094,
+        20.706239272882005
+      ],
+      "error_m": 10.346175422952047,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 20.42918090091188,
+        "objective_with_ridge": 20.42918090091188,
+        "standardized_residual_rmse": 1.1299662854735943,
+        "jacobian_singular_values": [
+          1.3831086360638447,
+          1.0000453326756888
+        ],
+        "jacobian_condition": 1.3830459388908343,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 9.455186929761968,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.6080901286186027,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.0026840999998967163
+    },
+    {
+      "case_id": "moving_clean-294321776",
+      "scenario": "moving_clean",
+      "position": [
+        15.47462475260038,
+        9.619977897200366
+      ],
+      "error_m": 16.046139384156504,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 30.47597345808459,
+        "objective_with_ridge": 30.47597345808459,
+        "standardized_residual_rmse": 1.380126204783565,
+        "jacobian_singular_values": [
+          1.7342501374183061,
+          0.9132805168438839
+        ],
+        "jacobian_condition": 1.8989238305570453,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 15.854775771816524,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.2512200892818757,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 17,
+      "elapsed_seconds": 0.003008899999258574
+    },
+    {
+      "case_id": "moving_clean-3319458532",
+      "scenario": "moving_clean",
+      "position": [
+        18.297055443186736,
+        4.815836283486364
+      ],
+      "error_m": 4.002475291187017,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 49.90119749287248,
+        "objective_with_ridge": 49.90119749287248,
+        "standardized_residual_rmse": 1.766019491201762,
+        "jacobian_singular_values": [
+          1.2907209732078286,
+          1.0169507277621912
+        ],
+        "jacobian_condition": 1.2692069910290258,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 23.74447789380602,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.1259632241524082,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.0040687999990041135
+    },
+    {
+      "case_id": "moving_clean-2602348871",
+      "scenario": "moving_clean",
+      "position": [
+        -4.229284848661166,
+        14.438597946900249
+      ],
+      "error_m": 9.187733749026554,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 56.71324302702152,
+        "objective_with_ridge": 56.71324302702152,
+        "standardized_residual_rmse": 1.8827048863772688,
+        "jacobian_singular_values": [
+          1.2832508883113987,
+          0.8469200955080499
+        ],
+        "jacobian_condition": 1.5151971184974693,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 25.79188183342537,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.2162434860684215,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.0037290000000211876
+    },
+    {
+      "case_id": "moving_clean-1940519732",
+      "scenario": "moving_clean",
+      "position": [
+        -8.998918945597373,
+        11.43414860528303
+      ],
+      "error_m": 7.993142835974136,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 66.60053939596568,
+        "objective_with_ridge": 66.60053939596568,
+        "standardized_residual_rmse": 2.0402288382061102,
+        "jacobian_singular_values": [
+          1.9884525462333538,
+          1.1893861846890574
+        ],
+        "jacobian_condition": 1.6718308753125437,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 28.363160713476187,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.7559098595870697,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 33,
+      "elapsed_seconds": 0.005847300000823452
+    },
+    {
+      "case_id": "moving_clean-1673015802",
+      "scenario": "moving_clean",
+      "position": [
+        -9.748439701415617,
+        16.50235511318205
+      ],
+      "error_m": 4.332672901533564,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 52.06532675977864,
+        "objective_with_ridge": 52.06532675977864,
+        "standardized_residual_rmse": 1.8039076812537178,
+        "jacobian_singular_values": [
+          1.5204938281711946,
+          0.8390620633239965
+        ],
+        "jacobian_condition": 1.8121351144725384,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 24.42374531198812,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.503433489518231,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 27,
+      "elapsed_seconds": 0.004476299998714239
+    },
+    {
+      "case_id": "moving_outliers-1045605226",
+      "scenario": "moving_outliers",
+      "position": [
+        11.762628842335321,
+        -26.942539840249164
+      ],
+      "error_m": 5.929422962959411,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 125.66314523161506,
+        "objective_with_ridge": 125.66314523161506,
+        "standardized_residual_rmse": 2.802489353588331,
+        "jacobian_singular_values": [
+          1.5560575768148412,
+          1.2339998926050908
+        ],
+        "jacobian_condition": 1.2609868008414946,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 38.52143591036607,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.523939832666393,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 17,
+      "elapsed_seconds": 0.003019300000232761
+    },
+    {
+      "case_id": "moving_outliers-3192923423",
+      "scenario": "moving_outliers",
+      "position": [
+        -5.227419713598678,
+        -19.07223231327238
+      ],
+      "error_m": 9.959425376845813,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 122.7132655904464,
+        "objective_with_ridge": 122.7132655904464,
+        "standardized_residual_rmse": 2.7694004945841435,
+        "jacobian_singular_values": [
+          1.2015906747675833,
+          0.9848598146870159
+        ],
+        "jacobian_condition": 1.2200626493725337,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 38.14136524695561,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.9354842285521148,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.003515000000334112
+    },
+    {
+      "case_id": "moving_outliers-1589893397",
+      "scenario": "moving_outliers",
+      "position": [
+        22.712182512350836,
+        -6.6459629832031055
+      ],
+      "error_m": 4.06707022004331,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 346.60657339260683,
+        "objective_with_ridge": 346.60657339260683,
+        "standardized_residual_rmse": 4.654343222951862,
+        "jacobian_singular_values": [
+          1.7738505991352291,
+          1.4606408445334336
+        ],
+        "jacobian_condition": 1.2144331070666745,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 54.75480336797574,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.1577712272953815,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.0032550999985687668
+    },
+    {
+      "case_id": "moving_outliers-1350559602",
+      "scenario": "moving_outliers",
+      "position": [
+        -13.513927984366983,
+        -24.123870149686383
+      ],
+      "error_m": 16.32404250915332,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 191.62119642533108,
+        "objective_with_ridge": 191.62119642533108,
+        "standardized_residual_rmse": 3.460682703829288,
+        "jacobian_singular_values": [
+          1.473949368695513,
+          1.0308706108650094
+        ],
+        "jacobian_condition": 1.429810252771406,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 45.272085695724165,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.812414188603243,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 25,
+      "elapsed_seconds": 0.004992199999833247
+    },
+    {
+      "case_id": "moving_outliers-1997776975",
+      "scenario": "moving_outliers",
+      "position": [
+        11.340073164860701,
+        11.403001218867328
+      ],
+      "error_m": 10.400452941653606,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 183.59707780540873,
+        "objective_with_ridge": 183.59707780540873,
+        "standardized_residual_rmse": 3.387449979385385,
+        "jacobian_singular_values": [
+          1.589296396468668,
+          1.0770178175063532
+        ],
+        "jacobian_condition": 1.4756454077504553,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 44.58765488011799,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.4087930397251753,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 15,
+      "elapsed_seconds": 0.00249930000063614
+    },
+    {
+      "case_id": "moving_outliers-303648413",
+      "scenario": "moving_outliers",
+      "position": [
+        8.049657968028031,
+        12.56959325337436
+      ],
+      "error_m": 8.422051495878728,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 214.56562417482024,
+        "objective_with_ridge": 214.56562417482024,
+        "standardized_residual_rmse": 3.662014679234132,
+        "jacobian_singular_values": [
+          1.3668227552952723,
+          0.9544277561818088
+        ],
+        "jacobian_condition": 1.4320861337512345,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 47.081607997232844,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.447811509327665,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 21,
+      "elapsed_seconds": 0.0026562000002741115
+    },
+    {
+      "case_id": "moving_outliers-2040279640",
+      "scenario": "moving_outliers",
+      "position": [
+        -13.861312799634511,
+        -15.509674196505902
+      ],
+      "error_m": 7.979173554815658,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 95.31709364203502,
+        "objective_with_ridge": 95.31709364203502,
+        "standardized_residual_rmse": 2.4407618385715533,
+        "jacobian_singular_values": [
+          1.1646758821272636,
+          1.085650398615243
+        ],
+        "jacobian_condition": 1.0727909128139392,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 34.09910446830586,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.234988032644665,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 16,
+      "elapsed_seconds": 0.002404200000455603
+    },
+    {
+      "case_id": "moving_outliers-982828524",
+      "scenario": "moving_outliers",
+      "position": [
+        26.531886612841348,
+        -17.72300830893528
+      ],
+      "error_m": 16.388864873521342,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 231.02210595745714,
+        "objective_with_ridge": 231.02210595745714,
+        "standardized_residual_rmse": 3.7998528421954805,
+        "jacobian_singular_values": [
+          2.2025352278891734,
+          1.1740908450145164
+        ],
+        "jacobian_condition": 1.8759495802575152,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 48.2639723323019,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.3046123989803404,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 55,
+      "elapsed_seconds": 0.005318200001056539
+    },
+    {
+      "case_id": "moving_outliers-3448959031",
+      "scenario": "moving_outliers",
+      "position": [
+        -26.37970499378818,
+        18.01223633874607
+      ],
+      "error_m": 8.524776109825886,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 181.0653300320552,
+        "objective_with_ridge": 181.0653300320552,
+        "standardized_residual_rmse": 3.3640129498864075,
+        "jacobian_singular_values": [
+          1.4214165184228682,
+          0.980447059362742
+        ],
+        "jacobian_condition": 1.4497636612289313,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 44.365484377386885,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.244603796428065,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.002657099999851198
+    },
+    {
+      "case_id": "moving_outliers-1044025239",
+      "scenario": "moving_outliers",
+      "position": [
+        -3.2080430330027134,
+        12.802465862045278
+      ],
+      "error_m": 2.830784104887875,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 88.81586489336463,
+        "objective_with_ridge": 88.81586489336463,
+        "standardized_residual_rmse": 2.3560542344851254,
+        "jacobian_singular_values": [
+          1.8457121143777344,
+          0.8052314252558471
+        ],
+        "jacobian_condition": 2.2921511213888532,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 32.96880257263697,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.6900292049017067,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 18,
+      "elapsed_seconds": 0.0023789000006217975
+    },
+    {
+      "case_id": "moving_outliers-3090558114",
+      "scenario": "moving_outliers",
+      "position": [
+        22.32722145307083,
+        -23.456271851855384
+      ],
+      "error_m": 13.24438790383289,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 78.45320699851945,
+        "objective_with_ridge": 78.45320699851945,
+        "standardized_residual_rmse": 2.2143453744634023,
+        "jacobian_singular_values": [
+          1.650421541443552,
+          1.344622953377103
+        ],
+        "jacobian_condition": 1.2274232990731098,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 30.983795614494795,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.5627391444447252,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 21,
+      "elapsed_seconds": 0.002917600000728271
+    },
+    {
+      "case_id": "moving_outliers-4218096159",
+      "scenario": "moving_outliers",
+      "position": [
+        -12.03436538935416,
+        26.933607323433588
+      ],
+      "error_m": 9.099554942176553,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 152.2573570940193,
+        "objective_with_ridge": 152.2573570940193,
+        "standardized_residual_rmse": 3.084815200036496,
+        "jacobian_singular_values": [
+          1.7435487748683247,
+          0.869852584975451
+        ],
+        "jacobian_condition": 2.0044186854000454,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 41.5929135347091,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.4127886712929545,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 42,
+      "elapsed_seconds": 0.005058299999291194
+    },
+    {
+      "case_id": "moving_outliers-599896174",
+      "scenario": "moving_outliers",
+      "position": [
+        11.673036516703945,
+        -14.812119142935494
+      ],
+      "error_m": 6.896093278254693,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 100.8616444772663,
+        "objective_with_ridge": 100.8616444772663,
+        "standardized_residual_rmse": 2.5107474544105672,
+        "jacobian_singular_values": [
+          1.3237100799586965,
+          0.9797831020840841
+        ],
+        "jacobian_condition": 1.3510235858763533,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 35.00375342574969,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.5921276923747167,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 18,
+      "elapsed_seconds": 0.0024907000006351154
+    },
+    {
+      "case_id": "moving_outliers-91451474",
+      "scenario": "moving_outliers",
+      "position": [
+        -17.082966483725052,
+        -1.6742898639315396
+      ],
+      "error_m": 2.9207271577263696,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 347.9212756540093,
+        "objective_with_ridge": 347.9212756540093,
+        "standardized_residual_rmse": 4.663161988219537,
+        "jacobian_singular_values": [
+          1.2829840273592634,
+          0.9245439843709019
+        ],
+        "jacobian_condition": 1.387693878331012,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 54.81537764541073,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 4.382479040112542,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 24,
+      "elapsed_seconds": 0.0032644999992044177
+    },
+    {
+      "case_id": "moving_outliers-316720567",
+      "scenario": "moving_outliers",
+      "position": [
+        27.357601579773167,
+        4.062320947774786
+      ],
+      "error_m": 7.6404175096738305,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 94.8016336448155,
+        "objective_with_ridge": 94.8016336448155,
+        "standardized_residual_rmse": 2.4341532619785813,
+        "jacobian_singular_values": [
+          1.4751733565159415,
+          1.3603276915138123
+        ],
+        "jacobian_condition": 1.084424999739824,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 34.012344155086986,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 1.6520177011879367,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 17,
+      "elapsed_seconds": 0.0023123999999370426
+    },
+    {
+      "case_id": "moving_outliers-1505729367",
+      "scenario": "moving_outliers",
+      "position": [
+        15.089030275074856,
+        -21.663751764222784
+      ],
+      "error_m": 12.419979496081888,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 384.937354734677,
+        "objective_with_ridge": 384.937354734677,
+        "standardized_residual_rmse": 4.904955114057346,
+        "jacobian_singular_values": [
+          1.3982725597947736,
+          1.1802086154575742
+        ],
+        "jacobian_condition": 1.1847672873093327,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 56.43304758581749,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.426183486375897,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 24,
+      "elapsed_seconds": 0.0033041999995475635
+    },
+    {
+      "case_id": "moving_outliers-3102671025",
+      "scenario": "moving_outliers",
+      "position": [
+        -10.781905388154378,
+        -22.619690331103495
+      ],
+      "error_m": 23.27959585968835,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 110.89814266964751,
+        "objective_with_ridge": 110.89814266964751,
+        "standardized_residual_rmse": 2.632704677105461,
+        "jacobian_singular_values": [
+          1.5762525382383648,
+          1.1650905520789383
+        ],
+        "jacobian_condition": 1.3529013134865495,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 36.521552231396576,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.6203794638952536,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 28,
+      "elapsed_seconds": 0.003475199999229517
+    },
+    {
+      "case_id": "moving_outliers-3773530124",
+      "scenario": "moving_outliers",
+      "position": [
+        -22.561154251048862,
+        -17.51804646478561
+      ],
+      "error_m": 15.837118810636943,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 147.24545875196313,
+        "objective_with_ridge": 147.24545875196313,
+        "standardized_residual_rmse": 3.033618494800837,
+        "jacobian_singular_values": [
+          1.262294173134639,
+          1.0460853698499757
+        ],
+        "jacobian_condition": 1.2066837081524915,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 41.05737359523479,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 3.5143221873356034,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 18,
+      "elapsed_seconds": 0.002607999998872401
+    },
+    {
+      "case_id": "moving_outliers-1619000085",
+      "scenario": "moving_outliers",
+      "position": [
+        -12.812397443429571,
+        -14.440894658186076
+      ],
+      "error_m": 10.166303093109983,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 156.50876363027814,
+        "objective_with_ridge": 156.50876363027814,
+        "standardized_residual_rmse": 3.127586565851117,
+        "jacobian_singular_values": [
+          2.025191462216062,
+          0.9840102448171817
+        ],
+        "jacobian_condition": 2.058099976989894,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 42.033549985442406,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.5716182039685944,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 48,
+      "elapsed_seconds": 0.005769700001110323
+    },
+    {
+      "case_id": "moving_outliers-1018298715",
+      "scenario": "moving_outliers",
+      "position": [
+        23.9565433964972,
+        29.511114334550683
+      ],
+      "error_m": 16.71146759933201,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 482.74971432470295,
+        "objective_with_ridge": 482.74971432470295,
+        "standardized_residual_rmse": 5.492891510424536,
+        "jacobian_singular_values": [
+          1.8951669128745219,
+          1.2166133964744108
+        ],
+        "jacobian_condition": 1.5577396388749885,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 60.05573116131361,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 5.676403956446437,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 19,
+      "elapsed_seconds": 0.0030181000001903158
+    },
+    {
+      "case_id": "moving_outliers-391400567",
+      "scenario": "moving_outliers",
+      "position": [
+        14.796019996494248,
+        -11.948572711863308
+      ],
+      "error_m": 12.321070383209452,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 105.51930019421032,
+        "objective_with_ridge": 105.51930019421032,
+        "standardized_residual_rmse": 2.5680646919690604,
+        "jacobian_singular_values": [
+          1.6032110796719146,
+          1.3453785502935687
+        ],
+        "jacobian_condition": 1.1916431099054503,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 35.72605991126834,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.5261591947278768,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 18,
+      "elapsed_seconds": 0.003964400000768364
+    },
+    {
+      "case_id": "moving_outliers-3675209587",
+      "scenario": "moving_outliers",
+      "position": [
+        -2.595199169981519,
+        12.117703387546843
+      ],
+      "error_m": 7.11438435568741,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 168.76412836337937,
+        "objective_with_ridge": 168.76412836337937,
+        "standardized_residual_rmse": 3.2477312115862067,
+        "jacobian_singular_values": [
+          1.4027323162294085,
+          1.0501076296022729
+        ],
+        "jacobian_condition": 1.3357986140532012,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 43.23979068676869,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.512353718255147,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 23,
+      "elapsed_seconds": 0.005577899999479996
+    },
+    {
+      "case_id": "moving_outliers-3151426096",
+      "scenario": "moving_outliers",
+      "position": [
+        -9.650956733395006,
+        -10.697088165948013
+      ],
+      "error_m": 9.033095376117164,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 571.0185308118284,
+        "objective_with_ridge": 571.0185308118284,
+        "standardized_residual_rmse": 5.973998508180202,
+        "jacobian_singular_values": [
+          1.642347230069446,
+          0.68812135756507
+        ],
+        "jacobian_condition": 2.3867116054658175,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 62.74250448688402,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 2.6144369603535833,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 36,
+      "elapsed_seconds": 0.005357500000172877
+    },
+    {
+      "case_id": "moving_outliers-110366075",
+      "scenario": "moving_outliers",
+      "position": [
+        -14.607984103189157,
+        19.71855889532218
+      ],
+      "error_m": 12.086826637661432,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "diagnostics": {
+        "fit_cost": 344.1191242264098,
+        "objective_with_ridge": 344.1191242264098,
+        "standardized_residual_rmse": 4.637612021736037,
+        "jacobian_singular_values": [
+          1.1315753801751431,
+          0.9267860094963699
+        ],
+        "jacobian_condition": 1.220967265992782,
+        "jacobian_rank": 2,
+        "ill_conditioned": false,
+        "effective_observations": 16.0,
+        "robust_bic_score": 54.63956410919071,
+        "solver_success": true,
+        "solver_status": 2,
+        "solver_message": "`ftol` termination condition is satisfied.",
+        "starts_attempted": 3,
+        "starts_valid": 3,
+        "at_numerical_bound": false,
+        "estimated_velocity": [
+          0.0,
+          0.0
+        ],
+        "selection_score_formula": "n_eff*log(max(sum(rho_f(weighted_standardized_residual))/sum(weights),1e-8)) + k*log(max(n_eff,2)) + (gate_penalty if dynamic else 0)",
+        "baseline": "static_wls",
+        "geometry_scale_m": 5.513841024318278,
+        "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+        "selected_model": "static"
+      },
+      "work_units": 25,
+      "elapsed_seconds": 0.004350999999587657
+    }
+  ]
+}

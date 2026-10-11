@@ -1,0 +1,204 @@
+--- initialization/benchmark.py
++++ amended/benchmark_v2_1.py
+@@ -1,111 +1,55 @@
+-"""Frozen independent evaluation, component ablations and split-conformal calibration."""
++"""Pre-freeze evaluator amendment: preserve baseline shorthand without invalid ablations.
++
++The original benchmark.py remains unchanged as the initialization-version
++snapshot and shared statistics/calibration/integrity library. This file is the
++single designated entry point for the first formal holdout evaluation.
++"""
+ from pathlib import Path
+-import argparse,csv,hashlib,json,math,platform,time,sys
++import argparse,csv,hashlib,platform,time,sys
+ import numpy as np
+ import scipy
+-from localization import generate_suite,generate_case,SCENARIOS
+-from tools.toolkit import CORE,BASELINES,evaluate
+-from tools.common import save,load,digest,metrics
+ 
+-STRESS=['poor_geometry','accelerating','sparse','calibration_shift','high_contamination']
++from benchmark import (STRESS,CORE,BASELINES,evaluate,generate_suite,paired_ci,
++                       iid_mixture,conformal,validate_frozen_run)
++from tools.common import save,load,digest
+ 
+-def validate_frozen_run(root,run):
+-    """Verify the frozen provenance and evidence before generating holdout data.
+ 
+-    This is an integrity check against accidental modification, not a signed
+-    attestation or a claim that an adversary cannot rewrite every local file.
+-    """
+-    root,run=Path(root).resolve(),Path(run).resolve()
+-    required={'protocol':run/'protocol.json','state':run/'state.json',
+-              'tools':run/'tools'/'tool_state.json','frozen':run/'tools'/'frozen_method.json'}
+-    for name,path in required.items():
+-        if not path.is_file():raise ValueError(f'Missing frozen-run {name}: {path}')
+-    protocol,state,tool_state,frozen=(load(required[name]) for name in ('protocol','state','tools','frozen'))
+-    if state.get('frozen') is not True or state.get('status')!='frozen' or tool_state.get('frozen') is not True:
+-        raise ValueError('Both controller and toolkit must be frozen before holdout access')
+-    if frozen.get('frozen_before_test') is not True:
+-        raise ValueError('Frozen method does not declare pre-test freezing')
+-    if digest(state.get('freeze_result'))!=digest(frozen):
+-        raise ValueError('Controller freeze record differs from frozen_method.json')
+-    registry=tool_state.get('registry',{})
+-    if frozen.get('registry_sha256')!=digest(registry):
+-        raise ValueError('Frozen registry hash does not match current registry')
+-    method=frozen.get('method_id')
+-    if method not in registry or tool_state.get('selected_method')!=method:
+-        raise ValueError('Selected method differs between frozen state and registry')
+-    for key,value in registry[method].items():
+-        if digest(frozen.get(key))!=digest(value):raise ValueError(f'Frozen method {key} differs from registry')
+-    validation=tool_state.get('evaluations',{}).get(f'validation:{method}')
+-    if validation is None or digest(validation)!=digest(frozen.get('validation')):
+-        raise ValueError('Frozen method lacks matching validation evidence')
+-    source_hashes=protocol.get('source_hashes',{})
+-    recorded_hashes=state.get('identity',{}).get('config',{}).get('source_hashes',{})
+-    if not source_hashes or source_hashes!=recorded_hashes:
+-        raise ValueError('Protocol source hashes differ from controller initialization')
+-    source_files=([root/'run_agent.py',root/'benchmark.py']+
+-                  list((root/'localization').glob('*.py'))+
+-                  list((root/'tools').glob('*.py'))+
+-                  list((root/'agent_runtime').glob('*.py')))
+-    needed={str(path.relative_to(root)).replace('\\','/') for path in source_files}
+-    if not needed.issubset(source_hashes):
+-        raise ValueError(f'Protocol is missing critical source hashes: {sorted(needed-set(source_hashes))}')
+-    for relative,expected in source_hashes.items():
+-        path=(root/relative).resolve()
+-        if not path.is_relative_to(root) or not path.is_file():
+-            raise ValueError('Invalid source file in frozen protocol')
+-        if hashlib.sha256(path.read_bytes()).hexdigest()!=expected:
+-            raise ValueError(f'Source changed after study initialization: {relative}')
+-    evidence_count=0
+-    for name,entry in tool_state.get('evaluations',{}).items():
+-        path=(run/'tools'/entry['evidence_path']).resolve()
+-        if not path.is_relative_to(run/'tools') or not path.is_file():
+-            raise ValueError(f'Missing/invalid experiment evidence: {name}')
+-        result=load(path)
+-        if digest(result)!=entry.get('evidence_sha256'):
+-            raise ValueError(f'Experiment evidence digest mismatch: {name}')
+-        for key,value in result.items():
+-            if key!='rows' and digest(entry.get(key))!=digest(value):
+-                raise ValueError(f'Experiment summary differs from evidence: {name}/{key}')
+-        evidence_count+=1
+-    return {'frozen':frozen,'registry':registry,'audit':{
+-        'verified_source_files':len(source_hashes),'verified_evidence_files':evidence_count,
+-        'controller_and_toolkit_frozen':True,'is_replay':bool(state.get('is_replay',False)),
+-        'claim':'Local integrity checks passed; no signed provenance or adversarial tamper guarantee.'}}
++def build_methods(chosen,registry):
++    """Same predeclared comparisons; component ablation only for compositions."""
++    methods={**BASELINES,'llm_selected':chosen}
++    ablations=[]
++    def ablate(name,change,condition=True):
++        if 'baseline' not in chosen and condition:
++            methods[name]={**chosen,**change};ablations.append({'method':name,'change':change})
++    ablate('ablate_range',{'residual':'range'},chosen.get('residual','range')!='range')
++    ablate('ablate_reported_scale',{'scale':'reported'},chosen.get('scale','reported')!='reported')
++    ablate('ablate_no_trim',{'trim_fraction':0.},chosen.get('trim_fraction',0)>0)
++    ablate('ablate_no_consensus',{'consensus_trials':0},chosen.get('consensus_trials',0)>0)
++    ablate('ablate_no_log_correction',{'log_bias_correction':False},chosen.get('residual')=='log_range' and chosen.get('log_bias_correction',True))
++    ablate('ablate_force_velocity',{'model':'velocity'},chosen.get('model')=='cv_select')
++    ablate('ablate_force_static',{'model':'static'},chosen.get('model')!='static')
++    # Unchanged predecessor policy: first two LLM-defined registry entries.
++    for name,record in list(registry.items())[4:6]:
++        if digest(record['spec'])!=digest(chosen):methods['predecessor_'+name]=record['spec']
++    return methods,ablations
+ 
+-def paired_ci(a,b,seed=612303,repeats=3000):
+-    byid={r['case_id']:r for r in a};groups={}
+-    for row in b:groups.setdefault(row['scenario'],[]).append(row['error_m']-byid[row['case_id']]['error_m'])
+-    rng=np.random.default_rng(seed);samples=np.mean([rng.choice(d,(repeats,len(d)),replace=True).mean(axis=1) for d in groups.values()],axis=0)
+-    return {'mean_reduction_m':float(np.mean([np.mean(v) for v in groups.values()])),
+-            'ci95_m':np.quantile(samples,[.025,.975]).tolist(),'repetitions':repeats}
+-def iid_mixture(seed,count):
+-    rng=np.random.default_rng(seed);cases=[]
+-    for i in range(count):
+-        scene=str(rng.choice(CORE));sample_seed=int(rng.integers(1,2**32-1));cases.append(generate_case(sample_seed,scene))
+-    return cases
+-def scale(row):
+-    x=row['diagnostics'].get('geometry_scale_m',1.)
+-    return max(.2,float(x)) if x is not None and math.isfinite(float(x)) else 100.
+-def conformal(calibration,test,stress):
+-    scores=np.array([r['error_m']/scale(r) for r in calibration]);out={}
+-    for alpha in [.1,.05]:
+-        k=math.ceil((len(scores)+1)*(1-alpha));q=float(np.sort(scores)[k-1]) if k<=len(scores) else math.inf
+-        populations={}
+-        for name,rows in [('iid_test',test),('shifted_stress',stress)]:
+-            radii=q*np.array([scale(r) for r in rows]);errors=np.array([r['error_m'] for r in rows])
+-            policy=[]
+-            for threshold in [2,5,10,15,20,30,50]:
+-                accepted=radii<=threshold
+-                policy.append({'radius_threshold_m':threshold,'acceptance_rate':float(accepted.mean()),'accepted_n':int(accepted.sum()),
+-                  'accepted_mean_error_m':float(errors[accepted].mean()) if accepted.any() else None,
+-                  'accepted_coverage':float(np.mean(errors[accepted]<=radii[accepted])) if accepted.any() else None})
+-            populations[name]={'n':len(rows),'coverage':float(np.mean(errors<=radii)),
+-                'mean_radius_m':float(radii.mean()),'median_radius_m':float(np.median(radii)),
+-                'by_scenario':{scene:{'n':sum(r['scenario']==scene for r in rows),
+-                  'coverage':float(np.mean([r['error_m']<=q*scale(r) for r in rows if r['scenario']==scene]))}
+-                  for scene in sorted({r['scenario'] for r in rows})},'rejection_curve':policy}
+-        out[str(alpha)]={'alpha':alpha,'calibration_n':len(scores),'order_statistic_k':k,'q':q,'populations':populations}
+-    return {'results':out,'claim':'Marginal coverage requires exchangeability of iid calibration/test mixture and frozen estimator. No conditional/rejection/shift guarantee.'}
++
++def amendment_provenance(root,run):
++    root,run=Path(root),Path(run)
++    original=hashlib.sha256((root/'benchmark.py').read_bytes()).hexdigest()
++    amended=hashlib.sha256((root/'benchmark_v2_1.py').read_bytes()).hexdigest()
++    manifest=load(root/'research'/'evaluator_amendment_manifest.json')
++    if original!=manifest['original_benchmark_sha256'] or amended!=manifest['amended_evaluator_sha256']:
++        raise ValueError('Evaluator differs from the documented pre-freeze amendment; preserve versions rather than rewriting study hashes.')
++    if hashlib.sha256((root/'research'/'evaluator_v2_1.patch').read_bytes()).hexdigest()!=manifest['exact_diff_sha256']:
++        raise ValueError('Evaluator amendment diff differs from its manifest')
++    return {'evaluator_version':'v2.1-baseline-shorthand-guard',
++            'original_benchmark_sha256':original,'evaluator_source_sha256':amended,
++            'research_initialization_manifest':load(run/'protocol.json'),
++            'research_initialization_manifest_sha256':hashlib.sha256((run/'protocol.json').read_bytes()).hexdigest(),
++            'amendment':manifest,
++            'evaluation_policy':'Use v2.1 for the first formal holdout; do not evaluate both versions and select favourable results.'}
++
+ 
+ def main():
+     parser=argparse.ArgumentParser(description=__doc__)
+@@ -121,31 +65,20 @@
+     if args.output.exists():parser.error('Choose a new output directory')
+     root=Path(__file__).resolve().parent
+     checked=validate_frozen_run(root,args.run)
++    provenance=amendment_provenance(root,args.run)
+     args.output.mkdir(parents=True);started=time.perf_counter()
+     frozen=checked['frozen'];registry=checked['registry'];chosen=frozen['spec']
+-    methods={**BASELINES,'llm_selected':chosen}
+-    ablations=[]
+-    def ablate(name,change,condition=True):
+-        if condition:
+-            methods[name]={**chosen,**change};ablations.append({'method':name,'change':change})
+-    ablate('ablate_range',{'residual':'range'},chosen.get('residual','range')!='range')
+-    ablate('ablate_reported_scale',{'scale':'reported'},chosen.get('scale','reported')!='reported')
+-    ablate('ablate_no_trim',{'trim_fraction':0.},chosen.get('trim_fraction',0)>0)
+-    ablate('ablate_no_consensus',{'consensus_trials':0},chosen.get('consensus_trials',0)>0)
+-    ablate('ablate_no_log_correction',{'log_bias_correction':False},chosen.get('residual')=='log_range' and chosen.get('log_bias_correction',True))
+-    ablate('ablate_force_velocity',{'model':'velocity'},chosen.get('model')=='cv_select')
+-    ablate('ablate_force_static',{'model':'static'},chosen.get('model')!='static')
+-    # Evaluate the first two LLM-defined predecessors as disclosed developmental comparators.
+-    for name,record in list(registry.items())[4:6]:
+-        if digest(record['spec'])!=digest(chosen):methods['predecessor_'+name]=record['spec']
++    methods,ablations=build_methods(chosen,registry)
+     codefiles=(sorted((root/'localization').glob('*.py'))+sorted((root/'tools').glob('*.py'))+
+-               sorted((root/'agent_runtime').glob('*.py'))+[root/'run_agent.py',Path(__file__).resolve()])
+-    protocol={'version':'v2-independent-benchmark','main_seeds':[814711,826013,837901],
++               sorted((root/'agent_runtime').glob('*.py'))+
++               [root/'run_agent.py',root/'benchmark.py',Path(__file__).resolve()])
++    protocol={'version':'v2.1-independent-benchmark','main_seeds':[814711,826013,837901],
+       'stress_seed':849391,'calibration_seed':862193,'coverage_seed':875149,
+       'main_per_scenario_per_seed':args.main_per_scenario,'stress_per_scenario':args.stress_per_scenario,
+       'calibration_size':args.calibration_size,'coverage_size':args.coverage_size,'methods':methods,'ablations':ablations,
+       'frozen_method_sha256':hashlib.sha256(frozen_path.read_bytes()).hexdigest(),
+-      'pre_holdout_integrity_check':checked['audit'],
++      'pre_holdout_integrity_check':checked['audit'],'evaluator_provenance':provenance,
++      'ablation_policy':'No compositional ablations for baseline shorthand; unchanged component ablations otherwise.',
+       'source_sha256':{str(f.relative_to(root)).replace('\\','/'):hashlib.sha256(f.read_bytes()).hexdigest() for f in codefiles},
+       'environment':{'python':sys.version.split()[0],'numpy':np.__version__,'scipy':scipy.__version__,'platform':platform.platform()},
+       'prohibition':'No test-driven revisions to the frozen method; report failures without retuning.'}
+@@ -177,4 +110,5 @@
+         writer=csv.DictWriter(stream,fieldnames=list(csvrows[0]));writer.writeheader();writer.writerows(csvrows)
+     print(f'Complete: {output["prediction_count"]} predictions; {output["wall_seconds"]:.1f}s',flush=True)
+ 
++
+ if __name__=='__main__':main()

@@ -1,0 +1,9 @@
+{
+  "pdf_pages": 36,
+  "tex_engine": "XeLaTeX / MiKTeX 26.2",
+  "pdf_sha256": "757c5912f437875bd94372816f7e932187a95d68dcb91e0363589f05a94501f8",
+  "compile_errors_or_reference_overflow_missing_glyph_warnings": [],
+  "visual_review": "All final pages rendered with Poppler as PNG and visually reviewed; captions, tables, diagrams, equations, page numbers and references checked.",
+  "render_note": "Poppler emitted warnings about optional Bulgarian/Greek/Thai nameToUnicode paths with a Unicode home path; all PDF pages rendered successfully.",
+  "reviewed_at_utc": "2026-09-24T18:10:35.528123+00:00"
+}

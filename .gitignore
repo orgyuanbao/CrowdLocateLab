@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env*
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.toc
+latex/*.bbl
+latex/*.blg
+latex/build_logs/
+latex/main.pdf
+.pytest_cache/
+runs/reproduction*/
+results/reproduction*/
+work/
