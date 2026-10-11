@@ -10,8 +10,8 @@
 | 学号 | 待补充 |
 | 学校 / 院系 | 待补充 |
 | 课程名称 / 任课教师 | 待补充 |
-| 个人 GitHub 用户名 | 待补充 |
-| 仓库链接 | 上传后填写 |
+| 个人 GitHub 用户名 | [orgyuanbao](https://github.com/orgyuanbao) |
+| 仓库链接 | [orgyuanbao/CrowdLocateLab](https://github.com/orgyuanbao/CrowdLocateLab) |
 | 提交日期 | 按实际日期填写 |
 
 PDF 封面在 `latex/main.tex` 中。两轮实证章节已经生成后，填写身份并使用 `python reporting/compile_report.py --skip-refresh` 编译；需要从完成证据更新实证时使用不带该选项的正常编译命令。无需为填写身份重新调用模型。

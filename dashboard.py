@@ -10,31 +10,79 @@ from collections import deque
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import math
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
 
-def read_object(path: Path):
+def as_object(value):
+    return value if isinstance(value, dict) else {}
+
+
+def as_list(value):
+    return value if isinstance(value, list) else []
+
+
+def object_members(value):
+    return {key: item for key, item in as_object(value).items() if isinstance(item, dict)}
+
+
+def strict_json(text):
+    """Treat duplicate keys and non-finite JSON numbers as unavailable evidence."""
+    def number(token):
+        value = float(token)
+        if not math.isfinite(value):
+            raise ValueError("Non-finite JSON number")
+        return value
+    def constant(token):
+        raise ValueError("Non-standard JSON number")
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError("Duplicate JSON key")
+            result[key] = value
+        return result
+    return json.loads(text, parse_float=number, parse_constant=constant, object_pairs_hook=pairs)
+
+
+def path_allowed(path, boundary=None):
+    try:
+        return boundary is None or Path(path).resolve().is_relative_to(Path(boundary).resolve())
+    except (OSError, RuntimeError):
+        return False
+
+
+def read_object(path: Path, boundary=None):
     """An absent or temporarily incomplete known JSON file is not a fatal UI error."""
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
+        if not path_allowed(path, boundary):
+            return {}
+        value = strict_json(path.read_text(encoding="utf-8"))
         return value if isinstance(value, dict) else {}
     except (FileNotFoundError, PermissionError, OSError, ValueError):
         return {}
 
 
-def iter_events(path: Path):
+def iter_events(path: Path, boundary=None):
     try:
+        if not path_allowed(path, boundary):
+            return
         with path.open(encoding="utf-8") as stream:
             for line in stream:
                 try:
-                    event = json.loads(line)
-                    if isinstance(event, dict) and isinstance(event.get("sequence"), int):
+                    event = strict_json(line)
+                    if (isinstance(event, dict) and type(event.get("sequence")) is int
+                            and event["sequence"] > 0 and isinstance(event.get("type"), str)
+                            and isinstance(event.get("payload"), dict)):
+                        required = {"model_response": "response", "tool_result": "result"}.get(event["type"])
+                        if required and not isinstance(event["payload"].get(required), dict):
+                            continue
                         yield event
                 except ValueError:
                     # The live writer may be between bytes of its final JSONL row.
                     continue
-    except (FileNotFoundError, PermissionError, OSError):
+    except (FileNotFoundError, PermissionError, OSError, UnicodeError):
         return
 
 
@@ -45,7 +93,7 @@ def _short(value, limit=12000):
 
 def _event_view(event):
     """Expose research evidence, never raw prompts, CLI stderr, or arbitrary files."""
-    kind, payload = event.get("type", "unknown"), event.get("payload", {})
+    kind, payload = event.get("type", "unknown"), as_object(event.get("payload"))
     result = {"sequence": event["sequence"], "time_utc": event.get("time_utc"),
               "type": kind, "event_sha256": event.get("event_sha256"), "details": ""}
     if kind == "model_request":
@@ -53,7 +101,7 @@ def _event_view(event):
                       summary=f"{payload.get('request_id', '')} · 第 {payload.get('attempt', 1)} 次尝试",
                       purpose=payload.get("purpose"), request_id=payload.get("request_id"))
     elif kind == "model_response":
-        response = payload.get("response", {})
+        response = as_object(payload.get("response"))
         result.update(title="独立批评模型已响应" if payload.get("purpose") == "critic" else "模型选择：" + str(response.get("action", "")),
                       summary=response.get("analysis_summary", response.get("recommended_next_step", "")),
                       hypothesis=response.get("hypothesis", ""), expected_result=response.get("expected_result", ""),
@@ -68,7 +116,7 @@ def _event_view(event):
                       action=payload.get("action"), summary="等待实际工具返回。",
                       details=_short(payload.get("arguments", {})))
     elif kind == "tool_result":
-        observation = payload.get("result", {})
+        observation = as_object(payload.get("result"))
         failed = observation.get("ok") is False or bool(observation.get("error"))
         action = payload.get("action", "")
         result.update(title=("工具失败：" if failed else "工具返回：") + str(action),
@@ -76,10 +124,12 @@ def _event_view(event):
                       details=_short(observation), executed=payload.get("executed", True))
     elif kind == "critique":
         result.update(title="独立批评记录", summary=payload.get("recommended_next_step", ""),
-                      issues=payload.get("issues", []), scope_valid=payload.get("scope_valid"),
+                      issues=as_list(payload.get("issues")), scope_valid=payload.get("scope_valid"),
                       details=_short(payload))
     else:
         decision = payload.get("decision")
+        if not isinstance(decision, str):
+            decision = None
         titles = {"initialize": "研究运行初始化", "resume": "恢复既有研究",
                   "development_frozen": "研究方法已冻结", "manual_stop": "手动停止",
                   "budget_exhausted": "研究预算已耗尽", "provider_failed": "模型提供方调用失败",
@@ -95,20 +145,20 @@ def _tool_summary(action, observation):
     if observation.get("error"):
         return str(observation["error"])
     if action in ("run_experiment", "ablate"):
-        metrics = observation.get("metrics", {})
+        metrics = object_members(observation.get("metrics"))
         parts = []
         for name, values in metrics.items():
-            overall = values.get("overall", {})
+            overall = as_object(values.get("overall"))
             mean = overall.get("mean_m")
-            parts.append(f"{name}: 平均误差 {mean:.3f} m" if isinstance(mean, (int, float)) else name)
+            parts.append(f"{name}: 平均误差 {mean:.3f} m" if type(mean) in (int, float) and math.isfinite(mean) else name)
         return f"{observation.get('split', '')} · " + "；".join(parts)
     if action == "register_method":
         return "已注册 " + str(observation.get("registered", observation.get("method_id", "新方法")))
     if action == "diagnose":
-        cases = observation.get("worst_cases", [])
+        cases = as_list(observation.get("worst_cases"))
         return f"检查了 {len(cases)} 个失败个案；保留 case_id、误差与模型诊断。"
     if action == "read_sources":
-        return "已读取 " + "、".join(observation.get("sources", {}).keys())
+        return "已读取 " + "、".join(as_object(observation.get("sources")).keys())
     if action == "freeze":
         return str(observation.get("scientific_conclusion", "配置冻结，后续测试由独立评估程序执行。"))
     return str(observation.get("note", observation.get("warning", "结果已写入完整事件记录。")))
@@ -127,38 +177,57 @@ class DashboardData:
         self.benchmark_protocol_path = self.results / "protocol.json"
 
     def state(self):
-        state, tools = read_object(self.state_path), read_object(self.tools_path)
-        identity = state.get("identity", {})
+        state, tools = read_object(self.state_path, self.run), read_object(self.tools_path, self.run)
+        if "identity" in state and not isinstance(state["identity"], dict):
+            state = {}
+        identity = as_object(state.get("identity"))
         usage, model_ids, latest_request, completed_requests = {}, set(), None, set()
         model_latency = 0.
         successful_calls = 0
-        for event in iter_events(self.events_path):
+        for event in iter_events(self.events_path, self.run):
             payload = event.get("payload", {})
             if event.get("type") == "model_request":
                 latest_request = {"request_id": payload.get("request_id"),
                                   "purpose": payload.get("purpose"), "time_utc": event.get("time_utc")}
             elif event.get("type") == "model_response":
                 successful_calls += 1
-                completed_requests.add(payload.get("request_id"))
-                model_latency += float(payload.get("elapsed_seconds", 0) or 0)
-                for name, value in payload.get("usage", {}).items():
-                    if isinstance(value, (int, float)):
+                if isinstance(payload.get("request_id"), str):
+                    completed_requests.add(payload["request_id"])
+                latency = payload.get("elapsed_seconds")
+                if type(latency) in (int, float) and math.isfinite(latency) and latency >= 0:
+                    model_latency += latency
+                for name, value in as_object(payload.get("usage")).items():
+                    if type(value) in (int, float) and math.isfinite(value) and value >= 0:
                         usage[name] = usage.get(name, 0) + value
                 if payload.get("model_identifier"):
                     model_ids.add(str(payload["model_identifier"]))
             elif event.get("type") == "decision" and payload.get("decision") == "model_request_failed":
-                completed_requests.add(payload.get("request_id"))
-        if latest_request and latest_request["request_id"] in completed_requests:
+                if isinstance(payload.get("request_id"), str):
+                    completed_requests.add(payload["request_id"])
+        if latest_request and (not isinstance(latest_request["request_id"], str) or latest_request["request_id"] in completed_requests):
             latest_request = None
         methods = []
-        for method_id, record in tools.get("registry", {}).items():
+        for method_id, record in object_members(tools.get("registry")).items():
             methods.append({"method_id": method_id, **record,
-                            "is_baseline": "baseline" in record.get("spec", {}),
-                            "evaluations": {split: tools.get("evaluations", {}).get(f"{split}:{method_id}")
+                            "spec": as_object(record.get("spec")),
+                            "is_baseline": "baseline" in as_object(record.get("spec")),
+                            "evaluations": {split: object_members(tools.get("evaluations")).get(f"{split}:{method_id}")
                                             for split in ("discovery", "validation")}})
         methods.sort(key=lambda item: item["is_baseline"])
-        benchmark = read_object(self.summary_path)
-        benchmark_status = "complete" if benchmark else ("running" if self.benchmark_protocol_path.exists() else "not_started")
+        benchmark = read_object(self.summary_path, self.results)
+        metrics = object_members(benchmark.get("metrics"))
+        has_measurements = any(type(as_object(split.get("overall")).get("mean_m")) in (int, float)
+                               for method in metrics.values() for split in object_members(method).values())
+        benchmark_status = "complete" if has_measurements else ("unavailable" if self.summary_path.exists() else
+                            "running" if self.benchmark_protocol_path.exists() else "not_started")
+        if benchmark.get("status") in ("failed", "running", "incomplete"):
+            benchmark_status = benchmark["status"]
+        critiques = [{**item, "issues": as_list(item.get("issues")),
+                      "evidence_caveats": as_list(item.get("evidence_caveats"))}
+                     for item in as_list(state.get("critiques")) if isinstance(item, dict)]
+        conformal = as_object(benchmark.get("conformal")) or read_object(self.conformal_path, self.results)
+        if "results" in conformal:
+            conformal = {**conformal, "results": object_members(conformal["results"])}
         return {"loaded_at": datetime.now(timezone.utc).isoformat(), "run_name": self.run.name,
                 "available": bool(state), "status": state.get("status", "waiting"),
                 "is_replay": bool(state.get("is_replay", identity.get("provider") == "replay")),
@@ -167,25 +236,25 @@ class DashboardData:
                 "successful_model_calls": successful_calls, "experiment_calls": state.get("experiment_calls", 0),
                 "successful_experiments": state.get("successful_experiments", 0),
                 "budgets": {key: identity.get(key) for key in ("max_steps", "max_model_calls", "max_experiments")},
-                "goal": identity.get("goal", ""), "provider_settings": identity.get("provider_settings", {}),
+                "goal": identity.get("goal", ""), "provider_settings": as_object(identity.get("provider_settings")),
                 "identity_sha256": state.get("identity_sha256"), "seed_hash": identity.get("seed_hash"),
                 "updated_at": state.get("updated_at"), "last_event_sequence": state.get("last_event_sequence", 0),
                 "pending_request": latest_request, "pending_tool": state.get("pending_tool"),
                 "methods": methods, "tool_counts": {key: tools.get(key, 0)
                 for key in ("experiment_calls", "validation_calls", "diagnoses", "math_checks")},
                 "usage": usage, "recorded_model_latency_seconds": model_latency,
-                "model_identifiers": sorted(model_ids), "unexpected_tool_events": len(state.get("unexpected_tool_events", [])),
-                "critiques": state.get("critiques", []), "frozen_method": read_object(self.frozen_path),
-                "benchmark": {"status": benchmark_status, "metrics": benchmark.get("metrics", {}),
-                "comparisons": benchmark.get("comparisons", {}),
-                "conformal": benchmark.get("conformal") or read_object(self.conformal_path),
+                "model_identifiers": sorted(model_ids), "unexpected_tool_events": len(as_list(state.get("unexpected_tool_events"))),
+                "critiques": critiques, "frozen_method": read_object(self.frozen_path, self.run),
+                "benchmark": {"status": benchmark_status, "metrics": metrics,
+                "comparisons": object_members(benchmark.get("comparisons")),
+                "conformal": conformal,
                 "prediction_count": benchmark.get("prediction_count"), "wall_seconds": benchmark.get("wall_seconds"),
-                "frozen": benchmark.get("frozen", {})}}
+                "frozen": as_object(benchmark.get("frozen"))}}
 
     def events(self, after=0, limit=100):
         latest = deque(maxlen=min(max(int(limit), 1), 100))
         latest_sequence = 0
-        for event in iter_events(self.events_path):
+        for event in iter_events(self.events_path, self.run):
             latest_sequence = max(latest_sequence, event["sequence"])
             if event["sequence"] > after:
                 latest.append(_event_view(event))
@@ -281,6 +350,12 @@ def make_handler(data: DashboardData):
             self.wfile.write(raw)
 
         def do_GET(self):
+            try:
+                self.handle_get()
+            except (OSError, ValueError, TypeError, AttributeError, OverflowError):
+                self._send(503, '{"error":"Saved evidence is incomplete or incompatible; refresh after repair"}')
+
+        def handle_get(self):
             expected_port = self.server.server_address[1]
             if self.headers.get("Host", "") not in (f"127.0.0.1:{expected_port}", f"localhost:{expected_port}"):
                 self._send(403, '{"error":"Localhost Host header required"}')
@@ -289,7 +364,7 @@ def make_handler(data: DashboardData):
             if target.path == "/" and not target.query:
                 self._send(200, HTML, "text/html; charset=utf-8")
             elif target.path == "/api/state" and not target.query:
-                self._send(200, json.dumps(data.state(), ensure_ascii=False, allow_nan=False))
+                self._send(200, json.dumps(data.state(), ensure_ascii=True, allow_nan=False))
             elif target.path == "/api/events":
                 query = parse_qs(target.query, keep_blank_values=True)
                 try:
@@ -302,7 +377,7 @@ def make_handler(data: DashboardData):
                 except ValueError:
                     self._send(400, '{"error":"Use nonnegative after and limit=1..100 only"}')
                     return
-                self._send(200, json.dumps(data.events(after, limit), ensure_ascii=False, allow_nan=False))
+                self._send(200, json.dumps(data.events(after, limit), ensure_ascii=True, allow_nan=False))
             else:
                 self._send(404, '{"error":"No such read-only endpoint"}')
 

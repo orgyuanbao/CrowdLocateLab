@@ -6,6 +6,8 @@
 
 ## 从这里开始
 
+2026-10-12 工程审查发现并处理了原测试未覆盖的运行恢复、回放完整性、异常 JSON、输入来源绑定和数值稳定性问题。新运行使用 `run_research.py`；原始入口、冻结核心、两轮结果和 52 页论文保留作历史证据。应用入口增加独立数值筛查，失败时明确拒绝使用原估计。详见 [审查记录](docs/QUALITY_REVIEW.md) 和 [LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)。测试通过不等于零缺陷，也不构成工业精度证明。
+
 初次使用请读 [START_HERE.md](START_HERE.md)。无需模型账号即可查看已保存证据：
 
 ```text
@@ -19,7 +21,7 @@ python dashboard_revision.py --port 8766
 | 模型记录 | [runs/live_reference](runs/live_reference/) | [runs/revision_reference](runs/revision_reference/) |
 | 独立评测 | [results/benchmark](results/benchmark/) | [results/revision_benchmark](results/revision_benchmark/) |
 | 追加分析 | [敏感性网格](results/sensitivity/) | 评测目录内的 edge、分组校准与非劣诊断 |
-| 研究入口 | `run_agent.py` | `run_revision.py` |
+| 历史研究入口 | `run_agent.py` | `run_revision.py` |
 | 正式评测入口 | `benchmark_v2_1.py` | `benchmark_revision.py` |
 | 新观测应用 | `locate.py` | `locate_revision.py` |
 
@@ -31,7 +33,7 @@ python dashboard_revision.py --port 8766
 | 第一轮 / 第二轮真实模型调用 | 14 / 13 次；合计 27 次，包含两次独立提示审阅 |
 | 两轮实验与消融调用 | 各 6 次；第二轮登记 4 个新配置 |
 | 冻结后定位计算 | 第一轮 6,192 次 + 第二轮 15,860 次 = **22,052 次** |
-| 软件检查 | **129 项测试通过**；完整历史审计两轮均通过 |
+| 原版本软件检查 | **129 项测试通过**；本次加固检查另见审查记录 |
 | 独立统计核对 | 123,279 项一致性检查通过，重新核对误差、155 组配对比较和覆盖 |
 | 新主测试 | 所选方法 3.920 m，WLS 6.643 m，第一轮方法 4.064 m |
 | n=8 运动边界 | 第一轮 10.788 m → 第二轮 6.217 m；恒速基线仍更低（5.107 m） |
@@ -41,7 +43,7 @@ python dashboard_revision.py --port 8766
 
 运行身份、冻结与完成状态分别保存在 `runs/revision_reference/state.json`、`results/revision_benchmark/status.json` 和 `summary.json`。已有结果重算不增加独立研究次数。
 
-第一轮发现了正常静态退化、稀疏观测下 CV 排除运动模型、实际覆盖不足等问题。第二轮把这些旧结果作为**已暴露先验**，使用新开发与评测种子；它是延续研究，不是对第一轮研究过程的完全独立重复。第一轮冻结源码和记录保持原样。[V2 README 归档](docs/README_V2.md)保留原文，归档中的相对路径以项目根目录解释。
+第一轮发现了正常静态退化、稀疏观测下 CV 排除运动模型、实际覆盖不足等问题。第二轮把这些旧结果作为**已暴露先验**，使用新开发与评测种子；它是延续研究，不是对第一轮研究过程的完全独立重复。第一轮冻结源码和记录保持原样。[V2 README 归档](docs/README_V2.md)保留历史正文并修正了归档位置下的链接。
 
 ## 环境检查与安装
 
@@ -78,7 +80,7 @@ python -m unittest discover -s tests -v
 | --- | --- | --- | --- |
 | 阅读 PDF、JSON 或研究浏览器 | 否 | 否 | 审阅已有证据 |
 | replay、冻结方法评测、新观测定位 | 否 | 是 | 重放或数值应用，不产生新模型推理 |
-| `run_revision.py --provider codex` | 是 | 是 | 模型驱动的新运行记录 |
+| `run_research.py --provider codex` | 是 | 是 | 使用已公开协议的工程运行，不是新盲测 |
 
 ### 审计后重算第二轮评测
 
@@ -114,7 +116,7 @@ python benchmark_revision.py --run runs/revision_reference --output results/repr
 codex --version
 codex login status
 python doctor.py --require-codex
-python run_revision.py --output runs/my_revision --provider codex --timeout 300 --reasoning-effort medium
+python run_research.py --output runs/my_revision --provider codex --timeout 300 --reasoning-effort medium
 ```
 
 程序沿用 CLI 默认模型，本次临时设置 medium 推理强度；名称只采用 CLI 实际报告值。若 CLI 不在 PATH，可在当前 PowerShell 设置：
@@ -125,17 +127,17 @@ $env:CODEX_EXECUTABLE = 'C:\path\to\codex.exe'
 
 第二轮默认预算为 20 个动作、8 次实验 / 消融、28 次模型请求，后者包含审阅与重试；验证最多 4 次调用。冻结要求诊断后的修订、有效消融和验证对照，获胜不是冻结前提。持续模型失败会记录并终止，没有静默规则后备。
 
-新运行使用同一研究协议与已保存 V2 先验，不覆盖正式目录。冻结后对 `runs/my_revision` 依次执行审计、`--validate-only` 和新目录评测。停止、恢复和预算解释见复现说明。
+新入口使用已公开的研究协议与 V2 先验，不覆盖正式目录；沿用原种子，不能将重算称为新的盲测或独立科学发现。无法冻结时可诚实停止为未冻结状态；恢复前检查状态与事件链尾、运行身份和中断请求，异常时保留证据并拒绝继续。冻结后才对 `runs/my_revision` 依次执行审计、`--validate-only` 和新目录评测。原 `run_revision.py`、`run_agent.py` 仅用于历史源码复现，不含这些新增保护。
 
 ### 显式回放
 
 来源记录完整后执行：
 
 ```text
-python run_revision.py --output runs/reproduction_replay --provider replay --replay-source runs/revision_reference
+python run_research.py --output runs/reproduction_replay --provider replay --replay-source runs/revision_reference
 ```
 
-回放读取保存的模型响应并重做工具计算，不作新推理；响应耗尽会报错，不转成在线模型。默认回放不代表所有提示逐字一致，也不能作为第二次独立模型研究。
+回放先验证来源事件链并绑定源文件哈希，再读取保存的模型响应、重做工具计算；不作新推理。响应耗尽会报错，不转成在线模型。默认回放不代表所有提示逐字一致；新入口提示已改变，`--strict-replay` 对历史记录通常会报提示不匹配。回放不能作为第二次独立模型研究。
 
 ## 应用于新观测
 
@@ -145,9 +147,9 @@ python run_revision.py --output runs/reproduction_replay --provider replay --rep
 python locate_revision.py --input examples/observations.json --run runs/revision_reference --calibration results/revision_benchmark/conformal.json --region mondrian --alpha 0.1 --max-radius 20 --output results/my_revision_location.json
 ```
 
-输入只有 `anchors`、`times`、`ranges`、`sigma`，不接受真值或场景标签。输出为 t=0 位置、速度、诊断、误差区域与半径阈值的接受 / 拒绝结果。`--region global` 使用总体校准；校准缺失或不匹配会失败，不发明有限半径。20 m 只是应用示例阈值，不是已证明最优阈值。
+输入只有 `anchors`、`times`、`ranges`、`sigma`，不接受真值或场景标签。输出为 t=0 位置、速度、诊断、误差区域与接受 / 拒绝结果。必须先检查 `numerical_quality.passed`：数值筛查失败时，即使半径小于阈值或未指定阈值，也会拒绝。筛查多执行一次诊断拟合，原论文计时不包含该开销。`--region global` 使用总体校准；20 m 是示例阈值，不是已证明最优阈值。
 
-已实际执行的示例输出：[20 m 阈值接受](results/example_revision_location.json)、[1 m 阈值拒绝](results/example_revision_rejected.json)。同一输入估计位置约为 (19.386, 21.668) m，分组半径约 7.199 m；输入没有真值，不报告其真实定位误差。这两次接口演示不计入正式研究计算次数。
+加固前保存的接口演示：[20 m 阈值接受](results/example_revision_location.json)、[1 m 阈值拒绝](results/example_revision_rejected.json)。新入口示例见 [本次数值检查输出](verification/hardening/example_prediction.json)。同一输入估计位置约为 (19.386, 21.668) m，分组半径约 7.199 m；输入没有真值，不报告其真实定位误差。这些接口演示不计入正式研究计算次数。
 
 现场观测与合成校准不同分布时不自动保证覆盖，拒绝后的子集也不自动继承名义覆盖。详见 [第二轮应用说明](docs/application_revision.md)。
 

@@ -1,0 +1,43 @@
+{
+  "client_review_date": "2026-10-12",
+  "queries": [
+    {
+      "package": "numpy",
+      "version": "2.3.5",
+      "ecosystem": "PyPI",
+      "queried_at_utc": "2026-10-11T17:43:29.797039+00:00",
+      "endpoint": "https://api.osv.dev/v1/query",
+      "http_status": 200,
+      "status": "queried",
+      "known_vulnerability_count": 0,
+      "vulnerabilities": []
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "ecosystem": "PyPI",
+      "queried_at_utc": "2026-10-11T17:43:29.797633+00:00",
+      "endpoint": "https://api.osv.dev/v1/query",
+      "http_status": 200,
+      "status": "queried",
+      "known_vulnerability_count": 0,
+      "vulnerabilities": []
+    },
+    {
+      "package": "scipy",
+      "version": "1.18.1",
+      "ecosystem": "PyPI",
+      "queried_at_utc": "2026-10-11T17:43:29.798139+00:00",
+      "endpoint": "https://api.osv.dev/v1/query",
+      "http_status": 200,
+      "status": "queried",
+      "known_vulnerability_count": 0,
+      "vulnerabilities": []
+    }
+  ],
+  "limitations": [
+    "Only these direct PyPI package versions were queried.",
+    "No OSV match does not prove absence of vulnerabilities or unsafe project behavior.",
+    "This is a point-in-time public advisory lookup, not dependency/runtime penetration testing."
+  ]
+}

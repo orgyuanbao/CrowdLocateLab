@@ -15,7 +15,8 @@ from pathlib import Path
 import threading
 from urllib.parse import parse_qs, urlsplit
 
-from dashboard import DashboardData, _event_view, iter_events
+from dashboard import (DashboardData, _event_view, iter_events, read_object,
+                       as_object, as_list, object_members, strict_json, path_allowed)
 
 
 VERSIONS = {
@@ -27,7 +28,7 @@ SPLITS = ("main", "stress", "edge")
 
 def safe_json(path, fallback=None):
     try:
-        return json.loads(Path(path).read_text(encoding="utf-8"))
+        return strict_json(Path(path).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return fallback
 
@@ -57,7 +58,9 @@ def percentile(values, q):
 
 
 def model_label(row):
-    raw = row.get("diagnostics", {}).get("selected_model", row.get("selected_model", "unknown"))
+    raw = as_object(row.get("diagnostics")).get("selected_model", row.get("selected_model", "unknown"))
+    if not isinstance(raw, str):
+        return "unknown"
     return "velocity" if raw == "dynamic" else raw
 
 
@@ -71,7 +74,10 @@ class RevisionDashboardData:
         if version not in VERSIONS:
             raise ValueError("version must be v2 or v3")
         item = VERSIONS[version]
-        return self.root / item["run"], self.root / item["results"]
+        paths = self.root / item["run"], self.root / item["results"]
+        if any(not path_allowed(path, self.root) for path in paths):
+            raise OSError("Known study directory resolves outside the selected project")
+        return paths
 
     def versions(self):
         return [{"id": key, **value,
@@ -82,26 +88,24 @@ class RevisionDashboardData:
     def state(self, version):
         run, results = self.config(version)
         state = DashboardData(run, results).state()
-        summary = safe_json(results / "summary.json", {}) or {}
-        status = summary.get("status") if isinstance(summary, dict) else None
+        summary = read_object(results / "summary.json", self.root)
+        status = summary.get("status")
         if status in ("failed", "running", "incomplete"):
             state["benchmark"]["status"] = status
-        if summary and not summary.get("metrics"):
-            state["benchmark"]["status"] = status or "unrecognized"
         state.update(version=version, version_label=VERSIONS[version]["label"],
                      paths=VERSIONS[version], versions=self.versions())
         # The dedicated calibration endpoint returns aggregates, not thousands
         # of duplicated coverage rows with every overview refresh.
         state["benchmark"].pop("conformal", None)
-        state["benchmark"]["aliases"] = summary.get("aliases", summary.get("protocol", {}).get("aliases", {}))
-        state["benchmark"]["comparisons"] = summary.get("comparisons", {})
+        state["benchmark"]["aliases"] = as_object(summary.get("aliases", as_object(summary.get("protocol")).get("aliases")))
+        state["benchmark"]["comparisons"] = object_members(summary.get("comparisons"))
         return json_safe(state)
 
     def events(self, version, before=0, limit=150):
         run, _ = self.config(version)
         items = deque(maxlen=limit)
         total = 0
-        for event in iter_events(run / "events.jsonl"):
+        for event in iter_events(run / "events.jsonl", self.root):
             total += 1
             if before == 0 or event["sequence"] < before:
                 items.append(_event_view(event))
@@ -112,7 +116,7 @@ class RevisionDashboardData:
     def _allowed_file(self, path):
         try:
             return path.is_file() and path.resolve().is_relative_to(self.root)
-        except OSError:
+        except (OSError, RuntimeError):
             return False
 
     def _files(self, version):
@@ -136,31 +140,45 @@ class RevisionDashboardData:
     def archive(self, version):
         with self._lock:
             files = self._files(version)
-            signature = tuple((str(p), p.stat().st_mtime_ns, p.stat().st_size) for _, _, p in files)
+            # A writer may remove or replace an incomplete file between listing and stat.
+            available = []
+            for split, kind, path in files:
+                try:
+                    stat = path.stat()
+                    available.append((split, kind, path, stat.st_mtime_ns, stat.st_size))
+                except OSError:
+                    continue
+            signature = tuple((str(p), mtime, size) for _, _, p, mtime, size in available)
             if self._cache.get(version, {}).get("signature") == signature:
                 return self._cache[version]
             cases = {}
             warnings = []
-            for split, kind, path in files:
+            for split, kind, path, _, _ in available:
                 obj = safe_json(path)
                 if obj is None:
                     warnings.append(f"{path.name} 尚未写入完整 JSON，暂不展示。")
                     continue
                 if kind == "inputs":
                     inputs = obj if isinstance(obj, list) else obj.get("cases", obj.get("inputs", [])) if isinstance(obj, dict) else []
+                    if not isinstance(inputs, list) or not isinstance(obj, (list, dict)):
+                        warnings.append(f"{path.name} 观测数组格式不兼容，暂不展示。")
+                        continue
                     for value in inputs:
                         if not isinstance(value, dict) or not isinstance(value.get("case_id"), str):
                             continue
                         key = split + ":" + value["case_id"]
                         entry = cases.setdefault(key, {"key": key, "case_id": value["case_id"], "dataset": split, "predictions": {}})
                         # The browser exposes only saved offline evaluation observations.
-                        entry["observation"] = {k: value[k] for k in ("anchors", "times", "ranges", "sigma", "truth", "velocity") if k in value}
-                        entry["scenario"] = value.get("scenario", "unknown")
-                        entry["observation_n"] = len(value.get("anchors", []))
-                        meta = value.get("meta", {})
+                        entry["observation"] = {k: value[k] for k in ("anchors", "times", "ranges", "sigma", "truth", "velocity") if isinstance(value.get(k), list)}
+                        entry["scenario"] = value.get("scenario") if isinstance(value.get("scenario"), str) else "unknown"
+                        entry["observation_n"] = len(value["anchors"]) if isinstance(value.get("anchors"), list) else None
+                        meta = as_object(value.get("meta"))
                         entry["contamination"] = meta.get("actual_outlier_fraction")
                     continue
                 rows = obj.get("rows", []) if isinstance(obj, dict) else obj if isinstance(obj, list) else []
+                if not isinstance(rows, list) or not isinstance(obj, (list, dict)):
+                    warnings.append(f"{path.name} 预测数组格式不兼容，暂不展示。")
+                    continue
                 for row in rows:
                     if not isinstance(row, dict) or not isinstance(row.get("case_id"), str):
                         continue
@@ -172,15 +190,18 @@ class RevisionDashboardData:
                     position = row.get("position")
                     if position is None and finite(row.get("x")) and finite(row.get("y")):
                         position = [row["x"], row["y"]]
-                    entry["scenario"] = row.get("scenario", entry.get("scenario", "unknown"))
-                    entry["observation_n"] = row.get("observation_n", row.get("n_observations", entry.get("observation_n")))
+                    if not (isinstance(position, list) and len(position) == 2 and all(finite(v) for v in position)):
+                        position = None
+                    entry["scenario"] = row.get("scenario") if isinstance(row.get("scenario"), str) else entry.get("scenario", "unknown")
+                    observation_n = row.get("observation_n", row.get("n_observations", entry.get("observation_n")))
+                    entry["observation_n"] = observation_n if type(observation_n) is int and observation_n > 0 else None
                     entry["predictions"][name] = {
                         "method": name, "position": position, "velocity": row.get("velocity"),
-                        "error_m": row.get("error_m"), "work_units": row.get("work_units"),
+                        "error_m": row.get("error_m") if finite(row.get("error_m")) and row["error_m"] >= 0 else None, "work_units": row.get("work_units"),
                         "elapsed_seconds": row.get("elapsed_seconds"), "selected_model": model_label(row),
                         "alias_of": obj.get("alias_of") if isinstance(obj, dict) else None,
                         "timing_reused": bool(obj.get("timing_reused", False)) if isinstance(obj, dict) else False,
-                        "diagnostics": row.get("diagnostics", {}),
+                        "diagnostics": as_object(row.get("diagnostics")),
                     }
             archive = {"signature": signature, "cases": cases, "warnings": warnings,
                        "methods": sorted({method for case in cases.values() for method in case["predictions"]}),
@@ -225,25 +246,31 @@ class RevisionDashboardData:
 
     def calibration(self, version):
         _, results = self.config(version)
-        summary = safe_json(results / "summary.json", {}) or {}
-        raw = summary.get("conformal") or safe_json(results / "conformal.json", {}) or {}
-        modes = {"global": raw.get("results", {})} if "results" in raw else {k: raw[k] for k in ("global", "mondrian") if isinstance(raw.get(k), dict)}
+        summary = read_object(results / "summary.json", self.root)
+        raw = as_object(summary.get("conformal")) or read_object(results / "conformal.json", self.root)
+        modes = {"global": as_object(raw.get("results"))} if "results" in raw else {k: raw[k] for k in ("global", "mondrian") if isinstance(raw.get(k), dict)}
         rows = []
         for mode, records in modes.items():
             if "results" in records:
-                records = records["results"]
+                records = as_object(records["results"])
             for alpha, record in records.items():
                 if not isinstance(record, dict) or not isinstance(record.get("populations"), dict):
+                    continue
+                try:
+                    level = record.get("alpha", float(alpha))
+                except (ValueError, TypeError, OverflowError):
+                    continue
+                if not finite(level) or not 0 < level < 1:
                     continue
                 for population, values in record["populations"].items():
                     if not isinstance(values, dict):
                         continue
-                    rows.append({"mode": mode, "alpha": record.get("alpha", alpha), "population": population,
+                    rows.append({"mode": mode, "alpha": level, "population": population,
                                  "n": values.get("n"), "coverage": values.get("coverage"),
                                  "coverage_wilson95": values.get("coverage_wilson95"),
                                  "mean_radius_m": values.get("mean_radius_m"), "median_radius_m": values.get("median_radius_m"),
-                                 "by_scenario": values.get("by_scenario", {}), "by_group": values.get("by_group", {}),
-                                 "rejection_curve": values.get("rejection_curve", []),
+                                 "by_scenario": as_object(values.get("by_scenario")), "by_group": as_object(values.get("by_group")),
+                                 "rejection_curve": [r for r in as_list(values.get("rejection_curve")) if isinstance(r, dict)],
                                  "calibration": record.get("calibration", {key: value for key, value in record.items() if key != "populations"}),
                                  "unbounded": values.get("unbounded", values.get("unbounded_rate")),
                                  "unbounded_n": values.get("unbounded_n")})
@@ -313,7 +340,7 @@ document.querySelectorAll('[data-version]').forEach(b=>b.onclick=()=>switchVersi
 def make_handler(data):
     class Handler(BaseHTTPRequestHandler):
         def send(self, status, value, html=False):
-            body = (value if html else json.dumps(json_safe(value), ensure_ascii=False, allow_nan=False)).encode("utf-8")
+            body = (value if html else json.dumps(json_safe(value), ensure_ascii=True, allow_nan=False)).encode("utf-8")
             self.send_response(status)
             self.send_header("Content-Type", "text/html; charset=utf-8" if html else "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -372,7 +399,7 @@ def make_handler(data):
                 self.send(400, {"error": str(error)})
             except KeyError:
                 self.send(404, {"error": "保存结果中没有此案例"})
-            except (OSError, TypeError, AttributeError):
+            except (OSError, TypeError, AttributeError, OverflowError):
                 self.send(503, {"error": "结果文件尚未完整或格式不兼容，请稍后刷新"})
 
         def deny_write(self):

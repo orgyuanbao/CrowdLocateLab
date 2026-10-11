@@ -42,11 +42,13 @@ python locate.py --input examples/observations.json --run runs/live_reference --
 
 ## 输出如何理解
 
+2026-10-12 起输出为 `schema_version=2`，新增独立数值筛查：先查看 `numerical_quality.passed`。失败时 `status=rejected_numerical_quality`，保留的点估计和半径只能用于诊断；通过时为 `estimated`。筛查检查求解状态、弱几何和重定坐标原点后的稳定性，不替换冻结估计值或校准。阈值、额外计算成本与局限见 [第二轮应用说明](application_revision.md) 和 [工程审查](QUALITY_REVIEW.md)。
+
 - `position`：参考时刻 t = 0 的二维位置点估计，单位米。
 - `velocity`：估计的二维速度，单位米/秒；静态模型通常返回零向量，不能据此直接证明目标确实静止。
 - `selected_model`、`diagnostics`：选用模型、残差、保留观测、局部几何、求解状态与回退原因等实际诊断。
 - `method_id`、`method_spec`、`run_integrity`：所用冻结方法和本地完整性检查结果。
-- `observations.input_sha256`：输入文件 hash，便于对应这次结果；输出不需要也不推断真实位置。
+- `observations.input_sha256`：实际送入求解器的输入字节快照 hash，读取与哈希绑定同一份数据；输出不需要也不推断真实位置。
 - `calibration`：可选校准半径及其来源、假设和限制。
 
 没有真实位置时，入口不能计算误差、正确率或“本次预测已被覆盖”的标签。即使数值求解成功，也可能存在镜像歧义、模型失配或校准偏移；这些问题应结合观测几何与外部领域证据判断。

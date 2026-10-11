@@ -1,22 +1,24 @@
 # CrowdLocateLab
 
+> 编辑说明（2026-10-12）：本页保留第一轮 README 的历史研究内容；仅将站内链接调整为本页当前位置可用的相对路径。当前双轮版本请阅读[项目首页](../README.md)。
+
 **面向异步众包定位的科研智能体开发与实证研究。** 项目用真实大模型选择研究工具、提出和修订假设，再由本地数值程序执行实验；保留模型请求、工具结果、独立批评、方法冻结及独立测试证据。
 
 研究来源为用户提供的《HarmonyOS难题发布》第七期第 1 页“基于非线性优化的众包离线高精度位置聚合难题”。本项目研究其中可计算的**合成子问题**：存在历史观测、异常距离和运动模型失配时，如何估计目标当前位置，并给出可校准的误差半径。它没有解决完整工业开放问题，也不声称解决公认数学猜想或首次发明所用的稳健估计、交叉验证和共形预测方法。
 
 ## 先查看交付结果
 
-第一次使用可以先读 [快速入口](START_HERE.md)。
+第一次使用可以先读 [快速入口](../START_HERE.md)。
 
 无需模型账号即可阅读 PDF、检查结果文件或打开只读仪表盘：
 
 | 入口 | 内容 |
 | --- | --- |
-| [研究报告](report/CrowdLocateLab_Report.pdf) | 来源、建模、数学命题、智能体系统、实际轨迹、独立实验与局限 |
-| [正式研究记录](runs/live_reference/) | 实际大模型调用、工具结果、状态、批评和冻结方法 |
-| [正式评测摘要](results/benchmark/summary.json) | 基线、所选方法、消融、成对比较与覆盖率 |
-| [评测协议](results/benchmark/protocol.json) | 独立种子、样本量、方法配置、源码校验和环境 |
-| [课程提交说明](docs/SUBMISSION.md) | 要求对照、答辩演示及个人 GitHub 上传步骤 |
+| [研究报告](../report/CrowdLocateLab_Report.pdf) | 来源、建模、数学命题、智能体系统、实际轨迹、独立实验与局限 |
+| [正式研究记录](../runs/live_reference/) | 实际大模型调用、工具结果、状态、批评和冻结方法 |
+| [正式评测摘要](../results/benchmark/summary.json) | 基线、所选方法、消融、成对比较与覆盖率 |
+| [评测协议](../results/benchmark/protocol.json) | 独立种子、样本量、方法配置、源码校验和环境 |
+| [课程提交说明](../docs/SUBMISSION.md) | 要求对照、答辩演示及个人 GitHub 上传步骤 |
 
 本次正式运行已冻结，最终方法为 `range_cv_reported`。下表来自已保存的真实记录：
 
@@ -29,7 +31,7 @@
 | 主测试总体均值 | 静态 WLS 的 6.532 m → 所选方法的 4.189 m，降低 35.87% |
 | 必须保留的负面结果 | 正常静态均值相对 WLS 退化 37.63%；90% 名义区域的同分布检验实际覆盖为 85.625% |
 
-总体改善没有解决所有场景问题，也不代表完整工业题验收。失败场景、比较区间和覆盖限制详见报告及 [结果审查](docs/results_review.md)。
+总体改善没有解决所有场景问题，也不代表完整工业题验收。失败场景、比较区间和覆盖限制详见报告及 [结果审查](../docs/results_review.md)。
 
 在项目根目录运行：
 
@@ -99,9 +101,9 @@ python benchmark_v2_1.py --run runs/my_study --output results/my_benchmark
 python dashboard.py --run runs/my_study --results results/my_benchmark --port 8765
 ```
 
-正式评估统一使用 `benchmark_v2_1.py`。它在研究尚未冻结、holdout 尚未生成时修复了“选中基线简称却生成非法组件消融”的外层接口错误；原 `benchmark.py` 保留为初始化版本及共享校验/统计库，不能用作正式入口。原快照、精确 diff、哈希与时间记录见 [评估器预先修订说明](research/evaluator_amendment.md)。不同时跑两个版本后择优。
+正式评估统一使用 `benchmark_v2_1.py`。它在研究尚未冻结、holdout 尚未生成时修复了“选中基线简称却生成非法组件消融”的外层接口错误；原 `benchmark.py` 保留为初始化版本及共享校验/统计库，不能用作正式入口。原快照、精确 diff、哈希与时间记录见 [评估器预先修订说明](../research/evaluator_amendment.md)。不同时跑两个版本后择优。
 
-评测入口在生成测试数据前核对冻结状态、源码、方法注册表和验证证据。修改研究源码后应开启新版本研究，不应改写旧记录以绕过校验。新的评测输出目录也必须不存在。停止、恢复、预算设置和失败定位详见 [智能体使用说明](docs/agent_usage.md)。
+评测入口在生成测试数据前核对冻结状态、源码、方法注册表和验证证据。修改研究源码后应开启新版本研究，不应改写旧记录以绕过校验。新的评测输出目录也必须不存在。停止、恢复、预算设置和失败定位详见 [智能体使用说明](../docs/agent_usage.md)。
 
 ### 2. 显式回放
 
@@ -127,7 +129,7 @@ python benchmark_v2_1.py --run runs/live_reference --output results/reproduction
 python sensitivity.py --run runs/live_reference --output results/sensitivity_reproduction
 ```
 
-此独立脚本先验证 `runs/live_reference` 的冻结证据，再执行 [预登记方案](research/sensitivity_plan.json)：观测数 8、12、16、24，名义污染比例 0、0.1、0.25、0.4，静态与运动两个场景，每格 12 例。合计 384 个独立案例、三个固定方法配对的 1152 次预测。已交付的正式结果位于 `results/sensitivity/`；上面的重现命令写入新的 `results/sensitivity_reproduction/`，再次重现时还需换一个不存在的输出目录。可用 `--run` 指向另一份有效冻结记录。
+此独立脚本先验证 `runs/live_reference` 的冻结证据，再执行 [预登记方案](../research/sensitivity_plan.json)：观测数 8、12、16、24，名义污染比例 0、0.1、0.25、0.4，静态与运动两个场景，每格 12 例。合计 384 个独立案例、三个固定方法配对的 1152 次预测。已交付的正式结果位于 `results/sensitivity/`；上面的重现命令写入新的 `results/sensitivity_reproduction/`，再次重现时还需换一个不存在的输出目录。可用 `--run` 指向另一份有效冻结记录。
 
 分析保存实际污染比例、每格均值 / CEP90、工作量、模型选择频率和 CV 门控诊断，用于说明适用范围，不用于重新选方法。默认三折 CV 在 8 份观测时存在仅有 5 份训练观测的折，可能直接排除运动模型；应结合冻结配置和诊断解释。每格只有 12 例，不把网格差异当作多重比较下的确证。脚本不调用模型，不重新校准，也不更改冻结方法。
 
@@ -139,11 +141,11 @@ python sensitivity.py --run runs/live_reference --output results/sensitivity_rep
 python locate.py --input examples/observations.json --run runs/live_reference --calibration results/benchmark/conformal.json --alpha 0.1 --output results/new_location.json
 ```
 
-输入只包含上报位置 `anchors`、相对时间 `times`、距离 `ranges` 和观测尺度 `sigma`。字段、单位及输出解释见 [应用说明](docs/application.md)。示例用于展示程序接口，不是工业真实数据。将合成数据得到的校准量用于不同来源的新观测时，只能作为参考误差半径；原来的交换性条件未必成立，不能继续宣称名义覆盖率。
+输入只包含上报位置 `anchors`、相对时间 `times`、距离 `ranges` 和观测尺度 `sigma`。字段、单位及输出解释见 [应用说明](../docs/application.md)。示例用于展示程序接口，不是工业真实数据。将合成数据得到的校准量用于不同来源的新观测时，只能作为参考误差半径；原来的交换性条件未必成立，不能继续宣称名义覆盖率。
 
 ## 数学方法与研究边界
 
-每份观测包含上报位置、时间、由信号转换的距离及报告尺度。目标状态为参考时刻位置；候选模型包括静态位置、常速度位置以及通过观测层交叉验证选择的模型。预实现的可组合算子包括距离或对数距离残差、均值为一的对数正态噪声修正、稳健损失、有限次残差裁剪、随机子集初始化和运动正则化。精确定义见 [method_math.md](localization/method_math.md)。
+每份观测包含上报位置、时间、由信号转换的距离及报告尺度。目标状态为参考时刻位置；候选模型包括静态位置、常速度位置以及通过观测层交叉验证选择的模型。预实现的可组合算子包括距离或对数距离残差、均值为一的对数正态噪声修正、稳健损失、有限次残差裁剪、随机子集初始化和运动正则化。精确定义见 [method_math.md](../localization/method_math.md)。
 
 模型负责选择组合、写出可检验假设、根据诊断修订方案、安排控制消融并冻结方法；它不在运行中任意编写求解器。控制器管理结构化响应校验、工具白名单、持久记忆、预算、恢复及证据哈希。批评由另一提示下的模型调用产生；这是角色与上下文分离，不表示不同模型或独立实验室复现。
 
@@ -176,7 +178,7 @@ CrowdLocateLab/
 └── docs/                       # 来源、文献、使用与提交说明
 ```
 
-审计研究过程时，从 `events.jsonl` 中的一次 `model_response` 对照 `tool_call`、`tool_result`，再查其指向的逐例实验文件。冻结规格保存在 `runs/live_reference/tools/frozen_method.json`。模型请求原文、结构化响应和 CLI 原始事件位于 `model_calls/`。哈希链可检测意外修改，不等于第三方认证，也不能证明科学结论正确。详细证据路径与统计协议见 [复现说明](docs/reproduction.md)。
+审计研究过程时，从 `events.jsonl` 中的一次 `model_response` 对照 `tool_call`、`tool_result`，再查其指向的逐例实验文件。冻结规格保存在 `runs/live_reference/tools/frozen_method.json`。模型请求原文、结构化响应和 CLI 原始事件位于 `model_calls/`。哈希链可检测意外修改，不等于第三方认证，也不能证明科学结论正确。详细证据路径与统计协议见 [复现说明](../docs/reproduction.md)。
 
 ## 从保存结果重新构建 PDF
 
@@ -199,9 +201,9 @@ xelatex -interaction=nonstopmode -halt-on-error main.tex
 
 ## 来源、许可与提交
 
-架构借鉴 [Creative-Intelligence](https://github.com/DeepMathLLM/Creative-Intelligence) 将研究、验证和状态管理分开的思路；本项目为原创实现，没有复制该仓库源码，也不是 Moonshine 的 fork。方法依据和原始论文集中列于 [研究背景](docs/research_context.md) 与 [BibTeX 文献](docs/references.bib)。
+架构借鉴 [Creative-Intelligence](https://github.com/DeepMathLLM/Creative-Intelligence) 将研究、验证和状态管理分开的思路；本项目为原创实现，没有复制该仓库源码，也不是 Moonshine 的 fork。方法依据和原始论文集中列于 [研究背景](../docs/research_context.md) 与 [BibTeX 文献](../docs/references.bib)。
 
-[MIT LICENSE](LICENSE) 仅适用于本仓库原创程序代码。引用的论文、课程资料、商标与第三方软件保留各自权利；原始 PDF/PPT 未打包，也未通过本项目重新许可。项目未填入学生姓名、学号或学校，请按 [提交说明](docs/SUBMISSION.md) 补充。GitHub 仓库由提交者自行创建和上传。
+[MIT LICENSE](../LICENSE) 仅适用于本仓库原创程序代码。引用的论文、课程资料、商标与第三方软件保留各自权利；原始 PDF/PPT 未打包，也未通过本项目重新许可。项目未填入学生姓名、学号或学校，请按 [提交说明](../docs/SUBMISSION.md) 补充。GitHub 仓库由提交者自行创建和上传。
 
 
 ### 可选：固定参考数值环境

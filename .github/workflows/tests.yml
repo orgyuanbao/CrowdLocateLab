@@ -30,3 +30,9 @@ jobs:
         run: python doctor.py --json
       - name: Test isolated fixtures without models or research datasets
         run: python -m unittest discover -s tests -v
+      - name: Verify preserved first-study evidence without model calls
+        run: python audit.py --run runs/live_reference --require-frozen
+      - name: Verify preserved revision evidence without model calls
+        run: python audit.py --run runs/revision_reference --require-frozen
+      - name: Recompute saved statistics without fitting or new data
+        run: python verification/check_revision_results.py

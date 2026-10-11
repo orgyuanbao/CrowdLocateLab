@@ -41,9 +41,16 @@ def _unique_object(pairs):
     return result
 
 
+def load_json_snapshot(path):
+    """Parse and identify one immutable byte snapshot, including a UTF-8 BOM."""
+    data = Path(path).read_bytes()
+    value = json.loads(data.decode("utf-8-sig"), parse_constant=_reject_constant,
+                       object_pairs_hook=_unique_object)
+    return value, hashlib.sha256(data).hexdigest()
+
+
 def load_json(path):
-    with Path(path).open(encoding="utf-8-sig") as stream:
-        return json.load(stream, parse_constant=_reject_constant, object_pairs_hook=_unique_object)
+    return load_json_snapshot(path)[0]
 
 
 @dataclass(frozen=True, slots=True)
@@ -113,7 +120,7 @@ def calibrated_radius(calibration_path, alpha, result, frozen_path, frozen):
         raise ValueError("Calibration protocol belongs to a different frozen method record.")
     if digest(protocol.get("methods", {}).get("llm_selected")) != digest(frozen["spec"]):
         raise ValueError("Calibration estimator specification does not match the selected frozen method.")
-    calibration = load_json(calibration_path)
+    calibration, calibration_hash = load_json_snapshot(calibration_path)
     if not isinstance(calibration, dict) or not isinstance(calibration.get("results"), dict):
         raise ValueError("Calibration file must contain a results object.")
     matching = []
@@ -121,7 +128,7 @@ def calibrated_radius(calibration_path, alpha, result, frozen_path, frozen):
         if not isinstance(record, dict):
             raise ValueError("Each calibration record must be an object.")
         stored_alpha = record.get("alpha")
-        if type(stored_alpha) in (int, float) and math.isfinite(stored_alpha) and abs(stored_alpha - alpha) <= 1e-12:
+        if type(stored_alpha) in (int, float) and math.isfinite(stored_alpha) and stored_alpha == alpha:
             matching.append(record)
     if len(matching) != 1:
         raise ValueError("Requested alpha must match exactly one precomputed calibration level; no interpolation is performed.")
@@ -146,7 +153,7 @@ def calibrated_radius(calibration_path, alpha, result, frozen_path, frozen):
             "calibration_n": count, "order_statistic_k": order,
             "formula": "radius_m = q * benchmark.scale(prediction)",
             "frozen_method_sha256": expected_hash,
-            "calibration_sha256": hashlib.sha256(calibration_path.read_bytes()).hexdigest(),
+            "calibration_sha256": calibration_hash,
             "provenance": "Adjacent benchmark protocol matches the verified frozen record and solver specification."}
 
 
@@ -155,7 +162,8 @@ def locate_from_files(input_path, run, calibration=None, alpha=.1, root=None):
         raise ValueError("alpha must be finite and strictly between 0 and 1.")
     root = Path(root).resolve() if root else Path(__file__).resolve().parent
     run, input_path = Path(run).resolve(), Path(input_path).resolve()
-    observations = observations_from_dict(load_json(input_path))
+    input_value, input_hash = load_json_snapshot(input_path)
+    observations = observations_from_dict(input_value)
     checked = validate_frozen_run(root, run)
     frozen = checked["frozen"]
     result = clean(fit(observations, frozen["spec"]))
@@ -165,12 +173,16 @@ def locate_from_files(input_path, run, calibration=None, alpha=.1, root=None):
             raise ValueError(f"Frozen solver returned an invalid {key}.")
     if not isinstance(result.get("diagnostics"), dict):
         raise ValueError("Frozen solver returned invalid diagnostics.")
+    from application_safety import numerical_quality
+    quality = numerical_quality(observations, result, frozen["spec"], fit_function=fit)
     radius = calibrated_radius(calibration, float(alpha), result, run / "tools" / "frozen_method.json", frozen)
-    return {"schema_version": 1, "method_id": frozen["method_id"], "method_spec": frozen["spec"],
+    return {"schema_version": 2, "method_id": frozen["method_id"], "method_spec": frozen["spec"],
+            "status": "estimated" if quality["passed"] else "rejected_numerical_quality",
+            "numerical_quality": quality,
             "run_integrity": checked["audit"],
             "observations": {"n": len(observations.times), "reference_time_s": 0.,
                              "coordinate_units": "local planar metres", "time_units": "seconds",
-                             "input_sha256": hashlib.sha256(input_path.read_bytes()).hexdigest()},
+                             "input_sha256": input_hash},
             "position": result["position"], "velocity": result["velocity"],
             "selected_model": result.get("selected_model"), "diagnostics": result["diagnostics"],
             "work_units": result.get("work_units"), "elapsed_seconds": result.get("elapsed_seconds"),

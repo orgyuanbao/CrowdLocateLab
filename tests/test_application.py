@@ -90,8 +90,9 @@ class ApplicationTests(unittest.TestCase):
         self.assertIsNone(result["radius_m"])
 
     def test_alpha_requires_precomputed_matching_level(self):
-        with self.assertRaisesRegex(ValueError, "precomputed"):
-            calibrated_radius(self.calibration, .05, self.prediction, self.frozen_path, self.frozen)
+        for alpha in (.05, .10000000000000002):
+            with self.subTest(alpha=alpha), self.assertRaisesRegex(ValueError, "precomputed"):
+                calibrated_radius(self.calibration, alpha, self.prediction, self.frozen_path, self.frozen)
 
     def test_api_uses_only_observations_and_verified_frozen_spec(self):
         def fixture_fit(observations, spec):

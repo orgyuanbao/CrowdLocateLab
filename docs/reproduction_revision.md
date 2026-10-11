@@ -2,6 +2,8 @@
 
 命令均在项目根目录执行。本文描述接口与预登记设计，不宣布某次运行已完成；实际状态、次数、模型标识和成绩以保存记录为准。
 
+**工程加固说明（2026-10-12）**：本文保留原 `run_revision.py` 的历史复现命令。日常新增运行请按 [README](../README.md) 使用 `run_research.py`，它增加严格 JSON、状态/日志恢复预检和回放来源绑定，并明确已公开协议的研究边界。原运行目录不可直接作为新入口的恢复目录；历史源码和结果没有被改写。旧入口缺少这些新增保护。详见 [审查记录](QUALITY_REVIEW.md)。
+
 ## 两轮边界与环境
 
 第一轮 runs/live_reference、results/benchmark、results/sensitivity 是已暴露先验。第二轮运行和评测分别在 runs/revision_reference、results/revision_benchmark。旧测试不能重新标作未见测试，重复计算同一协议也不增加独立样本。

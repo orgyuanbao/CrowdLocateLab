@@ -1,0 +1,122 @@
+\documentclass[UTF8,a4paper,zihao=-4,fontset=none]{ctexart}
+\usepackage[margin=24mm,headheight=16pt]{geometry}
+\usepackage{fontspec}
+\IfFontExistsTF{SimSun}{\setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]\setCJKsansfont{SimHei}\setCJKmonofont{FangSong}}{\setCJKmainfont{FandolSong-Regular}[BoldFont=FandolSong-Bold,ItalicFont=FandolKai-Regular]\setCJKsansfont{FandolHei-Regular}\setCJKmonofont{FandolFang-Regular}}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\IfFontExistsTF{Consolas}{\setmonofont[Scale=.88]{Consolas}}{\setmonofont{Latin Modern Mono}}
+\usepackage{amsmath,amssymb,booktabs,tabularx,array,xcolor,enumitem,fancyhdr}
+\definecolor{navy}{HTML}{17324D}\definecolor{teal}{HTML}{087F8C}\definecolor{muted}{HTML}{586579}
+\usepackage[colorlinks=true,linkcolor=navy,urlcolor=teal]{hyperref}
+\usepackage{xurl}
+\hypersetup{pdftitle={CrowdLocateLab：工程质量审查与加固补充报告},pdfauthor={课程研究项目}}
+\ctexset{section={format=\Large\bfseries\color{navy}},subsection={format=\large\bfseries\color{navy}}}
+\setlength{\parskip}{5pt}\linespread{1.13}\setlength{\emergencystretch}{3em}
+\setlist{nosep,leftmargin=2em,topsep=5pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily\color{muted}CrowdLocateLab / 工程审查}
+\fancyhead[R]{\small\color{muted}2026-10-12}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{.3pt}
+\newcommand{\code}[1]{{\small\nolinkurl{#1}}}
+\begin{document}
+\thispagestyle{empty}
+{\sffamily\large\color{teal}QUALITY REVIEW\hfill 工程补充报告\par}
+\vspace{10mm}
+{\Huge\bfseries\color{navy}CrowdLocateLab\par}
+\vspace{4mm}
+{\LARGE\bfseries 工程质量审查与加固\par}
+\vspace{4mm}
+{\large\color{muted}故障复现、回归验证与科研证据保全\par}
+\vspace{5mm}\noindent\textcolor{teal}{\rule{\textwidth}{1pt}}
+
+\section*{审查结论}
+本次审查发现了原测试未覆盖的实际缺陷，并在新运行入口、应用检查和证据浏览界面中加入修复与回归测试。可以报告的是\textbf{已检查范围内的结果与剩余限制}；有限测试无法证明程序零缺陷，亦不能保证任意输入的数学正确性或工业部署效果。
+
+本报告对应仓库\href{https://github.com/orgyuanbao/CrowdLocateLab}{orgyuanbao/CrowdLocateLab}，以已发布基线提交\code{270b804}为比较起点。原 52 页论文、冻结估计器、模型日志、数据和测试成绩保持原样。新增运行使用\code{run_research.py}，原入口保留作历史复现。
+
+\subsection*{保持清晰的三条边界}
+\begin{enumerate}
+\item \textbf{历史科学证据。}两轮共 27 次真实模型调用、25 个研究动作，冻结后共 22,052 次定位计算。这些数字没有因本次检查而增加。
+\item \textbf{本次工程验证。}采用离线模型夹具、反例输入、恢复与并发测试，复核既有数据和统计结果；没有新增真实模型研究或独立盲测。
+\item \textbf{数值缺陷处置。}不在旧冻结代码中偷偷替换求解器。新应用层独立筛查并拒绝不稳定输出，原估计与校准仅保留作诊断；这不是对任意退化情形的完整求解。
+\end{enumerate}
+
+\subsection*{验证证据入口}
+完整机器记录保存在\code{verification/hardening/}。其中\code{checks.json}记录软件测试、跳过项、环境、两轮历史审计和统计复核；\code{example_prediction.json}保存新应用入口对项目示例的实际输出。测试总数应以该 JSON 和相应提交的 GitHub Actions 为准，不能把夹具数量当作新科研实验。
+
+本机干净环境共执行 \textbf{184 项测试：183 项通过、1 项因符号链接权限跳过、0 项失败}；比原 129 项增加 55 项。Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1。两轮历史审计均为\code{passed_frozen}，各自零错误、零警告。
+
+\newpage
+\section{智能体运行与证据完整性}
+\subsection{实际发现及修复}
+\noindent\begin{tabularx}{\textwidth}{@{}p{30mm}YY@{}}
+\toprule
+问题 & 原行为或风险 & 加固后的处理 \\
+\midrule
+无法冻结时停止 & 规划提示允许停止，工具却拒绝未冻结的 finish，可能无效耗尽预算。 & 允许记录非空停止理由；保持未冻结，不授权留出评测。 \\[4pt]
+JSON 数字溢出 & 嵌套参数中的 \code{1e309} 可变成无穷值，后续日志写入失败。 & 响应进入成功日志前检查有限值、重复键和序列化；走受预算限制的错误处理。 \\[4pt]
+中断恢复 & 截短事件日志仍可能恢复；单改状态计数可能影响预算或回放位置。 & 先核验链尾、初始化身份、状态与工具快照哈希；不完整请求和不确定工具状态拒绝恢复。 \\[4pt]
+回放来源 & 未验证旧事件内容哈希；来源字节及严格提示模式未完全绑定身份。 & 验证完整事件链，以内存快照回放；源文件哈希、严格模式写入运行身份。 \\[4pt]
+同目录并发 & 首次启动或恢复竞争可能写入同一日志。 & 首次原子创建目录，使用独占运行锁；崩溃遗留锁要求人工检查。 \\
+\bottomrule
+\end{tabularx}
+
+\subsection{可恢复不等于任意情况下自动继续}
+新检查点绑定\code{state.json}、工具状态、协议及事件链尾。恢复配置、预算或回放来源改变时拒绝继续。不能自动判断已中断工具的外部副作用是否完成，因此遇到不一致时保留现场，要求核查，而不是重放一个可能已经执行过的操作。
+
+原始两轮目录受新入口保护，且不具有新检查点格式，不能直接冒充新运行恢复。正常退出释放独占锁；进程崩溃的残留锁不能只凭 PID 或时间自动删除。必须先确认原进程已停止、检查证据，再决定后续处理。
+
+\subsection{保证的范围}
+哈希是本地一致性检查，不是数字签名。能够协调改写所有记录与哈希的攻击者不在该保证内。真实模型服务、网络、远程模型版本也没有被这些单元测试固定。新入口沿用已公开的开发协议、种子和先验，明确标记为工程运行，不能宣称新盲测。
+
+\newpage
+\section{定位应用的数值可靠性}
+\subsection{两个可复现反例}
+\textbf{坐标原点敏感。}在确定性的 8 锚点无噪声运动夹具中，将所有位置平移至约 $(500000,4000000)$ m 附近，冻结求解器仍报告成功，但可能改变模型选择和位置。局部坐标中的误差约 0.003 m，平移后约 6.959 m。这里比较的是同一物理问题，仅坐标原点改变；它揭示数值终止条件对绝对坐标大小的敏感性，不是新性能基准。
+
+\textbf{弱几何被伪逆截断隐藏。}锚点取 $(10,0),(20,\varepsilon),(30,-\varepsilon)$，目标在原点，使用精确距离。当 $\varepsilon$ 从 $10^{-3}$ 降至 $10^{-4}$ 时，数据更接近共线，但原尺度代理却可能从 100 m 降至约 0.577 m。原因是伪逆截断了弱方向；仅按输出半径判断可能错误接受该结果。
+
+\subsection{应用层增加独立筛查}
+\code{application_safety.py}从观测与估计独立重算保留样本的数据 Jacobian，检查参数维度、秩、奇异值、优化成功和活动边界。最小与最大奇异值比值必须满足
+\[
+\frac{s_{\min}(J)}{s_{\max}(J)}>10^{-5}.
+\]
+此外将第一个锚点作为新坐标原点，再作一次\textbf{诊断拟合}，比较还原后的点估计、速度和模型选择。位置变化阈值为
+\[
+\tau_x=\max(0.05\,\mathrm{m},\,10^{-3}L),\qquad
+\tau_v=\max(0.001\,\mathrm{m/s},\,\tau_x/\max(\Delta t,1\,\mathrm{s})),
+\]
+其中 $L$ 为中位距离、最大锚点轴跨度和 1 m 中的最大值。这些阈值是公开的工程规则，并非由留出成绩拟合的最优阈值。非零随机子集初始化因依赖绝对观测哈希而保守拒绝；当前两轮冻结方法该配置均为零。
+
+\subsection{输出语义和成本}
+筛查失败时输出\code{status=rejected_numerical_quality}；第二轮应用的\code{acceptance.accepted=false}，即使半径很小或用户未提供半径阈值也一样。原点估计、速度、尺度、区域半径保持不变，不能把诊断拟合结果套入旧校准。
+
+额外拟合次数、工作量与耗时单独记录。原论文速度比较不包含该开销。尚未重新评估新筛查后的接受率、定位误差和条件覆盖；通过筛查仍不能排除全局镜像歧义、模型失配、错误传感器标定或分布偏移。
+
+\newpage
+\section{接口、浏览器与验证边界}
+\subsection{应用来源与界面容错}
+输入先读取为单一字节快照，再由同一快照解析与计算哈希，防止求解期间文件变化导致记录的哈希对应另一份输入。第一轮校准读取也绑定相同快照，且校准水平改为精确匹配，不用近似相等冒充同一水平。
+
+研究浏览器对列表代替对象、空对象、非法嵌套结构、重复键、非有限数字和不完整 JSON 增加容错。无效或缺失证据显示不可用，不冒充零误差。已知文件的解析路径必须位于配置范围内；HTTP 接口保持只读且仅绑定本机。界面存储文本使用文本节点或画布显示，不插入可执行 HTML。它仍是本地研究工具，未认证为生产级多用户服务。
+
+\subsection{如何复查}
+在项目根目录安装依赖后执行：
+\begin{quote}\ttfamily\small
+python -B verification/hardening/run\_checks.py\par
+python -B -m unittest discover -s tests -v\par
+python audit.py --run runs/revision\_reference --require-frozen
+\end{quote}
+第一个入口运行软件回归、原始两轮审计及既有统计复核；可用\code{--output}指定不存在的新文件。软件测试包括离线模型夹具和合成反例，不调用真实模型。符号链接测试在缺少 Windows 创建权限时明确跳过，Linux CI 负责执行，不能将跳过写成通过。
+
+本次复核重新计算了既有预测与统计的 123,279 项一致性关系，包括 155 组配对比较与 12 组覆盖总体。它验证已有计算的一致性，没有重新拟合估计器、增加独立样本或创造新模型推理。GitHub 自动检查已覆盖 Windows / Ubuntu 与 Python 3.11 / 3.12，并新增两轮证据审计和统计复核步骤；最终结果需对应本次提交读取。
+
+\subsection{仍需诚实保留的限制}
+\begin{itemize}
+\item 新主测试静态误差较 WLS 高 29.86\%；90\% 分组区域实际覆盖为 88.17\%；对上一轮总体改善的区间跨零。这些负面结果没有被本次工程加固消除。
+\item 研究针对工业开放问题的合成数学子问题，没有真实现场数据，不宣称解决完整工业任务，也不宣称算法首次发明。
+\item 数值核心的历史行为保留；新筛查是拒绝风险输出的保护，并非所有数值缺陷均已根治。
+\item 有限回归测试、依赖检查与一致性审计都不能推出零漏洞；未来环境变化、未枚举输入和真实模型行为仍需持续验证。
+\end{itemize}
+
+\vfill\noindent\textcolor{teal}{\rule{\textwidth}{.6pt}}
+{\small\color{muted}提交建议：原论文、此补充报告、全部代码与原始记录一并保留。课堂展示同时说明实际智能体迭代、负面结论、修复证据和适用范围。}
+\end{document}

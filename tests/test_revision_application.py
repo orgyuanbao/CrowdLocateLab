@@ -63,8 +63,11 @@ class RevisionApplicationTests(unittest.TestCase):
         return region_from_files(copy.deepcopy(self.result), self.run, self.calibration, self.frozen, **kwargs)
 
     def predict(self, **kwargs):
+        # These fixtures exercise calibration/region semantics, not the
+        # independent numerical guard (covered with real fits elsewhere).
         with patch('locate_revision.validate_revision_freeze', return_value=self.checked), \
-             patch('locate_revision.fit', return_value=copy.deepcopy(self.result)):
+             patch('locate_revision.fit', return_value=copy.deepcopy(self.result)), \
+             patch('application_safety.numerical_quality', return_value={'passed': True, 'fixture_only': True}):
             return predict(self.input, self.run, self.calibration, root=self.root, **kwargs)
 
     def test_completed_bundle_radius_and_provenance(self):

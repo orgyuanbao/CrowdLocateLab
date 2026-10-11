@@ -11,7 +11,7 @@ import math
 
 from benchmark import scale
 from localization import fit
-from locate import load_json, observations_from_dict, _reject_constant, _unique_object
+from locate import load_json_snapshot, observations_from_dict, _reject_constant, _unique_object
 from revision.evaluation import observed_group, validate_revision_freeze
 from tools.common import clean, digest
 
@@ -121,7 +121,8 @@ def predict(input_path, run, calibration, rule='mondrian', alpha=.1, max_radius=
             not math.isfinite(max_radius) or max_radius <= 0):
         raise ValueError('max_radius must be a finite positive number')
     checked = validate_revision_freeze(root, run)
-    obs = observations_from_dict(load_json(input_path))
+    input_value, input_hash = load_json_snapshot(input_path)
+    obs = observations_from_dict(input_value)
     result = clean(fit(obs, checked['frozen']['spec']))
     for key in ('position', 'velocity'):
         vector = result.get(key)
@@ -134,14 +135,19 @@ def predict(input_path, run, calibration, rule='mondrian', alpha=.1, max_radius=
     if 'selected_model' in result['diagnostics'] and observed_group(result) != selected_group:
         raise ValueError('Estimator model and diagnostic observation group disagree')
     result['diagnostics']['selected_model'] = selected
+    from application_safety import numerical_quality
+    quality = numerical_quality(obs, result, checked['frozen']['spec'], fit_function=fit)
     region, radius = region_from_files(result, run, calibration, checked['frozen'], rule, alpha)
-    accepted = None if max_radius is None else bool(radius <= max_radius)
-    return {'schema_version': 3, 'method_id': checked['frozen']['method_id'],
-            'method_spec': checked['frozen']['spec'], 'input_sha256': hashlib.sha256(Path(input_path).read_bytes()).hexdigest(),
+    accepted = False if not quality['passed'] else None if max_radius is None else bool(radius <= max_radius)
+    return {'schema_version': 4, 'method_id': checked['frozen']['method_id'],
+            'status': 'estimated' if quality['passed'] else 'rejected_numerical_quality',
+            'numerical_quality': quality,
+            'method_spec': checked['frozen']['spec'], 'input_sha256': input_hash,
             'observation_count': len(obs.times), 'position': result['position'], 'velocity': result['velocity'],
             'selected_model': result['selected_model'], 'diagnostics': result['diagnostics'], 'region': region,
             'acceptance': {'max_radius_m': max_radius, 'accepted': accepted,
                            'status': 'not_applied' if accepted is None else 'accepted' if accepted else 'rejected',
+                           'numerical_quality_passed': quality['passed'],
                            'conditional_coverage_guaranteed': False},
             'run_integrity': checked['audit'],
             'interpretation': '位置为输入平面坐标中的t=0估计，单位米；速度单位米/秒。输入没有真值，不能计算定位误差。拒绝时点估计仍作为诊断保留。'}

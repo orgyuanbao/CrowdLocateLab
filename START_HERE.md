@@ -1,6 +1,6 @@
 # 先看这里
 
-这是 **CrowdLocateLab 双轮研究版**。两轮真实智能体研究、独立评测与结果复核均已完成，合计 27 次模型调用、22,052 次冻结后定位计算，129 项软件测试通过。第一轮失败被保留为已知先验，第二轮提出、诊断和验证修订，仍保留静态退化与部分覆盖不足。
+这是 **CrowdLocateLab 双轮研究版**。两轮真实智能体研究、独立评测与结果复核均已完成，合计 27 次模型调用、22,052 次冻结后定位计算。2026-10-12 的工程加固与新增测试见 [审查记录](docs/QUALITY_REVIEW.md) 和 [LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)。原研究保留静态退化与部分覆盖不足，不声称零缺陷。
 
 ## 1. 只查看，不调用模型
 
@@ -40,15 +40,15 @@ python audit.py --run runs/revision_reference --require-frozen
 python locate_revision.py --input examples/observations.json --region mondrian --alpha 0.1 --max-radius 20 --output results/my_location.json
 ```
 
-这不调用模型。缺失校准会报错；现场观测与合成校准不同分布时不保证覆盖。详见 [应用说明](docs/application_revision.md)。
+这不调用模型。新增数值筛查失败时会明确拒绝，即使半径很小也不接受；缺失校准会报错。现场观测与合成校准不同分布时不保证覆盖。详见 [应用说明](docs/application_revision.md)。
 
 重新执行模型研究使用新目录：
 
 ```text
-python run_revision.py --output runs/my_revision --provider codex --reasoning-effort medium
+python run_research.py --output runs/my_revision --provider codex --reasoning-effort medium
 ```
 
-需要用户自己的 Codex CLI 登录和额度。replay 是旧决策回放，离线评测是重算数值，都不是新模型推理。完整区别见 README。
+需要用户自己的 Codex CLI 登录和额度。新入口仍用已公开协议，不构成新盲测。replay 是旧决策回放，离线评测是重算数值，都不是新模型推理。原 `run_revision.py` 仅保留为历史入口。完整区别见 README。
 
 ## 4. 重建与提交
 

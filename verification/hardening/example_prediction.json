@@ -1,0 +1,319 @@
+{
+  "schema_version": 4,
+  "method_id": "range_cv4_single_start",
+  "status": "estimated",
+  "numerical_quality": {
+    "schema_version": 1,
+    "policy": "application-numerical-quality-v1",
+    "passed": true,
+    "status": "passed",
+    "reasons": [],
+    "diagnostics": {
+      "original": {
+        "selected_model": "velocity",
+        "solver_success": true,
+        "at_numerical_bound": false,
+        "jacobian_rank": 4,
+        "parameter_dimension": 4,
+        "jacobian_singular_values": [
+          24.39166449033838,
+          14.022993011132025,
+          0.5546530775322429,
+          0.3494214842415584
+        ],
+        "smallest_largest_singular_ratio": 0.014325446481111014,
+        "minimum_allowed_ratio_exclusive": 1e-05,
+        "geometry_source": "Independently recomputed frozen data-residual Jacobian on the retained observations."
+      },
+      "centered": {
+        "selected_model": "velocity",
+        "solver_success": true,
+        "at_numerical_bound": false,
+        "jacobian_rank": 4,
+        "parameter_dimension": 4,
+        "jacobian_singular_values": [
+          24.391356199253288,
+          14.023530426944273,
+          0.5546322350130791,
+          0.3494069535057506
+        ],
+        "smallest_largest_singular_ratio": 0.01432503181255855,
+        "minimum_allowed_ratio_exclusive": 1e-05,
+        "geometry_source": "Independently recomputed frozen data-residual Jacobian on the retained observations."
+      },
+      "translation_check": {
+        "status": "checked",
+        "origin_m": [
+          11.018483386797568,
+          22.251793527507083
+        ],
+        "position_change_m": 0.0017393641296888274,
+        "position_tolerance_m": 0.06317856030607272,
+        "velocity_change_mps": 5.613945554098978e-05,
+        "velocity_tolerance_mps": 0.0021762284080600693,
+        "model_agrees": true,
+        "scene_spread_m": 63.17856030607272,
+        "observation_span_seconds": 29.031217528490618,
+        "position_comparison": "Compare original_position minus origin against centered_fit_position to reduce cancellation.",
+        "point_estimate_replaced": false
+      }
+    },
+    "guard_computation": {
+      "additional_fits": 1,
+      "additional_work_units": 86,
+      "elapsed_seconds": 0.016236199997365475
+    },
+    "threshold_policy": {
+      "singular_ratio_must_exceed": 1e-05,
+      "position_formula": "max(0.05 m, 0.001 * max(median range, largest anchor-axis span, 1 m))",
+      "velocity_formula": "max(0.001 m/s, position tolerance / max(time span, 1 s))",
+      "thresholds_fitted_on_holdout": false
+    },
+    "assumptions": [
+      "Engineering screening of numerical stability, not a proof of correct position, global identifiability or deployment readiness.",
+      "The frozen estimate and calibrated radius are preserved; the centered fit is diagnostic only.",
+      "This additional application gate has no newly evaluated acceptance rate, error rate or conditional coverage guarantee.",
+      "Guard work is additional to the frozen solver work and is reported separately; old performance timings do not include it."
+    ],
+    "coverage_guarantee_asserted": false
+  },
+  "method_spec": {
+    "consensus_trials": 0,
+    "cv_folds": 4,
+    "f_scale": 1.5,
+    "gate_margin": 0.05,
+    "log_bias_correction": true,
+    "log_sd": 0.1,
+    "loss": "soft_l1",
+    "model": "cv_select",
+    "residual": "range",
+    "ridge": 0.05,
+    "scale": "reported",
+    "starts": 1,
+    "trim_fraction": 0.0
+  },
+  "input_sha256": "cc00dbcfc1356906ee8647e8988845af1b16cbe7a7c0963e70ba56376ccefdee",
+  "observation_count": 12,
+  "position": [
+    19.385777239829668,
+    21.66755306562274
+  ],
+  "velocity": [
+    -0.535892570850433,
+    0.7471383323434541
+  ],
+  "selected_model": "velocity",
+  "diagnostics": {
+    "selected_model": "velocity",
+    "fit_cost": 8.00919114968418,
+    "regularized_objective": 8.051460976441662,
+    "all_observation_robust_cost": 8.009191149684181,
+    "standardized_residuals": [
+      -0.49450911666496955,
+      -0.10300468759877586,
+      -0.1718963902316665,
+      1.5195483261927272,
+      -0.3648490272319344,
+      -0.33902441121114985,
+      0.40697129251741326,
+      -0.05569503752479953,
+      0.6288553479575891,
+      -2.6699257771574914,
+      -0.3684599063395571,
+      -0.46841981782031666
+    ],
+    "retained_indices": [
+      7,
+      1,
+      2,
+      5,
+      4,
+      10,
+      6,
+      11,
+      0,
+      8,
+      3,
+      9
+    ],
+    "retained_count": 12,
+    "trim_rounds": 1,
+    "starts_attempted": 1,
+    "consensus_trials": 0,
+    "jacobian_singular_values": [
+      24.39166449033838,
+      14.022993011132025,
+      0.5546530775322429,
+      0.3494214842415584
+    ],
+    "jacobian_condition": 69.8058522167921,
+    "jacobian_rank": 4,
+    "ill_conditioned": false,
+    "solver_success": true,
+    "solver_status": 2,
+    "at_numerical_bound": false,
+    "constant_scale": null,
+    "fallback_reason": null,
+    "geometry_scale_m": 3.377707994743228,
+    "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+    "cv": {
+      "scores": {
+        "static": 3.3754724120889,
+        "velocity": 1.2505597514576154
+      },
+      "dynamic_admissible": true,
+      "gate_margin": 0.05,
+      "folds": [
+        {
+          "train_indices": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            9,
+            10,
+            11
+          ],
+          "validation_indices": [
+            0,
+            4,
+            8
+          ],
+          "static": 4.022153971374876,
+          "velocity": 1.6536994101525757
+        },
+        {
+          "train_indices": [
+            0,
+            2,
+            3,
+            4,
+            6,
+            7,
+            8,
+            10,
+            11
+          ],
+          "validation_indices": [
+            1,
+            5,
+            9
+          ],
+          "static": 2.0208902036305485,
+          "velocity": 1.3573175627157814
+        },
+        {
+          "train_indices": [
+            0,
+            1,
+            3,
+            4,
+            5,
+            7,
+            8,
+            9,
+            11
+          ],
+          "validation_indices": [
+            2,
+            6,
+            10
+          ],
+          "static": 5.395239243078225,
+          "velocity": 1.0055611103774842
+        },
+        {
+          "train_indices": [
+            0,
+            1,
+            2,
+            4,
+            5,
+            6,
+            8,
+            9,
+            10
+          ],
+          "validation_indices": [
+            3,
+            7,
+            11
+          ],
+          "static": 2.063606230271951,
+          "velocity": 0.9856609225846209
+        }
+      ],
+      "selection_rule": "velocity_score < (1-gate_margin)*static_score",
+      "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+      "inner_starts": 1,
+      "inner_consensus_trials": 0,
+      "fold_assignment": "time-sorted interleaving; every observation held out once"
+    },
+    "computation": {
+      "nfev": 90,
+      "njev": 78,
+      "solves": 9
+    },
+    "spec": {
+      "model": "cv_select",
+      "residual": "range",
+      "scale": "reported",
+      "loss": "soft_l1",
+      "f_scale": 1.5,
+      "starts": 1,
+      "ridge": 0.05,
+      "trim_fraction": 0.0,
+      "consensus_trials": 0,
+      "gate_margin": 0.05,
+      "seed": 0,
+      "cv_folds": 4,
+      "log_bias_correction": true,
+      "log_sd": 0.1
+    }
+  },
+  "region": {
+    "rule": "mondrian",
+    "alpha": 0.1,
+    "nominal_coverage": 0.9,
+    "status": "available_under_assumptions",
+    "observed_model_group": "velocity",
+    "calibration_group": "velocity",
+    "calibration_n": 320,
+    "order_statistic_k": 289,
+    "q": 2.131361049650116,
+    "radius_m": 7.199115257087515,
+    "unbounded": false,
+    "center": [
+      19.385777239829668,
+      21.66755306562274
+    ],
+    "geometry_scale_m": 3.377707994743228,
+    "frozen_method_sha256": "73d18651535fcc4bbf4babd13266cfb2d4ca6902cbd1c032948158515458724c",
+    "calibration_sha256": "1ebf59a2efbf4a7ab5c20ca7ac1d622f81ff7583ae493d046e264aa29252de9f",
+    "summary_sha256": "0927c8fd3352a05b5ba22a22fed39fb3db673f951bd26f17b617121e1222f293",
+    "protocol_sha256": "2413ea63668bce80b75081735861227013eb1abe340cf55cdbc76b72aa7bf130",
+    "completion_status_sha256": "86fe0c7fa5de3227c15e6868f34cf13af12f9198bc116d3b13931792a7a9b834",
+    "calibration_completion_verified": true,
+    "provenance_scope": "Local byte/object consistency; not a digital signature or protection against rewriting all evidence.",
+    "coverage_guarantee_asserted_for_this_input": false,
+    "exchangeability_verified_for_this_input": false,
+    "scope": "全局或可观测分组覆盖需要同分布、冻结估计器/尺度/分组；不保证本条现场输入、真实场景、拒绝子集或分布偏移下的覆盖。"
+  },
+  "acceptance": {
+    "max_radius_m": 20.0,
+    "accepted": true,
+    "status": "accepted",
+    "numerical_quality_passed": true,
+    "conditional_coverage_guaranteed": false
+  },
+  "run_integrity": {
+    "verified_source_files": 21,
+    "verified_evidence_files": 14,
+    "controller_and_toolkit_frozen": true,
+    "is_replay": false,
+    "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+  },
+  "interpretation": "位置为输入平面坐标中的t=0估计，单位米；速度单位米/秒。输入没有真值，不能计算定位误差。拒绝时点估计仍作为诊断保留。"
+}
