@@ -1,0 +1,139 @@
+{
+  "review_date_utc": "2026-10-12T07:52:59.360139+00:00",
+  "baseline_commit": "270b8040917386b8b3ac08e0bf0ab4e6f145642c",
+  "scope": "Engineering regression tests and consistency checks on preserved research evidence.",
+  "new_model_calls": 0,
+  "new_research_predictions": 0,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "software_tests": {
+    "run": 208,
+    "passed": 205,
+    "failures": 0,
+    "errors": 2,
+    "skipped": [
+      {
+        "test": "test_symlinked_known_evidence_cannot_escape_selected_study (test_dashboard_hardening.DashboardHardeningTests.test_symlinked_known_evidence_cannot_escape_selected_study)",
+        "reason": "Host does not permit creation of symlink fixtures"
+      }
+    ],
+    "successful": false
+  },
+  "historical_audits": {
+    "live_reference": {
+      "audit_version": 1,
+      "run_directory": "runs/live_reference",
+      "read_only": true,
+      "findings": [],
+      "counts": {
+        "events": 70,
+        "source_files": 14,
+        "evidence_references": 36,
+        "evidence_files": 20,
+        "model_requests": 14,
+        "model_responses": 14,
+        "completed_model_artifacts": 14,
+        "failed_model_requests": 0,
+        "pending_model_requests": 0,
+        "replay_responses": 0,
+        "raw_cli_events": 126,
+        "unexpected_cli_tools": 0
+      },
+      "frozen": true,
+      "run_status": "frozen",
+      "is_replay": false,
+      "frozen_integrity_check": {
+        "verified_source_files": 14,
+        "verified_evidence_files": 15,
+        "controller_and_toolkit_frozen": true,
+        "is_replay": false,
+        "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+      },
+      "integrity_ok": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "frozen_required": true,
+      "status": "passed_frozen",
+      "exit_code": 0,
+      "limitations": [
+        "Local consistency is not a digital signature and cannot defeat coordinated rewriting of all files.",
+        "Checks do not prove scientific claims, industrial performance, or absence of unlogged external influence.",
+        "Raw CLI stdout/stderr are not separately content-hashed by the provider; available semantic metadata is cross-checked.",
+        "An in-progress snapshot verifies existing evidence only and does not authorize holdout access."
+      ]
+    },
+    "revision_reference": {
+      "audit_version": 1,
+      "run_directory": "runs/revision_reference",
+      "read_only": true,
+      "findings": [],
+      "counts": {
+        "events": 65,
+        "source_files": 21,
+        "evidence_references": 37,
+        "evidence_files": 20,
+        "model_requests": 13,
+        "model_responses": 13,
+        "completed_model_artifacts": 13,
+        "failed_model_requests": 0,
+        "pending_model_requests": 0,
+        "replay_responses": 0,
+        "raw_cli_events": 117,
+        "unexpected_cli_tools": 0
+      },
+      "frozen": true,
+      "run_status": "frozen",
+      "is_replay": false,
+      "frozen_integrity_check": {
+        "verified_source_files": 21,
+        "verified_evidence_files": 14,
+        "controller_and_toolkit_frozen": true,
+        "is_replay": false,
+        "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+      },
+      "integrity_ok": true,
+      "error_count": 0,
+      "warning_count": 0,
+      "frozen_required": true,
+      "status": "passed_frozen",
+      "exit_code": 0,
+      "limitations": [
+        "Local consistency is not a digital signature and cannot defeat coordinated rewriting of all files.",
+        "Checks do not prove scientific claims, industrial performance, or absence of unlogged external influence.",
+        "Raw CLI stdout/stderr are not separately content-hashed by the provider; available semantic metadata is cross-checked.",
+        "An in-progress snapshot verifies existing evidence only and does not authorize holdout access."
+      ]
+    }
+  },
+  "freeze_validation": {
+    "passed": true,
+    "method_id": "range_cv4_single_start"
+  },
+  "statistical_consistency": {
+    "ok": true,
+    "checks": 123279,
+    "errors": [],
+    "physical_prediction_errors_recomputed": 15860,
+    "logical_matrix_rows": 15400,
+    "paired_bootstrap_comparisons_recomputed": 155,
+    "coverage_populations_recomputed": 12,
+    "case_counts": {
+      "main": 720,
+      "stress": 400,
+      "edge": 420,
+      "calibration": 800,
+      "coverage": 1200
+    },
+    "scope": "Read only saved inputs, positions and outcomes. No fitting, new data generation, retuning or modification of study evidence.",
+    "limitations": "Checks numerical consistency, not independence of research decisions, authenticity of all local records, model superiority or mathematical assumptions."
+  },
+  "limitations": [
+    "Finite tests are not a proof of zero defects, security or industrial performance.",
+    "Numerical core and historical research remain unchanged; new application screening does not create coverage guarantees.",
+    "No fresh live-model run or new blind study is claimed for the engineering changes."
+  ],
+  "ok": false
+}

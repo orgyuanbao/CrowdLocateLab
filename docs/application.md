@@ -7,7 +7,7 @@
 在项目根目录执行：
 
 ```powershell
-python locate.py --input examples/observations.json --run runs/live_reference --calibration results/benchmark/conformal.json --alpha 0.1 --output results/example_location.json
+python locate.py --input examples/observations.json --run runs/live_reference --calibration results/benchmark/conformal.json --alpha 0.1 --output results/my_location.json
 ```
 
 输出目录会在需要时创建，但不会覆盖已有结果文件。再次运行请换一个 `--output` 文件名；省略 `--output` 时将完整 JSON 写到标准输出。应用输出不得写入已保存的科研运行目录。
@@ -35,6 +35,8 @@ python locate.py --input examples/observations.json --run runs/live_reference --
 至少需要三条观测，四个数组必须逐条对应且长度一致。坐标使用同一局部平面坐标系；不要直接把经纬度角度填入米制坐标。绝对时间戳先减去希望估计位置的参考时刻，例如 `times_i = timestamp_i - reference_timestamp`；不要求最后一条测量恰好位于 0 秒。
 
 这个入口处于距离观测层，不会从原始 RSSI 自动推导可靠距离或尺度。`sigma` 应来自可用的标定或测量质量估计，不能用实际误差或不可见真值构造。模型对信息不足的运动拟合可能退回静态模型，具体原因保留在 `diagnostics`；输入条数足够不等于几何可辨识。
+
+**原论文公式勘误：**冻结的组合估计器在 `residual=range, scale=reported` 时实际使用 `q_i=max(sigma_i,1e-5)`，原论文的 `q_i=sigma_i` 漏写了该数值下界。`scale=constant` 且未显式提供常量时，使用施加下界后的尺度中位数。本说明仅针对组合估计器，不概括其他历史基线；代码、历史预测和校准没有因此改变。
 
 输入严格拒绝额外字段，包括 `truth`、`velocity`、`scenario`、`meta`、异常点掩码和场景种子。求解器收到的是一个只有四个字段的观测对象。重复 JSON 键、NaN/Infinity、布尔值、数值字符串、嵌套向量维度错误、非正距离或尺度以及未来时刻都会被拒绝，不会悄悄转换或补齐。
 

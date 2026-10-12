@@ -2,6 +2,11 @@
 
 Run from the project root. Optional --output must name a new file. This is
 software/evidence verification, not an independent scientific replication.
+
+Test counts ``run`` and ``passed`` count parent test cases. ``failures``,
+``errors`` and ``skipped`` retain unittest's diagnostic events, so multiple
+subtest events may belong to one parent case and must not be subtracted from
+the number of cases run.
 """
 import argparse
 from datetime import datetime, timezone
@@ -22,6 +27,28 @@ from revision.evaluation import validate_revision_freeze
 from verification.check_revision_results import audit as check_statistics
 
 
+class SuccessfulCaseResult(unittest.TextTestResult):
+    """Count successful parent cases independently of diagnostic events."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.successful_cases = 0
+
+    def addSuccess(self, test):
+        super().addSuccess(test)
+        self.successful_cases += 1
+
+
+def summarize_tests(tested):
+    """Return case counts and the original unittest diagnostic event counts."""
+    return {
+        'run': tested.testsRun, 'passed': tested.successful_cases,
+        'failures': len(tested.failures), 'errors': len(tested.errors),
+        'skipped': [{'test': str(test), 'reason': reason} for test, reason in tested.skipped],
+        'successful': tested.wasSuccessful(),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path)
@@ -30,7 +57,9 @@ def main():
         parser.error('Choose a new output file to preserve previous verification.')
     suite = unittest.defaultTestLoader.discover(str(ROOT / 'tests'))
     messages = io.StringIO()
-    tested = unittest.TextTestRunner(stream=messages, verbosity=1).run(suite)
+    tested = unittest.TextTestRunner(
+        stream=messages, verbosity=1, resultclass=SuccessfulCaseResult,
+    ).run(suite)
     if not tested.wasSuccessful():
         sys.stderr.write(messages.getvalue())
     audits = {}
@@ -45,12 +74,7 @@ def main():
         'scope': 'Engineering regression tests and consistency checks on preserved research evidence.',
         'new_model_calls': 0, 'new_research_predictions': 0,
         'environment': {'python': platform.python_version(), 'numpy': numpy.__version__, 'scipy': scipy.__version__},
-        'software_tests': {
-            'run': tested.testsRun, 'passed': tested.testsRun - len(tested.failures) - len(tested.errors) - len(tested.skipped),
-            'failures': len(tested.failures), 'errors': len(tested.errors),
-            'skipped': [{'test': str(test), 'reason': reason} for test, reason in tested.skipped],
-            'successful': tested.wasSuccessful(),
-        },
+        'software_tests': summarize_tests(tested),
         'historical_audits': audits,
         'freeze_validation': {'passed': True, 'method_id': checked['frozen']['method_id']},
         'statistical_consistency': statistics,

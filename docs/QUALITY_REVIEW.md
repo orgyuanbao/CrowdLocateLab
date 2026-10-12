@@ -2,9 +2,9 @@
 
 这轮审查确实发现并处理了原测试遗漏的缺陷。结论是“已完成下述检查与加固”，不是“零漏洞”。历史科研证据与本次工程变更分开保留，未改写模型日志、冻结核心或原论文成绩。
 
-[4 页 LaTeX 补充报告](../report/CrowdLocateLab_Quality_Review.pdf) / [源码](../latex/quality_addendum.tex) / [完整检查结果](../verification/hardening/checks.json) / [GitHub 自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions)
+[LaTeX 补充报告](../report/CrowdLocateLab_Quality_Review.pdf) / [源码](../latex/quality_addendum.tex) / [首轮检查](../verification/hardening/checks.json) / [权限受限复核](../verification/hardening/final_checks.json) / [恢复权限后补验](../verification/hardening/network_enabled_checks.json) / [GitHub 自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions)
 
-## 已核验结果
+## 首轮已核验结果（保留原记录）
 
 干净环境 Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1：共运行 **184 项软件测试，183 项通过、1 项跳过、0 失败/错误**。相对原 129 项新增 55 项，包括 30 项硬化运行时测试、13 项数值筛查测试、5 项输入/应用边界测试、7 项仪表盘测试。跳过项是当前 Windows 无创建符号链接权限的路径约束夹具；Linux CI 执行该项，不把跳过记为通过。
 
@@ -39,7 +39,7 @@ python run_research.py --output runs/my_engineering_run --provider codex
 python run_research.py --output runs/my_engineering_run --provider codex --resume
 ```
 
-真实运行需要自己的 CLI 登录和额度。恢复必须使用完全相同的运行身份和配置。新检查点缺失、单文件改动、日志截断、未完成模型请求、待定工具副作用均会拒绝恢复。旧正式运行不能直接用新入口恢复。
+真实运行需要自己的 CLI 登录和额度。恢复必须使用完全相同的运行身份和配置。当前检查点格式为第 2 版，运行保护配置为第 3 版；旧格式明确拒绝恢复，不自动迁移。检查点缺失、单文件改动、工具产物新增或缺失、日志截断、未完成模型请求、待定工具副作用均会拒绝恢复。旧正式运行不能直接用新入口恢复。
 
 锁文件为 `.research.lock`，正常退出或捕获异常只释放本次进程自己的锁；锁被替换时不删除他人锁。崩溃遗留锁需先确认原进程停止并检查证据，不按时间/PID自动解锁。不能通过删除检查点、重写哈希来声称恢复一致性。
 
@@ -68,3 +68,30 @@ python -B verification/hardening/run_checks.py
 补充报告可用 XeLaTeX 编译 `latex/quality_addendum.tex`，原报告仍使用 `reporting/compile_report.py`。本次 PDF 已编译、渲染并逐页检查。
 
 负面科学结果仍须保留：静态退化、90% 区域覆盖不足、相对上一轮总体改善区间跨零；工业现场性能未验证。课程作者应理解智能体代码和日志，并补齐原论文姓名、学号等真实信息。
+
+## 进一步复核与修复
+
+在首轮完成后继续进行故障注入，发现并修复以下问题。原 `checks.json` 保留，当时的结果单独记录为 `final_checks.json`，不能将不同阶段的数字混用。恢复权限后的补验见本文末尾。
+
+**本轮实际结果：208 项测试，205 项通过、0 项断言失败、2 项权限错误、1 项跳过。整体 `successful=false, ok=false`，尚未达到全量通过。** 新增 24 项回归全部通过（20 项证据/失败处理，4 项统计计数）。两轮历史审计继续为 `passed_frozen`，均零错误、零警告；冻结检查和 123,279 项统计一致性检查通过。环境仍为 Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1。
+
+两个 HTTP 集成用例在连接本机服务时被当前网络权限以 `WinError 10013` 拒绝：`test_http_keeps_both_dashboards_alive_with_malformed_saved_files`、`test_http_is_loopback_read_only_and_rejects_paths_and_bad_queries`。一个符号链接路径约束用例因系统创建权限跳过。错误不是业务断言失败，但也没有完成其验证；不能算通过，不能由先前发布版本的 CI 替代。详细诊断见 [本轮软件检查日志](../verification/hardening/final_software_diagnostics.txt)。需要在允许本机 HTTP 和符号链接的环境或对应提交的 CI 中补验这三项。
+
+| 编号 | 复现的问题 | 修复与回归 |
+| --- | --- | --- |
+| R7 | 原检查点未覆盖实验文件，改动后可能恢复；诊断可能返回改动后的数值和旧摘要 | 第 2 版检查点记录工具产物原始字节清单，引用证据另验规范化 JSON 摘要；诊断在单次读取的同一快照上校验和计算，限制路径范围。`test_hardened_evidence.py` 覆盖篡改、缺失、额外文件、格式变化和快照。 |
+| R8 | 多方法实验部分完成后失败，内存、磁盘状态和产物可能不一致，却仍继续规划 | 检测错误前后的内存、持久状态和产物变化；不确定失败保留待定工具状态并标记 `tool_failure_uncertain`，停止后续模型调用、禁止自动恢复。覆盖部分计算失败、仅内存变更、仅文件变更和标记存储失败；无副作用参数错误仍可正常反馈。 |
+| V1 | 同一测试的多个子测试错误被逐项减去，可能得到负通过数 | 以父测试实际成功回调计数，失败/错误/跳过保留原框架事件数。`test_quality_checks.py` 覆盖多错误、多失败、跳过、预期失败/意外成功。 |
+| M1 | 原论文 `q_i=sigma_i` 漏写组合估计器尺度下界 | 应为 `q_i=max(sigma_i,1e-5)`（距离残差、报告尺度）；常量模式未指定值时取下界处理后的中位数。仅作勘误，未改动冻结代码和成绩。 |
+
+本轮第一次全量重跑遇到当前环境对默认临时目录的写入限制，失败记录保留在本次复核工作目录。最终复查使用工作区内可写临时目录，没有删减测试或将权限错误记为成功。哈希检查发现本地不一致，不构成数字签名，也不保证阻止拥有同等写权限者协调改写所有记录或任意并发恶意修改。
+
+工具调用前若连状态快照都无法建立，同样保守停止。CLI 对 `tool_failure_uncertain` 返回退出码 2，供调用者识别失败。不能仅凭进程正常退出或存在检查点判断科研运行成功。
+
+此次只增加工程保护和验证，不调用真实模型、不产生新的科研预测。需要将修订代码、报告和最终检查记录一同发布；远端发布和 CI 状态须另行读取对应提交，不能由本地测试推定。
+
+## 恢复网络权限后的补验（2026-10-12）
+
+恢复网络权限后，未修改任何测试或运行代码，重新执行同一完整检查入口，并将新结果保存在 `verification/hardening/network_enabled_checks.json`。结果为 **208 项运行、207 项通过、0 失败、0 错误、1 项跳过，`successful=true, ok=true`**。两项先前被 `WinError 10013` 阻止的 HTTP 集成用例均已通过。本机仍不允许创建符号链接，该用例未计为通过，需核对本次提交的 Linux CI 执行结果。
+
+两轮完整历史审计、冻结检查及 123,279 项统计一致性检查再次通过。Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1；真实模型调用与新增科研预测仍均为零。没有覆盖或删除权限受限时的失败记录；6 页 LaTeX 补充报告也保持其当时检查快照，后续状态以此补验和对应提交的 CI 为准。

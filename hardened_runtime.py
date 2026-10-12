@@ -21,11 +21,71 @@ from agent_runtime.providers import sha256_text
 from agent_runtime.schema import PLANNER_SCHEMA, CRITIC_SCHEMA, canonical_json, validate_response
 from revision.agent import RevisionToolkit, TOOL_SPEC
 from tools.toolkit import ResearchToolkit
+from tools.common import canonical, digest, save
 
 
 LOCK_NAME = ".research.lock"
 CHECKPOINT_NAME = "checkpoint_manifest.json"
 CHECKPOINT_FILES = ("state.json", "tools/tool_state.json", "protocol.json")
+CHECKPOINT_VERSION = 2
+UNCERTAIN_TOOL_NAME = "uncertain_tool_failure.json"
+
+
+class EvidenceIntegrityError(ValueError):
+    """Recorded research evidence cannot safely be used for another decision."""
+
+
+def _contained_file(root, relative):
+    root = Path(root).resolve()
+    if not isinstance(relative, str) or not relative or Path(relative).is_absolute():
+        raise EvidenceIntegrityError("Evidence path must be relative to this run")
+    path = (root / relative).resolve()
+    if not path.is_relative_to(root) or path == root:
+        raise EvidenceIntegrityError("Evidence path escapes this run")
+    return path
+
+
+def _tool_artifacts(output):
+    """Raw byte inventory, including partial/extra files, below this run's tools."""
+    output = Path(output).resolve()
+    directory = _contained_file(output, "tools")
+    artifacts = {}
+    if directory.exists():
+        for path in sorted(directory.rglob("*")):
+            relative = path.relative_to(output).as_posix()
+            resolved = _contained_file(output, relative)
+            if path.is_symlink() or getattr(path, "is_junction", lambda: False)():
+                raise EvidenceIntegrityError("Linked tool artifact is forbidden: " + relative)
+            if resolved.is_file() and relative != "tools/tool_state.json":
+                artifacts[relative] = hashlib.sha256(resolved.read_bytes()).hexdigest()
+    return artifacts
+
+
+def verified_evidence_snapshot(output, entry):
+    """Read once; validate the original normalized JSON digest; return those bytes' data."""
+    if not isinstance(entry, dict) or not isinstance(entry.get("evidence_sha256"), str):
+        raise EvidenceIntegrityError("Missing recorded evidence digest")
+    path = _contained_file(output, entry.get("evidence_path"))
+    try:
+        value = strict_json(path.read_bytes().decode("utf-8"))
+    except (OSError, ValueError) as error:
+        raise EvidenceIntegrityError("Cannot read complete evidence: " + str(path)) from error
+    # Existing research entries use tools.common.digest (normalized JSON), not
+    # the raw-byte hashes independently captured by the checkpoint inventory.
+    if digest(value) != entry["evidence_sha256"]:
+        raise EvidenceIntegrityError("Recorded evidence digest mismatch: " + str(path))
+    return value
+
+
+def _verify_tool_references(output, state):
+    if isinstance(state, dict):
+        if "evidence_path" in state:
+            verified_evidence_snapshot(output, state)
+        for value in state.values():
+            _verify_tool_references(output, value)
+    elif isinstance(state, list):
+        for value in state:
+            _verify_tool_references(output, value)
 
 
 @contextmanager
@@ -225,6 +285,8 @@ def preflight_resume(output, expected_identity=None, *, require_tool_state=False
     this function does not reconstruct lost events or rerun uncertain tools.
     """
     output = Path(output)
+    if (output / "tools" / UNCERTAIN_TOOL_NAME).exists():
+        raise ValueError("Resume rejected: uncertain tool failure requires manual evidence inspection")
     state = strict_json((output / "state.json").read_text(encoding="utf-8"))
     if not isinstance(state, dict):
         raise ValueError("Saved state must be an object")
@@ -232,14 +294,20 @@ def preflight_resume(output, expected_identity=None, *, require_tool_state=False
     if not manifest_path.is_file():
         raise ValueError("Resume rejected: hardened checkpoint manifest missing; historical runs cannot be resumed by this entry")
     manifest = strict_json(manifest_path.read_text(encoding="utf-8"))
-    if (not isinstance(manifest, dict) or manifest.get("version") != 1
+    if (not isinstance(manifest, dict) or manifest.get("version") != CHECKPOINT_VERSION
             or not isinstance(manifest.get("files"), dict)
-            or set(manifest["files"]) != set(CHECKPOINT_FILES)):
-        raise ValueError("Resume rejected: invalid checkpoint manifest")
+            or set(manifest["files"]) != set(CHECKPOINT_FILES)
+            or not isinstance(manifest.get("tool_artifacts"), dict)):
+        raise ValueError("Resume rejected: invalid/old checkpoint manifest; version 2 is required")
     actual_files = _checkpoint_files(output)
     for name in CHECKPOINT_FILES:
         if manifest["files"][name] != actual_files[name]:
             raise ValueError("Resume rejected: checkpoint file hash mismatch: " + name)
+    if manifest["tool_artifacts"] != _tool_artifacts(output):
+        raise ValueError("Resume rejected: tool artifact inventory/hash mismatch")
+    tool_state_path = output / "tools/tool_state.json"
+    if tool_state_path.is_file():
+        _verify_tool_references(output / "tools", strict_json(tool_state_path.read_text(encoding="utf-8")))
     if (manifest.get("last_event_sequence") != state.get("last_event_sequence")
             or manifest.get("last_event_sha256") != state.get("last_event_sha256")):
         raise ValueError("Resume rejected: checkpoint manifest and saved event anchor disagree")
@@ -284,8 +352,17 @@ def preflight_resume(output, expected_identity=None, *, require_tool_state=False
 
 class HardenedResearchController(ResearchController):
     def _save(self):
+        uncertain = getattr(self.toolkit, "_uncertain_tool_failure", None)
+        if uncertain:
+            # The frozen controller normally clears pending_tool after catching
+            # a tool exception. Preserve uncertainty at every save, before the
+            # loop can make another model request or label this resumable.
+            self.state["pending_tool"] = {"action": uncertain["action"],
+                                          "uncertain_failure": uncertain}
+            self.state["status"] = "tool_failure_uncertain"
         super()._save()
-        manifest = {"version": 1, "files": _checkpoint_files(self.output),
+        manifest = {"version": CHECKPOINT_VERSION, "files": _checkpoint_files(self.output),
+                    "tool_artifacts": _tool_artifacts(self.output),
                     "last_event_sequence": self.state["last_event_sequence"],
                     "last_event_sha256": self.state["last_event_sha256"],
                     "scope": "Local accidental-change detection; not a signature or protection against coordinated rewriting of all evidence."}
@@ -315,6 +392,81 @@ class HardenedResearchController(ResearchController):
 
 
 class HonestFinishMixin:
+    """Add evidence checks and failure quarantine without editing frozen tools."""
+
+    def _quarantine_failure(self, action, error, state_changed, files_changed, durable_changed):
+        marker = {"action": action, "error": f"{type(error).__name__}: {error}",
+                  "state_changed": state_changed, "artifacts_changed": files_changed,
+                  "durable_state_changed": durable_changed,
+                  "recovery": "Manual evidence inspection required; no automatic resume or retry."}
+        self._uncertain_tool_failure = marker
+        try:
+            save(self.output / UNCERTAIN_TOOL_NAME, marker)
+        except OSError:
+            # Even if storage fails, the controller keeps its durable
+            # pre-dispatch pending checkpoint and/or this in-memory flag.
+            pass
+
+    def _dispatch_snapshot(self):
+        return (canonical(self.state), _tool_artifacts(self.output.parent),
+                self.path.read_bytes())
+
+    def dispatch(self, action, args):
+        if getattr(self, "_uncertain_tool_failure", None) or (self.output / UNCERTAIN_TOOL_NAME).exists():
+            if not getattr(self, "_uncertain_tool_failure", None):
+                # A marker left by an earlier process (or detected during this
+                # run) must also stop this controller; preserve its disk bytes.
+                self._uncertain_tool_failure = {"action": action,
+                    "error": "Existing uncertain tool failure marker requires inspection"}
+            raise EvidenceIntegrityError("Uncertain tool failure: inspect evidence before further actions")
+        try:
+            before_state, before_files, before_durable = self._dispatch_snapshot()
+        except Exception as error:
+            # Cannot establish the baseline, so absence of side effects cannot
+            # be established either. None means unknown, never "unchanged".
+            self._quarantine_failure(action, error, None, None, None)
+            raise
+        try:
+            _verify_tool_references(self.output, self.state)
+            return super().dispatch(action, args)
+        except Exception as error:
+            try:
+                state_changed = canonical(self.state) != before_state
+                files_changed = _tool_artifacts(self.output.parent) != before_files
+                # Include durable toolkit counters as well as the artifact set.
+                durable_changed = (self.path.read_bytes() if self.path.exists() else None) != before_durable
+            except Exception:
+                state_changed = files_changed = durable_changed = True
+            if state_changed or files_changed or durable_changed or isinstance(error, EvidenceIntegrityError):
+                self._quarantine_failure(action, error, state_changed, files_changed, durable_changed)
+            raise
+
+    def tool_diagnose(self, method_id, split="discovery", top_k=4):
+        key = f"{split}:{method_id}"
+        if key not in self.state["evaluations"]:
+            raise ValueError("Run requested method/split first")
+        count = min(int(top_k), 6)
+        reference = self.state["evaluations"][key]
+        result = verified_evidence_snapshot(self.output, reference)
+        ordered = sorted(result["rows"], key=lambda row: row["error_m"], reverse=True)
+        frequencies = {}
+        for row in result["rows"]:
+            scenario = row["scenario"]
+            model = row["diagnostics"].get("selected_model", "unknown")
+            frequencies.setdefault(scenario, {})
+            frequencies[scenario][model] = frequencies[scenario].get(model, 0) + 1
+        self.state["diagnoses"] += 1
+        observation = {"worst_cases": ordered[:count], "selection_frequencies": frequencies,
+                       "warning": "Worst-case examples are diagnostic evidence, not theorems or guarantees about other cases."}
+        if self.state.get("revision_version") == 3:
+            diagnosis = {"method_id": method_id, "split": split,
+                         "diagnosis_number": self.state["diagnoses"],
+                         "evidence_path": reference["evidence_path"],
+                         "evidence_sha256": reference["evidence_sha256"]}
+            self.state["diagnosis_history"].append(diagnosis)
+            observation["revision_diagnosis"] = diagnosis
+        return observation
+
     def tool_finish(self, summary):
         if not isinstance(summary, str) or not summary.strip():
             raise ValueError("A nonempty scientific stopping reason is required")

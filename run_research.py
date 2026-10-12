@@ -36,9 +36,11 @@ def make_hardened_config(root, reasoning_effort):
     config["study"] = "CrowdLocateLab-v3-engineering-hardening"
     config["goal_sha256"] = hashlib.sha256(GOAL.encode("utf-8")).hexdigest()
     config["runtime_safeguards"] = {
-        "version": 2, "finite_json_arguments": True, "verified_replay_source": True,
+        "version": 3, "finite_json_arguments": True, "verified_replay_source": True,
         "checkpoint_tail_preflight": True, "honest_unfrozen_finish": True,
         "checkpoint_file_hashes": True, "exclusive_run_directory": True,
+        "tool_artifact_inventory": True, "verified_evidence_snapshot": True,
+        "partial_tool_failure_blocks_resume": True,
         "scientific_scope": "Disclosed development protocol reused; not a new blind scientific study.",
     }
     for relative in ("hardened_runtime.py", "run_research.py"):
@@ -96,7 +98,7 @@ def main(argv=None):
             state = controller.run()
             print(json.dumps({"status": state["status"], "output": str(output), "steps": state["steps"],
                               "engineering_revision": True, "new_blind_study": False}, ensure_ascii=False))
-        return 0
+        return 2 if state["status"] == "tool_failure_uncertain" else 0
     except (OSError, ValueError, TypeError, ProviderError) as error:
         parser.exit(2, "run_research: " + str(error) + "\n")
 
