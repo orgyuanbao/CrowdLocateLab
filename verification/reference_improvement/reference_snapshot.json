@@ -1,0 +1,26 @@
+{
+  "review_date": "2026-10-14",
+  "repository": "https://github.com/DeepMathLLM/Creative-Intelligence",
+  "reference_commit": "b7d17249f94949351faefd7ae28a020f0623db93",
+  "source_urls": [
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/README.md",
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/run_archive.py",
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/archive-format-specification.md",
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/mathematical-concept-agent/README.md",
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/mathematical-concept-agent/agent.py",
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/mathematical-concept-agent/AGENTS.md",
+    "https://github.com/DeepMathLLM/Creative-Intelligence/blob/b7d17249f94949351faefd7ae28a020f0623db93/mathematical-concept-agent/tests/test_agent.py"
+  ],
+  "observed_reference_limitations": [
+    "The public snapshot does not include the two Stage 2 construction/verification Skill files listed by its README.",
+    "The controller checks structured progress fields; this does not implement automatic mathematical proof verification."
+  ],
+  "adopted_practices": [
+    "Separate hypotheses, observations, mathematical witnesses and reviewer opinions.",
+    "Publish a completed evidence archive only after input and history verification.",
+    "Explain offline inspection, reproduction, resume and live research separately."
+  ],
+  "implementation": "Independent implementation in research_archive.py; no upstream program or Skill copied or executed.",
+  "new_live_model_calls": 0,
+  "new_research_experiments": 0
+}

@@ -1,0 +1,3380 @@
+{
+  "schema_version": 1,
+  "archive_kind": "verified_development_evidence_index",
+  "run_name": "runs/revision_reference",
+  "new_model_calls": 0,
+  "new_experiments": 0,
+  "verification": {
+    "status": "passed_frozen",
+    "integrity_ok": true,
+    "snapshot_sha256": "95ba3c8c03607802a6d702d3bd8a33a0ee8d3e07999606df7e55839411e8b3b6",
+    "counts": {
+      "events": 65,
+      "source_files": 21,
+      "evidence_references": 37,
+      "evidence_files": 20,
+      "model_requests": 13,
+      "model_responses": 13,
+      "completed_model_artifacts": 13,
+      "failed_model_requests": 0,
+      "pending_model_requests": 0,
+      "replay_responses": 0,
+      "raw_cli_events": 117,
+      "unexpected_cli_tools": 0
+    },
+    "findings": [],
+    "warning_count": 0,
+    "inventory": {
+      "run_files": {
+        "events.jsonl": "16034beb06aaaf5b249e213187cb94e85215077df733fc25964e247d42d5e069",
+        "model_calls/critic-0011/cli_events.jsonl": "ebc732fec10809b93e801b545b360d890b9fd61c0f10a843d091a3fcc163fa63",
+        "model_calls/critic-0011/metadata.json": "5fa90fe2b64069ec955a648f84cc3c75275a45ea7b476740a4cc6d3780d9abf3",
+        "model_calls/critic-0011/prompt.txt": "ea828e2d41fd0cc35aa7a3ec40768f8af48d7bc8f3b6f3c93b0e0c3b48815670",
+        "model_calls/critic-0011/response.json": "c752bbade2da3ed02925142dab23f8df0d0f3093d6121285b437a4832a7e5ae7",
+        "model_calls/critic-0011/schema.json": "0a0b4e3589aa6f8bdd8a4d3165644ff97f2d817ee1b38b36c06c1b0509b52859",
+        "model_calls/critic-0011/stderr.txt": "d936e54de09fe9e0867235730a9e089b7af185f913c838ce2f73699b01577920",
+        "model_calls/planner-0001/cli_events.jsonl": "c9e4b2d50cda30de52323444807312ba668ac5436514ad94bd07c5089715b8fc",
+        "model_calls/planner-0001/metadata.json": "6baee0ec82768242639198ab4352014938268e7fd4510a2b6c570ea09b762cef",
+        "model_calls/planner-0001/prompt.txt": "3886e979e5c5383ba39702332f87a9d0f2cd8bd296dd70dea8464704e4c98a18",
+        "model_calls/planner-0001/response.json": "6da8ad2b18acfa64417f5b41ad3c0be3dfe7a35a9d83f9ce48cbc6557357d176",
+        "model_calls/planner-0001/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0001/stderr.txt": "02e8322a2e2532bf75000fc5cce963c939d0b7a9ddaecdbe5d3dafda7f9bb987",
+        "model_calls/planner-0002/cli_events.jsonl": "8df9de11f7d8b07199f421ce362bc554e82c704a57c1ef5a770494f33f6f7d1a",
+        "model_calls/planner-0002/metadata.json": "3be10d61ee4ba85023f4c183187af3f84665c2e4b714c1b833726b244b420292",
+        "model_calls/planner-0002/prompt.txt": "be8191bd4ae4017913803a3efb4bdcda14e7fb0eb00fb7b02240a71c284c246d",
+        "model_calls/planner-0002/response.json": "c16896cb5633c488e2ad9bdf10113bee8b57da5e9c070dbfb1d5965da3040997",
+        "model_calls/planner-0002/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0002/stderr.txt": "668c7b8704b8c166ee16410c8a58421a6191ac3a670f478a44263b67a8b75697",
+        "model_calls/planner-0003/cli_events.jsonl": "2ad1f5afb9ff63b21da5c283ed71c3a72afaa9051fc2f0675c97bb7e00b843c1",
+        "model_calls/planner-0003/metadata.json": "5ee82e557b1b0efe3ea16b8b30dd5d1b8db6e619aae2b5431fbed846a8a98f0a",
+        "model_calls/planner-0003/prompt.txt": "9f8d3f11a4ecd3471f8bff336145b232dbebf969c8755ec2cd5a0c5b31c9bd66",
+        "model_calls/planner-0003/response.json": "f5ba20f7c0fc0f31f56e66f7a54e03b3c44035368e85e556e5cb1720dfa228ef",
+        "model_calls/planner-0003/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0003/stderr.txt": "f72e422fb468a91d7c9b8e710236b6e471ae44e4dae8524aeda0b5633ff97b60",
+        "model_calls/planner-0004/cli_events.jsonl": "c76703314464862fd719f8f62450a01b0261816ae2c5553e234ae2b42e966cbe",
+        "model_calls/planner-0004/metadata.json": "c47e8f1e56a5c0d9f8f0e2ad205c5a8934f9052ca2bb53118b058eb47a57cb9d",
+        "model_calls/planner-0004/prompt.txt": "132d101fe0b488423f8d6b63022de7a12454778252b889602ce54e07e0a102ee",
+        "model_calls/planner-0004/response.json": "9dc58254aacc751f95b111c3a2e4d4494a98e95f8260efeace82b4e44d66eafd",
+        "model_calls/planner-0004/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0004/stderr.txt": "8dadca6577001c9555ced5841e75241508786fa2aa9091d4dfbc7c4b9d5eb5ac",
+        "model_calls/planner-0005/cli_events.jsonl": "8340461e139a57afb23defcdbf963070263affa5fa6cb2f9ed3e60fc7542710f",
+        "model_calls/planner-0005/metadata.json": "5b264083f242bf66e5c901a404362be5e5729c43aa0e227d2cc4508759bf27f7",
+        "model_calls/planner-0005/prompt.txt": "661cfbbf85589e2894d72b2b4089b1b87dd93b260ab1024189f9b8efad2aacc1",
+        "model_calls/planner-0005/response.json": "f850b620e0021825cc92dd7e2d53e15e73cc97140243fc651ed5b19fe94b7cf3",
+        "model_calls/planner-0005/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0005/stderr.txt": "309f41c98a016e48f75eb99d8dbf963cbb3c77beaabc04766a3297994387d607",
+        "model_calls/planner-0006/cli_events.jsonl": "361bff33b7cd03428cfae01c62efbc8208d1259de941531c66e92e1ac33640c8",
+        "model_calls/planner-0006/metadata.json": "2f742cce0ff90056ac4a8ae2df467f25366e9ce58935f54f842fe6d4149f9c8d",
+        "model_calls/planner-0006/prompt.txt": "e12fc1ef6891fbe746f42ed7b462ce91feaffb07696918c2a65ad4dd590dcd6f",
+        "model_calls/planner-0006/response.json": "52a194ff0bcef36203f42dfd340fd07a106ca40a6dd24f244ee45092bd240071",
+        "model_calls/planner-0006/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0006/stderr.txt": "3272b2251d892826e5ae5ffec35c8aba6aec1233d3e1860a3017eb30a2b71c4c",
+        "model_calls/planner-0007/cli_events.jsonl": "ec2c761d924e1cf57c3915b8ec6678d93483f25a442d08e080f65b835cb637fc",
+        "model_calls/planner-0007/metadata.json": "1287d7bd6e4f8e33982d4cd9a36adb29ad45f21829732516fed570fce3b67441",
+        "model_calls/planner-0007/prompt.txt": "e6c453049271d988610cff91fed6558a6863700a591d9d32fed3482be87f043a",
+        "model_calls/planner-0007/response.json": "e1f760599c55e2c51be7aa9f39d6e93e7104753eb26f2be7fc089ead5a83aa57",
+        "model_calls/planner-0007/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0007/stderr.txt": "44e1363be944b02b591278810092c5ed4a726b55900ceda773686e7002ff8331",
+        "model_calls/planner-0008/cli_events.jsonl": "eb8566e2a4b21a0eb55bc7c5bd2315c301214b5f9dc08f9bba6e0a27271b7d29",
+        "model_calls/planner-0008/metadata.json": "649f63f767d54a61b002bd2d9f5b15ca65ba8eb17aad314ee807fb128975171e",
+        "model_calls/planner-0008/prompt.txt": "efe46ab07fec5bbc16558026e85456660b1d3bf9ba44ef2ff142d1f49dbfa315",
+        "model_calls/planner-0008/response.json": "da7220489c4ce5ca32a982269572575b9588ef8d01f10e46ca85565fa93a642f",
+        "model_calls/planner-0008/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0008/stderr.txt": "abca6e9766ba465d97c951c71b5c5a6f11ed71e46241f6f1ba4b67e50b5c63e9",
+        "model_calls/planner-0009/cli_events.jsonl": "8f7986dcd0f2cc4288173a76abfd8fd173369c138c7c1897fcc223f23b708b0f",
+        "model_calls/planner-0009/metadata.json": "713d94cafe4dd7ac45c081f2fbc69e3b7ebd5ab957c7294ea0d1afdbc723bebb",
+        "model_calls/planner-0009/prompt.txt": "ef8b3fc07b4a4aef52c6800804d5d65e4e09a6e29025352ed05233dd4b86eb5e",
+        "model_calls/planner-0009/response.json": "b65f34f1e9843ba8eff79f1c0ad6c62a040063ca3e289261a8bc5ba8f31ec08e",
+        "model_calls/planner-0009/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0009/stderr.txt": "60acf62389bfe9e1cf6f686b1ba22608af74d2ccf4f2a36558b176e2f5729509",
+        "model_calls/planner-0010/cli_events.jsonl": "696c5ab48461fedc9091a2b99e5cb72e3d90720665d63e6efb2c4fde6d59318c",
+        "model_calls/planner-0010/metadata.json": "0d59bacff8cfa1a7093b3c7dad5443d1f7eb3865faf830ab0769ca98119714b0",
+        "model_calls/planner-0010/prompt.txt": "3aaecbf6102d6cb0f51f4c917fa114c7268b282027302aa83ec387d596fb276b",
+        "model_calls/planner-0010/response.json": "380f4a80141f2170f3c29ac414569fefcc32ba7660855583563020881f6d8136",
+        "model_calls/planner-0010/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0010/stderr.txt": "15d6976148d3a6e666fc43124b9baefcb71ecd2d64d17498541cfedd976c28ff",
+        "model_calls/planner-0012/cli_events.jsonl": "8d834fcb9daebf4a15eba103ab43e16a5bb64f33e96f188dafaefd20792294bf",
+        "model_calls/planner-0012/metadata.json": "c9438e866c95c60655fe3844468c7c10b63639de3a55e13c66361108de715719",
+        "model_calls/planner-0012/prompt.txt": "b3252bfad8307394609ab2100fe7aabcf47031899bc2e700a4e81970374b05b7",
+        "model_calls/planner-0012/response.json": "9e10a0bba72c37ded9e59674899d80f18fd3d8253c232474a4e9d23d7efd20a1",
+        "model_calls/planner-0012/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0012/stderr.txt": "7713dbeccb78c2f0b386bb6e265b496ca93aa1f9207d093bae38dfd58ddc5652",
+        "model_calls/planner-0013/cli_events.jsonl": "0720d521e776a8dfa42ad30bb82b3be8eee95805a850a4e9955fd6545cfc70a3",
+        "model_calls/planner-0013/metadata.json": "1a85a1aef01c92ff43839a1650b064a1366e4c64cc8613229ba737dd940a821e",
+        "model_calls/planner-0013/prompt.txt": "8b82049d29727547af805ca22458d052f75d67f3d898204dbd6e0bb152f8e4c5",
+        "model_calls/planner-0013/response.json": "da3c6e2965b9c0921d6c5992554ba99080326f1020896510aab91c343d1d85af",
+        "model_calls/planner-0013/schema.json": "123f519f4786032c9833cfb4f992bae85187a1e63db74927632cb75b205a79a0",
+        "model_calls/planner-0013/stderr.txt": "12715e0a19e06ca52515d88b9c1db5ed36287b57fc092f1480d2a53342e6d5db",
+        "protocol.json": "595a6043c90aa8486bdb862887158d638538bebe38697498c02f826bf69cfb30",
+        "state.json": "353a8c860317ee412bcdcd38dccc5ea816ad017191fb26ccaa219cac90214073",
+        "tools/discovery_inputs.json": "c30ea41ce5e0cd5aaa2a093d3494944de6c886da5db6ca74a8d58160ea0a3ea3",
+        "tools/experiments/call_001_discovery_dynamic_robust.json": "ae2b9abe19bb41c0695459b78866f7bedbd773ccee970ca9fb329947adc195de",
+        "tools/experiments/call_001_discovery_range_cv4_reported.json": "4a4e41861cd1a3d505ee29f4352a9f0a349b82fa32db1f4e2d5012cf88bcc5da",
+        "tools/experiments/call_001_discovery_static_wls.json": "e5bbb46148ee73fee154c8b13383a869d7427b4cea2b2568187ef204de0806a2",
+        "tools/experiments/call_001_discovery_v2_frozen.json": "915d74de3b48431636bdd89e66a126003954d604ed15dddcd0a60df835b17625",
+        "tools/experiments/call_002_discovery_log_cv4_reported.json": "b458d67d7e112c3099333d5b86f2022c2bbcdb4ff96ce9b55b812196a22c8576",
+        "tools/experiments/call_002_discovery_range_cv4_reported.json": "963768990097f0919ec31f1bd169ec288723b468dd4ecc896027c9c62ffcd36b",
+        "tools/experiments/call_002_discovery_static_wls.json": "d61ca4a5109c33359fd78565c68b69189c924544c7824e456469e8c0c562c9f9",
+        "tools/experiments/call_002_discovery_v2_frozen.json": "92eded56231546da6cea1a10d6f76e7586847597394eadc2b4e3d60158e78667",
+        "tools/experiments/call_003_discovery_range_cv4_margin20.json": "08c24e0bb25f31e3c5cd7d6975760a303c399082bea6eec6a24db5bcfca00f7d",
+        "tools/experiments/call_003_discovery_range_cv4_reported.json": "0cfffade359a0a8fd3e0d1acae7b181854d8501b6cd62575b8ffd06d18fcfa93",
+        "tools/experiments/call_004_discovery_range_cv4_reported.json": "470ca3dc5ed93bb383af8464667703b70b3dfb96b7a26f38191d497d91aabf83",
+        "tools/experiments/call_004_discovery_range_cv4_single_start.json": "80e195bd386ca7d6ea8b663719a48e40864e5ec231391285e45518e463c7af28",
+        "tools/experiments/call_005_validation_range_cv4_reported.json": "6974f289027e6286218cca122f79dcbce41530e1f8e2b87b1488aa9f6220a64c",
+        "tools/experiments/call_005_validation_range_cv4_single_start.json": "c51e8254da8a0e7c922d3e5fa1d126dd792b7332c1c5d2c1ebe15c1ce0f851e1",
+        "tools/experiments/call_005_validation_static_wls.json": "75a301f806fc5be544bf05e1ad484d7993cac29eda6f8cc0a80d9d6b86c1fb16",
+        "tools/experiments/call_005_validation_v2_frozen.json": "5b404d11f0fd510d1f11a80272a105fab24a888a2f1101581368027016a42e56",
+        "tools/experiments/call_006_validation_dynamic_robust.json": "9ce918eb08e9610eed679df188cbdd12e22e827841bbc35453c4c2db2f331e0a",
+        "tools/experiments/call_006_validation_legacy_bic.json": "b4d7112903905bb98e2adcc608b85b35f88c1900e87fcb985a232a3261914089",
+        "tools/experiments/call_006_validation_range_cv4_single_start.json": "e47e4c8c67c0a76ef074b389a46ba7741c7f273f39705c7ab93d03dea472351f",
+        "tools/experiments/call_006_validation_static_robust.json": "a04508203619cb8aa6ab563de7f0269ad54f31c1a104ddb60ba836dc8db0eabf",
+        "tools/frozen_method.json": "73d18651535fcc4bbf4babd13266cfb2d4ca6902cbd1c032948158515458724c",
+        "tools/mathematical_checks/all.json": "d0ec0ed6386dad40ffa10b137a5007b0897732c682f40ac2e6a9f337a5b7f717",
+        "tools/methods/log_cv4_reported.json": "b15d09a76534609a3b6c7406051f6a667314699aa269905bbb36349efd44fe67",
+        "tools/methods/range_cv4_margin20.json": "f228bedfdff37f86097c512f312e0a68d674ba49ef3456be719d5a55fc66c23e",
+        "tools/methods/range_cv4_reported.json": "8a90cf722ca6145f39279127914c974dcbe83bc2a9c6078cd7f46b16a730a72c",
+        "tools/methods/range_cv4_single_start.json": "c2fc87f8a3df705c5060688321b8c1517c4dcd60166aa4194968a757462af518",
+        "tools/tool_state.json": "3dda7bfe28e954a142ef19dd4e9c0778c10952d29b62564d833a1f9bb7682d08",
+        "tools/validation_inputs.json": "eb1a364106e88938517e56b8d06d4011df41fdecf34a207cbe6748993696d323"
+      },
+      "source_files": {
+        "agent_runtime/__init__.py": "97ff17068a3e050792132fa039da9b196b98fecb7c1331c4054e458afd64277f",
+        "agent_runtime/controller.py": "57f6470cb7ddeeef62fac3d7d89f8d4ffffe39f4e4169268e208cf8344e1b63f",
+        "agent_runtime/providers.py": "abdfdb00cda8c80d378c3022489322e48c390c5640bd06cc4f042c7cb7fce3eb",
+        "agent_runtime/schema.py": "6259b705ae2b8831d85c762c5ffffb4fc5130b75148c4309aa401bce2038b42c",
+        "benchmark.py": "30d9d356bbbc96bc9f35477e7a231a3b7ebcb9b2f08ad8ff970f6b86559249c5",
+        "benchmark_revision.py": "f281ae97d782fc4d0e7e8aa87f581d500f8357abe2d49111c0223f2588f1b3a7",
+        "localization/__init__.py": "159953f2e5458c226c446bfd4f945b497313513a92254058e2a4c0c75dec6451",
+        "localization/data.py": "5dca03f9623bd072f1e2618fec866e821ecdc3207c366321134ae59c3487095d",
+        "localization/legacy_model.py": "35e03f1ee39b28bef560694e15e97b9daa208dbf699f7b8fac31be6aad6fe50e",
+        "localization/model.py": "32fd6aa8c9a358069a00b3455cc5ea2b60bc37f0a4006c4ffb630690b051a419",
+        "research/revision_plan.json": "da76f76e9a4d3c6e2259039db548f29b0185cd7f810dc998411d3cf04250ec6a",
+        "revision/__init__.py": "293416f98ffcca3e2121e27da43c5357f7441c554cc511e84c2dd810569db532",
+        "revision/agent.py": "7058be24e0068681a18e803813f3fe13f3303da46a3be4d0cad8461a2b0e70da",
+        "revision/evaluation.py": "faaeb1318a415cd89efdc5e38d107b9aaf941b318233b1522dc5517703c678f9",
+        "revision/report.py": "13fbc6a90e77c85be9f7e4113e7f3fa59eef03b4b9038e2fdb89d948d5be7563",
+        "run_agent.py": "a37c3569aa944926382409e745b75d905ee501fcd5f617451beb0324327e1335",
+        "run_revision.py": "ec84f9def2f76c4c68245b6a8bf4b271b628eb7a0cf7f6f173c0b4de9823eb78",
+        "tools/__init__.py": "d33d26402d553411def3f1f19f0df75e36153acc70294f9c18c90fb5e5df791b",
+        "tools/common.py": "20472981ea6baad6023811c049aedad2659214873f5f148a61d2a98a2d909116",
+        "tools/mathematics.py": "fca35bdc52f094acf76752f240f3fad67b2dbb4c64a1dd7d3f3b714873bf70fe",
+        "tools/toolkit.py": "c4795be3ab0a860b54557e356fb12cc608d6329c8351ba196fb0fddb20defd18"
+      }
+    },
+    "event_count": 65,
+    "event_tail_sha256": "6a93b4b0e1f2bcd1891ca2710e2ba15698f2c138096f9ff323b66261648510d6"
+  },
+  "card_counts": {
+    "critique": 1,
+    "diagnosis": 1,
+    "freeze_decision": 1,
+    "mathematical_witness": 1,
+    "numerical_observation": 6,
+    "registered_method": 2,
+    "source_review": 1
+  },
+  "cards": [
+    {
+      "id": "step-1",
+      "kind": "source_review",
+      "step": 1,
+      "action": "read_sources",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 4,
+        "event_sha256": "4e5d7295fc034f4adcb53a44a5a3f3c5454c48711190ffee8ae70b3b776e980b",
+        "file": "events.jsonl",
+        "line": 4
+      },
+      "observation_ref": {
+        "sequence": 6,
+        "event_sha256": "39bde49bbd3c65ddf132c2d4815405b980255dfb64854b800cf4a5b7f1d54591",
+        "file": "events.jsonl",
+        "line": 6
+      },
+      "hypothesis": {
+        "text": "来源材料将支持核查：v2三折恒速交叉验证在n=8时至少一折训练观测不足6个；该计数限制可能解释稀疏场景的运动模型排除，但不能单独解释定位误差。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得实现、预登记方案和已暴露结果，核实稀疏样本的模型可用性规则，并确定静态正常、运动异常及计算成本的已有证据与待检验问题。",
+      "decision_summary": "尚无来源观察；先读取数学实现、第二轮预登记计划及已公开的v2结果，明确后续候选设计与验证约束。",
+      "arguments": {},
+      "observation": {
+        "source_names": [
+          "docs/research_context.md",
+          "localization/method_math.md"
+        ],
+        "scope": "Original source HarmonyOS problem 1, local reference context. Synthetic observations only. No claim of industrial acceptance.",
+        "note": "Source texts and model prompts are omitted; inspect the referenced original event."
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-2",
+      "kind": "registered_method",
+      "step": 2,
+      "action": "register_method",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 9,
+        "event_sha256": "80a1be1eb4f996ce023bdc271dc8d635821c8a7c48840c1f66e68e9a57b057a6",
+        "file": "events.jsonl",
+        "line": 9
+      },
+      "observation_ref": {
+        "sequence": 11,
+        "event_sha256": "2c7794c1da2d9da1d70dbc43e03bb1b03c50147fc5ed83530fd5f4966ee6cac3",
+        "file": "events.jsonl",
+        "line": 11
+      },
+      "hypothesis": {
+        "text": "相对v2_frozen，四折候选将在discovery的sparse场景提高恒速选择率并降低平均定位误差；static_clean平均误差增幅不超过10%，moving_outliers平均误差不增加。四折增加内层拟合，预计平均耗时上升，而非加速。任一指标不满足即否定相应预期。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "工具成功登记一个区别于五个参考方法的新组合；本次不会产生误差或耗时证据。后续配对discovery实验可检验四折是否实际解除恒速排除，以及误差与耗时的变化。",
+      "decision_summary": "已读来源表明，三折在n=8时存在仅5个训练观测的折。先登记仅将v2折数改为4的候选，检验解除计数限制后的收益与代价；准确性改善尚无本轮证据。",
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "hypothesis": "仅将v2的交错观测验证从三折改为四折：预计sparse恒速选择率提高且平均定位误差降低，static_clean相对v2平均误差增幅不超过10%，moving_outliers平均误差不增加；预计平均耗时上升。四折只解除n=8的训练数量障碍，不保证几何可用性或定位改善。",
+        "mathematical_definition": "静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        }
+      },
+      "observation": {
+        "probe": "API validation only; not included in research metrics",
+        "registered": "range_cv4_reported",
+        "registered_after_diagnosis_count": 0,
+        "registration_kind": "new_composition",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        }
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-3",
+      "kind": "numerical_observation",
+      "step": 3,
+      "action": "run_experiment",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 14,
+        "event_sha256": "4387748ffe9f44f67e4904f896e25e2fa7255d26d659a099983d3c6529678fc7",
+        "file": "events.jsonl",
+        "line": 14
+      },
+      "observation_ref": {
+        "sequence": 16,
+        "event_sha256": "ca2de2708fa16a80f8d1d013ef0c5d82f9592ea862ee6e3ee67a03cb693c3819",
+        "file": "events.jsonl",
+        "line": 16
+      },
+      "hypothesis": {
+        "text": "相对v2_frozen，range_cv4_reported在discovery的sparse场景恒速选择率提高且平均定位误差降低，static_clean平均误差增幅不超过10%，moving_outliers平均误差不增加；平均耗时预计上升。这些预期分别检验，计数可用性不代表定位改善。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得四方法在相同100个发现案例上的分场景误差、尾部、耗时和工作量证据。预计四折解除部分稀疏案例的计数排除，但准确率和其他可用性条件仍可能否定预期；随后用diagnose检查选择频率和失败案例。",
+      "decision_summary": "已读取来源并登记四折候选，但尚无本轮实验结果。先做配对发现集实验，以检验折数变化及静态、运动和成本取舍，并为后续诊断修订提供依据。",
+      "arguments": {
+        "method_ids": [
+          "range_cv4_reported",
+          "v2_frozen",
+          "static_wls",
+          "dynamic_robust"
+        ],
+        "split": "discovery"
+      },
+      "observation": {
+        "metrics": {
+          "dynamic_robust": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 2.881466742668233,
+                "mean_seconds": 0.0051553999998759535,
+                "mean_work_units": 29.45,
+                "median_m": 2.4263690304560086,
+                "n": 20,
+                "p90_m": 4.343061784531167,
+                "p95_m": 6.00793796224949,
+                "rmse_m": 3.3758575915455524,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "moving_outliers": {
+                "max_m": 10.495514940159772,
+                "mean_m": 5.470499504749875,
+                "mean_seconds": 0.005719789999875502,
+                "mean_work_units": 34.2,
+                "median_m": 5.871998275359022,
+                "n": 20,
+                "p90_m": 8.772413903001226,
+                "p95_m": 9.296163996492112,
+                "rmse_m": 6.063499896428518,
+                "within_30m": 1.0,
+                "within_5m": 0.45
+              },
+              "sparse": {
+                "max_m": 18.426751972865453,
+                "mean_m": 5.209821557395212,
+                "mean_seconds": 0.005579175000093528,
+                "mean_work_units": 33.1,
+                "median_m": 4.290572806560258,
+                "n": 20,
+                "p90_m": 8.635293725126456,
+                "p95_m": 12.919803609238198,
+                "rmse_m": 6.598891045982968,
+                "within_30m": 1.0,
+                "within_5m": 0.6
+              },
+              "static_clean": {
+                "max_m": 5.343492135676003,
+                "mean_m": 3.032154448260525,
+                "mean_seconds": 0.0037265399998432256,
+                "mean_work_units": 20.65,
+                "median_m": 2.63978193167598,
+                "n": 20,
+                "p90_m": 4.979739633426124,
+                "p95_m": 5.030799441729382,
+                "rmse_m": 3.3110413369971448,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "static_outliers": {
+                "max_m": 29.79341404670698,
+                "mean_m": 6.626921956881526,
+                "mean_seconds": 0.00447398999986035,
+                "mean_work_units": 25.85,
+                "median_m": 5.602196098116471,
+                "n": 20,
+                "p90_m": 10.890690292126312,
+                "p95_m": 12.531430863989689,
+                "rmse_m": 9.027545833963687,
+                "within_30m": 1.0,
+                "within_5m": 0.45
+              }
+            },
+            "evidence_path": "tools/experiments/call_001_discovery_dynamic_robust.json",
+            "evidence_sha256": "4a86cf4a37138eaa2772b66d3abe0c8a1940788c82cfe598d7a7efc7c5a64e32",
+            "macro_mean_m": 4.644172841991074,
+            "overall": {
+              "max_m": 29.79341404670698,
+              "mean_m": 4.644172841991074,
+              "mean_seconds": 0.004930978999909712,
+              "mean_work_units": 28.65,
+              "median_m": 3.5158415611453986,
+              "n": 100,
+              "p90_m": 8.32870713260177,
+              "p95_m": 10.511205845862575,
+              "rmse_m": 6.069059021442411,
+              "within_30m": 1.0,
+              "within_5m": 0.66
+            }
+          },
+          "range_cv4_reported": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 3.2007913139883613,
+                "mean_seconds": 0.019225474999984726,
+                "mean_work_units": 90.1,
+                "median_m": 3.13181393653164,
+                "n": 20,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "rmse_m": 3.660230058231244,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              },
+              "moving_outliers": {
+                "max_m": 16.08445964242549,
+                "mean_m": 7.119805192143181,
+                "mean_seconds": 0.022564774999773364,
+                "mean_work_units": 114.35,
+                "median_m": 6.35513030756605,
+                "n": 20,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "rmse_m": 8.24167429120703,
+                "within_30m": 1.0,
+                "within_5m": 0.35
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 7.231568476274518,
+                "mean_seconds": 0.020636039999772038,
+                "mean_work_units": 102.35,
+                "median_m": 4.958049200765737,
+                "n": 20,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 9.617999228125726,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.343622745575744,
+                "mean_m": 1.651597214986466,
+                "mean_seconds": 0.013697374999992462,
+                "mean_work_units": 58.5,
+                "median_m": 1.0999039374267612,
+                "n": 20,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "rmse_m": 2.1279879682807694,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "static_outliers": {
+                "max_m": 3.7852990912639277,
+                "mean_m": 1.9077692486135285,
+                "mean_seconds": 0.0161267599999519,
+                "mean_work_units": 76.4,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "rmse_m": 2.1180304215260812,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              }
+            },
+            "evidence_path": "tools/experiments/call_001_discovery_range_cv4_reported.json",
+            "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c",
+            "macro_mean_m": 4.222306289201212,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 4.222306289201211,
+              "mean_seconds": 0.018450084999894898,
+              "mean_work_units": 88.34,
+              "median_m": 2.6278691988112732,
+              "n": 100,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "rmse_m": 6.047193961060073,
+              "within_30m": 1.0,
+              "within_5m": 0.72
+            }
+          },
+          "static_wls": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 21.94814798874674,
+                "mean_m": 9.707700484265253,
+                "mean_seconds": 0.002784615000109625,
+                "mean_work_units": 20.7,
+                "median_m": 8.68500949782102,
+                "n": 20,
+                "p90_m": 16.984080657006263,
+                "p95_m": 17.67696198835362,
+                "rmse_m": 10.769441500277106,
+                "within_30m": 1.0,
+                "within_5m": 0.1
+              },
+              "moving_outliers": {
+                "max_m": 20.19245954986918,
+                "mean_m": 11.269208420147127,
+                "mean_seconds": 0.0029648300001099415,
+                "mean_work_units": 24.0,
+                "median_m": 11.491447299858642,
+                "n": 20,
+                "p90_m": 17.323432010065375,
+                "p95_m": 17.529419760171912,
+                "rmse_m": 12.207829349768959,
+                "within_30m": 1.0,
+                "within_5m": 0.15
+              },
+              "sparse": {
+                "max_m": 24.01511584758825,
+                "mean_m": 11.074790946120707,
+                "mean_seconds": 0.003070560000196565,
+                "mean_work_units": 24.4,
+                "median_m": 9.729130232486138,
+                "n": 20,
+                "p90_m": 17.90501611941211,
+                "p95_m": 21.263566024441864,
+                "rmse_m": 12.244686037073626,
+                "within_30m": 1.0,
+                "within_5m": 0.15
+              },
+              "static_clean": {
+                "max_m": 2.3791128009777243,
+                "mean_m": 1.0716799731469464,
+                "mean_seconds": 0.0020863750000899017,
+                "mean_work_units": 14.0,
+                "median_m": 1.0090668688092639,
+                "n": 20,
+                "p90_m": 1.6425276943376708,
+                "p95_m": 1.8504481298670818,
+                "rmse_m": 1.1775463637034693,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 7.809723207600766,
+                "mean_m": 3.240060774615278,
+                "mean_seconds": 0.002609640000082436,
+                "mean_work_units": 19.65,
+                "median_m": 2.7242113397703775,
+                "n": 20,
+                "p90_m": 5.423892291907658,
+                "p95_m": 6.005990568002533,
+                "rmse_m": 3.698043960115403,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              }
+            },
+            "evidence_path": "tools/experiments/call_001_discovery_static_wls.json",
+            "evidence_sha256": "b930c885a15c33d9f927beb7fe55dd9f5ae532ab59d6b13ca4091e00f98de253",
+            "macro_mean_m": 7.272688119659063,
+            "overall": {
+              "max_m": 24.01511584758825,
+              "mean_m": 7.272688119659063,
+              "mean_seconds": 0.002703204000117694,
+              "mean_work_units": 20.55,
+              "median_m": 6.083576940580119,
+              "n": 100,
+              "p90_m": 15.985280698511506,
+              "p95_m": 17.456951331035302,
+              "rmse_m": 9.273688029873492,
+              "within_30m": 1.0,
+              "within_5m": 0.45
+            }
+          },
+          "v2_frozen": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 3.2713379810332546,
+                "mean_seconds": 0.016691644999809796,
+                "mean_work_units": 78.75,
+                "median_m": 2.8252250371507386,
+                "n": 20,
+                "p90_m": 5.924623163621435,
+                "p95_m": 7.6372531728533595,
+                "rmse_m": 3.870274125634198,
+                "within_30m": 1.0,
+                "within_5m": 0.8
+              },
+              "moving_outliers": {
+                "max_m": 17.494042705250546,
+                "mean_m": 7.684595393420635,
+                "mean_seconds": 0.017439139999805776,
+                "mean_work_units": 90.05,
+                "median_m": 7.123734721654495,
+                "n": 20,
+                "p90_m": 14.988864872298404,
+                "p95_m": 16.154938795566743,
+                "rmse_m": 8.848876861329519,
+                "within_30m": 1.0,
+                "within_5m": 0.3
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 11.044812073504534,
+                "mean_seconds": 0.003954154999792081,
+                "mean_work_units": 24.8,
+                "median_m": 9.942320514133518,
+                "n": 20,
+                "p90_m": 17.77032788028251,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 12.2874862734418,
+                "within_30m": 1.0,
+                "within_5m": 0.15
+              },
+              "static_clean": {
+                "max_m": 5.014346210194073,
+                "mean_m": 1.7600504942275257,
+                "mean_seconds": 0.011668929999905231,
+                "mean_work_units": 50.25,
+                "median_m": 1.2335847544012624,
+                "n": 20,
+                "p90_m": 3.6854290548236057,
+                "p95_m": 4.713884909984129,
+                "rmse_m": 2.1947854655682937,
+                "within_30m": 1.0,
+                "within_5m": 0.95
+              },
+              "static_outliers": {
+                "max_m": 6.76004964930456,
+                "mean_m": 2.1425821588093203,
+                "mean_seconds": 0.013542595000126311,
+                "mean_work_units": 65.9,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.6481944856969744,
+                "p95_m": 3.9340366191659615,
+                "rmse_m": 2.560860143205814,
+                "within_30m": 1.0,
+                "within_5m": 0.95
+              }
+            },
+            "evidence_path": "tools/experiments/call_001_discovery_v2_frozen.json",
+            "evidence_sha256": "e126742a4d3648a9d7094651abf8aaac75535f0282f4916a3e88f5c99f5201d8",
+            "macro_mean_m": 5.180675620199054,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 5.180675620199055,
+              "mean_seconds": 0.012659292999887838,
+              "mean_work_units": 61.95,
+              "median_m": 3.3747569036611944,
+              "n": 100,
+              "p90_m": 11.500208950346394,
+              "p95_m": 16.110886451823408,
+              "rmse_m": 7.15037132388909,
+              "within_30m": 1.0,
+              "within_5m": 0.63
+            }
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "split": "discovery"
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-4",
+      "kind": "diagnosis",
+      "step": 4,
+      "action": "diagnose",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 19,
+        "event_sha256": "fbd099f099ef777deea16e60af7fb055a978db3a48ba4d06152ff32c800b7488",
+        "file": "events.jsonl",
+        "line": 19
+      },
+      "observation_ref": {
+        "sequence": 21,
+        "event_sha256": "1800c62746f416243793d6ce6f5710d829338e5950fe1352c97725b29670830b",
+        "file": "events.jsonl",
+        "line": 21
+      },
+      "hypothesis": {
+        "text": "四折候选在sparse中选择恒速的比例高于v2的零选择率；static_clean误差最大的四例中至少两例选择了恒速。若诊断不符合这些预测，则否定相应机制解释；即使符合，也不能单凭关联证明因果。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得分场景选择频率、失败案例及残差和几何诊断，检验稀疏计数障碍解除后的实际选择情况，并判断静态尾部是否集中于恒速选择，为下一项单字段修订提供依据。",
+      "decision_summary": "发现集上四折相对v2降低了稀疏和运动异常平均误差，但静态正常误差仍约为WLS的1.54倍，总体耗时增加约46%。先诊断模型选择与失败案例，再据此修订；现有汇总尚不能确定退化机制。",
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "split": "discovery",
+        "top_k": 4
+      },
+      "observation": {
+        "revision_diagnosis": {
+          "diagnosis_number": 1,
+          "evidence_path": "tools/experiments/call_001_discovery_range_cv4_reported.json",
+          "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c",
+          "method_id": "range_cv4_reported",
+          "split": "discovery"
+        },
+        "selection_frequencies": {
+          "moving_clean": {
+            "static": 2,
+            "velocity": 18
+          },
+          "moving_outliers": {
+            "static": 10,
+            "velocity": 10
+          },
+          "sparse": {
+            "static": 6,
+            "velocity": 14
+          },
+          "static_clean": {
+            "static": 16,
+            "velocity": 4
+          },
+          "static_outliers": {
+            "static": 20
+          }
+        },
+        "warning": "Worst-case examples are diagnostic evidence, not theorems or guarantees about other cases.",
+        "worst_cases": [
+          {
+            "case_id": "sparse-2525231735",
+            "diagnostics": {
+              "all_observation_robust_cost": 4.838353180112463,
+              "at_numerical_bound": false,
+              "computation": {
+                "nfev": 101,
+                "njev": 90,
+                "solves": 11
+              },
+              "consensus_trials": 0,
+              "constant_scale": null,
+              "cv": {
+                "dynamic_admissible": true,
+                "fold_assignment": "time-sorted interleaving; every observation held out once",
+                "folds": [
+                  {
+                    "static": 0.4415368746177064,
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      0,
+                      4
+                    ],
+                    "velocity": 2.1195813277151574
+                  },
+                  {
+                    "static": 0.6105660584201316,
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      1,
+                      5
+                    ],
+                    "velocity": 3.4234591988967873
+                  },
+                  {
+                    "static": 1.4745403921095686,
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7
+                    ],
+                    "validation_indices": [
+                      2,
+                      6
+                    ],
+                    "velocity": 1.5434128852245916
+                  },
+                  {
+                    "static": 0.6297532643320287,
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6
+                    ],
+                    "validation_indices": [
+                      3,
+                      7
+                    ],
+                    "velocity": 2.7846439732769435
+                  }
+                ],
+                "gate_margin": 0.05,
+                "inner_consensus_trials": 0,
+                "inner_starts": 1,
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "scores": {
+                  "static": 0.7890991473698588,
+                  "velocity": 2.46777434627837
+                },
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score"
+              },
+              "fallback_reason": null,
+              "fit_cost": 4.838353180112463,
+              "geometry_scale_m": 1.9384476713973502,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "ill_conditioned": false,
+              "jacobian_condition": 1.7513737729380763,
+              "jacobian_rank": 2,
+              "jacobian_singular_values": [
+                1.0403981241994276,
+                0.5940468792415867
+              ],
+              "regularized_objective": 4.838353180112463,
+              "retained_count": 8,
+              "retained_indices": [
+                2,
+                1,
+                0,
+                4,
+                7,
+                3,
+                5,
+                6
+              ],
+              "selected_model": "static",
+              "solver_status": 2,
+              "solver_success": true,
+              "spec": {
+                "consensus_trials": 0,
+                "cv_folds": 4,
+                "f_scale": 1.5,
+                "gate_margin": 0.05,
+                "log_bias_correction": true,
+                "log_sd": 0.1,
+                "loss": "soft_l1",
+                "model": "cv_select",
+                "residual": "range",
+                "ridge": 0.05,
+                "scale": "reported",
+                "seed": 0,
+                "starts": 3,
+                "trim_fraction": 0.0
+              },
+              "standardized_residuals": [
+                -0.23144840009134982,
+                0.06779348426860164,
+                0.039216990234024494,
+                -0.5574041734992139,
+                -0.2725539100668745,
+                -1.009265260840987,
+                2.1556798377287585,
+                -0.3215281287939462
+              ],
+              "starts_attempted": 3,
+              "trim_rounds": 1
+            },
+            "elapsed_seconds": 0.019702999999935855,
+            "error_m": 24.221066157440106,
+            "position": [
+              42.82067534710085,
+              -3.8810629739706837
+            ],
+            "scenario": "sparse",
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "work_units": 101
+          },
+          {
+            "case_id": "sparse-3674770531",
+            "diagnostics": {
+              "all_observation_robust_cost": 14.144724935762955,
+              "at_numerical_bound": false,
+              "computation": {
+                "nfev": 168,
+                "njev": 116,
+                "solves": 11
+              },
+              "consensus_trials": 0,
+              "constant_scale": null,
+              "cv": {
+                "dynamic_admissible": true,
+                "fold_assignment": "time-sorted interleaving; every observation held out once",
+                "folds": [
+                  {
+                    "static": 8.233443823697014,
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      0,
+                      4
+                    ],
+                    "velocity": 17.74456166414359
+                  },
+                  {
+                    "static": 0.4136669929466179,
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      1,
+                      5
+                    ],
+                    "velocity": 0.7214573510929703
+                  },
+                  {
+                    "static": 1.9073219961762213,
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7
+                    ],
+                    "validation_indices": [
+                      2,
+                      6
+                    ],
+                    "velocity": 1.0078445302767018
+                  },
+                  {
+                    "static": 3.4473411360940753,
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6
+                    ],
+                    "validation_indices": [
+                      3,
+                      7
+                    ],
+                    "velocity": 3.9300973660392673
+                  }
+                ],
+                "gate_margin": 0.05,
+                "inner_consensus_trials": 0,
+                "inner_starts": 1,
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "scores": {
+                  "static": 3.500443487228482,
+                  "velocity": 5.850990227888132
+                },
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score"
+              },
+              "fallback_reason": null,
+              "fit_cost": 14.144724935762955,
+              "geometry_scale_m": 3.0023763491351034,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "ill_conditioned": false,
+              "jacobian_condition": 2.255431265328389,
+              "jacobian_rank": 2,
+              "jacobian_singular_values": [
+                1.6579326541175186,
+                0.7350845399742763
+              ],
+              "regularized_objective": 14.144724935762955,
+              "retained_count": 8,
+              "retained_indices": [
+                5,
+                1,
+                3,
+                2,
+                7,
+                4,
+                6,
+                0
+              ],
+              "selected_model": "static",
+              "solver_status": 2,
+              "solver_success": true,
+              "spec": {
+                "consensus_trials": 0,
+                "cv_folds": 4,
+                "f_scale": 1.5,
+                "gate_margin": 0.05,
+                "log_bias_correction": true,
+                "log_sd": 0.1,
+                "loss": "soft_l1",
+                "model": "cv_select",
+                "residual": "range",
+                "ridge": 0.05,
+                "scale": "reported",
+                "seed": 0,
+                "starts": 3,
+                "trim_fraction": 0.0
+              },
+              "standardized_residuals": [
+                3.089758713045375,
+                -0.6298239900815368,
+                1.3424721083679345,
+                1.0473036195008658,
+                1.4098843502951226,
+                0.5879850252704926,
+                1.474743965800619,
+                -1.3792474729018749
+              ],
+              "starts_attempted": 3,
+              "trim_rounds": 1
+            },
+            "elapsed_seconds": 0.027092300000731484,
+            "error_m": 20.740093669257867,
+            "position": [
+              11.778188011379838,
+              -32.56408183369831
+            ],
+            "scenario": "sparse",
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "work_units": 168
+          },
+          {
+            "case_id": "moving_outliers-2735524135",
+            "diagnostics": {
+              "all_observation_robust_cost": 111.05462272530069,
+              "at_numerical_bound": false,
+              "computation": {
+                "nfev": 104,
+                "njev": 89,
+                "solves": 11
+              },
+              "consensus_trials": 0,
+              "constant_scale": null,
+              "cv": {
+                "dynamic_admissible": true,
+                "fold_assignment": "time-sorted interleaving; every observation held out once",
+                "folds": [
+                  {
+                    "static": 1.9480380843723568,
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7,
+                      9,
+                      10,
+                      11,
+                      13,
+                      14,
+                      15
+                    ],
+                    "validation_indices": [
+                      0,
+                      4,
+                      8,
+                      12
+                    ],
+                    "velocity": 0.5582170455157254
+                  },
+                  {
+                    "static": 13.26783447437101,
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7,
+                      8,
+                      10,
+                      11,
+                      12,
+                      14,
+                      15
+                    ],
+                    "validation_indices": [
+                      1,
+                      5,
+                      9,
+                      13
+                    ],
+                    "velocity": 13.852741016810391
+                  },
+                  {
+                    "static": 33.26854467069377,
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7,
+                      8,
+                      9,
+                      11,
+                      12,
+                      13,
+                      15
+                    ],
+                    "validation_indices": [
+                      2,
+                      6,
+                      10,
+                      14
+                    ],
+                    "velocity": 38.66434221483027
+                  },
+                  {
+                    "static": 2.999368535246179,
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6,
+                      8,
+                      9,
+                      10,
+                      12,
+                      13,
+                      14
+                    ],
+                    "validation_indices": [
+                      3,
+                      7,
+                      11,
+                      15
+                    ],
+                    "velocity": 1.0705870911474296
+                  }
+                ],
+                "gate_margin": 0.05,
+                "inner_consensus_trials": 0,
+                "inner_starts": 1,
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "scores": {
+                  "static": 12.87094644117083,
+                  "velocity": 13.536471842075953
+                },
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score"
+              },
+              "fallback_reason": null,
+              "fit_cost": 111.05462272530069,
+              "geometry_scale_m": 2.771849375280231,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "ill_conditioned": false,
+              "jacobian_condition": 1.5988017393210037,
+              "jacobian_rank": 2,
+              "jacobian_singular_values": [
+                1.311924178004972,
+                0.8205671445930088
+              ],
+              "regularized_objective": 111.05462272530069,
+              "retained_count": 16,
+              "retained_indices": [
+                9,
+                2,
+                8,
+                10,
+                1,
+                6,
+                12,
+                4,
+                11,
+                7,
+                15,
+                3,
+                0,
+                5,
+                14,
+                13
+              ],
+              "selected_model": "static",
+              "solver_status": 2,
+              "solver_success": true,
+              "spec": {
+                "consensus_trials": 0,
+                "cv_folds": 4,
+                "f_scale": 1.5,
+                "gate_margin": 0.05,
+                "log_bias_correction": true,
+                "log_sd": 0.1,
+                "loss": "soft_l1",
+                "model": "cv_select",
+                "residual": "range",
+                "ridge": 0.05,
+                "scale": "reported",
+                "seed": 0,
+                "starts": 3,
+                "trim_fraction": 0.0
+              },
+              "standardized_residuals": [
+                -3.240945068574635,
+                -0.49340881870264164,
+                0.2682143769811356,
+                -2.8084132175599232,
+                -0.8990527491029494,
+                -6.822053026167959,
+                -0.5020709133422495,
+                -1.7179434526982504,
+                -0.3441958274851018,
+                -0.22564201671862413,
+                -0.3673823165669913,
+                1.702299945538009,
+                -0.6371557448625278,
+                20.032619712087236,
+                6.841187458237872,
+                2.5665947113092376
+              ],
+              "starts_attempted": 3,
+              "trim_rounds": 1
+            },
+            "elapsed_seconds": 0.02012049999939336,
+            "error_m": 16.08445964242549,
+            "position": [
+              11.040840885613683,
+              -29.18934584140519
+            ],
+            "scenario": "moving_outliers",
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "work_units": 104
+          },
+          {
+            "case_id": "sparse-1334051403",
+            "diagnostics": {
+              "all_observation_robust_cost": 15.876603063607103,
+              "at_numerical_bound": false,
+              "computation": {
+                "nfev": 129,
+                "njev": 115,
+                "solves": 11
+              },
+              "consensus_trials": 0,
+              "constant_scale": null,
+              "cv": {
+                "dynamic_admissible": true,
+                "fold_assignment": "time-sorted interleaving; every observation held out once",
+                "folds": [
+                  {
+                    "static": 1.4462060692929257,
+                    "train_indices": [
+                      1,
+                      2,
+                      3,
+                      5,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      0,
+                      4
+                    ],
+                    "velocity": 1.0612800352058862
+                  },
+                  {
+                    "static": 0.5243364675898774,
+                    "train_indices": [
+                      0,
+                      2,
+                      3,
+                      4,
+                      6,
+                      7
+                    ],
+                    "validation_indices": [
+                      1,
+                      5
+                    ],
+                    "velocity": 3.279066550972882
+                  },
+                  {
+                    "static": 1.7057225701646301,
+                    "train_indices": [
+                      0,
+                      1,
+                      3,
+                      4,
+                      5,
+                      7
+                    ],
+                    "validation_indices": [
+                      2,
+                      6
+                    ],
+                    "velocity": 4.187642923938673
+                  },
+                  {
+                    "static": 3.8435486028923562,
+                    "train_indices": [
+                      0,
+                      1,
+                      2,
+                      4,
+                      5,
+                      6
+                    ],
+                    "validation_indices": [
+                      3,
+                      7
+                    ],
+                    "velocity": 3.8056483711899647
+                  }
+                ],
+                "gate_margin": 0.05,
+                "inner_consensus_trials": 0,
+                "inner_starts": 1,
+                "score": "Mean held-out soft-L1 of standardized residuals; scale=1; no trimming",
+                "scores": {
+                  "static": 1.8799534274849474,
+                  "velocity": 3.0834094703268518
+                },
+                "selection_rule": "velocity_score < (1-gate_margin)*static_score"
+              },
+              "fallback_reason": null,
+              "fit_cost": 15.876603063607103,
+              "geometry_scale_m": 3.2568470530642117,
+              "geometry_scale_note": "data-Jacobian pseudoinverse and absolute residual proxy; uncalibrated",
+              "ill_conditioned": false,
+              "jacobian_condition": 2.5999479754677255,
+              "jacobian_rank": 2,
+              "jacobian_singular_values": [
+                1.1352410084088826,
+                0.4366398939981309
+              ],
+              "regularized_objective": 15.876603063607103,
+              "retained_count": 8,
+              "retained_indices": [
+                3,
+                1,
+                0,
+                5,
+                6,
+                2,
+                4,
+                7
+              ],
+              "selected_model": "static",
+              "solver_status": 2,
+              "solver_success": true,
+              "spec": {
+                "consensus_trials": 0,
+                "cv_folds": 4,
+                "f_scale": 1.5,
+                "gate_margin": 0.05,
+                "log_bias_correction": true,
+                "log_sd": 0.1,
+                "loss": "soft_l1",
+                "model": "cv_select",
+                "residual": "range",
+                "ridge": 0.05,
+                "scale": "reported",
+                "seed": 0,
+                "starts": 3,
+                "trim_fraction": 0.0
+              },
+              "standardized_residuals": [
+                -0.47219768156192937,
+                0.44810364938713615,
+                -1.6159212405636938,
+                -0.41705186559707086,
+                -1.7890285573380837,
+                0.5078493553154367,
+                1.282649690425011,
+                4.243171099735013
+              ],
+              "starts_attempted": 3,
+              "trim_rounds": 1
+            },
+            "elapsed_seconds": 0.02337209999859624,
+            "error_m": 15.743644801007921,
+            "position": [
+              21.398171896814976,
+              -22.586023790184466
+            ],
+            "scenario": "sparse",
+            "velocity": [
+              0.0,
+              0.0
+            ],
+            "work_units": 129
+          }
+        ]
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-5",
+      "kind": "registered_method",
+      "step": 5,
+      "action": "register_method",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 24,
+        "event_sha256": "b87803a35c7a97fccc47175974c22dfac46faa497d1040888c7c958d9920cc39",
+        "file": "events.jsonl",
+        "line": 24
+      },
+      "observation_ref": {
+        "sequence": 26,
+        "event_sha256": "8aca2f5fc525534016a7ce6764d7328dbe00805b8f6fccb284c4d7fe0e2f3418",
+        "file": "events.jsonl",
+        "line": 26
+      },
+      "hypothesis": {
+        "text": "相对range_cv4_reported，仅改用log_range将降低discovery的moving_outliers与sparse平均误差，降低static_clean平均误差，并使总体平均耗时增幅不超过20%；四项分别检验，任一不满足即否定对应预期。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "工具登记诊断后的第二个有效新组合，不产生性能证据；随后配对发现实验可分别检验三个场景误差和耗时预期。",
+      "decision_summary": "诊断显示稀疏场景已选恒速14/20例，但最坏案例仍因验证得分选择静态；运动异常最坏例存在极大标准化残差。登记仅改变残差域的修订，检验污染评分与定位表现。静态最坏四例未返回，相关机制尚未确认。",
+      "arguments": {
+        "method_id": "log_cv4_reported",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "log_range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        },
+        "hypothesis": "诊断驱动修订：四折已使sparse恒速选择达到14/20，但返回的三个稀疏失败例与一个运动异常失败例均因预测评分选择静态；后者含约20的标准化残差。仅将range改为log_range，检验对数压缩与中心化是否改善评分及拟合。预测相对range_cv4_reported，discovery的static_clean、moving_outliers、sparse平均误差分别下降，总体平均耗时增幅不超过20%。这不是已确认的污染因果解释；静态最坏四例未被返回，不能断言其误差集中于恒速选择。",
+        "mathematical_definition": "静态d_i=||x-a_i||，恒速d_i=||x+t_i v-a_i||。令delta=0.1米，ell_i=sqrt(log(1+(sigma_i/max(y_i,delta))^2))，r_i=[log(max(d_i,delta))-log(max(y_i,delta))-0.1^2/2]/ell_i。各模型最小化sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，c=1.5、lambda=0.05，静态无速度罚项。按时间排序作四折交错验证，分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)，不截尾。仅全部恒速训练折满足至少6个观测、至少1秒跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折一个普通起点，最终三个起点全数据重拟合，无抽样初始化。与range_cv4_reported唯一有效字段差异为residual；log尺度与中心修正因此开始生效。该残差是含坐标及加性噪声时的工程近似，不是精确似然，也无无偏或全局最优保证。"
+      },
+      "observation": {
+        "probe": "API validation only; not included in research metrics",
+        "registered": "log_cv4_reported",
+        "registered_after_diagnosis_count": 1,
+        "registration_kind": "new_composition",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "log_range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 3,
+          "trim_fraction": 0.0
+        }
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-6",
+      "kind": "numerical_observation",
+      "step": 6,
+      "action": "run_experiment",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 29,
+        "event_sha256": "47cf5c30439c3625ee90cbe2e619b5c5a8be708b47b81e7600fccd6a8ff2bc6e",
+        "file": "events.jsonl",
+        "line": 29
+      },
+      "observation_ref": {
+        "sequence": 31,
+        "event_sha256": "0a29d96b432e8db338b05b4a20cb56349725419032bd41ec29a5907d0e849c62",
+        "file": "events.jsonl",
+        "line": 31
+      },
+      "hypothesis": {
+        "text": "相对range_cv4_reported，log_cv4_reported在discovery的static_clean、moving_outliers和sparse平均定位误差分别降低，总体平均耗时不超过前者的1.20倍；四项独立判定，任何一项不满足即否定对应预期。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得四方法在相同100个发现案例上的分场景误差、尾部和计算成本。预计对数修订改善三个目标场景，但是否达到static_clean相对WLS的1.10倍均值界限仍待观察；发现结果不构成泛化或非劣保证。",
+      "decision_summary": "对数四折修订已登记但尚无性能证据。下一步用相同发现案例与距离四折、v2及静态WLS配对比较，检验残差修改的效果及静态退化，保留充分预算完成消融、数学检查和验证。",
+      "arguments": {
+        "method_ids": [
+          "log_cv4_reported",
+          "range_cv4_reported",
+          "v2_frozen",
+          "static_wls"
+        ],
+        "split": "discovery"
+      },
+      "observation": {
+        "metrics": {
+          "log_cv4_reported": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 11.107386185321776,
+                "mean_m": 3.550456948725631,
+                "mean_seconds": 0.02850858000010703,
+                "mean_work_units": 98.6,
+                "median_m": 2.881114185519969,
+                "n": 20,
+                "p90_m": 6.270266040657391,
+                "p95_m": 7.853212745617181,
+                "rmse_m": 4.347720301926499,
+                "within_30m": 1.0,
+                "within_5m": 0.8
+              },
+              "moving_outliers": {
+                "max_m": 27.054748152110786,
+                "mean_m": 9.000215326007218,
+                "mean_seconds": 0.029993854999884207,
+                "mean_work_units": 132.4,
+                "median_m": 6.46548298536058,
+                "n": 20,
+                "p90_m": 18.70661839553824,
+                "p95_m": 20.30098152212291,
+                "rmse_m": 11.254202864308278,
+                "within_30m": 1.0,
+                "within_5m": 0.45
+              },
+              "sparse": {
+                "max_m": 24.382460476676137,
+                "mean_m": 7.593116057026892,
+                "mean_seconds": 0.02477270999979737,
+                "mean_work_units": 115.65,
+                "median_m": 5.581830055734242,
+                "n": 20,
+                "p90_m": 18.28066409852869,
+                "p95_m": 20.83180195815656,
+                "rmse_m": 9.821191042215467,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.166281156377228,
+                "mean_m": 1.4618159680535951,
+                "mean_seconds": 0.017984464999881312,
+                "mean_work_units": 64.6,
+                "median_m": 1.0361107608827695,
+                "n": 20,
+                "p90_m": 2.7414440232192403,
+                "p95_m": 5.000699020949285,
+                "rmse_m": 1.9529785903529013,
+                "within_30m": 1.0,
+                "within_5m": 0.95
+              },
+              "static_outliers": {
+                "max_m": 20.139207143142833,
+                "mean_m": 3.5735913341954957,
+                "mean_seconds": 0.026732300000185207,
+                "mean_work_units": 105.8,
+                "median_m": 2.0216285588597005,
+                "n": 20,
+                "p90_m": 5.416516493439652,
+                "p95_m": 13.957384353800666,
+                "rmse_m": 5.91261352901119,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              }
+            },
+            "evidence_path": "tools/experiments/call_002_discovery_log_cv4_reported.json",
+            "evidence_sha256": "9b2dd740e01727fbf5e58b73f6166dcb2bb519780285f554051d55cd73c16b81",
+            "macro_mean_m": 5.035839126801767,
+            "overall": {
+              "max_m": 27.054748152110786,
+              "mean_m": 5.0358391268017675,
+              "mean_seconds": 0.025598381999971026,
+              "mean_work_units": 103.41,
+              "median_m": 2.9394942148327443,
+              "n": 100,
+              "p90_m": 12.924990450675502,
+              "p95_m": 18.63779052192677,
+              "rmse_m": 7.493846429442024,
+              "within_30m": 1.0,
+              "within_5m": 0.72
+            }
+          },
+          "range_cv4_reported": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 3.2007913139883613,
+                "mean_seconds": 0.028133509999952365,
+                "mean_work_units": 90.1,
+                "median_m": 3.13181393653164,
+                "n": 20,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "rmse_m": 3.660230058231244,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              },
+              "moving_outliers": {
+                "max_m": 16.08445964242549,
+                "mean_m": 7.119805192143181,
+                "mean_seconds": 0.03199597000002541,
+                "mean_work_units": 114.35,
+                "median_m": 6.35513030756605,
+                "n": 20,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "rmse_m": 8.24167429120703,
+                "within_30m": 1.0,
+                "within_5m": 0.35
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 7.231568476274518,
+                "mean_seconds": 0.02739850000025399,
+                "mean_work_units": 102.35,
+                "median_m": 4.958049200765737,
+                "n": 20,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 9.617999228125726,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.343622745575744,
+                "mean_m": 1.651597214986466,
+                "mean_seconds": 0.013950874999954977,
+                "mean_work_units": 58.5,
+                "median_m": 1.0999039374267612,
+                "n": 20,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "rmse_m": 2.1279879682807694,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "static_outliers": {
+                "max_m": 3.7852990912639277,
+                "mean_m": 1.9077692486135285,
+                "mean_seconds": 0.021320990000003804,
+                "mean_work_units": 76.4,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "rmse_m": 2.1180304215260812,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              }
+            },
+            "evidence_path": "tools/experiments/call_002_discovery_range_cv4_reported.json",
+            "evidence_sha256": "04371195a3de210562e353952e216af44729df2cfe6bf5230d11192ff5dc8afd",
+            "macro_mean_m": 4.222306289201212,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 4.222306289201211,
+              "mean_seconds": 0.02455996900003811,
+              "mean_work_units": 88.34,
+              "median_m": 2.6278691988112732,
+              "n": 100,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "rmse_m": 6.047193961060073,
+              "within_30m": 1.0,
+              "within_5m": 0.72
+            }
+          },
+          "static_wls": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 21.94814798874674,
+                "mean_m": 9.707700484265253,
+                "mean_seconds": 0.003469150000000809,
+                "mean_work_units": 20.7,
+                "median_m": 8.68500949782102,
+                "n": 20,
+                "p90_m": 16.984080657006263,
+                "p95_m": 17.67696198835362,
+                "rmse_m": 10.769441500277106,
+                "within_30m": 1.0,
+                "within_5m": 0.1
+              },
+              "moving_outliers": {
+                "max_m": 20.19245954986918,
+                "mean_m": 11.269208420147127,
+                "mean_seconds": 0.003831399999853602,
+                "mean_work_units": 24.0,
+                "median_m": 11.491447299858642,
+                "n": 20,
+                "p90_m": 17.323432010065375,
+                "p95_m": 17.529419760171912,
+                "rmse_m": 12.207829349768959,
+                "within_30m": 1.0,
+                "within_5m": 0.15
+              },
+              "sparse": {
+                "max_m": 24.01511584758825,
+                "mean_m": 11.074790946120707,
+                "mean_seconds": 0.003577595000024303,
+                "mean_work_units": 24.4,
+                "median_m": 9.729130232486138,
+                "n": 20,
+                "p90_m": 17.90501611941211,
+                "p95_m": 21.263566024441864,
+                "rmse_m": 12.244686037073626,
+                "within_30m": 1.0,
+                "within_5m": 0.15
+              },
+              "static_clean": {
+                "max_m": 2.3791128009777243,
+                "mean_m": 1.0716799731469464,
+                "mean_seconds": 0.0032024950000959507,
+                "mean_work_units": 14.0,
+                "median_m": 1.0090668688092639,
+                "n": 20,
+                "p90_m": 1.6425276943376708,
+                "p95_m": 1.8504481298670818,
+                "rmse_m": 1.1775463637034693,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 7.809723207600766,
+                "mean_m": 3.240060774615278,
+                "mean_seconds": 0.003145665000010922,
+                "mean_work_units": 19.65,
+                "median_m": 2.7242113397703775,
+                "n": 20,
+                "p90_m": 5.423892291907658,
+                "p95_m": 6.005990568002533,
+                "rmse_m": 3.698043960115403,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              }
+            },
+            "evidence_path": "tools/experiments/call_002_discovery_static_wls.json",
+            "evidence_sha256": "3b981363b3138f50bc1c1586a766a81a0e47e0a4a8d5cdb4972ecbb33ff5be42",
+            "macro_mean_m": 7.272688119659063,
+            "overall": {
+              "max_m": 24.01511584758825,
+              "mean_m": 7.272688119659063,
+              "mean_seconds": 0.003445260999997117,
+              "mean_work_units": 20.55,
+              "median_m": 6.083576940580119,
+              "n": 100,
+              "p90_m": 15.985280698511506,
+              "p95_m": 17.456951331035302,
+              "rmse_m": 9.273688029873492,
+              "within_30m": 1.0,
+              "within_5m": 0.45
+            }
+          },
+          "v2_frozen": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 3.2713379810332546,
+                "mean_seconds": 0.018606430000090768,
+                "mean_work_units": 78.75,
+                "median_m": 2.8252250371507386,
+                "n": 20,
+                "p90_m": 5.924623163621435,
+                "p95_m": 7.6372531728533595,
+                "rmse_m": 3.870274125634198,
+                "within_30m": 1.0,
+                "within_5m": 0.8
+              },
+              "moving_outliers": {
+                "max_m": 17.494042705250546,
+                "mean_m": 7.684595393420635,
+                "mean_seconds": 0.018236720000277273,
+                "mean_work_units": 90.05,
+                "median_m": 7.123734721654495,
+                "n": 20,
+                "p90_m": 14.988864872298404,
+                "p95_m": 16.154938795566743,
+                "rmse_m": 8.848876861329519,
+                "within_30m": 1.0,
+                "within_5m": 0.3
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 11.044812073504534,
+                "mean_seconds": 0.0050362999999379095,
+                "mean_work_units": 24.8,
+                "median_m": 9.942320514133518,
+                "n": 20,
+                "p90_m": 17.77032788028251,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 12.2874862734418,
+                "within_30m": 1.0,
+                "within_5m": 0.15
+              },
+              "static_clean": {
+                "max_m": 5.014346210194073,
+                "mean_m": 1.7600504942275257,
+                "mean_seconds": 0.016792625000289264,
+                "mean_work_units": 50.25,
+                "median_m": 1.2335847544012624,
+                "n": 20,
+                "p90_m": 3.6854290548236057,
+                "p95_m": 4.713884909984129,
+                "rmse_m": 2.1947854655682937,
+                "within_30m": 1.0,
+                "within_5m": 0.95
+              },
+              "static_outliers": {
+                "max_m": 6.76004964930456,
+                "mean_m": 2.1425821588093203,
+                "mean_seconds": 0.01974379500006762,
+                "mean_work_units": 65.9,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.6481944856969744,
+                "p95_m": 3.9340366191659615,
+                "rmse_m": 2.560860143205814,
+                "within_30m": 1.0,
+                "within_5m": 0.95
+              }
+            },
+            "evidence_path": "tools/experiments/call_002_discovery_v2_frozen.json",
+            "evidence_sha256": "faadd244c8a01dc1e422df8eb8fba13e036c49755aaa2d9ea58c4328f66ca01f",
+            "macro_mean_m": 5.180675620199054,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 5.180675620199055,
+              "mean_seconds": 0.01568317400013257,
+              "mean_work_units": 61.95,
+              "median_m": 3.3747569036611944,
+              "n": 100,
+              "p90_m": 11.500208950346394,
+              "p95_m": 16.110886451823408,
+              "rmse_m": 7.15037132388909,
+              "within_30m": 1.0,
+              "within_5m": 0.63
+            }
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "split": "discovery"
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-7",
+      "kind": "numerical_observation",
+      "step": 7,
+      "action": "ablate",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 34,
+        "event_sha256": "d1cfd5f0dac52f936edb091edc1b54e6bc0f3352e9b07d3025960cc03c4935d0",
+        "file": "events.jsonl",
+        "line": 34
+      },
+      "observation_ref": {
+        "sequence": 36,
+        "event_sha256": "8a87f8add3b61d04a3a319bc00933a189c416c1d0565788512b76ee5b63ecdc9",
+        "file": "events.jsonl",
+        "line": 36
+      },
+      "hypothesis": {
+        "text": "仅将range_cv4_reported的gate_margin从0.05提高到0.20，预计discovery静态正常平均误差低于1.6516米，运动异常平均误差不超过父方法的1.10倍，稀疏平均误差仍低于v2的11.0448米，总体平均耗时不超过同次父方法的1.10倍。四项分别检验；更严格门槛可能误拒运动，这些预期不构成保证。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得仅改变运动门槛的配对发现证据及更新后的数学记录。预计静态误选减少，但运动异常和稀疏误差可能上升；逐场景误差、尾部和同次实测耗时将决定是否保留此修订。",
+      "decision_summary": "对数修订仅改善静态正常误差，运动异常和稀疏改善预期被否定；同次实验耗时增幅约4.2%，符合成本预期。以表现更好的距离四折为父方法，单独提高运动选择门槛，检验静态退化与运动收益的取舍，并完成必要消融。",
+      "arguments": {
+        "method_id": "range_cv4_reported",
+        "new_id": "range_cv4_margin20",
+        "changes": {
+          "gate_margin": 0.2
+        },
+        "split": "discovery"
+      },
+      "observation": {
+        "controlled_changes": {
+          "gate_margin": 0.2
+        },
+        "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: gate_margin: 0.05 -> 0.2.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.2, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 3, \"trim_fraction\": 0.0}",
+        "metrics": {
+          "range_cv4_margin20": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 10.735389197838309,
+                "mean_m": 4.212120178728333,
+                "mean_seconds": 0.018102969999836203,
+                "mean_work_units": 89.4,
+                "median_m": 3.3918980123263323,
+                "n": 20,
+                "p90_m": 8.348994611854526,
+                "p95_m": 9.014672049351729,
+                "rmse_m": 4.9658363957600935,
+                "within_30m": 1.0,
+                "within_5m": 0.7
+              },
+              "moving_outliers": {
+                "max_m": 23.40768232761698,
+                "mean_m": 8.339996889111301,
+                "mean_seconds": 0.02052349499990669,
+                "mean_work_units": 111.95,
+                "median_m": 6.706369925176242,
+                "n": 20,
+                "p90_m": 14.988864872298404,
+                "p95_m": 16.45062077668507,
+                "rmse_m": 10.002939751998005,
+                "within_30m": 1.0,
+                "within_5m": 0.35
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 7.231568476274518,
+                "mean_seconds": 0.018343610000010814,
+                "mean_work_units": 102.35,
+                "median_m": 4.958049200765737,
+                "n": 20,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 9.617999228125726,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.014346210194073,
+                "mean_m": 1.297320123922149,
+                "mean_seconds": 0.012719290000131878,
+                "mean_work_units": 58.2,
+                "median_m": 1.0575113270627938,
+                "n": 20,
+                "p90_m": 1.9528282757708104,
+                "p95_m": 2.4872561425401756,
+                "rmse_m": 1.6288300147776915,
+                "within_30m": 1.0,
+                "within_5m": 0.95
+              },
+              "static_outliers": {
+                "max_m": 3.7852990912639277,
+                "mean_m": 1.9077692486135285,
+                "mean_seconds": 0.01593835999992734,
+                "mean_work_units": 76.4,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "rmse_m": 2.1180304215260812,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              }
+            },
+            "evidence_path": "tools/experiments/call_003_discovery_range_cv4_margin20.json",
+            "evidence_sha256": "ed49505c5137d7b2747fb4be5a2a8a791028b77410806df2d9584b5f70fdc211",
+            "macro_mean_m": 4.597754983329966,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 4.597754983329966,
+              "mean_seconds": 0.017125544999962584,
+              "mean_work_units": 87.66,
+              "median_m": 2.7155176551545877,
+              "n": 100,
+              "p90_m": 10.746616699530893,
+              "p95_m": 14.91095775410935,
+              "rmse_m": 6.698707099542943,
+              "within_30m": 1.0,
+              "within_5m": 0.7
+            }
+          },
+          "range_cv4_reported": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 3.2007913139883613,
+                "mean_seconds": 0.020044729999881383,
+                "mean_work_units": 90.1,
+                "median_m": 3.13181393653164,
+                "n": 20,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "rmse_m": 3.660230058231244,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              },
+              "moving_outliers": {
+                "max_m": 16.08445964242549,
+                "mean_m": 7.119805192143181,
+                "mean_seconds": 0.021987985000214393,
+                "mean_work_units": 114.35,
+                "median_m": 6.35513030756605,
+                "n": 20,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "rmse_m": 8.24167429120703,
+                "within_30m": 1.0,
+                "within_5m": 0.35
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 7.231568476274518,
+                "mean_seconds": 0.01978264000008494,
+                "mean_work_units": 102.35,
+                "median_m": 4.958049200765737,
+                "n": 20,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 9.617999228125726,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.343622745575744,
+                "mean_m": 1.651597214986466,
+                "mean_seconds": 0.014522690000103467,
+                "mean_work_units": 58.5,
+                "median_m": 1.0999039374267612,
+                "n": 20,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "rmse_m": 2.1279879682807694,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "static_outliers": {
+                "max_m": 3.7852990912639277,
+                "mean_m": 1.9077692486135285,
+                "mean_seconds": 0.02222982499988575,
+                "mean_work_units": 76.4,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "rmse_m": 2.1180304215260812,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              }
+            },
+            "evidence_path": "tools/experiments/call_003_discovery_range_cv4_reported.json",
+            "evidence_sha256": "2e031eacccb4ac9f7072474a7f336d849024252f97d7e136657ebd0abbb89659",
+            "macro_mean_m": 4.222306289201212,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 4.222306289201211,
+              "mean_seconds": 0.019713574000033988,
+              "mean_work_units": 88.34,
+              "median_m": 2.6278691988112732,
+              "n": 100,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "rmse_m": 6.047193961060073,
+              "within_30m": 1.0,
+              "within_5m": 0.72
+            }
+          }
+        },
+        "new_method_id": "range_cv4_margin20",
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "parent_method_id": "range_cv4_reported",
+        "split": "discovery"
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-8",
+      "kind": "mathematical_witness",
+      "step": 8,
+      "action": "verify_math",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 39,
+        "event_sha256": "fc9ec3230e53c1d2939f6bd745ffdb887dd86223da4bad2f9582f062ecaa0efa",
+        "file": "events.jsonl",
+        "line": 39
+      },
+      "observation_ref": {
+        "sequence": 41,
+        "event_sha256": "37add927d133c35bf2fc4e419837490450f0dae8311264c4692b05e670a3fbb9",
+        "file": "events.jsonl",
+        "line": 41
+      },
+      "hypothesis": {
+        "text": "数学检查将提供反例，否定无附加假设下定位解必然唯一、观测相关权重必然无偏的普遍断言；若工具未提供相应有效见证，则这些预测未获支持。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得各命题的假设、独立见证及检查结果；区分数值反例、条件性数学结论和实验表现，不将检查通过解释为候选精度或覆盖率保证。",
+      "decision_summary": "门槛消融降低静态正常误差，但运动异常误差增加约17.1%，否定不超过10%的预期。先完成独立数学检查，明确可证明结论的条件，再继续开发与验证。",
+      "arguments": {
+        "proposition": "all"
+      },
+      "observation": {
+        "conformal": {
+          "assumptions": [
+            "estimator frozen before calibration",
+            "calibration and test cases exchangeable",
+            "true positions available for calibration only"
+          ],
+          "not_implied": [
+            "conditional coverage for each scenario",
+            "coverage after data-dependent rejection",
+            "coverage under distribution shift"
+          ],
+          "statement": "For m exchangeable calibration cases and one new case, frozen estimator and positive frozen scale g, use k=ceil((m+1)*(1-alpha)); q=S_(k), S=error/g, q=inf if k>m. Then marginal coverage is >=1-alpha.",
+          "status": "theorem conditions checked; empirical coverage requires frozen benchmark"
+        },
+        "mirror": {
+          "anchors": [
+            [
+              -7.0,
+              0.0
+            ],
+            [
+              -2.0,
+              0.0
+            ],
+            [
+              5.0,
+              0.0
+            ],
+            [
+              -5.0,
+              0.0
+            ],
+            [
+              7.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0
+            ]
+          ],
+          "jacobian_rank": 4,
+          "limitation": "A full-rank local Jacobian does not remove global reflection ambiguity.",
+          "max_distance_difference_m": 0.0,
+          "position": [
+            1.5,
+            3.0
+          ],
+          "position_separation_m": 6.0,
+          "proof": "R a_i=a_i and ||Rz||=||z||; thus ranges of (x,v) and (Rx,Rv) coincide for all times.",
+          "singular_values": [
+            10.320627257717938,
+            4.285072985975744,
+            1.0915107670541162,
+            0.9650941702835486
+          ],
+          "status": "exact identity plus numerical witness",
+          "times": [
+            -8.0,
+            -6.0,
+            -4.0,
+            -2.0,
+            -1.0,
+            0.0
+          ],
+          "velocity": [
+            0.2,
+            0.1
+          ]
+        },
+        "self_weight_bias": {
+          "analytical_weighted_optimum_m": 15.654090764837363,
+          "assumptions": "Scalar range q>0; Y=d*exp(eps-s²/2); eps~N(0,s²); weight=Y^-2; no coordinate/additive error.",
+          "derivation": "E[Y^k]=d^k exp((k²-k)s²/2). Setting derivative to zero gives E[Y^-1]/E[Y^-2].",
+          "formula": "argmin_q E[(q-Y)^2/Y^2] = d*exp(-2*s^2)",
+          "limitation": "Not a theorem about the full nonlinear multianchor problem or its finite-sample optimizer.",
+          "log_formula": "argmin_q E[(log(q)-log(Y)-s²/2)^2] = d",
+          "mc_corrected_log_optimum_m": 20.018638146987602,
+          "mc_samples": 200000,
+          "mc_weighted_optimum_m": 15.671449031755385,
+          "noise_log_sd": 0.35,
+          "status": "analytical result with independent Monte Carlo witness",
+          "truth_m": 20.0
+        }
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-9",
+      "kind": "numerical_observation",
+      "step": 9,
+      "action": "ablate",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 44,
+        "event_sha256": "74e6881c61feb373cab96350027e4262d5b362b2b2823f7544153ac220beaecf",
+        "file": "events.jsonl",
+        "line": 44
+      },
+      "observation_ref": {
+        "sequence": 46,
+        "event_sha256": "030e53d11fd090dc3b8a780d1eafa00f37f0c5996ef07707475a1e7672ca9641",
+        "file": "events.jsonl",
+        "line": 46
+      },
+      "hypothesis": {
+        "text": "仅将range_cv4_reported的starts从3降至1，预计discovery的static_clean、moving_outliers、sparse平均误差分别不超过父方法的1.05倍，且同次总体平均耗时至少降低10%。四项独立检验；局部极小值可能使精度预期失败。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得父方法与单起点方法的配对误差、尾部、实测耗时和工作量。内折原已使用一个起点，因此节省仅来自最终重拟合，耗时下降可能不足10%；不能用工作量比替代实测速比。",
+      "decision_summary": "对数残差和提高运动门槛均出现误差退化，暂保留四折距离方法。下一步单独减少最终拟合起点，检验计算成本能否下降且不明显损害各目标场景精度；保留至少两次验证预算。",
+      "arguments": {
+        "changes": {
+          "starts": 1
+        },
+        "method_id": "range_cv4_reported",
+        "new_id": "range_cv4_single_start",
+        "split": "discovery"
+      },
+      "observation": {
+        "controlled_changes": {
+          "starts": 1
+        },
+        "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: starts: 3 -> 1.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.05, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 1, \"trim_fraction\": 0.0}",
+        "metrics": {
+          "range_cv4_reported": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285093125515575,
+                "mean_m": 3.2007913139883613,
+                "mean_seconds": 0.024252959999921588,
+                "mean_work_units": 90.1,
+                "median_m": 3.13181393653164,
+                "n": 20,
+                "p90_m": 5.753184652256503,
+                "p95_m": 6.008587314886538,
+                "rmse_m": 3.660230058231244,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              },
+              "moving_outliers": {
+                "max_m": 16.08445964242549,
+                "mean_m": 7.119805192143181,
+                "mean_seconds": 0.02724275000009584,
+                "mean_work_units": 114.35,
+                "median_m": 6.35513030756605,
+                "n": 20,
+                "p90_m": 13.611920844232579,
+                "p95_m": 14.927998496180232,
+                "rmse_m": 8.24167429120703,
+                "within_30m": 1.0,
+                "within_5m": 0.35
+              },
+              "sparse": {
+                "max_m": 24.221066157440106,
+                "mean_m": 7.231568476274518,
+                "mean_seconds": 0.024190400000043154,
+                "mean_work_units": 102.35,
+                "median_m": 4.958049200765737,
+                "n": 20,
+                "p90_m": 16.243289687832924,
+                "p95_m": 20.91414229366698,
+                "rmse_m": 9.617999228125726,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.343622745575744,
+                "mean_m": 1.651597214986466,
+                "mean_seconds": 0.017453179999938583,
+                "mean_work_units": 58.5,
+                "median_m": 1.0999039374267612,
+                "n": 20,
+                "p90_m": 2.8950826503072804,
+                "p95_m": 5.030810036963157,
+                "rmse_m": 2.1279879682807694,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "static_outliers": {
+                "max_m": 3.7852990912639277,
+                "mean_m": 1.9077692486135285,
+                "mean_seconds": 0.020213240000157385,
+                "mean_work_units": 76.4,
+                "median_m": 1.9007635976936572,
+                "n": 20,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.640577563165477,
+                "rmse_m": 2.1180304215260812,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              }
+            },
+            "evidence_path": "tools/experiments/call_004_discovery_range_cv4_reported.json",
+            "evidence_sha256": "f384ea6d56f366e212c85da8d8e55117d8766779548224ddcfe77e652919b203",
+            "macro_mean_m": 4.222306289201212,
+            "overall": {
+              "max_m": 24.221066157440106,
+              "mean_m": 4.222306289201211,
+              "mean_seconds": 0.02267050600003131,
+              "mean_work_units": 88.34,
+              "median_m": 2.6278691988112732,
+              "n": 100,
+              "p90_m": 9.77599419069154,
+              "p95_m": 13.542186884464268,
+              "rmse_m": 6.047193961060073,
+              "within_30m": 1.0,
+              "within_5m": 0.72
+            }
+          },
+          "range_cv4_single_start": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.285081944679414,
+                "mean_m": 3.2018704997029004,
+                "mean_seconds": 0.015757224999742903,
+                "mean_work_units": 70.6,
+                "median_m": 3.1316225308857195,
+                "n": 20,
+                "p90_m": 5.751589061859076,
+                "p95_m": 5.9987986843060375,
+                "rmse_m": 3.661173986178419,
+                "within_30m": 1.0,
+                "within_5m": 0.85
+              },
+              "moving_outliers": {
+                "max_m": 16.084105853409046,
+                "mean_m": 7.119589890225704,
+                "mean_seconds": 0.020539569999891684,
+                "mean_work_units": 93.2,
+                "median_m": 6.354383085614166,
+                "n": 20,
+                "p90_m": 13.610803840615077,
+                "p95_m": 14.92798080672941,
+                "rmse_m": 8.241322457935201,
+                "within_30m": 1.0,
+                "within_5m": 0.35
+              },
+              "sparse": {
+                "max_m": 24.221062860570104,
+                "mean_m": 7.231494099879574,
+                "mean_seconds": 0.017903600000045115,
+                "mean_work_units": 81.35,
+                "median_m": 4.957743738641883,
+                "n": 20,
+                "p90_m": 16.24305027313815,
+                "p95_m": 20.91390376441471,
+                "rmse_m": 9.617919546065744,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 5.343910330278837,
+                "mean_m": 1.651517453530752,
+                "mean_seconds": 0.014011954999750742,
+                "mean_work_units": 45.75,
+                "median_m": 1.099925327542987,
+                "n": 20,
+                "p90_m": 2.8940600356212314,
+                "p95_m": 5.030847246364755,
+                "rmse_m": 2.1279476651886067,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "static_outliers": {
+                "max_m": 3.787968695825134,
+                "mean_m": 1.9078203670580127,
+                "mean_seconds": 0.015414310000051046,
+                "mean_work_units": 62.7,
+                "median_m": 1.9004874064783848,
+                "n": 20,
+                "p90_m": 3.228399659037894,
+                "p95_m": 3.6407110433935372,
+                "rmse_m": 2.118141983061799,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              }
+            },
+            "evidence_path": "tools/experiments/call_004_discovery_range_cv4_single_start.json",
+            "evidence_sha256": "a7c58045a82845319d9191b2e911d68d54b2eb291606f05666ababebea8caaae",
+            "macro_mean_m": 4.222458462079389,
+            "overall": {
+              "max_m": 24.221062860570104,
+              "mean_m": 4.222458462079389,
+              "mean_seconds": 0.016725331999896297,
+              "mean_work_units": 70.72,
+              "median_m": 2.627275543500521,
+              "n": 100,
+              "p90_m": 9.775983897114292,
+              "p95_m": 13.541007825090238,
+              "rmse_m": 6.047191975347248,
+              "within_30m": 1.0,
+              "within_5m": 0.72
+            }
+          }
+        },
+        "new_method_id": "range_cv4_single_start",
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "parent_method_id": "range_cv4_reported",
+        "split": "discovery"
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-10",
+      "kind": "numerical_observation",
+      "step": 10,
+      "action": "run_experiment",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 49,
+        "event_sha256": "043d75f31ceb408376774681848141208e51cda4120e6351f303baafb8f9e048",
+        "file": "events.jsonl",
+        "line": 49
+      },
+      "observation_ref": {
+        "sequence": 51,
+        "event_sha256": "b07696af28204eee3bd7c6a36e1a21b54217637ec65eb7e63e44f85470489157",
+        "file": "events.jsonl",
+        "line": 51
+      },
+      "hypothesis": {
+        "text": "在validation中，range_cv4_single_start的static_clean、moving_outliers和sparse平均误差分别不超过range_cv4_reported的1.05倍，总体平均耗时至少降低10%；相对v2_frozen，moving_outliers与sparse平均误差下降。预计static_clean平均误差仍超过static_wls的1.10倍。各项分别检验，未满足即否定对应预测。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得四方法在相同150个验证案例上的分场景误差、尾部、实测耗时和工作量，判断单起点节省是否伴随精度损失，并明确静态正常非劣诊断是否失败。",
+      "decision_summary": "单起点消融在发现集保持各场景误差近似不变，同次平均耗时降低约26.2%，但静态正常退化仍未解决。现在验证单起点候选、父方法、v2及WLS，检验精度与成本取舍是否延续。",
+      "arguments": {
+        "method_ids": [
+          "range_cv4_single_start",
+          "range_cv4_reported",
+          "v2_frozen",
+          "static_wls"
+        ],
+        "split": "validation"
+      },
+      "observation": {
+        "metrics": {
+          "range_cv4_reported": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 13.412475308881337,
+                "mean_m": 2.8669946569193483,
+                "mean_seconds": 0.022104453333304262,
+                "mean_work_units": 93.66666666666667,
+                "median_m": 2.46411785887158,
+                "n": 30,
+                "p90_m": 4.519635864894246,
+                "p95_m": 6.394709909485764,
+                "rmse_m": 3.792393152471357,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              },
+              "moving_outliers": {
+                "max_m": 18.19452160374674,
+                "mean_m": 7.313938068154888,
+                "mean_seconds": 0.023173300000053132,
+                "mean_work_units": 104.1,
+                "median_m": 5.598896559680395,
+                "n": 30,
+                "p90_m": 15.99959577684489,
+                "p95_m": 16.80447478823076,
+                "rmse_m": 9.067508634784495,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "sparse": {
+                "max_m": 16.09964407196478,
+                "mean_m": 6.362929127866049,
+                "mean_seconds": 0.023627196666711824,
+                "mean_work_units": 111.9,
+                "median_m": 4.986601396440375,
+                "n": 30,
+                "p90_m": 13.935750374436974,
+                "p95_m": 15.399715093291166,
+                "rmse_m": 7.853833722608075,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 3.897595412343032,
+                "mean_m": 1.24815801104917,
+                "mean_seconds": 0.016419389999888758,
+                "mean_work_units": 60.9,
+                "median_m": 1.110392739492729,
+                "n": 30,
+                "p90_m": 1.9553039253617497,
+                "p95_m": 2.455366285061147,
+                "rmse_m": 1.463187016465985,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 15.395339799365429,
+                "mean_m": 2.5290246767043,
+                "mean_seconds": 0.0178619999998773,
+                "mean_work_units": 85.13333333333334,
+                "median_m": 1.347881822636297,
+                "n": 30,
+                "p90_m": 4.677349054497124,
+                "p95_m": 9.26599520946255,
+                "rmse_m": 4.184655785220686,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              }
+            },
+            "evidence_path": "tools/experiments/call_005_validation_range_cv4_reported.json",
+            "evidence_sha256": "9984c6787adc79265a1ade14b51cdee689fad8f83e5a783c802fcf00ba32df46",
+            "macro_mean_m": 4.064208908138751,
+            "overall": {
+              "max_m": 18.19452160374674,
+              "mean_m": 4.064208908138752,
+              "mean_seconds": 0.020637267999967054,
+              "mean_work_units": 91.14,
+              "median_m": 2.215193970412998,
+              "n": 150,
+              "p90_m": 11.530977807602218,
+              "p95_m": 15.221378515885359,
+              "rmse_m": 5.965516291036585,
+              "within_30m": 1.0,
+              "within_5m": 0.7733333333333333
+            }
+          },
+          "range_cv4_single_start": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 13.413262086265679,
+                "mean_m": 2.867392691985055,
+                "mean_seconds": 0.01573627333358066,
+                "mean_work_units": 73.73333333333333,
+                "median_m": 2.46411785887158,
+                "n": 30,
+                "p90_m": 4.519691183752024,
+                "p95_m": 6.403889633698432,
+                "rmse_m": 3.793360223979726,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              },
+              "moving_outliers": {
+                "max_m": 18.19452160374674,
+                "mean_m": 7.3126109315775425,
+                "mean_seconds": 0.017824690000270493,
+                "mean_work_units": 86.3,
+                "median_m": 5.598828401063045,
+                "n": 30,
+                "p90_m": 15.99440626484744,
+                "p95_m": 16.786227635482458,
+                "rmse_m": 9.064779895612944,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "sparse": {
+                "max_m": 19.538825417941094,
+                "mean_m": 6.607911472039877,
+                "mean_seconds": 0.02215650333346275,
+                "mean_work_units": 89.93333333333334,
+                "median_m": 4.986820622144599,
+                "n": 30,
+                "p90_m": 15.081787219522239,
+                "p95_m": 15.928770467712187,
+                "rmse_m": 8.334652190628812,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 3.897595412343032,
+                "mean_m": 1.2481545286220959,
+                "mean_seconds": 0.012246700000165827,
+                "mean_work_units": 47.96666666666667,
+                "median_m": 1.1103361319514762,
+                "n": 30,
+                "p90_m": 1.9550619237348574,
+                "p95_m": 2.4551915110394726,
+                "rmse_m": 1.4631677882334517,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 15.395191473792206,
+                "mean_m": 2.529159547173272,
+                "mean_seconds": 0.015010943333497078,
+                "mean_work_units": 71.4,
+                "median_m": 1.347881822636297,
+                "n": 30,
+                "p90_m": 4.68474430408715,
+                "p95_m": 9.265126819060448,
+                "rmse_m": 4.18483913380427,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              }
+            },
+            "evidence_path": "tools/experiments/call_005_validation_range_cv4_single_start.json",
+            "evidence_sha256": "b54a1f0290cdef71b9c0a1f0f7e5e724c9ef4ec5e95999c079fc570e7e1729c8",
+            "macro_mean_m": 4.113045834279569,
+            "overall": {
+              "max_m": 19.538825417941094,
+              "mean_m": 4.1130458342795695,
+              "mean_seconds": 0.016595022000195362,
+              "mean_work_units": 73.86666666666666,
+              "median_m": 2.2171029126853825,
+              "n": 150,
+              "p90_m": 11.57809991951046,
+              "p95_m": 15.55081726422429,
+              "rmse_m": 6.093931112769121,
+              "within_30m": 1.0,
+              "within_5m": 0.7733333333333333
+            }
+          },
+          "static_wls": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 21.61467976786275,
+                "mean_m": 11.729483211526732,
+                "mean_seconds": 0.003743439999986246,
+                "mean_work_units": 20.866666666666667,
+                "median_m": 11.344419849661444,
+                "n": 30,
+                "p90_m": 19.142707648131136,
+                "p95_m": 20.2217839618963,
+                "rmse_m": 12.847274658469464,
+                "within_30m": 1.0,
+                "within_5m": 0.13333333333333333
+              },
+              "moving_outliers": {
+                "max_m": 22.243684608331954,
+                "mean_m": 9.713249360678152,
+                "mean_seconds": 0.004056613333280741,
+                "mean_work_units": 22.8,
+                "median_m": 9.170102715734668,
+                "n": 30,
+                "p90_m": 15.370532969397901,
+                "p95_m": 17.91628108598326,
+                "rmse_m": 10.761861043786377,
+                "within_30m": 1.0,
+                "within_5m": 0.2
+              },
+              "sparse": {
+                "max_m": 19.33907388681365,
+                "mean_m": 10.738220531997106,
+                "mean_seconds": 0.0033308166665544075,
+                "mean_work_units": 26.066666666666666,
+                "median_m": 10.019262874562997,
+                "n": 30,
+                "p90_m": 17.27263338047302,
+                "p95_m": 17.673858388842334,
+                "rmse_m": 11.552155813401495,
+                "within_30m": 1.0,
+                "within_5m": 0.1
+              },
+              "static_clean": {
+                "max_m": 2.747514237470936,
+                "mean_m": 1.0794242705009318,
+                "mean_seconds": 0.002421396666371341,
+                "mean_work_units": 14.633333333333333,
+                "median_m": 1.0166182475338,
+                "n": 30,
+                "p90_m": 1.7598515325041961,
+                "p95_m": 1.906009189212278,
+                "rmse_m": 1.219141993953817,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 8.844189881974867,
+                "mean_m": 3.808926119710143,
+                "mean_seconds": 0.003062140000050325,
+                "mean_work_units": 19.1,
+                "median_m": 3.0512963248292246,
+                "n": 30,
+                "p90_m": 7.863560981880656,
+                "p95_m": 8.259827392391072,
+                "rmse_m": 4.451089270867423,
+                "within_30m": 1.0,
+                "within_5m": 0.7
+              }
+            },
+            "evidence_path": "tools/experiments/call_005_validation_static_wls.json",
+            "evidence_sha256": "b6bc6d8cd3b37cef1372e4389dfc5b0c174d40052aa21f4c709c7c6f27d53637",
+            "macro_mean_m": 7.413860698882613,
+            "overall": {
+              "max_m": 22.243684608331954,
+              "mean_m": 7.413860698882612,
+              "mean_seconds": 0.003322881333248612,
+              "mean_work_units": 20.69333333333333,
+              "median_m": 7.103180562869037,
+              "n": 150,
+              "p90_m": 16.27045775215209,
+              "p95_m": 18.070800500715805,
+              "rmse_m": 9.334033705870974,
+              "within_30m": 1.0,
+              "within_5m": 0.4266666666666667
+            }
+          },
+          "v2_frozen": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 13.412475308881337,
+                "mean_m": 3.0618264654672274,
+                "mean_seconds": 0.017725926666753367,
+                "mean_work_units": 76.96666666666667,
+                "median_m": 2.509483060101144,
+                "n": 30,
+                "p90_m": 5.219266047904118,
+                "p95_m": 7.8046109203864535,
+                "rmse_m": 4.042895114210579,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "moving_outliers": {
+                "max_m": 22.147801420249326,
+                "mean_m": 8.598998957415183,
+                "mean_seconds": 0.018369676666770828,
+                "mean_work_units": 83.73333333333333,
+                "median_m": 8.356324708695972,
+                "n": 30,
+                "p90_m": 16.250476872655963,
+                "p95_m": 17.81829959877321,
+                "rmse_m": 10.33413536904852,
+                "within_30m": 1.0,
+                "within_5m": 0.4
+              },
+              "sparse": {
+                "max_m": 19.636040568858302,
+                "mean_m": 10.686695194311094,
+                "mean_seconds": 0.0057646199999605114,
+                "mean_work_units": 29.133333333333333,
+                "median_m": 9.718291869773477,
+                "n": 30,
+                "p90_m": 16.15728564667718,
+                "p95_m": 17.89579133457225,
+                "rmse_m": 11.52943396865206,
+                "within_30m": 1.0,
+                "within_5m": 0.06666666666666667
+              },
+              "static_clean": {
+                "max_m": 2.8110406629226135,
+                "mean_m": 1.2196295160659607,
+                "mean_seconds": 0.011190646666727843,
+                "mean_work_units": 49.86666666666667,
+                "median_m": 1.242467545848891,
+                "n": 30,
+                "p90_m": 1.918663765267629,
+                "p95_m": 1.9879785409627764,
+                "rmse_m": 1.3430196067616489,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 15.395339799365429,
+                "mean_m": 2.5375236241128283,
+                "mean_seconds": 0.01452557666652865,
+                "mean_work_units": 70.13333333333334,
+                "median_m": 1.4042781794339414,
+                "n": 30,
+                "p90_m": 4.677349054497124,
+                "p95_m": 8.839409930896108,
+                "rmse_m": 4.120918604312487,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              }
+            },
+            "evidence_path": "tools/experiments/call_005_validation_v2_frozen.json",
+            "evidence_sha256": "8d3026529367234296d401dda040981eaf00bcd7f77ef0671cdbf2f87db23066",
+            "macro_mean_m": 5.220934751474458,
+            "overall": {
+              "max_m": 22.147801420249326,
+              "mean_m": 5.220934751474459,
+              "mean_seconds": 0.01351528933334824,
+              "mean_work_units": 61.96666666666667,
+              "median_m": 2.6131418807636315,
+              "n": 150,
+              "p90_m": 13.821438439219813,
+              "p95_m": 16.080065216966414,
+              "rmse_m": 7.414214377469137,
+              "within_30m": 1.0,
+              "within_5m": 0.66
+            }
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "split": "validation"
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "critique-54",
+      "kind": "critique",
+      "event_ref": {
+        "sequence": 54,
+        "event_sha256": "f620081355444a06c744df824500d8815eae9040649d9a5728fd35bdff40ed5f",
+        "file": "events.jsonl",
+        "line": 54
+      },
+      "role": "independent_prompt_review_not_independent_model_evidence",
+      "different_model_claimed": false,
+      "observation": {
+        "after_successful_experiments": 3,
+        "different_model_claimed": false,
+        "evidence_caveats": [
+          "仅审阅所供记录，未核验实现、哈希、样本独立性或计时环境。",
+          "每场景验证仅30例，缺少配对差值不确定性及重复计时；均值阈值通过不等于统计非劣证明。",
+          "四折解除计数障碍，同时改变评分与训练划分，误差改善不能完全归因于计数机制。",
+          "本次同模型独立上下文审阅不是数学证明或独立经验复现。"
+        ],
+        "independent_prompt": true,
+        "issues": [
+          "尚缺static_robust、dynamic_robust、legacy_bic的validation证据，当前不能冻结；实验预算剩3次。",
+          "静态正常目标仍失败：单起点验证均值1.248米，为WLS的约1.156倍，超过1.10界限。",
+          "单起点满足预设均值容差，但稀疏均值较三起点增加约3.85%，最大误差19.54米对16.10米；不能声称精度无损。",
+          "单起点验证总体耗时较父方法下降约19.6%，但较v2增加约22.8%；未证明等计算预算优势，工作量口径也不可直接比较。",
+          "验证集已暴露；后续依其选择候选属于模型选择，重复相同验证案例不是独立复现。未见禁用数据泄漏证据。",
+          "对数修订及严格门槛的部分预测已失败，应保留负结果；新组合登记不证明学术新颖性。",
+          "反射反例否定局部满秩蕴含全局唯一；标量偏差结论不推广至完整定位器，保形结论不提供当前实证覆盖保证。"
+        ],
+        "recommended_next_step": "停止新增调参，下一次validation同时评估range_cv4_single_start、static_robust、dynamic_robust、legacy_bic，补齐参考对照。记录已有均值预测通过及静态非劣诊断失败、稀疏尾部代价，再按明确的精度与耗时取舍冻结新候选；不读取或生成holdout/test/calibration。",
+        "scope_valid": true
+      },
+      "scientific_status": "attributed_reviewer_opinion"
+    },
+    {
+      "id": "step-11",
+      "kind": "numerical_observation",
+      "step": 11,
+      "action": "run_experiment",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 57,
+        "event_sha256": "324d99315f4cd8da991fb11579173ea534c1b6cf8f0d2108207548bcc178b7ee",
+        "file": "events.jsonl",
+        "line": 57
+      },
+      "observation_ref": {
+        "sequence": 59,
+        "event_sha256": "2dab9177f8b64aca212814abe9c4756cde6a97bad614946caa56c42d705ffb1f",
+        "file": "events.jsonl",
+        "line": 59
+      },
+      "hypothesis": {
+        "text": "在validation中，range_cv4_single_start的moving_outliers与sparse平均误差均低于static_robust，宏平均误差低于legacy_bic，但总体平均耗时高于static_robust。各项分别检验；dynamic_robust作为完整对照，不预设候选优胜。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "获得四方法的分场景误差、尾部、实测耗时及工作量，补齐全部五参考的验证覆盖。预计候选相对静态稳健方法改善运动异常与稀疏均值，但付出更多耗时；结果可能否定预测。重复候选的既有验证案例不构成独立复现。",
+      "decision_summary": "已有来源、消融及数学检查证据，但三个参考方法缺少本轮验证，尚不能冻结。停止新增调参，用一次验证补齐对照并评估单起点候选的精度与耗时取舍。",
+      "arguments": {
+        "method_ids": [
+          "range_cv4_single_start",
+          "static_robust",
+          "dynamic_robust",
+          "legacy_bic"
+        ],
+        "split": "validation"
+      },
+      "observation": {
+        "metrics": {
+          "dynamic_robust": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 7.6715731780821725,
+                "mean_m": 2.676219034595365,
+                "mean_seconds": 0.00484337666657666,
+                "mean_work_units": 29.2,
+                "median_m": 2.4643771492885147,
+                "n": 30,
+                "p90_m": 4.519623378992083,
+                "p95_m": 6.394653722926012,
+                "rmse_m": 3.2175612154205964,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              },
+              "moving_outliers": {
+                "max_m": 18.194521603746733,
+                "mean_m": 5.418736164490345,
+                "mean_seconds": 0.005342650000056892,
+                "mean_work_units": 31.4,
+                "median_m": 4.180591198279057,
+                "n": 30,
+                "p90_m": 10.634614590238247,
+                "p95_m": 14.509623132127668,
+                "rmse_m": 6.825542715308306,
+                "within_30m": 1.0,
+                "within_5m": 0.6
+              },
+              "sparse": {
+                "max_m": 12.160863034724171,
+                "mean_m": 3.984468686807687,
+                "mean_seconds": 0.005830126666599729,
+                "mean_work_units": 34.56666666666667,
+                "median_m": 3.3740998696617575,
+                "n": 30,
+                "p90_m": 8.004813183289308,
+                "p95_m": 9.894874259852926,
+                "rmse_m": 4.977913117356743,
+                "within_30m": 1.0,
+                "within_5m": 0.7666666666666667
+              },
+              "static_clean": {
+                "max_m": 6.154348533203658,
+                "mean_m": 2.3801245668969897,
+                "mean_seconds": 0.0039766066664014945,
+                "mean_work_units": 21.4,
+                "median_m": 1.871888528712153,
+                "n": 30,
+                "p90_m": 4.453574472784948,
+                "p95_m": 5.058645361414819,
+                "rmse_m": 2.749806682653536,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              },
+              "static_outliers": {
+                "max_m": 38.62231779549651,
+                "mean_m": 8.153569746485081,
+                "mean_seconds": 0.004974713333528295,
+                "mean_work_units": 28.033333333333335,
+                "median_m": 5.872299560843283,
+                "n": 30,
+                "p90_m": 15.633350412262851,
+                "p95_m": 23.567579449035087,
+                "rmse_m": 11.619029814548698,
+                "within_30m": 0.9666666666666667,
+                "within_5m": 0.43333333333333335
+              }
+            },
+            "evidence_path": "tools/experiments/call_006_validation_dynamic_robust.json",
+            "evidence_sha256": "aff6bbb37d8b87edfb53fdcfef16a96c9085aa042d6c3a718d3a9bde650d4519",
+            "macro_mean_m": 4.522623639855094,
+            "overall": {
+              "max_m": 38.62231779549651,
+              "mean_m": 4.522623639855094,
+              "mean_seconds": 0.004993494666632614,
+              "mean_work_units": 28.92,
+              "median_m": 3.0378045985504665,
+              "n": 150,
+              "p90_m": 8.86459427151923,
+              "p95_m": 12.818019630984322,
+              "rmse_m": 6.697516601857244,
+              "within_30m": 0.9933333333333333,
+              "within_5m": 0.7333333333333333
+            }
+          },
+          "legacy_bic": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 8.02269017413064,
+                "mean_m": 2.891322349233127,
+                "mean_seconds": 0.007830506666747776,
+                "mean_work_units": 52.666666666666664,
+                "median_m": 2.509483060101142,
+                "n": 30,
+                "p90_m": 5.219153674784618,
+                "p95_m": 7.625934444925536,
+                "rmse_m": 3.5202723232737827,
+                "within_30m": 1.0,
+                "within_5m": 0.9
+              },
+              "moving_outliers": {
+                "max_m": 22.147801420249326,
+                "mean_m": 10.26992254118821,
+                "mean_seconds": 0.00857171333336737,
+                "mean_work_units": 55.8,
+                "median_m": 9.2837839176523,
+                "n": 30,
+                "p90_m": 16.247573987174317,
+                "p95_m": 17.81881390431222,
+                "rmse_m": 11.367421244404115,
+                "within_30m": 1.0,
+                "within_5m": 0.16666666666666666
+              },
+              "sparse": {
+                "max_m": 16.09964407196478,
+                "mean_m": 5.40408306707266,
+                "mean_seconds": 0.009077123333251317,
+                "mean_work_units": 64.26666666666667,
+                "median_m": 3.897010613226157,
+                "n": 30,
+                "p90_m": 12.331389487642001,
+                "p95_m": 14.887788152321546,
+                "rmse_m": 7.054382577184447,
+                "within_30m": 1.0,
+                "within_5m": 0.6666666666666666
+              },
+              "static_clean": {
+                "max_m": 3.897595412343035,
+                "mean_m": 1.248151414830459,
+                "mean_seconds": 0.006338360000154353,
+                "mean_work_units": 39.0,
+                "median_m": 1.110392739492729,
+                "n": 30,
+                "p90_m": 1.9553039253617497,
+                "p95_m": 2.4553662850611464,
+                "rmse_m": 1.4631881246692624,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 15.39690105598609,
+                "mean_m": 2.17281218864426,
+                "mean_seconds": 0.0071334233329253035,
+                "mean_work_units": 48.1,
+                "median_m": 1.347881822636297,
+                "n": 30,
+                "p90_m": 4.0471855131475465,
+                "p95_m": 4.716210482206505,
+                "rmse_m": 3.47688961061539,
+                "within_30m": 1.0,
+                "within_5m": 0.9666666666666667
+              }
+            },
+            "evidence_path": "tools/experiments/call_006_validation_legacy_bic.json",
+            "evidence_sha256": "cceb0a3fd3b2a8cf057cace41a855d96f308ac13df00aedcb057cf6cc9ecc850",
+            "macro_mean_m": 4.397258312193744,
+            "overall": {
+              "max_m": 22.147801420249326,
+              "mean_m": 4.397258312193743,
+              "mean_seconds": 0.007790225333289224,
+              "mean_work_units": 51.96666666666667,
+              "median_m": 2.4075078100789544,
+              "n": 150,
+              "p90_m": 11.677999463289648,
+              "p95_m": 15.690983399348543,
+              "rmse_m": 6.412559198566502,
+              "within_30m": 1.0,
+              "within_5m": 0.74
+            }
+          },
+          "range_cv4_single_start": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 13.413262086265679,
+                "mean_m": 2.867392691985055,
+                "mean_seconds": 0.015142883333404219,
+                "mean_work_units": 73.73333333333333,
+                "median_m": 2.46411785887158,
+                "n": 30,
+                "p90_m": 4.519691183752024,
+                "p95_m": 6.403889633698432,
+                "rmse_m": 3.793360223979726,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              },
+              "moving_outliers": {
+                "max_m": 18.19452160374674,
+                "mean_m": 7.3126109315775425,
+                "mean_seconds": 0.016554059999786357,
+                "mean_work_units": 86.3,
+                "median_m": 5.598828401063045,
+                "n": 30,
+                "p90_m": 15.99440626484744,
+                "p95_m": 16.786227635482458,
+                "rmse_m": 9.064779895612944,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "sparse": {
+                "max_m": 19.538825417941094,
+                "mean_m": 6.607911472039877,
+                "mean_seconds": 0.017387176666731344,
+                "mean_work_units": 89.93333333333334,
+                "median_m": 4.986820622144599,
+                "n": 30,
+                "p90_m": 15.081787219522239,
+                "p95_m": 15.928770467712187,
+                "rmse_m": 8.334652190628812,
+                "within_30m": 1.0,
+                "within_5m": 0.5
+              },
+              "static_clean": {
+                "max_m": 3.897595412343032,
+                "mean_m": 1.2481545286220959,
+                "mean_seconds": 0.012329053333511789,
+                "mean_work_units": 47.96666666666667,
+                "median_m": 1.1103361319514762,
+                "n": 30,
+                "p90_m": 1.9550619237348574,
+                "p95_m": 2.4551915110394726,
+                "rmse_m": 1.4631677882334517,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 15.395191473792206,
+                "mean_m": 2.529159547173272,
+                "mean_seconds": 0.01591618666667879,
+                "mean_work_units": 71.4,
+                "median_m": 1.347881822636297,
+                "n": 30,
+                "p90_m": 4.68474430408715,
+                "p95_m": 9.265126819060448,
+                "rmse_m": 4.18483913380427,
+                "within_30m": 1.0,
+                "within_5m": 0.9333333333333333
+              }
+            },
+            "evidence_path": "tools/experiments/call_006_validation_range_cv4_single_start.json",
+            "evidence_sha256": "870f68dfd503ae04f45fb7b452fe1b4769fdb2c6fc88c8f24d3a302d54373eee",
+            "macro_mean_m": 4.113045834279569,
+            "overall": {
+              "max_m": 19.538825417941094,
+              "mean_m": 4.1130458342795695,
+              "mean_seconds": 0.0154658720000225,
+              "mean_work_units": 73.86666666666666,
+              "median_m": 2.2171029126853825,
+              "n": 150,
+              "p90_m": 11.57809991951046,
+              "p95_m": 15.55081726422429,
+              "rmse_m": 6.093931112769121,
+              "within_30m": 1.0,
+              "within_5m": 0.7733333333333333
+            }
+          },
+          "static_robust": {
+            "by_scenario": {
+              "moving_clean": {
+                "max_m": 21.048207989425528,
+                "mean_m": 11.742070034983833,
+                "mean_seconds": 0.003313743333031501,
+                "mean_work_units": 23.466666666666665,
+                "median_m": 12.060127070782048,
+                "n": 30,
+                "p90_m": 19.137960309674774,
+                "p95_m": 20.02490150109504,
+                "rmse_m": 12.826366737910984,
+                "within_30m": 1.0,
+                "within_5m": 0.13333333333333333
+              },
+              "moving_outliers": {
+                "max_m": 22.147801420249326,
+                "mean_m": 9.742436467523342,
+                "mean_seconds": 0.003468090000023949,
+                "mean_work_units": 24.4,
+                "median_m": 8.957966999559073,
+                "n": 30,
+                "p90_m": 15.725902771744417,
+                "p95_m": 16.741650913992416,
+                "rmse_m": 10.759825944939259,
+                "within_30m": 1.0,
+                "within_5m": 0.16666666666666666
+              },
+              "sparse": {
+                "max_m": 19.636187259782968,
+                "mean_m": 10.686778533104576,
+                "mean_seconds": 0.004201413333127372,
+                "mean_work_units": 29.7,
+                "median_m": 9.721572756898603,
+                "n": 30,
+                "p90_m": 16.15728564667718,
+                "p95_m": 17.895757506984424,
+                "rmse_m": 11.52958870500278,
+                "within_30m": 1.0,
+                "within_5m": 0.06666666666666667
+              },
+              "static_clean": {
+                "max_m": 2.811040662922613,
+                "mean_m": 1.1416961614711167,
+                "mean_seconds": 0.0027793233335008456,
+                "mean_work_units": 17.6,
+                "median_m": 1.0198844150186597,
+                "n": 30,
+                "p90_m": 1.918663765267629,
+                "p95_m": 1.9879785409627764,
+                "rmse_m": 1.2849366143825267,
+                "within_30m": 1.0,
+                "within_5m": 1.0
+              },
+              "static_outliers": {
+                "max_m": 5.795533601827711,
+                "mean_m": 1.852766606838981,
+                "mean_seconds": 0.002569056666591981,
+                "mean_work_units": 20.066666666666666,
+                "median_m": 1.347881822636297,
+                "n": 30,
+                "p90_m": 4.0471855131475465,
+                "p95_m": 4.716210482206505,
+                "rmse_m": 2.30352258171585,
+                "within_30m": 1.0,
+                "within_5m": 0.9666666666666667
+              }
+            },
+            "evidence_path": "tools/experiments/call_006_validation_static_robust.json",
+            "evidence_sha256": "9f4e7f49acecdd1cadd3b24fda34b16c21275374c52d0df5bbb7c67558a0d0fd",
+            "macro_mean_m": 7.033149560784369,
+            "overall": {
+              "max_m": 22.147801420249326,
+              "mean_m": 7.03314956078437,
+              "mean_seconds": 0.0032663253332551297,
+              "mean_work_units": 23.046666666666667,
+              "median_m": 5.829140584172265,
+              "n": 150,
+              "p90_m": 15.74995911671611,
+              "p95_m": 17.667399425332402,
+              "rmse_m": 9.167095855883266,
+              "within_30m": 1.0,
+              "within_5m": 0.4666666666666667
+            }
+          }
+        },
+        "note": "Lower position error is better; improvement must be checked per scenario and against compute cost.",
+        "split": "validation"
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    },
+    {
+      "id": "step-12",
+      "kind": "freeze_decision",
+      "step": 12,
+      "action": "freeze",
+      "tool_executed": true,
+      "arguments_binding": "matched",
+      "decision_ref": {
+        "sequence": 62,
+        "event_sha256": "8848e84b219b1f9c20bcd1eb9db9ffde9280536ffd760271dd02dbdd580854f4",
+        "file": "events.jsonl",
+        "line": 62
+      },
+      "observation_ref": {
+        "sequence": 64,
+        "event_sha256": "92c8260c417b6c0c674b5c51ae8ab26ef31ee47e5b81b94d99023c21559c5c21",
+        "file": "events.jsonl",
+        "line": 64
+      },
+      "hypothesis": {
+        "text": "待未来独立评估检验：冻结候选相对v2_frozen在moving_outliers与sparse的平均定位误差均降低；任一场景未降低即否定对应预期。当前验证仅提供开发证据。",
+        "assessment": "unassessed"
+      },
+      "expected_result": "冻结工具接受已登记候选并锁定其完整配置，结束开发；本动作不产生新的性能或覆盖率证据。",
+      "decision_summary": "全部冻结前提已满足，最新验证补齐五个参考。选择单起点候选，明确接受稀疏尾部代价与相对v2更高耗时；停止调参并冻结。",
+      "arguments": {
+        "method_id": "range_cv4_single_start",
+        "scientific_conclusion": "依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy_bic为4.397米、dynamic_robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic_robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。相对三起点父方法，同次验证总体耗时下降约19.6%，宏均值由4.064升至4.113米，稀疏均值增加约3.85%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8%；最新同次候选耗时0.01547秒，static_robust、dynamic_robust、legacy_bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。"
+      },
+      "observation": {
+        "controlled_changes": {
+          "starts": 1
+        },
+        "diagnosis_evidence": [
+          {
+            "diagnosis_number": 1,
+            "evidence_path": "tools/experiments/call_001_discovery_range_cv4_reported.json",
+            "evidence_sha256": "014e81ffed1b3d4a01201fe15e7c29d6e9257ebdf2868a142e51c88c4bbf654c",
+            "method_id": "range_cv4_reported",
+            "split": "discovery"
+          }
+        ],
+        "frozen_before_test": true,
+        "hypothesis": "Single-component ablation of range_cv4_reported: {'starts': 1}",
+        "mathematical_definition": "Parent range_cv4_reported definition (historical reference, replaced where the change applies): 静态距离d_i=||x-a_i||，恒速距离d_i=||x+t_i v-a_i||，残差r_i=(d_i-y_i)/sigma_i。拟合目标为sum_i 2c^2(sqrt(1+(r_i/c)^2)-1)+lambda||v||^2，其中c=1.5、lambda=0.05，静态不含速度罚项。按时间排序作K=4交错折，每个模型的验证分数为所有留出观测的平均2(sqrt(1+r_i^2)-1)。仅在每个恒速训练折均满足至少6个观测、至少1秒时间跨度、数据Jacobian满秩且无活跃数值边界，并且CV_velocity<0.95 CV_static时选恒速，否则选静态。内折使用一个普通起点，最终用三个起点全数据重拟合；无截尾或抽样初始化。n-ceil(n/4)=6在n=8成立只是数量必要条件。与v2唯一有效配置差异为cv_folds。\nControlled change: starts: 3 -> 1.\nThe final objective and model are defined by localization/method_math.md using this complete effective specification, which overrides the corresponding parent formula: {\"consensus_trials\": 0, \"cv_folds\": 4, \"f_scale\": 1.5, \"gate_margin\": 0.05, \"log_bias_correction\": true, \"log_sd\": 0.1, \"loss\": \"soft_l1\", \"model\": \"cv_select\", \"residual\": \"range\", \"ridge\": 0.05, \"scale\": \"reported\", \"seed\": 0, \"starts\": 1, \"trim_fraction\": 0.0}",
+        "method_id": "range_cv4_single_start",
+        "parent_method_id": "range_cv4_reported",
+        "registered_after_diagnosis_count": 1,
+        "registration_kind": "single_component_ablation",
+        "registry_sha256": "a268897cd96eb7ee786a2dcecb6255bade7a6ec5e413dda27f38e2e82c3bdc40",
+        "scientific_conclusion": "依据本轮discovery与validation冻结现有完整配置，不再调参。已完成至少两个新组合、诊断后修订、成功单字段消融、数学检查及候选与全部五参考的验证覆盖。验证宏平均误差为4.113米，v2为5.221米、legacy_bic为4.397米、dynamic_robust为4.523米；候选运动异常与稀疏均值为7.313与6.608米，低于v2的8.599与10.687米，但高于dynamic_robust的5.419与3.984米。静态正常1.248米，超过WLS的1.079米之1.10倍，预登记静态目标失败。相对三起点父方法，同次验证总体耗时下降约19.6%，宏均值由4.064升至4.113米，稀疏均值增加约3.85%，最大误差由16.10升至19.54米；接受该精度与耗时取舍，不声称精度无损。相对v2同次耗时增加约22.8%；最新同次候选耗时0.01547秒，static_robust、dynamic_robust、legacy_bic分别为0.00327、0.00499、0.00779秒，无普遍速度优势。保留对数修订及严格门槛的失败预测。四折解除n=8训练数量障碍，但评分与训练划分同时改变，改善不能单独归因于计数机制。每场景仅30个验证案例，缺少配对不确定性和受控重复计时；验证参与模型选择，重复案例不构成独立复现。反射恒等式否定局部满秩保证全局唯一；标量偏差公式不推广至完整定位器；保形结论依赖冻结与交换性等假设，尚无实证覆盖保证。不声称科学新颖性、统计非劣或工业问题已解决。未读取或生成本轮holdout、test或calibration；成功冻结立即结束开发。",
+        "spec": {
+          "consensus_trials": 0,
+          "cv_folds": 4,
+          "f_scale": 1.5,
+          "gate_margin": 0.05,
+          "log_bias_correction": true,
+          "log_sd": 0.1,
+          "loss": "soft_l1",
+          "model": "cv_select",
+          "residual": "range",
+          "ridge": 0.05,
+          "scale": "reported",
+          "starts": 1,
+          "trim_fraction": 0.0
+        },
+        "validation": {
+          "by_scenario": {
+            "moving_clean": {
+              "max_m": 13.413262086265679,
+              "mean_m": 2.867392691985055,
+              "mean_seconds": 0.015142883333404219,
+              "mean_work_units": 73.73333333333333,
+              "median_m": 2.46411785887158,
+              "n": 30,
+              "p90_m": 4.519691183752024,
+              "p95_m": 6.403889633698432,
+              "rmse_m": 3.793360223979726,
+              "within_30m": 1.0,
+              "within_5m": 0.9333333333333333
+            },
+            "moving_outliers": {
+              "max_m": 18.19452160374674,
+              "mean_m": 7.3126109315775425,
+              "mean_seconds": 0.016554059999786357,
+              "mean_work_units": 86.3,
+              "median_m": 5.598828401063045,
+              "n": 30,
+              "p90_m": 15.99440626484744,
+              "p95_m": 16.786227635482458,
+              "rmse_m": 9.064779895612944,
+              "within_30m": 1.0,
+              "within_5m": 0.5
+            },
+            "sparse": {
+              "max_m": 19.538825417941094,
+              "mean_m": 6.607911472039877,
+              "mean_seconds": 0.017387176666731344,
+              "mean_work_units": 89.93333333333334,
+              "median_m": 4.986820622144599,
+              "n": 30,
+              "p90_m": 15.081787219522239,
+              "p95_m": 15.928770467712187,
+              "rmse_m": 8.334652190628812,
+              "within_30m": 1.0,
+              "within_5m": 0.5
+            },
+            "static_clean": {
+              "max_m": 3.897595412343032,
+              "mean_m": 1.2481545286220959,
+              "mean_seconds": 0.012329053333511789,
+              "mean_work_units": 47.96666666666667,
+              "median_m": 1.1103361319514762,
+              "n": 30,
+              "p90_m": 1.9550619237348574,
+              "p95_m": 2.4551915110394726,
+              "rmse_m": 1.4631677882334517,
+              "within_30m": 1.0,
+              "within_5m": 1.0
+            },
+            "static_outliers": {
+              "max_m": 15.395191473792206,
+              "mean_m": 2.529159547173272,
+              "mean_seconds": 0.01591618666667879,
+              "mean_work_units": 71.4,
+              "median_m": 1.347881822636297,
+              "n": 30,
+              "p90_m": 4.68474430408715,
+              "p95_m": 9.265126819060448,
+              "rmse_m": 4.18483913380427,
+              "within_30m": 1.0,
+              "within_5m": 0.9333333333333333
+            }
+          },
+          "evidence_path": "tools/experiments/call_006_validation_range_cv4_single_start.json",
+          "evidence_sha256": "870f68dfd503ae04f45fb7b452fe1b4769fdb2c6fc88c8f24d3a302d54373eee",
+          "macro_mean_m": 4.113045834279569,
+          "overall": {
+            "max_m": 19.538825417941094,
+            "mean_m": 4.1130458342795695,
+            "mean_seconds": 0.0154658720000225,
+            "mean_work_units": 73.86666666666666,
+            "median_m": 2.2171029126853825,
+            "n": 150,
+            "p90_m": 11.57809991951046,
+            "p95_m": 15.55081726422429,
+            "rmse_m": 6.093931112769121,
+            "within_30m": 1.0,
+            "within_5m": 0.7733333333333333
+          }
+        }
+      },
+      "scientific_status": "recorded_observation_not_automatic_claim_verification"
+    }
+  ],
+  "limitations": [
+    "完整性通过表示保存记录在本次检查时一致，不证明其中的科学主张为真。",
+    "假设和预期均保留为 unassessed；本工具不自动判定支持、否定或数学证明。",
+    "数学检查记录中的推导、条件和数值例证各有适用范围，不等于形式化证明。",
+    "审阅角色采用独立提示；不能据此声称独立模型或独立研究复现。",
+    "本档案只索引开发过程，不包含冻结后评测，也不产生新模型调用或新实验。",
+    "哈希不是数字签名，不能防止所有文件被协同重写；并发前后校验不是操作系统级锁。"
+  ],
+  "verification_instructions": [
+    "Run: python audit.py --run <original-run-directory> --require-frozen",
+    "Rebuild this archive from the original run; compare verification.snapshot_sha256.",
+    "Event references identify events.jsonl line numbers and event SHA-256 values.",
+    "SHA256SUMS.txt checks exported file bytes; it is not a digital signature."
+  ]
+}

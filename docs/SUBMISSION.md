@@ -2,12 +2,12 @@
 
 项目：**CrowdLocateLab 双轮研究版——面向异步众包定位的科研智能体开发与实证研究**。第二轮的状态、实际次数和指标以保存记录为准；尚未冻结或评测未完成时，不将计划数写成完成数。
 
-提交前请填写真实信息，不要使用示例身份：
+已按提交者提供的信息补充姓名和学号；其他未提供字段保留待填，不猜测学校或课程：
 
 | 字段 | 提交者填写 |
 | --- | --- |
-| 姓名 | 待补充 |
-| 学号 | 待补充 |
+| 姓名 | 徐楷沅 |
+| 学号 | 2352163 |
 | 学校 / 院系 | 待补充 |
 | 课程名称 / 任课教师 | 待补充 |
 | 个人 GitHub 用户名 | [orgyuanbao](https://github.com/orgyuanbao) |
@@ -25,7 +25,7 @@ PDF 封面在 `latex/main.tex` 中。两轮实证章节已经生成后，填写�
 | 体现运行与迭代 | 两轮真实响应、假设、诊断、修订、消融与冻结；第一轮失败明确作为第二轮已暴露先验 | 两个正式 runs 目录中的 `events.jsonl`、`model_calls/`、`tools/` |
 | 总结运行与迭代结果为 PDF | 报告包含方法、推导、轨迹、对照评测、失败及限制 | `report/CrowdLocateLab_Report.pdf` |
 | 连同代码上传个人 GitHub | 保留可运行源码、依赖、测试、正式证据、合成输入和逐例输出 | 根目录 README 与本说明的上传清单 |
-| 可以基于开源智能体二次开发 | 本项目选择原创实现，借鉴 Creative-Intelligence 的模块分工并明确致谢 | README“来源、许可与提交” |
+| 可以基于开源智能体二次开发 | 本项目选择独立实现，借鉴 Creative-Intelligence 的研究状态与证据分层；新增审计后生成的证据卡片 | README“参考项目、身份与提交”、`research_archive.py`、`archives/` |
 
 “未解决问题”的准确表述应为：**原工业开放问题的合成数学子问题研究**。不能表述成“已解决华为题目”“证明所有场景更优”或“首次发明稳健定位 / 共形预测”。题目未给定真实数据和完整验收协议，项目结果不构成工业验收。原题的“运动场景精度提升 20%”缺少明确定义，报告中的平均误差或 CEP90 降幅不能直接替代该指标。
 
@@ -50,7 +50,7 @@ PDF 封面在 `latex/main.tex` 中。两轮实证章节已经生成后，填写�
 python dashboard_revision.py --port 8766
 ```
 
-打开 <http://127.0.0.1:8766>，切换 V2 / Revision。需要实时模型调用时，用 `run_revision.py --provider codex` 和新的目录；说明输出与耗时可能不同，不替换正式记录。第二轮操作见 [reproduction_revision.md](reproduction_revision.md)，浏览器说明见 [DASHBOARD.md](DASHBOARD.md)。
+打开 <http://127.0.0.1:8766>，切换 V2 / Revision。需要实时模型调用时，用 `run_research.py --provider codex --output runs/my_research` 和新的目录；说明输出与耗时可能不同，不替换正式记录。第二轮操作见 [reproduction_revision.md](reproduction_revision.md)，浏览器说明见 [DASHBOARD.md](DASHBOARD.md)。
 
 可准备回答的问题：
 
@@ -70,7 +70,9 @@ python dashboard_revision.py --port 8766
 | 保留内容 | 原因 |
 | --- | --- |
 | `README.md`、`LICENSE`、`.gitignore`、`.gitattributes`、`requirements*.txt` | 项目入口、原创代码许可、环境及审计文件字节保留 |
-| `run_revision.py`、`benchmark_revision.py`、`locate_revision.py`、`dashboard_revision.py`、`doctor.py`、`audit.py` | 新版研究、正式评测、应用、双轮展示、环境与完整链检查 |
+| `run_research.py`、`hardened_runtime.py`、`application_safety.py` | 当前研究入口、运行保护与应用数值筛查，不能遗漏依赖 |
+| `research_archive.py`、`archives/` | 验证后生成的只读证据卡片及其校验清单 |
+| `run_revision.py`、`benchmark_revision.py`、`locate_revision.py`、`dashboard_revision.py`、`doctor.py`、`audit.py` | 第二轮历史研究入口、正式评测、应用、双轮展示、环境与完整链检查 |
 | `run_agent.py`、`benchmark.py`、`benchmark_v2_1.py`、`sensitivity.py`、`dashboard.py`、`locate.py` | 保留第一轮入口和冻结依赖，不删除旧校验库 |
 | `Start-Dashboard.ps1`、`Start-Dashboard.sh` | 不安装依赖、不修改策略的界面启动器 |
 | `examples/` | 不含目标真值的观测接口示例 |
@@ -108,6 +110,7 @@ git branch -M main
 git add README.md START_HERE.md LICENSE .gitignore .gitattributes requirements.txt requirements-report.txt requirements-lock.txt
 git add run_agent.py benchmark.py benchmark_v2_1.py audit.py sensitivity.py dashboard.py locate.py
 git add run_revision.py benchmark_revision.py locate_revision.py dashboard_revision.py doctor.py Start-Dashboard.ps1 Start-Dashboard.sh
+git add run_research.py hardened_runtime.py application_safety.py research_archive.py archives
 git add agent_runtime tools localization revision tests docs reporting latex report research examples verification
 git add runs/live_reference runs/revision_reference results/benchmark results/sensitivity
 git status --short

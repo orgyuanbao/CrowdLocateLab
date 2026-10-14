@@ -1,0 +1,26 @@
+{
+  "review_date": "2026-10-14",
+  "baseline_commit": "73320c746707d7f743d010da82b1ffb4e1b898e2",
+  "archives": {
+    "live_reference": {
+      "cards": 14,
+      "snapshot_sha256": "bb03366ca2eb5342e5b5819591828c5623659668f5b8279eeb905300525c4b58",
+      "archive_sha256": "d918c9972b6c4c448c6b8e8349c1d83918ff479db5eb17978318759802cf93e8",
+      "html_sha256": "1182791619039aa6c08c458d7c5a1c1452b4bdfda68a3d76012028b778b3c72a",
+      "file_checksums_verified": true
+    },
+    "revision_reference": {
+      "cards": 13,
+      "snapshot_sha256": "95ba3c8c03607802a6d702d3bd8a33a0ee8d3e07999606df7e55839411e8b3b6",
+      "archive_sha256": "d137e51978c6d0721371258c357e3109ff2e5c46dfc19387a19c95a74d516831",
+      "html_sha256": "63c3d12fc7c4b8a37065e38d311543896fdb65787dcc83b70963d3d55f9c08fa",
+      "file_checksums_verified": true
+    }
+  },
+  "preserved_frozen_or_result_files": 337,
+  "all_preserved_files_match_baseline": true,
+  "new_model_calls": 0,
+  "new_research_predictions": 0,
+  "visual_check": "Revision HTML rendered in a headless browser at 1440x1100; header, index and first card inspected.",
+  "scope": "Derived development-process evidence, not a new scientific run or mathematical proof."
+}

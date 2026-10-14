@@ -36,3 +36,7 @@ jobs:
         run: python audit.py --run runs/revision_reference --require-frozen
       - name: Recompute saved statistics without fitting or new data
         run: python verification/check_revision_results.py
+      - name: Build audited evidence archives from both preserved studies
+        run: |
+          python research_archive.py --run runs/live_reference --output archives/ci_live
+          python research_archive.py --run runs/revision_reference --output archives/ci_revision
