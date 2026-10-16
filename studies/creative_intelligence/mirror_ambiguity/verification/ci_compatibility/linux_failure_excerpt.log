@@ -1,0 +1,38 @@
+FAIL: test_formats_live_progress_events (test_agent.AgentFrameworkTests.test_formats_live_progress_events)
+2026-10-16T07:19:04.9966551Z ----------------------------------------------------------------------
+2026-10-16T07:19:04.9966912Z Traceback (most recent call last):
+2026-10-16T07:19:04.9972754Z   File "/home/runner/work/CrowdLocateLab/CrowdLocateLab/integrations/creative_intelligence/vendor/tests/test_agent.py", line 195, in test_formats_live_progress_events
+2026-10-16T07:19:04.9973671Z     self.assertEqual(command, "TOOL | STARTED | PowerShell | List files")
+2026-10-16T07:19:04.9974255Z AssertionError: 'TOOL | STARTED | Shell | List files' != 'TOOL | STARTED | PowerShell | List files'
+2026-10-16T07:19:04.9974731Z - TOOL | STARTED | Shell | List files
+2026-10-16T07:19:04.9975032Z + TOOL | STARTED | PowerShell | List files
+2026-10-16T07:19:04.9975721Z ?                  +++++
+2026-10-16T07:19:04.9975903Z 
+2026-10-16T07:19:04.9975908Z 
+2026-10-16T07:19:04.9976035Z ======================================================================
+2026-10-16T07:19:04.9976615Z FAIL: test_formats_other_event_types_clearly (test_agent.AgentFrameworkTests.test_formats_other_event_types_clearly)
+2026-10-16T07:19:04.9977221Z ----------------------------------------------------------------------
+2026-10-16T07:19:04.9977579Z Traceback (most recent call last):
+2026-10-16T07:19:04.9978397Z   File "/home/runner/work/CrowdLocateLab/CrowdLocateLab/integrations/creative_intelligence/vendor/tests/test_agent.py", line 402, in test_formats_other_event_types_clearly
+2026-10-16T07:19:04.9979146Z     self.assertEqual(
+2026-10-16T07:19:04.9979620Z AssertionError: 'TOOL | COMPLETED | Shell | Run tests | FAILED' != 'TOOL | COMPLETED | PowerShell | Run tests | FAILED'
+2026-10-16T07:19:04.9980167Z - TOOL | COMPLETED | Shell | Run tests | FAILED
+2026-10-16T07:19:04.9980506Z + TOOL | COMPLETED | PowerShell | Run tests | FAILED
+2026-10-16T07:19:04.9980805Z ?                    +++++
+2026-10-16T07:19:04.9980951Z 
+2026-10-16T07:19:04.9980955Z 
+2026-10-16T07:19:04.9981078Z ======================================================================
+2026-10-16T07:19:04.9981983Z FAIL: test_progress_renderer_reports_long_and_interrupted_tools (test_agent.AgentFrameworkTests.test_progress_renderer_reports_long_and_interrupted_tools)
+2026-10-16T07:19:04.9982722Z ----------------------------------------------------------------------
+2026-10-16T07:19:04.9983070Z Traceback (most recent call last):
+2026-10-16T07:19:04.9983909Z   File "/home/runner/work/CrowdLocateLab/CrowdLocateLab/integrations/creative_intelligence/vendor/tests/test_agent.py", line 536, in test_progress_renderer_reports_long_and_interrupted_tools
+2026-10-16T07:19:04.9984788Z     self.assertIn("TOOL | RUNNING | PowerShell | Run tests", rendered)
+2026-10-16T07:19:04.9986228Z AssertionError: 'TOOL | RUNNING | PowerShell | Run tests' not found in '[07:19:04] TOOL | RUNNING | Shell | Run tests\n[07:19:04] TOOL | COMPLETED | Shell | Run tests | 3.0s\n[07:19:04] TOOL | INTERRUPTED | Web search | open problem | 1.0s\n'
+2026-10-16T07:19:04.9987011Z 
+2026-10-16T07:19:04.9987168Z ----------------------------------------------------------------------
+2026-10-16T07:19:04.9987516Z Ran 22 tests in 0.027s
+2026-10-16T07:19:04.9987663Z 
+2026-10-16T07:19:04.9987748Z FAILED (failures=3)
+2026-10-16T07:19:04.9988216Z Initialized run 'sample' at /tmp/tmpv1_nabrk/runs/sample
+2026-10-16T07:19:05.0119422Z ##[error]Process completed with exit code 1.
+2026-10-16T07:19:05.0288292Z 

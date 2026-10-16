@@ -31,8 +31,8 @@ jobs:
       - name: Test isolated fixtures without models or research datasets
         run: python -m unittest discover -s tests -v
       - name: Test unchanged Creative-Intelligence controller without models
-        # Only command-construction fixtures need an existing executable; no model is run.
-        run: python -B -c "import os, sys, unittest; os.environ['CODEX_EXECUTABLE'] = sys.executable; suite = unittest.defaultTestLoader.discover('integrations/creative_intelligence/vendor/tests'); result = unittest.TextTestRunner(verbosity=2).run(suite); sys.exit(not result.wasSuccessful())"
+        # Original Windows label fixtures get an explicit platform context; native labels are also checked.
+        run: python -B integrations/creative_intelligence/run_vendor_tests.py
       - name: Test Creative-Intelligence integration without models
         run: python -B -m unittest discover -s integrations/creative_intelligence/tests -v
       - name: Reproduce Creative-Intelligence study without models

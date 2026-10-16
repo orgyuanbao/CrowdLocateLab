@@ -344,19 +344,16 @@ B_1=\begin{pmatrix}
 历史审计使用\texttt{python audit.py --run}\ \code{runs/live_reference}\ \texttt{--require-frozen}，再将目录替换为\code{runs/revision_reference}检查第二轮。\code{verification/check_revision_results.py}检查已保存统计，不重新拟合。全部命令、数值环境和真实输出以本版\code{studies/creative_intelligence/mirror_ambiguity/verification/}及对应提交 CI 为准。
 
 \subsection{2026-10-16 的完整检查}
-本地软件回归共执行 \textbf{273 项：271 项通过、2 项跳过、0 项失败或错误}，包含原工程 233 项、上游控制器 22 项与适配层 18 项。两项跳过均因 Windows 不允许创建符号链接，须由本版 Linux CI 补验，不能记为本地通过。
+首次完整本地回归执行 \textbf{273 项：271 项通过、2 项跳过、0 项失败或错误}，包含原工程 233 项、上游控制器 22 项与适配层 18 项。两项跳过因 Windows 无符号链接权限，须由对应提交 Linux CI 补验。
+
+首轮云端检查中 Windows 两组通过，Linux 发现上游 3 个显示测试固定断言 Windows 的\texttt{PowerShell}，而 Linux 正确显示\texttt{Shell}。现仅在这些测试夹具内提供明确的 Windows 平台上下文，并增加 2 个宿主与显式命令标签检查；原控制器、原测试文件和数学产物未改。更新后测试总数为 275，本地新增两项通过；云端状态以修正后的提交为准，失败记录保留。
 
 两轮历史审计均为\code{passed_frozen}，零错误、零警告；123,279 项统计一致性检查通过。新增研究的 6 组复算、35 次 CLI 回归和第二版独立检查通过，70 份原始材料摘要保持不变；两轮历史归档成功重建为 14 张和 13 张卡片。环境为 Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1，以上收尾检查新增模型调用为零。
 
 原始命令、标准输出与检查汇总保存在\code{verification/final_20261016/}（相对于新研究目录）。PDF 由同一份 LaTeX 源码编译并作逐页检查；云端四组环境必须对应最终上传提交。报告不以进程退出成功替代科研正确性，不以历史绿色状态替代新提交结果。
 
 \subsection{课程要求与成果归属}
-\begin{enumerate}
-\item \textbf{开发智能体：}独立定位工具与历史运行器，以及直接采用开源控制器的适配、研究 Skills 和证据包装均有源码。模型实际编写并运行了新的数学验证程序。
-\item \textbf{研究数学问题：}围绕异步测距的全局可辨识性，给出清晰量词、候选歧义诊断、精确反例和误差下界。允许原题未完全解决，成果边界如实陈述。
-\item \textbf{体现运行迭代：}新两轮原始调用、第一版快照、失败验证、修订版与复核结果完整保留；与旧研究次数分开。
-\item \textbf{PDF 与代码：}本补充报告已纳入新增研究，与 52 页历史论文共同阅读；源码、结果与复算入口随仓库提交。学生身份为徐楷沅，学号 2352163。
-\end{enumerate}
+智能体源码、数学问题与反例、两轮真实调用、失败与修订、PDF 与复算代码均有对应证据，封面列出提交映射。模型实际编写并运行新程序，作者适配与上游来源分别注明。本补充报告与 52 页历史论文共同提交；学生为徐楷沅（2352163）。
 
 \subsection{尚未解决的研究问题}
 \begin{itemize}

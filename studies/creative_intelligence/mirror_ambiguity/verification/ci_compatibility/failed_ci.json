@@ -1,0 +1,370 @@
+{
+  "commit": "0823350ad34d732996998eda6372fdb15478bffc",
+  "runs": [
+    {
+      "id": 38866371393,
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/orgyuanbao/CrowdLocateLab/actions/runs/38866371393",
+      "jobs": [
+        {
+          "id": 116860038928,
+          "name": "Python 3.11 on ubuntu-latest",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/orgyuanbao/CrowdLocateLab/actions/runs/38866371393/job/116860038928",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install numerical dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check local numeric prerequisites",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test isolated fixtures without models or research datasets",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test unchanged Creative-Intelligence controller without models",
+              "status": "completed",
+              "conclusion": "failure"
+            },
+            {
+              "name": "Test Creative-Intelligence integration without models",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Reproduce Creative-Intelligence study without models",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Verify preserved first-study evidence without model calls",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Verify preserved revision evidence without model calls",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Recompute saved statistics without fitting or new data",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Build audited evidence archives from both preserved studies",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "id": 116860039140,
+          "name": "Python 3.12 on windows-latest",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/orgyuanbao/CrowdLocateLab/actions/runs/38866371393/job/116860039140",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install numerical dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check local numeric prerequisites",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test isolated fixtures without models or research datasets",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test unchanged Creative-Intelligence controller without models",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test Creative-Intelligence integration without models",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Reproduce Creative-Intelligence study without models",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify preserved first-study evidence without model calls",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify preserved revision evidence without model calls",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Recompute saved statistics without fitting or new data",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build audited evidence archives from both preserved studies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "id": 116860039180,
+          "name": "Python 3.11 on windows-latest",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/orgyuanbao/CrowdLocateLab/actions/runs/38866371393/job/116860039180",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install numerical dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check local numeric prerequisites",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test isolated fixtures without models or research datasets",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test unchanged Creative-Intelligence controller without models",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test Creative-Intelligence integration without models",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Reproduce Creative-Intelligence study without models",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify preserved first-study evidence without model calls",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify preserved revision evidence without model calls",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Recompute saved statistics without fitting or new data",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Build audited evidence archives from both preserved studies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "id": 116860039264,
+          "name": "Python 3.12 on ubuntu-latest",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/orgyuanbao/CrowdLocateLab/actions/runs/38866371393/job/116860039264",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install numerical dependencies",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Check local numeric prerequisites",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test isolated fixtures without models or research datasets",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Test unchanged Creative-Intelligence controller without models",
+              "status": "completed",
+              "conclusion": "failure"
+            },
+            {
+              "name": "Test Creative-Intelligence integration without models",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Reproduce Creative-Intelligence study without models",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Verify preserved first-study evidence without model calls",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Verify preserved revision evidence without model calls",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Recompute saved statistics without fitting or new data",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Build audited evidence archives from both preserved studies",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "all_four_jobs_passed": false
+}

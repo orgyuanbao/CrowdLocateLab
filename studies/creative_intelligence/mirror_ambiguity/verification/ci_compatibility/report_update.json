@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-16",
+  "status": "passed",
+  "source_sha256": "798347c7c7b69ff7cb3fd87359a505017c63a4298af117052360392d380ba06f",
+  "pdf_sha256": "758267da2c3894907bd877fdd17dab0551088e8345a6a4c5f5b58df25d474723",
+  "pages": 12,
+  "builtin_compilation": "success",
+  "xelatex_export": "success",
+  "prior_pages_identical_in_text_and_pixels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "changed_page_visually_reviewed": 12,
+  "visual_findings": [],
+  "last_page_png_sha256": "96b89e957ab2b094bf354ac11eaa4a0f4b547b9f10afd8eee25c7ea403fbf9e2",
+  "upstream_original_files_unchanged": 7,
+  "archived_research_files_unchanged": 70,
+  "native_test_result": {
+    "tests": 24,
+    "passed": 24,
+    "failed": 0,
+    "model_calls": 0
+  },
+  "test_scope": "22 original assertions, 3 under explicit Windows display context, plus 2 platform-label tests.",
+  "failed_ci_commit": "0823350ad34d732996998eda6372fdb15478bffc",
+  "failed_ci_run": 38866371393,
+  "final_ci": "Confirm against subsequent published commit."
+}

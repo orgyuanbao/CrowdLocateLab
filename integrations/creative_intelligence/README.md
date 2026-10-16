@@ -75,8 +75,10 @@ CLI 进程退出成功、产生普通回复，不会被包装器计为成功研�
 可以独立运行原控制器测试与接入测试，均不需要调用真实模型：
 
 ```powershell
-python -B -c "import os, sys, unittest; os.environ['CODEX_EXECUTABLE'] = sys.executable; suite = unittest.defaultTestLoader.discover('integrations/creative_intelligence/vendor/tests'); result = unittest.TextTestRunner(verbosity=2).run(suite); sys.exit(not result.wasSuccessful())"
+python -B integrations/creative_intelligence/run_vendor_tests.py
 python -B -m unittest discover -s integrations/creative_intelligence/tests -v
 ```
 
-第一个命令仅为上游的命令构造测试提供一个存在的可执行路径，不运行该路径来调用模型，因此未安装 Codex CLI 也能检查。测试中的模拟进程仅用于验证运行、恢复与失败记录逻辑，不是数学研究证据。研究成功与否必须查看真实执行记录、保存的推导和独立数值检查。
+第一个命令保留上游 22 个测试及其原始字节。其中 3 个显示格式夹具固定断言 Windows 的 `PowerShell` 标签；直接放到 Linux 会因正确返回 `Shell` 而失败。测试入口只在这三个夹具范围内为上游模块提供 Windows 平台名代理，既不改全局 `os.name`，也不改运行代码或预期断言；另外 2 个测试验证真实宿主标签和 POSIX 下显式 PowerShell 命令，合计 24 项。原始失败保留在 [CI 兼容性记录](../../studies/creative_intelligence/mirror_ambiguity/verification/ci_compatibility/README.md)。
+
+命令构造测试仅需一个存在的可执行路径，不会据此调用模型，未安装 Codex CLI 也能检查。模拟进程用于验证运行、恢复与失败记录，不是数学研究证据。研究成功与否必须查看真实执行记录、保存的推导和独立数值检查。

@@ -1,0 +1,43 @@
+Upstream: 22 unchanged tests; 3 explicit Windows display fixtures. Additional native/explicit-shell checks: 2. No model calls.
+test_agent_message_progress_is_not_truncated (unchanged_upstream_test_agent.AgentFrameworkTests.test_agent_message_progress_is_not_truncated) ... ok
+test_background_start_waits_until_runner_and_codex_are_running (unchanged_upstream_test_agent.AgentFrameworkTests.test_background_start_waits_until_runner_and_codex_are_running) ... ok
+test_command_applies_temporary_config (unchanged_upstream_test_agent.AgentFrameworkTests.test_command_applies_temporary_config) ... ok
+test_config_is_framework_local_and_invocation_only (unchanged_upstream_test_agent.AgentFrameworkTests.test_config_is_framework_local_and_invocation_only) ... ok
+test_continuation_prompt_is_added_without_replacing_problem (unchanged_upstream_test_agent.AgentFrameworkTests.test_continuation_prompt_is_added_without_replacing_problem) ... ok
+test_execute_turn_separates_stderr_from_progress (unchanged_upstream_test_agent.AgentFrameworkTests.test_execute_turn_separates_stderr_from_progress) ... ok
+test_formats_live_progress_events (unchanged_upstream_test_agent.AgentFrameworkTests.test_formats_live_progress_events) ... ok
+test_formats_other_event_types_clearly (unchanged_upstream_test_agent.AgentFrameworkTests.test_formats_other_event_types_clearly) ... ok
+test_only_state_is_persistent_controller_file_at_run_root (unchanged_upstream_test_agent.AgentFrameworkTests.test_only_state_is_persistent_controller_file_at_run_root) ... ok
+test_parse_session_and_final_message_events (unchanged_upstream_test_agent.AgentFrameworkTests.test_parse_session_and_final_message_events) ... ok
+test_parse_turn_result (unchanged_upstream_test_agent.AgentFrameworkTests.test_parse_turn_result) ... ok
+Started 'sample' in background as PID 4321.
+Log: C:\Users\沅\Documents\Codex\2026-09-25\pptx\work\final_delivery_20261016\tmp\tmpijzqlfbd\background.log
+Initialized run 'sample' at C:\Users\沅\Documents\Codex\2026-09-25\pptx\work\final_delivery_20261016\tmp\tmp_9k3wu9y\runs\sample
+Starting Codex request for 'sample'...
+test_plain_response_preserves_research_progress (unchanged_upstream_test_agent.AgentFrameworkTests.test_plain_response_preserves_research_progress) ... ok
+test_prepare_run_initializes_once_and_then_resumes (unchanged_upstream_test_agent.AgentFrameworkTests.test_prepare_run_initializes_once_and_then_resumes) ... ok
+test_progress_renderer_coalesces_tools_and_preserves_text (unchanged_upstream_test_agent.AgentFrameworkTests.test_progress_renderer_coalesces_tools_and_preserves_text) ... ok
+test_progress_renderer_reports_long_and_interrupted_tools (unchanged_upstream_test_agent.AgentFrameworkTests.test_progress_renderer_reports_long_and_interrupted_tools) ... ok
+test_reasoning_summary_is_shown_in_full (unchanged_upstream_test_agent.AgentFrameworkTests.test_reasoning_summary_is_shown_in_full) ... ok
+test_resume_command_uses_saved_session (unchanged_upstream_test_agent.AgentFrameworkTests.test_resume_command_uses_saved_session) ... ok
+test_run_and_start_accept_problem_source_for_new_run (unchanged_upstream_test_agent.AgentFrameworkTests.test_run_and_start_accept_problem_source_for_new_run) ... usage: run_vendor_tests.py run [-h] [--problem PROBLEM | --prompt PROMPT]
+                               [--once]
+                               run_id
+run_vendor_tests.py run: error: argument --prompt/--problem-text: not allowed with argument --problem
+usage: run_vendor_tests.py [-h] {run,start,stop,status,validate} ...
+run_vendor_tests.py: error: argument command: invalid choice: 'init' (choose from run, start, stop, status, validate)
+ok
+test_run_id_rejects_path_traversal (unchanged_upstream_test_agent.AgentFrameworkTests.test_run_id_rejects_path_traversal) ... ok
+test_stale_running_state_is_reconciled (unchanged_upstream_test_agent.AgentFrameworkTests.test_stale_running_state_is_reconciled) ... ok
+test_steering_command_is_not_exposed (unchanged_upstream_test_agent.AgentFrameworkTests.test_steering_command_is_not_exposed) ... usage: run_vendor_tests.py [-h] {run,start,stop,status,validate} ...
+run_vendor_tests.py: error: argument command: invalid choice: 'steer' (choose from run, start, stop, status, validate)
+ok
+test_structured_turn_result_is_not_printed_twice (unchanged_upstream_test_agent.AgentFrameworkTests.test_structured_turn_result_is_not_printed_twice) ... ok
+test_explicit_powershell_labels_on_posix (__main__.main.<locals>.PlatformLabelChecks.test_explicit_powershell_labels_on_posix) ... ok
+test_native_shell_label_without_proxy (__main__.main.<locals>.PlatformLabelChecks.test_native_shell_label_without_proxy) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.369s
+
+OK
+Initialized run 'sample' at C:\Users\沅\Documents\Codex\2026-09-25\pptx\work\final_delivery_20261016\tmp\tmp60ub4foi\runs\sample

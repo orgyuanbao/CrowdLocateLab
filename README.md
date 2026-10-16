@@ -16,6 +16,8 @@ CrowdLocateLab 让大模型提出可检验的定位假设，调用数值工具�
 
 **交付复核（2026-10-16）：** 新成果已纳入 [12 页 LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)，封面含徐楷沅（2352163），第 8 页起完整呈现开源 Agent 的运行与迭代。完整本地回归执行 273 项，271 项通过、2 项因 Windows 符号链接权限跳过，零失败或错误；两轮历史审计、123,279 项统计复算和新增研究复算通过。[实际检查记录](studies/creative_intelligence/mirror_ambiguity/verification/final_20261016/summary.json)与[独立数学复核](studies/creative_intelligence/mirror_ambiguity/verification/final_20261016/science_review.json)均可核查，云端结果查看对应提交的 Actions。
 
+首轮云端检查发现上游 3 个显示测试含 Windows 标签假设，Linux 因 `Shell` / `PowerShell` 差异失败。已用独立测试入口明确这三份夹具的平台上下文，并新增 2 个平台标签检查，现有软件测试合计 **275 项**；上游原文件与数学程序保持不变。[失败与修正记录](studies/creative_intelligence/mirror_ambiguity/verification/ci_compatibility/README.md)保留完整经过，最终云端状态请核对当前提交。
+
 ## 先看什么
 
 | 你想做的事 | 入口 | 是否调用模型 |
