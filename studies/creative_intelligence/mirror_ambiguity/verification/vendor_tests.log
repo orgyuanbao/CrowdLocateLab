@@ -1,0 +1,38 @@
+test_agent_message_progress_is_not_truncated (test_agent.AgentFrameworkTests.test_agent_message_progress_is_not_truncated) ... ok
+test_background_start_waits_until_runner_and_codex_are_running (test_agent.AgentFrameworkTests.test_background_start_waits_until_runner_and_codex_are_running) ... ok
+test_command_applies_temporary_config (test_agent.AgentFrameworkTests.test_command_applies_temporary_config) ... ok
+test_config_is_framework_local_and_invocation_only (test_agent.AgentFrameworkTests.test_config_is_framework_local_and_invocation_only) ... ok
+test_continuation_prompt_is_added_without_replacing_problem (test_agent.AgentFrameworkTests.test_continuation_prompt_is_added_without_replacing_problem) ... ok
+test_execute_turn_separates_stderr_from_progress (test_agent.AgentFrameworkTests.test_execute_turn_separates_stderr_from_progress) ... ok
+test_formats_live_progress_events (test_agent.AgentFrameworkTests.test_formats_live_progress_events) ... ok
+test_formats_other_event_types_clearly (test_agent.AgentFrameworkTests.test_formats_other_event_types_clearly) ... ok
+test_only_state_is_persistent_controller_file_at_run_root (test_agent.AgentFrameworkTests.test_only_state_is_persistent_controller_file_at_run_root) ... ok
+test_parse_session_and_final_message_events (test_agent.AgentFrameworkTests.test_parse_session_and_final_message_events) ... ok
+test_parse_turn_result (test_agent.AgentFrameworkTests.test_parse_turn_result) ... ok
+Started 'sample' in background as PID 4321.
+Log: C:\Users\��\Documents\Codex\2026-09-25\pptx\work\final_audit\tmp\tmp41jd2g7o\background.log
+Initialized run 'sample' at C:\Users\��\Documents\Codex\2026-09-25\pptx\work\final_audit\tmp\tmpqukvxszs\runs\sample
+Starting Codex request for 'sample'...
+test_plain_response_preserves_research_progress (test_agent.AgentFrameworkTests.test_plain_response_preserves_research_progress) ... ok
+test_prepare_run_initializes_once_and_then_resumes (test_agent.AgentFrameworkTests.test_prepare_run_initializes_once_and_then_resumes) ... ok
+test_progress_renderer_coalesces_tools_and_preserves_text (test_agent.AgentFrameworkTests.test_progress_renderer_coalesces_tools_and_preserves_text) ... ok
+test_progress_renderer_reports_long_and_interrupted_tools (test_agent.AgentFrameworkTests.test_progress_renderer_reports_long_and_interrupted_tools) ... ok
+test_reasoning_summary_is_shown_in_full (test_agent.AgentFrameworkTests.test_reasoning_summary_is_shown_in_full) ... ok
+test_resume_command_uses_saved_session (test_agent.AgentFrameworkTests.test_resume_command_uses_saved_session) ... ok
+test_run_and_start_accept_problem_source_for_new_run (test_agent.AgentFrameworkTests.test_run_and_start_accept_problem_source_for_new_run) ... usage: -c run [-h] [--problem PROBLEM | --prompt PROMPT] [--once] run_id
+-c run: error: argument --prompt/--problem-text: not allowed with argument --problem
+usage: -c [-h] {run,start,stop,status,validate} ...
+-c: error: argument command: invalid choice: 'init' (choose from run, start, stop, status, validate)
+ok
+test_run_id_rejects_path_traversal (test_agent.AgentFrameworkTests.test_run_id_rejects_path_traversal) ... ok
+test_stale_running_state_is_reconciled (test_agent.AgentFrameworkTests.test_stale_running_state_is_reconciled) ... ok
+test_steering_command_is_not_exposed (test_agent.AgentFrameworkTests.test_steering_command_is_not_exposed) ... usage: -c [-h] {run,start,stop,status,validate} ...
+-c: error: argument command: invalid choice: 'steer' (choose from run, start, stop, status, validate)
+ok
+test_structured_turn_result_is_not_printed_twice (test_agent.AgentFrameworkTests.test_structured_turn_result_is_not_printed_twice) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.377s
+
+OK
+Initialized run 'sample' at C:\Users\��\Documents\Codex\2026-09-25\pptx\work\final_audit\tmp\tmp9vumt4dq\runs\sample

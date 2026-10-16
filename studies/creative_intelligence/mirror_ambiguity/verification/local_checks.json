@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-15",
+  "scope": "New integration and portable study checks; historical numerical code unchanged.",
+  "upstream_controller_tests": {
+    "run": 22,
+    "passed": 22
+  },
+  "integration_tests": {
+    "run": 18,
+    "passed": 18
+  },
+  "portable_reproduction": {
+    "status": "passed",
+    "groups": 6,
+    "cli_regressions": 35,
+    "new_model_calls": 0
+  },
+  "github_status": "This local revision has not been published or checked in GitHub CI; network read was denied with WinError 10013.",
+  "files_sha256": {
+    "vendor_tests.log": "546ae443c50f9e0e19cda9bd0918033d69130b1fe3c864658e28c3788c00128f",
+    "integration_tests.log": "a286646958d835ca226860fd289bedf7c567a9fc8bd8730c9c1d81258cc81f5b",
+    "portable_reproduction.json": "6491eb59811e117aaf2f715b0c7d3ac7f9fe0f70ff7ce793912b3eb4cf6782fc",
+    "package_integrity.json": "8cf1bb3131e3d3dbdfc6b2eaec1f5d78916516f3ce1c0cb86128c46c6f09fa6a"
+  }
+}

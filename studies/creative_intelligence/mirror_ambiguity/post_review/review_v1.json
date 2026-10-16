@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "provenance": "independent_post_run_review_of_upstream_agent_turn_001",
+  "distinct_from_pre_run_check": "../independent_review.py is separate problem-planning evidence; this script reviews archived agent output.",
+  "snapshot": "snapshots/turn-001",
+  "reviewed_source_sha256": {
+    "certificate_collinear_v1.json": "7229f30e4d77fbc081d397ca14076963209b69e5db92f6fe2ecef8d73b9b9704",
+    "certificate_common_boundary_v1.json": "f14556095d0f4cf2b95e0269c81ee54b9870079767b7753a87505e23cffc0665",
+    "commands_v1.md": "3194f90d63f52bb835216f217febbc46e096815deeb85cbdfba8434bbdd20ec5",
+    "diagnostic_v1.py": "c769c7b98f5d0632bff37619279810b42287725ec8d3d0b41ce76362162cdc90",
+    "experiment_v1.py": "1bbe6ec290a22e0f307c319c36d270628cada98bcfae6385a711d5cba96e96a2",
+    "fixtures_v1.json": "a4132a3e36c72b9545ea6e278d2553d31e9f84c87b14b23c77c6919498e76c86",
+    "input_collinear_full_rank_v1.json": "fbec2994f5d9e046d0cd643e1f60f2b38cfaf64c1cb77cc199fcd75b312937f0",
+    "input_common_y_boundary_v1.json": "d77545cca1d9971c0021c6a81cc8b4637231d4551b83d2ad2b91524a08a55c72",
+    "input_fixed_y_quantifier_v1.json": "4b7e3ff79a83ba98a8ed9f70d3cecca75d342b5d9336dd5524a33b47a601aae6",
+    "problem.md": "9ad75a0400c056ae0a67faac383a13b4f602ecda8f2c728ea356d1fc58d8ec5e",
+    "research_v1.md": "d8352b52d01913d09d8f3ae433cec2ad8ba42fcdb383dcd341445dd54837de74",
+    "results_v1.json": "0491f6bee97cc3ad467ef2ec61aea1ab1398e47f497518b7dd7fc1166b1e0782",
+    "SHA256SUMS.json": "be6a0d324d12e8bc7976160e57e9e550a7f202592657f04d46728ae1082e63fd",
+    "state.json": "f79903152e8ee74e2a8237886534420e9fee0b3f4dc2b1f0c2db9821fe719f72"
+  },
+  "snapshot_unchanged": true,
+  "new_model_calls": 0,
+  "core_math_status": "No substantive error found in A-D, candidate quantifiers, or the supplied exact counterexample within reviewed scope.",
+  "reproduced_case_count": 11,
+  "exact_oracle_checks": {
+    "common_row": 3000,
+    "fixed_row": 3000,
+    "sqrt_lower": 3000
+  },
+  "independent_rank_checks": {
+    "collinear_full_rank": {
+      "exact_minor": "432",
+      "positive_distances": true,
+      "jacobian_rank": 4,
+      "condition_float": 13.638607705344867
+    },
+    "near_noncollinear": {
+      "exact_minor": "269997/625",
+      "positive_distances": true,
+      "jacobian_rank": 4,
+      "condition_float": 13.641815455790269
+    },
+    "noncollinear_crossing_full_rank": {
+      "exact_minor": "-6",
+      "positive_distances": true,
+      "jacobian_rank": 4,
+      "condition_float": 16.839035899419134
+    }
+  },
+  "rational_rotation_and_translation": "Exact squared ranges and witness lower bounds invariant.",
+  "cli_decimal_boundary_checks": [
+    {
+      "mode": "fixed_y",
+      "side": "below",
+      "status": "no_witness_found",
+      "decimal_fraction_digits": 80
+    },
+    {
+      "mode": "fixed_y",
+      "side": "equal",
+      "status": "witness",
+      "decimal_fraction_digits": 1
+    },
+    {
+      "mode": "fixed_y",
+      "side": "above",
+      "status": "witness",
+      "decimal_fraction_digits": 80
+    },
+    {
+      "mode": "common_y",
+      "side": "below",
+      "status": "no_witness_found",
+      "decimal_fraction_digits": 80
+    },
+    {
+      "mode": "common_y",
+      "side": "equal",
+      "status": "witness",
+      "decimal_fraction_digits": 1
+    },
+    {
+      "mode": "common_y",
+      "side": "above",
+      "status": "witness",
+      "decimal_fraction_digits": 80
+    }
+  ],
+  "findings": [
+    {
+      "id": "duplicate_json_keys",
+      "severity": "engineering_input_ambiguity",
+      "observed": "Repeated y keys accepted, last value wins and returns witness.",
+      "exit_code": 0,
+      "requested_revision": "Reject duplicate keys before interpreting a certificate input."
+    },
+    {
+      "id": "existing_output_overwrite",
+      "severity": "evidence_preservation",
+      "observed": "--output equal to input overwrites the source input with a successful certificate.",
+      "before_sha256": "b43d81c8d69ca706666a940995f48b3ec0235b0fdbc33760b0128dbd192a72bf",
+      "after_sha256": "7229f30e4d77fbc081d397ca14076963209b69e5db92f6fe2ecef8d73b9b9704",
+      "requested_revision": "Refuse existing output and input/output aliases, reserve new outputs without overwrite."
+    },
+    {
+      "id": "unbounded_exact_arithmetic_work",
+      "severity": "unresolved_resource_scope",
+      "observed": "No documented input byte, count, rational-size, or pair-work limits; no huge-number denial-of-service probe executed.",
+      "requested_revision": "Set explicit supported limits or report resource scope clearly; do not silently hang on hostile rationals."
+    }
+  ],
+  "unfinished_scope": [
+    "Finite supplied-candidate checker only; no candidate discovery or global decision procedure implemented.",
+    "A positive witness can be arbitrarily small; meaningful operational rejection requires a declared error radius and comparison with D/2.",
+    "Hard epsilon bounds and exact anchor/time data remain assumptions, not established for historical simulator or industrial data.",
+    "No proof of global uniqueness from no_witness_found; current prose correctly avoids that claim."
+  ]
+}

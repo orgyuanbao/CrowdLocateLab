@@ -1,0 +1,46 @@
+[
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\certificate_collinear_v1.json",
+    "Hash": "7229F30E4D77FBC081D397CA14076963209B69E5DB92F6FE2ECEF8D73B9B9704"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\certificate_common_boundary_v1.json",
+    "Hash": "F14556095D0F4CF2B95E0269C81EE54B9870079767B7753A87505E23CFFC0665"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\commands_v1.md",
+    "Hash": "3194F90D63F52BB835216F217FEBBC46E096815DEEB85CBDFBA8434BBDD20EC5"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+    "Hash": "C769C7B98F5D0632BFF37619279810B42287725EC8D3D0B41CE76362162CDC90"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\experiment_v1.py",
+    "Hash": "1BBE6EC290A22E0F307C319C36D270628CADA98BCFAE6385A711D5CBA96E96A2"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\fixtures_v1.json",
+    "Hash": "A4132A3E36C72B9545EA6E278D2553D31E9F84C87B14B23C77C6919498E76C86"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\input_collinear_full_rank_v1.json",
+    "Hash": "FBEC2994F5D9E046D0CD643E1F60F2B38CFAF64C1CB77CC199FCD75B312937F0"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\input_common_y_boundary_v1.json",
+    "Hash": "D77545CCA1D9971C0021C6A81CC8B4637231D4551B83D2AD2B91524A08A55C72"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\input_fixed_y_quantifier_v1.json",
+    "Hash": "4B7E3FF79A83BA98A8ED9F70D3CECCA75D342B5D9336DD5524A33B47A601AAE6"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\research_v1.md",
+    "Hash": "D8352B52D01913D09D8F3AE433CEC2AD8BA42FCDB383DCD341445DD54837DE74"
+  },
+  {
+    "Path": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\results_v1.json",
+    "Hash": "0491F6BEE97CC3AD467EF2EC61AEA1AB1398E47F497518B7DD7FC1166B1E0782"
+  }
+]

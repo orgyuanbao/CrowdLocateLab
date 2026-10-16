@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-10-15T06:38:51.310475+00:00",
+  "finished_at": "2026-10-15T06:51:47.860736+00:00",
+  "controller_exit_code": 0,
+  "command_count": 1,
+  "execute_turn_calls": 1,
+  "process_exit_code": 0,
+  "stop_reason": null,
+  "exception": null,
+  "input_integrity_error": null,
+  "accepted_structured_research_turn": true,
+  "scientific_verification": "Not established by controller status; inspect saved research and independent checks",
+  "state_status": "paused",
+  "session_id": "01a13e48-f668-7343-b650-7b59f1070c47",
+  "evidence_directory": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime.evidence\\turn-001"
+}

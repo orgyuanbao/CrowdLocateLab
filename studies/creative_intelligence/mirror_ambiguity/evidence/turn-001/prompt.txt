@@ -1,0 +1,5 @@
+Current research run: `mirror-ambiguity-20261015`.
+Run directory: `runs\mirror-ambiguity-20261015`
+Problem file: `runs\mirror-ambiguity-20261015\problem.md`
+
+Advance this research autonomously by one substantial unit.

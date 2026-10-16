@@ -8,26 +8,56 @@
 \definecolor{navy}{HTML}{17324D}\definecolor{teal}{HTML}{087F8C}\definecolor{muted}{HTML}{586579}
 \usepackage[colorlinks=true,linkcolor=navy,urlcolor=teal]{hyperref}
 \usepackage{xurl}
-\hypersetup{pdftitle={CrowdLocateLab：工程质量审查与加固补充报告},pdfauthor={课程研究项目}}
+\hypersetup{pdftitle={CrowdLocateLab：工程复核与开源智能体研究补充报告},pdfauthor={徐楷沅（学号：2352163）}}
 \ctexset{section={format=\Large\bfseries\color{navy}},subsection={format=\large\bfseries\color{navy}}}
 \setlength{\parskip}{5pt}\linespread{1.13}\setlength{\emergencystretch}{3em}
 \setlist{nosep,leftmargin=2em,topsep=5pt}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
-\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily\color{muted}CrowdLocateLab / 工程审查}
-\fancyhead[R]{\small\color{muted}2026-10-12}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{.3pt}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small\sffamily\color{muted}CrowdLocateLab / 研究与复核}
+\fancyhead[R]{\small\color{muted}2026-10-16}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{.3pt}
 \newcommand{\code}[1]{{\small\nolinkurl{#1}}}
 \begin{document}
 \thispagestyle{empty}
-{\sffamily\large\color{teal}QUALITY REVIEW\hfill 工程补充报告\par}
-\vspace{10mm}
+{\sffamily\large\color{teal}RESEARCH \& REVIEW\hfill 课程项目补充报告\par}
+\vspace{5mm}
 {\Huge\bfseries\color{navy}CrowdLocateLab\par}
 \vspace{4mm}
-{\LARGE\bfseries 工程质量审查与加固\par}
+{\LARGE\bfseries 工程复核与开源智能体研究\par}
 \vspace{4mm}
-{\large\color{muted}故障复现、回归验证与科研证据保全\par}
-\vspace{5mm}\noindent\textcolor{teal}{\rule{\textwidth}{1pt}}
+{\large\color{muted}异步测距定位的全局歧义：构造、验证与迭代\par}
+\vspace{2mm}
+{\normalsize 姓名：徐楷沅\quad 学号：2352163\par}
+\vspace{3mm}\noindent\textcolor{teal}{\rule{\textwidth}{1pt}}
 
-\section*{审查结论}
+\begingroup\small\setlength{\parskip}{3pt}\linespread{1.04}\selectfont
+\section*{本版交付结论}
+项目已实际接入 Creative-Intelligence 的 Mathematical Concept Agent（Stage 2），由其原始控制器调用模型，在同一会话内完成两个真实研究单元。第一轮提出明确的定位歧义问题、构造反例并编写验证程序；第二轮运行对抗复核、保留失败记录并修复程序。原始控制器与 MIT 许可保留，未把历史自研智能体的运行冒充参考项目 Agent 的成果。
+
+\noindent\begin{tabularx}{\textwidth}{@{}p{28mm}Y@{}}
+\toprule
+交付项 & 本版提供的证据 \\
+\midrule
+开源智能体 & 固定上游版本、原始控制器、适配入口、补写 Skills 与真实会话恢复。\\[4pt]
+数学研究 & 非共线锚点且局部 Jacobian 满列秩，仍存在相距 6 m 的可行当前位置；两世界最坏误差至少 3 m。\\[4pt]
+运行与迭代 & 两轮实际提示、命令、原始事件、状态；v1/v2 程序、第一次失败与后续通过的验证报告。\\[4pt]
+可复算成果 & 有理数精确候选检查器、11 个案例、区间 oracle、额外独立复查，以及无需模型的复算入口。\\[4pt]
+提交材料 & 本补充 PDF、52 页历史论文、LaTeX 源码、代码与正式证据共同构成课程交付。\\
+\bottomrule
+\end{tabularx}
+
+\subsection*{成果的准确范围}
+本项目研究工业开放题的\textbf{合成数学子问题}。新程序检查给定有限候选，不能自动枚举全部轨迹；\code{no_witness_found} 不证明唯一或安全。锚点、时刻精确及确定性误差硬界是明确假设，尚未由现场数据验证。本报告不主张基础数学结论的文献首创性，也不承诺软件零缺陷。
+
+\subsection*{阅读路线与次数口径}
+第 \pageref{sec:upstream} 页起是新增开源 Agent 研究；前面的工程审查保留 2026-10-12 当时的成功、权限错误和修复记录，当前复核见最后一节。历史定位研究共 27 次模型调用、25 个动作、22,052 次定位计算；新增的 2 个研究单元单独计数，单元内工具调用与连接重试不等于 2 次模型后端请求。软件测试与结果重算不增加研究次数。
+
+\vfill\noindent\textcolor{teal}{\rule{\textwidth}{.6pt}}
+{\small\color{muted}仓库：\url{https://github.com/orgyuanbao/CrowdLocateLab}\par
+本版整理：2026-10-16。发布与云端检查须核对实际提交，不能由 PDF 本身推定。}
+\endgroup
+
+\newpage
+\section*{历史工程审查：2026-10-12}
 本次审查发现了原测试未覆盖的实际缺陷，并在新运行入口、应用检查和证据浏览界面中加入修复与回归测试。可以报告的是\textbf{已检查范围内的结果与剩余限制}；有限测试无法证明程序零缺陷，亦不能保证任意输入的数学正确性或工业部署效果。
 
 本报告对应仓库\href{https://github.com/orgyuanbao/CrowdLocateLab}{orgyuanbao/CrowdLocateLab}，以已发布基线提交\code{270b804}为比较起点。原 52 页论文、冻结估计器、模型日志、数据和测试成绩保持原样。新增运行使用\code{run_research.py}，原入口保留作历史复现。
@@ -42,7 +72,7 @@
 \subsection*{验证证据入口}
 完整机器记录保存在\code{verification/hardening/}。其中\code{checks.json}记录软件测试、跳过项、环境、两轮历史审计和统计复核；\code{example_prediction.json}保存新应用入口对项目示例的实际输出。测试总数应以该 JSON 和相应提交的 GitHub Actions 为准，不能把夹具数量当作新科研实验。
 
-首轮工程复核执行 \textbf{184 项测试：183 项通过、1 项因符号链接权限跳过、0 项失败}；比原 129 项增加 55 项。Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1。两轮历史审计均为\code{passed_frozen}，各自零错误、零警告。\textbf{进一步复核发现的缺陷、修复与最终验证见第 5 页起的补充记录；上述数字仅属于首轮。}
+首轮工程复核执行 \textbf{184 项测试：183 项通过、1 项因符号链接权限跳过、0 项失败}；比原 129 项增加 55 项。Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1。两轮历史审计均为\code{passed_frozen}，各自零错误、零警告。\textbf{进一步复核发现的缺陷、修复与当时验证见第 \pageref{sec:followup} 页起的记录；上述数字仅属于首轮，不代表本版最终状态。}
 
 \newpage
 \section{智能体运行与证据完整性}
@@ -121,6 +151,7 @@ python audit.py --run runs/revision\_reference --require-frozen
 {\small\color{muted}提交建议：原论文、此补充报告、全部代码与原始记录一并保留。课堂展示同时说明实际智能体迭代、负面结论、修复证据和适用范围。}
 \newpage
 \section{进一步复核：证据使用与失败处理}
+\label{sec:followup}
 \subsection{为什么继续检查}
 首轮测试通过后，针对“恢复以后实际读到什么”和“工具只完成一部分时如何处理”补充故障注入。发现两个可复现的运行缺陷，以及一项测试统计缺陷。修复位于新增工程层；原始研究控制器、数值核心、两轮运行日志与 52 页论文均保持原样。
 
@@ -165,5 +196,177 @@ q_i=\max(\sigma_i,10^{-5}).
 发布状态以相应提交和 GitHub Actions 为准。此补充报告不能单独证明远端已更新，不能用先前提交的绿色状态替代当前提交的检查结果。原论文中的静态退化、覆盖不足、区间跨零以及缺少现场验证等结论继续保留。
 
 \vfill\noindent\textcolor{teal}{\rule{\textwidth}{.6pt}}
-{\small\color{muted}结论：复核已发现并修复具体缺陷，同时保留可复查证据和适用边界。有限审查与回归通过不构成“零漏洞”承诺。}
+{\small\color{muted}历史记录到此结束。以下为 2026-10-15 的真实 Agent 研究和 2026-10-16 的交付复核。}
+
+\newpage
+\section{直接采用参考项目的 Agent}
+\label{sec:upstream}
+\subsection{来源、接入与角色分工}
+参考项目为 \href{https://github.com/DeepMathLLM/Creative-Intelligence}{DeepMathLLM/Creative-Intelligence}，固定于提交\code{b7d17249f94949351faefd7ae28a020f0623db93}。本项目逐字节保留其 Stage 2 的\code{agent.py}、配置、说明、模式、测试及 MIT 许可，共 7 份来源文件。其原始控制器实际执行\code{command_run}、\code{execute_turn}与会话恢复；适配器只提供研究工作目录、配置、输入摘要及过程证据。
+
+该公开快照未包含 README 所提到的构造、验证两份 Skill，因此本项目补写\code{construct-mathematical-concept}与\code{verify-mathematical-concept}，逐份注明归属。它们是研究指引，不是形式化证明器。Stage 2 使用 Codex CLI，不等同于该项目第一阶段的 Moonshine 运行时。
+
+模型可以在独立研究目录内写数学推导与 Python 程序，执行计算并根据反馈修订。历史自研控制器的受限工具研究与本次入口分开：前者保留旧两轮定位成绩，后者允许形成新的验证程序。题面、参考材料与 Skills 的输入摘要在调用前后检查。
+
+\subsection{两次真实研究推进}
+\noindent\begin{tabularx}{\textwidth}{@{}p{25mm}YY@{}}
+\toprule
+记录 & 第一次推进 & 第二次推进 \\
+\midrule
+日期 & 2026-10-15 & 2026-10-15 \\[3pt]
+实际任务 & 构造、推导、编写检查器并运行案例 & 同会话恢复；尝试反驳、运行 oracle、修复工程问题 \\[3pt]
+接受状态 & turn=1，paused & turn=2，complete \\[3pt]
+主要产物 & \code{research_v1.md}、\code{diagnostic_v1.py}、11 个案例及结果 & \code{diagnostic_v2.py}、\code{verification_v2.md}、失败与通过报告 \\
+\bottomrule
+\end{tabularx}
+
+两次\code{accepted_structured_research_turn}均为 true，保存状态中的 session ID 相同，第二次实际命令包含\texttt{exec resume}。原始 JSONL 事件保留了读写文件、执行程序和连接重试；没有把模拟进程测试计为真实研究。\code{complete}只对应题面限定的见证研究，不认证数学正确性或工业题已解。
+
+\subsection{证据与运行边界}
+原始记录位于\code{studies/creative_intelligence/mirror_ambiguity/evidence/}。每轮保留实际提示、命令、状态前后快照、原始事件、错误输出与摘要；第一轮科学产物另存快照。SHA256 用于核查复制与变化，不是不可伪造的第三方签名。
+
+每次\code{advance}仅推进一个研究单元，\code{--once}不构成令牌、费用或时间上限。运行采用独立可写工作区，禁用研究沙箱网络和递归子 Agent；模型服务的连接仍由 CLI 完成。停止机制不能保证递归终止所有后代进程，故本次未启动后台或递归任务。
+
+\newpage
+\section{问题定义与精确判据}
+\subsection{固定观测与存在共同观测}
+令当前位置与速度为 $\theta=(x,v)\in\mathbb R^4$，锚点为 $a_i$，时刻为 $t_i\le0$，并记
+\[
+d_i(\theta)=\|x+t_i v-a_i\|,\qquad
+\mathcal F(y,\epsilon)=\{\theta:|y_i-d_i(\theta)|\le\epsilon_i,\ \forall i\}.
+\]
+新研究假设锚点、时刻精确，$y_i\ge0$，$\epsilon_i\ge0$ 是\textbf{确定性误差硬界}，不是历史实验的标准差 $\sigma_i$。给定实际 $y$ 时，须找到 $\theta_1,\theta_2\in\mathcal F$ 且 $x_1\ne x_2$ 才形成当前位置歧义见证。
+
+另一问题是：对指定的两个候选，是否存在某个共同观测向量。这等价于逐行
+\[
+|d_i(\theta_1)-d_i(\theta_2)|\le2\epsilon_i.
+\]
+逐行中点给出共同观测，但它未必等于实际输入 $y$。例如两距离为 1、3 且 $\epsilon=1$，共同观测 2 可行；实际观测 1 对第二个候选不可行。
+
+\subsection{避免浮点临界误判}
+程序对输入有理数精确计算平方距离 $q_i=d_i(\theta)^2$。固定观测判据为
+\[
+\max(0,y_i-\epsilon_i)^2\le q_i\le(y_i+\epsilon_i)^2.
+\]
+对两个候选的平方距离 $q,r\ge0$，共同观测模式设 $S=q+r-4\epsilon^2$，其等价判据为
+\[
+S\le0\quad\text{或}\quad (S>0\ \text{且}\ S^2\le4qr).
+\]
+第二次平方只在两侧非负时使用，不能删除 $S\le0$ 分支。输出同时提供位置分离平方 $D^2$ 与误差下界平方 $D^2/4$；显示的有理下界向下取整，不能向上夸大。
+
+\subsection{近共线与异步反射}
+以经过 $c$、单位法向为 $n$ 的直线反射整条轨迹，记
+\[
+s_i=n\cdot(x+t_i v-c),\qquad h_i=n\cdot(a_i-c).
+\]
+两反射候选的距离差在分母非零时满足
+\[
+|d_i-d_i'|=\frac{4|h_i s_i|}{d_i+d_i'}\le2\min(|h_i|,|s_i|).
+\]
+双零距离时差为零，不能代入 $0/0$。逐行 $h_i s_i=0$ 等价于精确反射测距相同。近共线给出的界是保守充分条件；异步过线时 $s_i=0$，离轴锚点也可能无法消歧。速度只作线性反射，位置包含仿射平移。
+
+\newpage
+\section{非共线、满秩仍有全局歧义}
+\subsection{Agent 构造的精确反例}
+取 $\theta_1=(0,3,1,1)$、$\theta_2=(0,-3,1,-1)$，坐标依次为 $(x_1,x_2,v_1,v_2)$。每条观测的误差硬界均为零：
+\begin{center}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+$t_i$ & 锚点 $a_i$ & 两条轨迹的距离 & 行号 \\
+\midrule
+$-4$ & $(-4,0)$ & $1$ & 0 \\
+$-3$ & $(-3,1)$ & $1$ & 1 \\
+$-2$ & $(-2,0)$ & $1$ & 2 \\
+$-1$ & $(-5/2,0)$ & $5/2$ & 3 \\
+$0$ & $(-4,0)$ & $5$ & 4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+前三锚点的有向二倍面积为 $-2\ne0$，确实非共线。离轴锚点对应 $t=-3$，两条轨迹恰好在该时刻经过反射轴，因而距离仍相同。该例在\code{fixtures_v1.json}中名为\code{noncollinear_crossing_full_rank}。
+
+令 $z_i=x+t_i v-a_i$，距离 Jacobian 的第 $i$ 行是 $[z_i^\top,t_i z_i^\top]/d_i$。所有距离非零，因此行乘 $d_i$ 不改变秩。第一条轨迹取第 0、1、3、4 行得到
+\[
+B_1=\begin{pmatrix}
+0&-1&0&4\\
+0&-1&0&3\\
+3/2&2&-3/2&-2\\
+4&3&0&0
+\end{pmatrix},\qquad \det B_1=-6.
+\]
+镜像轨迹对应子式行列式为 $+6$。两个 Jacobian 都满列秩 4，但当前位置分别为 $(0,3)$ 与 $(0,-3)$，分离距离 $D=6$。所以局部满秩及非共线锚点不足以保证全局唯一。
+
+\subsection{为什么存在 3 m 的不可消除下界}
+同一观测产生的任一确定性单点估计 $z$ 都满足
+\[
+6=\|x_1-x_2\|\le\|z-x_1\|+\|z-x_2\|,
+\qquad \max_j\|z-x_j\|\ge3.
+\]
+因此不存在对这两个可行世界都保证小于 3 m 误差的估计。对相同输入采用同一输出分布的随机估计，取期望同样得到两世界中较大的期望误差至少为 3。这里不是概率覆盖率结论；在 $D=2r$ 时，中点可达到误差 $r$，只有 $D>2r$ 才否定所有世界误差不超过 $r$ 的保证。
+
+此结果是具体验证见证，不主张完整唯一性判定或数学文献首创。缺少候选、漏掉镜像时，程序仍只能报告未找到见证。
+
+\newpage
+\section{真实失败、修复与复核}
+\subsection{第二轮实际发生的迭代}
+第二轮使用同一模型会话，另外实现区间 oracle，直接比较原始允许观测区间，不复用待检平方判据生成预期答案。有限计算支持推导，但不是普遍命题的形式化证明；另写 oracle 也不等于不同模型的确认。
+
+第一次验证退出码为 1，保存为\code{results_v2.json}：验证脚本错误地要求两轨迹的子式均为 $-6$，而镜像应为 $+6$；同轮还出现 Windows 子进程输出解码错误。修正验证脚本与 UTF-8 调用后，保存\code{results_pass_v2.json}；补充零距离和字节边界后，再保存\code{results_final_v2.json}。失败没有被重标为成功，11 份 v1 科学文件的 SHA256 未变。
+
+\noindent\begin{tabularx}{\textwidth}{@{}p{30mm}YY@{}}
+\toprule
+确认的程序问题 & v1 的安全复现 & v2 的处理 \\
+\midrule
+重复 JSON 字段 & 后一个值静默替代前一个 & 解析阶段拒绝任意对象中的重复字段 \\[4pt]
+覆盖输入或结果 & 输出可以写回输入或旧结果 & 拒绝相同路径与已有文件，采用排他新建 \\[4pt]
+无输入规模限制 & 温和超界输入仍被接受 & 限 32768 字节、32 条观测、16 个候选；限制字面长度、有理数大小与嵌套 \\
+\bottomrule
+\end{tabularx}
+数值界在构造\code{Fraction}前检查巨大指数；支持域外输入拒绝属于工程范围收缩，不是数学唯一性判定。排他新建防止覆盖，但不保证磁盘故障时新文件完整写入。
+
+\subsection{已完成的有限检查}
+\begin{itemize}
+\item 每个版本 517 个实际观测判据案例、514 个共同观测判据案例，与区间 oracle 零不一致；包含阈值两侧、等号、无理根夹逼与零距离。
+\item 11 个既有案例及其旋转平移、85 个反射案例、满秩子式、$D/2$ 下界、输出向下界均完成检查。
+\item 最终 35 次 CLI 调用均符合预期状态，包含应当拒绝的输入，不能描述为 35 次都退出 0。
+\item 项目另一个审阅 Agent 对实际产物复查：第一版 9000 个精确算术案例；第二版 20 项数值边界、9 项 CLI、维度与输出保护等通过。该复查仍不是外部同行评议或形式化证明。
+\end{itemize}
+
+\subsection{可移机复算}
+\code{reproduce_checks.py}先核验 70 份原始材料的摘要，在临时副本中运行原验证及第二版独立回归，仅重定位历史哈希清单的绝对路径，不改归档原件、不调用模型。默认只需 Python 标准库；需要 NumPy 的第一版外部复查保留原结果，不包含在此默认入口中。
+
+\newpage
+\begingroup\small\linespread{1.04}\selectfont
+\section{本版交付核对与剩余问题}
+\label{sec:delivery}
+\subsection{可复现入口}
+从项目根目录执行\texttt{python -B}\ \code{studies/creative_intelligence/mirror_ambiguity/reproduce_checks.py}，可复算新增研究。使用\code{--output}必须指定尚不存在的新目录。实际模型研究则通过\code{integrations/creative_intelligence/runner.py}的\code{init}与\code{advance}执行，需要自己的 CLI 登录和额度；再次运行可能产生不同输出，不覆盖正式记录。
+
+历史审计使用\texttt{python audit.py --run}\ \code{runs/live_reference}\ \texttt{--require-frozen}，再将目录替换为\code{runs/revision_reference}检查第二轮。\code{verification/check_revision_results.py}检查已保存统计，不重新拟合。全部命令、数值环境和真实输出以本版\code{studies/creative_intelligence/mirror_ambiguity/verification/}及对应提交 CI 为准。
+
+\subsection{2026-10-16 的完整检查}
+本地软件回归共执行 \textbf{273 项：271 项通过、2 项跳过、0 项失败或错误}，包含原工程 233 项、上游控制器 22 项与适配层 18 项。两项跳过均因 Windows 不允许创建符号链接，须由本版 Linux CI 补验，不能记为本地通过。
+
+两轮历史审计均为\code{passed_frozen}，零错误、零警告；123,279 项统计一致性检查通过。新增研究的 6 组复算、35 次 CLI 回归和第二版独立检查通过，70 份原始材料摘要保持不变；两轮历史归档成功重建为 14 张和 13 张卡片。环境为 Python 3.12.14、NumPy 2.5.4、SciPy 1.18.1，以上收尾检查新增模型调用为零。
+
+原始命令、标准输出与检查汇总保存在\code{verification/final_20261016/}（相对于新研究目录）。PDF 由同一份 LaTeX 源码编译并作逐页检查；云端四组环境必须对应最终上传提交。报告不以进程退出成功替代科研正确性，不以历史绿色状态替代新提交结果。
+
+\subsection{课程要求与成果归属}
+\begin{enumerate}
+\item \textbf{开发智能体：}独立定位工具与历史运行器，以及直接采用开源控制器的适配、研究 Skills 和证据包装均有源码。模型实际编写并运行了新的数学验证程序。
+\item \textbf{研究数学问题：}围绕异步测距的全局可辨识性，给出清晰量词、候选歧义诊断、精确反例和误差下界。允许原题未完全解决，成果边界如实陈述。
+\item \textbf{体现运行迭代：}新两轮原始调用、第一版快照、失败验证、修订版与复核结果完整保留；与旧研究次数分开。
+\item \textbf{PDF 与代码：}本补充报告已纳入新增研究，与 52 页历史论文共同阅读；源码、结果与复算入口随仓库提交。学生身份为徐楷沅，学号 2352163。
+\end{enumerate}
+
+\subsection{尚未解决的研究问题}
+\begin{itemize}
+\item 如何自动发现候选，或完整判定连续参数空间中的全局唯一性。
+\item 如何为真实系统标定误差硬界，并处理锚点位置、时间戳的不确定性。
+\item 如何将歧义见证转化为完整的应用拒绝策略并验证拒绝后的精度、成本与覆盖。
+\item 如何获得现场数据与完整工业验收标准。原统计研究的静态退化和覆盖不足仍须保留。
+\end{itemize}
+
+\vfill\noindent\textcolor{teal}{\rule{\textwidth}{.6pt}}
+{\small\color{muted}本项目交付的是有真实运行、有失败迭代、有数学与程序证据的课程研究。检查通过说明已检查范围内未发现阻断问题，不等于任意输入、未来环境或完整工业问题均已正确解决。}
+\endgroup
 \end{document}

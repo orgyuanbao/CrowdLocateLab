@@ -1,0 +1,16 @@
+{
+  "immutable_inputs_sha256": {
+    ".agents/skills/construct-mathematical-concept/SKILL.md": "ff214f1bf3968464b94ff28a2ce42c858237fb7f9ce84993eaa6b72f801477b5",
+    ".agents/skills/verify-mathematical-concept/SKILL.md": "16866941d9d63ae048dc877e39e76f508d473ce8cb17d604ace44c6f7da52871",
+    "AGENTS.md": "aeb1f1c928d5bb007eb4064c3bc46be4a8efb8932b8da27530d1f817abf5642b",
+    "config.toml": "1a7232ed0bcc70593d507a4fde7b0e4672a649970a0d7d2289da36fd34ee005b",
+    "materials/environment.txt": "ba13e866c6304b50f58dca91cdfe4e6f4ae85547c2cca2a7479cff8c30067888",
+    "materials/existing_method_math.md": "d0df74a815acf2d151689114826d87b80193e341495a7e42ab5a884d437fe112",
+    "materials/existing_research_context.md": "5d356c42f99ec6d29476b30e3a7c65cd2bfe6d8a986f2a2d03fb88bf18281da5",
+    "materials/existing_results_review.md": "cb4749428561e8800c907af48095e96390a7c3a19c88551d61e863bbd147b4d8",
+    "runs/mirror-ambiguity-20261015/problem.md": "9ad75a0400c056ae0a67faac383a13b4f602ecda8f2c728ea356d1fc58d8ec5e",
+    "schemas/turn-result.schema.json": "1894a29a4d11ac150cf50703fb274a99e0695c5293909b1afd01dfcbabfdd6f3"
+  },
+  "upstream_agent_sha256": "a9c505d8bc1c66369ff71f1fd5c1f13453b6338336fcb123a2164c7606b6f342",
+  "runner_sha256": "584d3bcec966bc3d8224fd867014c080d5a7edac031422cab8552df9932cd8bb"
+}

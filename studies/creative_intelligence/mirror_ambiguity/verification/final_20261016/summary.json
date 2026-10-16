@@ -1,0 +1,252 @@
+{
+  "new_model_calls": 0,
+  "output": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_delivery_20261016\\validation_20261016T070535Z",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "checks": {
+    "doctor": {
+      "returncode": 0,
+      "seconds": 0.297,
+      "result": {
+        "status": "ready",
+        "checks": [
+          {
+            "name": "python",
+            "status": "ok",
+            "version": "3.12.14",
+            "requirement": ">=3.11"
+          },
+          {
+            "name": "numpy",
+            "version": "2.5.4",
+            "status": "ok",
+            "requirement": ">=1.26,<3"
+          },
+          {
+            "name": "scipy",
+            "version": "1.18.1",
+            "status": "ok",
+            "requirement": ">=1.11,<2"
+          },
+          {
+            "name": "codex_cli",
+            "status": "ok",
+            "version": "0.162.0-alpha.17.2",
+            "required_for_numeric_reproduction": false,
+            "path": "C:\\Users\\沅\\AppData\\Local\\OpenAI\\Codex\\bin\\9614f1d9b40d9c4f\\codex.EXE",
+            "authentication": "not_checked",
+            "configured_model": "not_checked",
+            "exit_code": 0
+          }
+        ],
+        "error_count": 0,
+        "model_calls": 0,
+        "login_attempted": false,
+        "credentials_read": false,
+        "scope": "Local imports and codex --version only. Does not verify authentication, quota, remote model availability or scientific results."
+      }
+    },
+    "vendor_tests": {
+      "returncode": 0,
+      "seconds": 0.781,
+      "tests_run": 22,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "passed": 22,
+      "skip_reasons": []
+    },
+    "audit_live": {
+      "returncode": 0,
+      "seconds": 1.656,
+      "result": {
+        "audit_version": 1,
+        "run_directory": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\github_publish\\CrowdLocateLab\\runs\\live_reference",
+        "read_only": true,
+        "findings": [],
+        "counts": {
+          "events": 70,
+          "source_files": 14,
+          "evidence_references": 36,
+          "evidence_files": 20,
+          "model_requests": 14,
+          "model_responses": 14,
+          "completed_model_artifacts": 14,
+          "failed_model_requests": 0,
+          "pending_model_requests": 0,
+          "replay_responses": 0,
+          "raw_cli_events": 126,
+          "unexpected_cli_tools": 0
+        },
+        "frozen": true,
+        "run_status": "frozen",
+        "is_replay": false,
+        "frozen_integrity_check": {
+          "verified_source_files": 14,
+          "verified_evidence_files": 15,
+          "controller_and_toolkit_frozen": true,
+          "is_replay": false,
+          "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+        },
+        "integrity_ok": true,
+        "error_count": 0,
+        "warning_count": 0,
+        "frozen_required": true,
+        "status": "passed_frozen",
+        "exit_code": 0,
+        "limitations": [
+          "Local consistency is not a digital signature and cannot defeat coordinated rewriting of all files.",
+          "Checks do not prove scientific claims, industrial performance, or absence of unlogged external influence.",
+          "Raw CLI stdout/stderr are not separately content-hashed by the provider; available semantic metadata is cross-checked.",
+          "An in-progress snapshot verifies existing evidence only and does not authorize holdout access."
+        ]
+      }
+    },
+    "integration_tests": {
+      "returncode": 0,
+      "seconds": 3.031,
+      "tests_run": 18,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "passed": 18,
+      "skip_reasons": []
+    },
+    "audit_revision": {
+      "returncode": 0,
+      "seconds": 1.297,
+      "result": {
+        "audit_version": 1,
+        "run_directory": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\github_publish\\CrowdLocateLab\\runs\\revision_reference",
+        "read_only": true,
+        "findings": [],
+        "counts": {
+          "events": 65,
+          "source_files": 21,
+          "evidence_references": 37,
+          "evidence_files": 20,
+          "model_requests": 13,
+          "model_responses": 13,
+          "completed_model_artifacts": 13,
+          "failed_model_requests": 0,
+          "pending_model_requests": 0,
+          "replay_responses": 0,
+          "raw_cli_events": 117,
+          "unexpected_cli_tools": 0
+        },
+        "frozen": true,
+        "run_status": "frozen",
+        "is_replay": false,
+        "frozen_integrity_check": {
+          "verified_source_files": 21,
+          "verified_evidence_files": 14,
+          "controller_and_toolkit_frozen": true,
+          "is_replay": false,
+          "claim": "Local integrity checks passed; no signed provenance or adversarial tamper guarantee."
+        },
+        "integrity_ok": true,
+        "error_count": 0,
+        "warning_count": 0,
+        "frozen_required": true,
+        "status": "passed_frozen",
+        "exit_code": 0,
+        "limitations": [
+          "Local consistency is not a digital signature and cannot defeat coordinated rewriting of all files.",
+          "Checks do not prove scientific claims, industrial performance, or absence of unlogged external influence.",
+          "Raw CLI stdout/stderr are not separately content-hashed by the provider; available semantic metadata is cross-checked.",
+          "An in-progress snapshot verifies existing evidence only and does not authorize holdout access."
+        ]
+      }
+    },
+    "portable_study": {
+      "returncode": 0,
+      "seconds": 4.031,
+      "result": {
+        "schema_version": 1,
+        "status": "passed",
+        "new_model_calls": 0,
+        "scope": "Recomputation of saved finite checks, not new research or formal proof.",
+        "original_files_checked": 70,
+        "archive_manifest_sha256": "7fe7134d76e1d6003e5d7367cd10b97e38d95a4c6a8ff06572a36642a3975bca",
+        "original_files_unchanged": true,
+        "relocated_historical_hash_paths": 11,
+        "check_groups": 6,
+        "fixed_cases_per_version": 517,
+        "common_cases_per_version": 514,
+        "cli_regressions": 35,
+        "independent_legacy_cases": 11,
+        "independent_numeric_cases": 20,
+        "independent_cli_cases": 9,
+        "historical_v1_external_review": "Archived only; not rerun by this standard-library entry.",
+        "output": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_delivery_20261016\\validation_20261016T070535Z\\portable_study"
+      }
+    },
+    "statistics": {
+      "returncode": 0,
+      "seconds": 2.609,
+      "result": {
+        "ok": true,
+        "checks": 123279,
+        "errors": [],
+        "physical_prediction_errors_recomputed": 15860,
+        "logical_matrix_rows": 15400,
+        "paired_bootstrap_comparisons_recomputed": 155,
+        "coverage_populations_recomputed": 12,
+        "case_counts": {
+          "main": 720,
+          "stress": 400,
+          "edge": 420,
+          "calibration": 800,
+          "coverage": 1200
+        },
+        "scope": "Read only saved inputs, positions and outcomes. No fitting, new data generation, retuning or modification of study evidence.",
+        "limitations": "Checks numerical consistency, not independence of research decisions, authenticity of all local records, model superiority or mathematical assumptions."
+      }
+    },
+    "archive_live": {
+      "returncode": 0,
+      "seconds": 3.5,
+      "result": {
+        "output": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_delivery_20261016\\validation_20261016T070535Z\\archive_live",
+        "snapshot_sha256": "bb03366ca2eb5342e5b5819591828c5623659668f5b8279eeb905300525c4b58",
+        "cards": 14,
+        "files": [
+          "archive.json",
+          "index.html",
+          "SHA256SUMS.txt"
+        ],
+        "new_model_calls": 0,
+        "new_experiments": 0
+      }
+    },
+    "archive_revision": {
+      "returncode": 0,
+      "seconds": 3.516,
+      "result": {
+        "output": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_delivery_20261016\\validation_20261016T070535Z\\archive_revision",
+        "snapshot_sha256": "95ba3c8c03607802a6d702d3bd8a33a0ee8d3e07999606df7e55839411e8b3b6",
+        "cards": 13,
+        "files": [
+          "archive.json",
+          "index.html",
+          "SHA256SUMS.txt"
+        ],
+        "new_model_calls": 0,
+        "new_experiments": 0
+      }
+    },
+    "root_tests": {
+      "returncode": 0,
+      "seconds": 17.172,
+      "tests_run": 233,
+      "skipped": 2,
+      "failures": 0,
+      "errors": 0,
+      "passed": 231,
+      "skip_reasons": [
+        "test_symlinked_known_evidence_cannot_escape_selected_study (test_dashboard_hardening.DashboardHardeningTests.test_symlinked_known_evidence_cannot_escape_selected_study) ... skipped 'Host does not permit creation of symlink fixtures'",
+        "test_symlinked_artifact_is_rejected (test_research_archive.ResearchArchiveTests.test_symlinked_artifact_is_rejected) ... skipped 'Symlink creation is not available to this account'"
+      ]
+    }
+  },
+  "status": "passed"
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "new_model_calls": 0,
+  "scope": "Recomputation of saved finite checks, not new research or formal proof.",
+  "original_files_checked": 70,
+  "archive_manifest_sha256": "7fe7134d76e1d6003e5d7367cd10b97e38d95a4c6a8ff06572a36642a3975bca",
+  "original_files_unchanged": true,
+  "relocated_historical_hash_paths": 11,
+  "check_groups": 6,
+  "fixed_cases_per_version": 517,
+  "common_cases_per_version": 514,
+  "cli_regressions": 35,
+  "independent_legacy_cases": 11,
+  "independent_numeric_cases": 20,
+  "independent_cli_cases": 9,
+  "historical_v1_external_review": "Archived only; not rerun by this standard-library entry.",
+  "output": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_delivery_20261016\\validation_20261016T070535Z\\portable_study"
+}

@@ -2,7 +2,7 @@
 
 ### 面向异步众包定位的数学科研智能体
 
-[![自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml/badge.svg)](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml) · [中文研究报告](report/CrowdLocateLab_Report.pdf) · [研究证据卡片](archives/revision_reference/index.html) · [快速开始](START_HERE.md)
+[![自动检查](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml/badge.svg)](https://github.com/orgyuanbao/CrowdLocateLab/actions/workflows/tests.yml) · [最新研究补充报告](report/CrowdLocateLab_Quality_Review.pdf) · [历史研究论文](report/CrowdLocateLab_Report.pdf) · [快速开始](START_HERE.md)
 
 **学生：徐楷沅　｜　学号：2352163　｜　GitHub：[orgyuanbao](https://github.com/orgyuanbao)**
 
@@ -10,10 +10,19 @@ CrowdLocateLab 让大模型提出可检验的定位假设，调用数值工具�
 
 本项目来自《HarmonyOS 难题发布》第七期的众包离线位置聚合难题。我们研究其中的**合成数学子问题**：接收点在不同时刻给出带噪声、含异常值的距离观测时，如何估计目标当前的位置，并判断何时不应信任结果。尚无工业现场验证，不宣称解决完整原题或发明通用新定位算法。
 
+项目现已直接接入 **Creative-Intelligence 的 Mathematical Concept Agent（Stage 2）**。其原始控制器负责真实研究调用与会话恢复，本项目提供定位题面、补充研究 Skills 和过程记录。代码、来源及运行方法见 [上游 Agent 接入说明](integrations/creative_intelligence/README.md)。它与下述已有两轮定位研究使用不同入口，运行记录分别计数。
+
+**最新研究（2026-10-15）：** 已使用这个上游 Agent 完成两次真实研究推进，构造出“非共线锚点、局部满秩仍无法消除定位歧义”的精确反例，并编写、运行、修订了有限候选检查器。[研究成果与完整迭代记录](studies/creative_intelligence/mirror_ambiguity/README.md)包含原始调用、第一版、修订版、失败验证及独立复算。相同观测可以对应相距 6 m 的当前位置，因此任何单点估计都无法同时对两个可行世界保证小于 3 m 的误差。
+
+**交付复核（2026-10-16）：** 新成果已纳入 [12 页 LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)，封面含徐楷沅（2352163），第 8 页起完整呈现开源 Agent 的运行与迭代。完整本地回归执行 273 项，271 项通过、2 项因 Windows 符号链接权限跳过，零失败或错误；两轮历史审计、123,279 项统计复算和新增研究复算通过。[实际检查记录](studies/creative_intelligence/mirror_ambiguity/verification/final_20261016/summary.json)与[独立数学复核](studies/creative_intelligence/mirror_ambiguity/verification/final_20261016/science_review.json)均可核查，云端结果查看对应提交的 Actions。
+
 ## 先看什么
 
 | 你想做的事 | 入口 | 是否调用模型 |
 | --- | --- | --- |
+| 阅读课程交付与新增 Agent 研究 PDF | [12 页补充报告](report/CrowdLocateLab_Quality_Review.pdf)，与下列历史论文共同阅读 | 否 |
+| 看参考项目 Agent 实际研究了什么 | [新研究：定位歧义见证](studies/creative_intelligence/mirror_ambiguity/README.md) | 否，已保存真实记录 |
+| 复算新研究的数学与程序检查 | `python -B studies/creative_intelligence/mirror_ambiguity/reproduce_checks.py` | 否，仅需 Python 标准库 |
 | 看选题、方法和两轮结果 | [52 页中文论文](report/CrowdLocateLab_Report.pdf) | 否 |
 | 沿证据看“假设—实验—修订” | [第二轮卡片源码](archives/revision_reference/index.html) / [结构化归档](archives/revision_reference/archive.json)；下载完整项目后用浏览器打开 HTML | 否 |
 | 交互查看实验和失败案例 | `python dashboard_revision.py --port 8766`，访问 `http://127.0.0.1:8766` | 否 |
@@ -24,6 +33,8 @@ CrowdLocateLab 让大模型提出可检验的定位假设，调用数值工具�
 只阅读保存结果或启动研究浏览器，不需要模型账号；研究浏览器只使用 Python 标准库。GitHub 不直接渲染仓库里的 HTML，请下载或克隆完整项目、保持目录结构，再打开 `archives/revision_reference/index.html`。单独下载 HTML 只能阅读卡片正文，无法沿链接核查原始证据。
 
 ## 智能体怎样工作
+
+下图描述已有两轮定位研究的受限工具流程；新接入的 Mathematical Concept Agent 可以在独立工作目录内编写新的数学验证程序，详见其接入说明。
 
 ```mermaid
 flowchart LR
@@ -45,6 +56,20 @@ flowchart LR
 - **审阅调用负责质疑**：使用同一配置模型的独立提示检查遗漏和过度结论，不冒充不同模型或形式化证明器。
 
 新运行入口为 [`run_research.py`](run_research.py)，工程保护在 [`hardened_runtime.py`](hardened_runtime.py)。原 `run_agent.py`、`run_revision.py` 及冻结依赖保留用于解释历史研究。
+
+若要直接使用参考项目的 Agent，运行 [`integrations/creative_intelligence/runner.py`](integrations/creative_intelligence/runner.py)。该入口保留上游 `agent.py` 原始字节，通过它的 `command_run`、`execute_turn` 和 session 恢复机制逐轮研究，每次调用后保留原始事件、实际命令、输入摘要和状态快照。
+
+## 使用参考项目 Agent 的新研究
+
+| 阶段 | 实际完成内容 |
+| --- | --- |
+| 构造 | 区分实际观测与存在共同观测两个问题；推导反射条件与 D/2 误差下界，生成 11 个案例，编写有理数精确检查器 |
+| 验证与修复 | 同会话恢复，另写区间 oracle，检查旋转平移、零距离与满秩反例；修复重复 JSON 字段、文件覆盖及缺少输入限制的问题 |
+| 独立复算 | 保留失败报告与 v1 原件，另行核验精确算术和 v2 输入边界；提供不调用模型的可移机复算入口 |
+
+原始控制器完成 **2 个真实研究单元**；每单元内部含工具调用与连接重试，不将其表述成 2 次模型后端请求。第 2 轮是同模型自审；独立实现的 oracle、另行复算和形式化证明也分别说明。代码与完整证据见 [新研究目录](studies/creative_intelligence/mirror_ambiguity/README.md)。
+
+这项结果在**精确锚点、精确时刻、确定性误差硬界**下成立；硬界 ε 不能替代原实验的标准差 σ。检查器只验证给定候选，未找到见证不等于证明全局唯一。自动候选发现、连续唯一性判定与现场验证仍待研究。下面的历史统计和 52 页论文保留原归档内容，新成果另见更新的 12 页补充报告，未混入旧成绩。
 
 ## 已完成的两轮研究
 
@@ -151,6 +176,8 @@ python locate_revision.py --input examples/observations.json --region mondrian -
 
 ```text
 run_research.py / hardened_runtime.py   新研究入口与运行保护
+integrations/creative_intelligence/    直接采用的上游 Agent、适配入口与补写 Skills
+studies/creative_intelligence/         上游 Agent 的两次真实推进、数学产物与复算入口
 research_archive.py                    审计后生成证据卡片
 archives/                              两轮已有研究的只读派生归档
 agent_runtime/ tools/ localization/     冻结研究控制器、工具与数值核心
@@ -164,10 +191,10 @@ latex/ report/ docs/                    LaTeX、PDF 与使用说明
 
 ## 参考项目、身份与提交
 
-参考 [DeepMathLLM/Creative-Intelligence](https://github.com/DeepMathLLM/Creative-Intelligence)，本次对照固定于 [`b7d1724`](https://github.com/DeepMathLLM/Creative-Intelligence/tree/b7d17249f94949351faefd7ae28a020f0623db93)。借鉴的是研究状态管理、构造与验证分工、证据类别和验证后归档的思路；本项目的定位工具、实验协议及新增归档器为独立实现，没有复制其源码，也不是 Moonshine fork。
+参考并直接采用 [DeepMathLLM/Creative-Intelligence](https://github.com/DeepMathLLM/Creative-Intelligence) 的 Stage 2 控制器，版本固定于 [`b7d1724`](https://github.com/DeepMathLLM/Creative-Intelligence/tree/b7d17249f94949351faefd7ae28a020f0623db93)。原始程序及其 MIT 许可保存在 [vendor](integrations/creative_intelligence/vendor/)，文件摘要见 [UPSTREAM.json](integrations/creative_intelligence/UPSTREAM.json)。本项目的定位工具、原实验协议和证据归档器仍为独立实现；Stage 2 由 Codex CLI 执行，不依赖第一阶段的 Moonshine 运行时。
 
-参考项目 Stage 2 公开快照未包含其 README 提及的两份构造 / 验证 Skill。我们对照了可获取的控制器与测试，没有把文档中的研究原则等同于自动证明能力，也不把缺失组件作为项目运行依赖。具体来源和采用范围见 [参考核对记录](verification/reference_improvement/reference_snapshot.json)。
+参考项目 Stage 2 公开快照未包含其 README 提及的两份构造 / 验证 Skill。接入目录中同名的两份 Skill 是本项目补写，已逐份注明来源；其作用是组织研究和验证，不是自动数学证明器。2026-10-14 的思想借鉴记录保留在 [参考核对记录](verification/reference_improvement/reference_snapshot.json)，直接接入以当前目录中的代码与来源说明为准。
 
-学生身份为 **徐楷沅（2352163）**；学校、院系和课程信息尚未提供。[提交说明](docs/SUBMISSION.md)列出已知身份与待填项目，[答辩演示](docs/DEFENSE_DEMO.md)提供展示路线。历史 PDF 保留研究归档版本；正式提交时应使补齐身份的封面与导出的 PDF 一致，身份信息调整不改变历史实验记录。
+学生身份为 **徐楷沅（2352163）**，已写入本版补充报告源码及导出 PDF；学校、院系和课程信息尚未提供。[提交说明](docs/SUBMISSION.md)列出材料与身份字段，[答辩演示](docs/DEFENSE_DEMO.md)提供历史研究展示路线。52 页论文保留历史归档，提交时与带有当前身份和新研究结果的补充报告一并提供。
 
 [MIT LICENSE](LICENSE) 适用于本项目原创代码。课程资料、第三方论文与软件保留各自权利；原课件、账号凭据和本地环境不随仓库发布。引用与数学来源见 [研究背景](docs/research_context.md)和 [文献表](docs/references.bib)。

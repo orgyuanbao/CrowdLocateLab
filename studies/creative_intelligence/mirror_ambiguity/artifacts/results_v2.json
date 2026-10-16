@@ -1,0 +1,437 @@
+{
+  "seed": 20261016,
+  "review": "same-model review with separate implementation, not independent-model confirmation",
+  "commands": [
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\duplicate_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"version\": 1,\n  \"mode\": \"fixed_y\",\n  \"status\": \"no_witness_found\",\n  \"arithmetic\": \"exact rational squared inequalities; no feasibility tolerance\",\n  \"scope\": \"supplied candidates only; no uniqueness or safe-acceptance conclusion\",\n  \"candidates\": [\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"3\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ]\n  ],\n  \"squared_ranges\": [\n    [\n      \"1\"\n    ],\n    [\n      \"9\"\n    ]\n  ],\n  \"fixed_y_feasible\": [\n    true,\n    false\n  ],\n  \"witnesses\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\duplicate_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"duplicate JSON key: y\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\input_equals_output_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\input_equals_output_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_output\",\n  \"error\": \"output must be a new path distinct from input\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\earlier_result_v1_reproduction_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\earlier_result_v2_protected_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_output\",\n  \"error\": \"output must be a new path distinct from input\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\observations_33_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"version\": 1,\n  \"mode\": \"fixed_y\",\n  \"status\": \"witness\",\n  \"arithmetic\": \"exact rational squared inequalities; no feasibility tolerance\",\n  \"scope\": \"supplied candidates only; no uniqueness or safe-acceptance conclusion\",\n  \"candidates\": [\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"3\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ]\n  ],\n  \"squared_ranges\": [\n    [\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\",\n      \"1\"\n    ],\n    [\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\",\n      \"9\"\n    ]\n  ],\n  \"fixed_y_feasible\": [\n    true,\n    true\n  ],\n  \"witnesses\": [\n    {\n      \"indices\": [\n        0,\n        1\n      ],\n      \"position_separation_squared\": \"4\",\n      \"worst_case_error_lower_bound_squared\": \"1\",\n      \"worst_case_error_lower_bound_rational\": \"1\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\observations_33_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"too many observations\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\candidates_17_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"version\": 1,\n  \"mode\": \"fixed_y\",\n  \"status\": \"no_witness_found\",\n  \"arithmetic\": \"exact rational squared inequalities; no feasibility tolerance\",\n  \"scope\": \"supplied candidates only; no uniqueness or safe-acceptance conclusion\",\n  \"candidates\": [\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ]\n  ],\n  \"squared_ranges\": [\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ],\n    [\n      \"1\"\n    ]\n  ],\n  \"fixed_y_feasible\": [\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true,\n    true\n  ],\n  \"witnesses\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\candidates_17_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"candidate count must be between 1 and 16\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\exponent_25_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"version\": 1,\n  \"mode\": \"fixed_y\",\n  \"status\": \"no_witness_found\",\n  \"arithmetic\": \"exact rational squared inequalities; no feasibility tolerance\",\n  \"scope\": \"supplied candidates only; no uniqueness or safe-acceptance conclusion\",\n  \"candidates\": [\n    [\n      \"10000000000000000000000000\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"3\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ]\n  ],\n  \"squared_ranges\": [\n    [\n      \"100000000000000000000000000000000000000000000000000\"\n    ],\n    [\n      \"9\"\n    ]\n  ],\n  \"fixed_y_feasible\": [\n    false,\n    true\n  ],\n  \"witnesses\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\exponent_25_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"expected bounded finite rational number\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v1.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\file_bytes_over_limit_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"version\": 1,\n  \"mode\": \"fixed_y\",\n  \"status\": \"witness\",\n  \"arithmetic\": \"exact rational squared inequalities; no feasibility tolerance\",\n  \"scope\": \"supplied candidates only; no uniqueness or safe-acceptance conclusion\",\n  \"candidates\": [\n    [\n      \"1\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ],\n    [\n      \"3\",\n      \"0\",\n      \"0\",\n      \"0\"\n    ]\n  ],\n  \"squared_ranges\": [\n    [\n      \"1\"\n    ],\n    [\n      \"9\"\n    ]\n  ],\n  \"fixed_y_feasible\": [\n    true,\n    true\n  ],\n  \"witnesses\": [\n    {\n      \"indices\": [\n        0,\n        1\n      ],\n      \"position_separation_squared\": \"4\",\n      \"worst_case_error_lower_bound_squared\": \"1\",\n      \"worst_case_error_lower_bound_rational\": \"1\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\file_bytes_over_limit_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"input exceeds byte limit\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\token_65_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"expected bounded finite rational number\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\denominator_over_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"rational magnitude or component exceeds bound\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\numerator_over_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"rational magnitude or component exceeds bound\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\magnitude_over_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"rational magnitude or component exceeds bound\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\huge_exponent_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"expected bounded finite rational number\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\negative_epsilon_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"epsilon must be nonnegative\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\nonfinite_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"expected bounded finite rational number\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\zero_denominator_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"expected bounded finite rational number\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\json_nan_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"non-finite JSON number: NaN\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\deep_nesting_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"JSON nesting exceeds limit\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\unknown_key_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"unknown input fields\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\escaped_duplicate_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"duplicate JSON key: y\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\mode_y_mix_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"common_y must omit y: quantifiers differ\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\bool_time_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"expected finite rational number\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\bad_utf8_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\absent_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_input\",\n  \"error\": \"input must be a regular file\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\new_certificate_v2.json"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\new_certificate_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": "{\n  \"status\": \"invalid_output\",\n  \"error\": \"output must be a new path distinct from input\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\diagnostic_v2.py",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\valid_v2.json",
+        "--output",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\checks_youq6p6r_v2\\missing_directory_v2\\certificate_v2.json"
+      ],
+      "exit_code": 2,
+      "stdout": null,
+      "stderr": ""
+    }
+  ],
+  "checks": {
+    "squared_predicates_vs_interval_oracle": {
+      "fixed_cases_per_version": 517,
+      "common_cases_per_version": 514,
+      "rational_error_bound_cases": 5,
+      "mismatches": 0
+    },
+    "v1_fixtures_vs_separate_oracle": {
+      "collinear_full_rank": "witness",
+      "near_noncollinear": "witness",
+      "noncollinear_crossing_full_rank": "witness",
+      "pair_rejected_after_anchor_change": "no_witness_found",
+      "omitted_mirror_no_witness": "no_witness_found",
+      "fixed_y_quantifier": "no_witness_found",
+      "common_y_boundary": "witness",
+      "common_y_below_boundary": "no_witness_found",
+      "zero_range": "witness",
+      "same_current_different_velocity": "no_witness_found",
+      "equal_time_velocity_confounding": "witness"
+    },
+    "D_over_2": {
+      "grid_estimators": 63,
+      "radius_rejection": {
+        "2999/1000": true,
+        "3": false,
+        "3001/1000": false
+      },
+      "randomized_per_world_expected_errors": [
+        "3",
+        "3"
+      ]
+    },
+    "v1_integrity": {
+      "sha256_unchanged_files": 11
+    }
+  },
+  "failures": [
+    {
+      "check": "reflection_transforms_and_rank",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\verify_v2.py\", line 33, in check\n    RECORD[\"checks\"][name] = function()\n                             ^^^^^^^^^^\n  File \"C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\verify_v2.py\", line 143, in test_reflection_and_rank\n    assert determinant == -6\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "check": "CLI_reproductions_and_regressions",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\verify_v2.py\", line 33, in check\n    RECORD[\"checks\"][name] = function()\n                             ^^^^^^^^^^\n  File \"C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\verify_v2.py\", line 349, in <lambda>\n    check(\"CLI_reproductions_and_regressions\", lambda: test_cli(scratch))\n                                                       ^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\verify_v2.py\", line 317, in test_cli\n    assert got.returncode == 2 and json.loads(got.stdout)[\"status\"] == \"invalid_output\"\n                                   ^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\沅\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\__init__.py\", line 339, in loads\n    raise TypeError(f'the JSON object must be str, bytes or bytearray, '\nTypeError: the JSON object must be str, bytes or bytearray, not NoneType\n"
+    }
+  ],
+  "invocation": [
+    "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\creative_agent_adoption\\runtime\\runs\\mirror-ambiguity-20261015\\verify_v2.py",
+    "--report",
+    "results_v2.json"
+  ],
+  "status": "failed"
+}

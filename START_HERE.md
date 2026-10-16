@@ -1,8 +1,18 @@
 # 先看这里
 
-这是 **CrowdLocateLab 双轮研究版**。两轮真实智能体研究、独立评测与结果复核均已完成，合计 27 次模型调用、22,052 次冻结后定位计算。2026-10-12 的工程加固与新增测试见 [审查记录](docs/QUALITY_REVIEW.md) 和 [LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)。原研究保留静态退化与部分覆盖不足，不声称零缺陷。
+这是 **CrowdLocateLab：双轮定位研究与开源 Agent 扩展版**。两轮历史智能体研究、独立评测与结果复核均已完成，合计 27 次模型调用、22,052 次冻结后定位计算。[12 页 LaTeX 补充报告](report/CrowdLocateLab_Quality_Review.pdf)已更新至 2026-10-16，包含工程复核与新增开源 Agent 的实际研究；[审查记录](docs/QUALITY_REVIEW.md)保留各阶段状态。原研究的静态退化与部分覆盖不足仍保留，不声称零缺陷。
 
 学生：**徐楷沅**，学号：**2352163**。新增证据卡片把模型假设、工具观察、数学见证和审阅分别列出；[第二轮归档](archives/revision_reference/archive.json)来自已有真实记录，不增加模型调用或研究次数。
+
+**2026-10-15 更新：已直接使用参考项目 Creative-Intelligence 的 Stage 2 Agent。** 通过原控制器完成两次真实研究推进，得到非共线、局部满秩仍有定位歧义的反例，以及修订后的精确候选检查器。[新研究入口](studies/creative_intelligence/mirror_ambiguity/README.md)保留两轮原始调用、程序、失败和修复记录，独立于原 27 次模型调用与定位成绩计数。
+
+先用 Python 3.11+ 在项目根目录执行以下命令，可无模型复算新成果；它仅需标准库，在临时副本中检查，不覆盖归档：
+
+```text
+python -B studies/creative_intelligence/mirror_ambiguity/reproduce_checks.py
+```
+
+若要发起新的真实研究，使用 [上游 Agent 接入说明](integrations/creative_intelligence/README.md)中的 `runner.py init / advance`，准备自己的 Codex CLI 登录与额度。新检查器验证给定有限候选，不能以“未找到见证”宣告唯一。新增研究见补充报告第 8 页起，52 页历史论文保留原实验归档。
 
 ## 1. 只查看，不调用模型
 
@@ -56,7 +66,7 @@ python run_research.py --output runs/my_revision --provider codex --reasoning-ef
 
 ## 4. 重建与提交
 
-`latex/main.tex` 是论文入口，`reporting/compile_report.py` 从完成的证据生成章节并编译 PDF。已知学生身份见 [提交说明](docs/SUBMISSION.md)；学校、院系和课程信息尚待提供。原 PDF 保持归档版本，补齐封面不需重跑模型。
+`latex/main.tex` 是历史论文入口，`reporting/compile_report.py` 从完成的证据生成章节并编译该论文。本版新成果与学生身份写在 `latex/quality_addendum.tex`，对应 `report/CrowdLocateLab_Quality_Review.pdf`；两份 PDF 应共同提交。身份见 [提交说明](docs/SUBMISSION.md)，学校、院系和课程信息未提供，未虚构填写。
 
 源码、两轮正式记录、结果、预登记、审计与 PDF 应一并提交；课件和凭据不上传。保留 `.gitattributes` 以免换行转换破坏冻结哈希。GitHub 发布与课程提交步骤见 [SUBMISSION.md](docs/SUBMISSION.md)。
 

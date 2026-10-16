@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "protected_files_unchanged": 363,
+  "copied_original_files": 70,
+  "vendor_original_files": 7,
+  "accepted_real_research_turns": 2,
+  "same_session_resume_confirmed": true,
+  "v1_scientific_files_unchanged": 11,
+  "local_latex_sha256": "746905a6878a501e9dc8996132948bf237c5fe6c02361f4e16c97c96f5a0cd37"
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "provenance": "independent_post_run_review_of_upstream_agent_turn_002",
+  "read_only_runtime_artifacts": true,
+  "reviewed_source_sha256": {
+    "diagnostic_v1.py": "c769c7b98f5d0632bff37619279810b42287725ec8d3d0b41ce76362162cdc90",
+    "diagnostic_v2.py": "e3e1f24338c367d756eccbfca3d9e6c52553a1f327cef421379cf8cdc1f715e0",
+    "oracle_math_v2.py": "8bfd22bf11e84b445b6eca3c071f9cb0c06bed71a85fc85edbaf4b5a0d4fa879",
+    "verify_v2.py": "ef17714eb457795793506a823fedc49d77d58ade1fd160975b2c8e330485e0cf",
+    "fixtures_v1.json": "a4132a3e36c72b9545ea6e278d2553d31e9f84c87b14b23c77c6919498e76c86",
+    "results_v1.json": "0491f6bee97cc3ad467ef2ec61aea1ab1398e47f497518b7dd7fc1166b1e0782",
+    "results_final_v2.json": "5fa0466e428af0328c0ddbf31ace5deb2f7807725ecb81185c6877fc79c96919"
+  },
+  "runtime_sources_unchanged": true,
+  "new_model_calls": 0,
+  "status": "passed_reviewed_regressions",
+  "legacy_cases_unchanged_except_version": {
+    "collinear_full_rank": "witness",
+    "near_noncollinear": "witness",
+    "noncollinear_crossing_full_rank": "witness",
+    "pair_rejected_after_anchor_change": "no_witness_found",
+    "omitted_mirror_no_witness": "no_witness_found",
+    "fixed_y_quantifier": "no_witness_found",
+    "common_y_boundary": "witness",
+    "common_y_below_boundary": "no_witness_found",
+    "zero_range": "witness",
+    "same_current_different_velocity": "no_witness_found",
+    "equal_time_velocity_confounding": "witness"
+  },
+  "numeric_input_boundaries": [
+    {
+      "name": "absolute_positive_boundary",
+      "status": "accepted",
+      "value": "1000000"
+    },
+    {
+      "name": "absolute_negative_boundary",
+      "status": "accepted",
+      "value": "-1000000"
+    },
+    {
+      "name": "absolute_above",
+      "status": "rejected"
+    },
+    {
+      "name": "absolute_below_negative",
+      "status": "rejected"
+    },
+    {
+      "name": "denominator_boundary",
+      "status": "accepted",
+      "value": "1/1000000000000000000000000"
+    },
+    {
+      "name": "denominator_above",
+      "status": "rejected"
+    },
+    {
+      "name": "numerator_boundary",
+      "status": "accepted",
+      "value": "1000000000000000000000000/999999999999999999999999"
+    },
+    {
+      "name": "numerator_above",
+      "status": "rejected"
+    },
+    {
+      "name": "negative_exponent_boundary",
+      "status": "accepted",
+      "value": "1/1000000000000000000000000"
+    },
+    {
+      "name": "negative_exponent_above",
+      "status": "rejected"
+    },
+    {
+      "name": "positive_exponent_boundary",
+      "status": "accepted",
+      "value": "1000000"
+    },
+    {
+      "name": "positive_exponent_above",
+      "status": "rejected"
+    },
+    {
+      "name": "huge_positive_exponent",
+      "status": "rejected"
+    },
+    {
+      "name": "huge_negative_exponent",
+      "status": "rejected"
+    },
+    {
+      "name": "token_64",
+      "status": "accepted",
+      "value": "1"
+    },
+    {
+      "name": "token_65",
+      "status": "rejected"
+    },
+    {
+      "name": "long_decimal_outside_supported_domain",
+      "status": "rejected"
+    },
+    {
+      "name": "bool_rejected",
+      "status": "rejected"
+    },
+    {
+      "name": "zero_denominator",
+      "status": "rejected"
+    },
+    {
+      "name": "nonfinite_float",
+      "status": "rejected"
+    }
+  ],
+  "count_boundaries": [
+    {
+      "observations": 32,
+      "status": "accepted"
+    },
+    {
+      "observations": 33,
+      "status": "rejected"
+    },
+    {
+      "candidates": 16,
+      "status": "accepted"
+    },
+    {
+      "candidates": 17,
+      "status": "rejected"
+    }
+  ],
+  "cli_cases": [
+    {
+      "name": "duplicate_y",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.06520150000142166
+    },
+    {
+      "name": "exponent_1e1000000000",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.065136999997776
+    },
+    {
+      "name": "exponent_1eminus1000000000",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.06145489999471465
+    },
+    {
+      "name": "exponent_1e999999999999999999999999999999999999",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.06428320000122767
+    },
+    {
+      "name": "bytes_32768",
+      "status": "witness",
+      "exit_code": 0,
+      "seconds": 0.06830680000712164
+    },
+    {
+      "name": "bytes_32769",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.06940490000124555
+    },
+    {
+      "name": "deep_nesting",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.05646349999733502
+    },
+    {
+      "name": "invalid_utf8",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.058383499999763444
+    },
+    {
+      "name": "unknown_fields",
+      "status": "invalid_input",
+      "exit_code": 2,
+      "seconds": 0.06284489999961806
+    }
+  ],
+  "output_preservation": [
+    {
+      "name": "same_input_output",
+      "status": "rejected_without_changes"
+    },
+    {
+      "name": "existing_output",
+      "status": "rejected_without_changes"
+    },
+    {
+      "name": "new_output",
+      "status": "created_successfully"
+    }
+  ],
+  "supported_exact_decimal_boundaries": [
+    {
+      "epsilon": "0.999999999999999999999999",
+      "status": "no_witness_found"
+    },
+    {
+      "epsilon": "1",
+      "status": "witness"
+    },
+    {
+      "epsilon": "1.00000000000000000000001",
+      "status": "witness"
+    }
+  ],
+  "resolved_findings": [
+    "duplicate JSON keys rejected",
+    "same/existing output refused without modification",
+    "huge scientific exponents rejected before Fraction construction",
+    "explicit numeric/count/byte/nesting bounds enforced"
+  ],
+  "major_remaining_errors_found": [],
+  "limits": [
+    "This review does not certify arbitrary software correctness or formal proof completeness.",
+    "Input-domain contraction is deliberate; out-of-domain rejection is not a negative mathematical result.",
+    "Finite supplied candidates remain incomplete for continuous global ambiguity.",
+    "Original verify_v2.py still records absolute historical hash paths; no runtime verifier was rerun by this review.",
+    "New-file exclusive creation prevents overwrite but does not promise atomic complete-file publication on process interruption."
+  ]
+}

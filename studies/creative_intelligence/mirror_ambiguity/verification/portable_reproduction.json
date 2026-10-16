@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "new_model_calls": 0,
+  "scope": "Recomputation of saved finite checks, not new research or formal proof.",
+  "original_files_checked": 70,
+  "archive_manifest_sha256": "7fe7134d76e1d6003e5d7367cd10b97e38d95a4c6a8ff06572a36642a3975bca",
+  "original_files_unchanged": true,
+  "executions": [
+    {
+      "command": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_audit\\tmp\\crowdlocate-mirror-6b17ylil\\verifier\\verify_v2.py",
+        "--report",
+        "portable_reproduction.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"seed\": 20261016,\n  \"review\": \"same-model review with separate implementation, not independent-model confirmation\",\n  \"checks\": {\n    \"squared_predicates_vs_interval_oracle\": {\n      \"fixed_cases_per_version\": 517,\n      \"common_cases_per_version\": 514,\n      \"rational_error_bound_cases\": 5,\n      \"mismatches\": 0\n    },\n    \"v1_fixtures_vs_separate_oracle\": {\n      \"collinear_full_rank\": \"witness\",\n      \"near_noncollinear\": \"witness\",\n      \"noncollinear_crossing_full_rank\": \"witness\",\n      \"pair_rejected_after_anchor_change\": \"no_witness_found\",\n      \"omitted_mirror_no_witness\": \"no_witness_found\",\n      \"fixed_y_quantifier\": \"no_witness_found\",\n      \"common_y_boundary\": \"witness\",\n      \"common_y_below_boundary\": \"no_witness_found\",\n      \"zero_range\": \"witness\",\n      \"same_current_different_velocity\": \"no_witness_found\",\n      \"equal_time_velocity_confounding\": \"witness\"\n    },\n    \"reflection_transforms_and_rank\": {\n      \"transformed_fixture_count\": 11,\n      \"exact_rank\": {\n        \"original\": {\n          \"anchor_oriented_double_area\": \"-2\",\n          \"candidate_0_minor\": \"-6\",\n          \"candidate_1_minor\": \"6\"\n        },\n        \"rotated_translated\": {\n          \"anchor_oriented_double_area\": \"-2\",\n          \"candidate_0_minor\": \"-6\",\n          \"candidate_1_minor\": \"6\"\n        }\n      },\n      \"oblique_reflection_cases\": 85,\n      \"zero_cases\": [\n        {\n          \"q\": \"0\",\n          \"q_reflected\": \"0\",\n          \"hs\": \"0\"\n        },\n        {\n          \"q\": \"0\",\n          \"q_reflected\": \"4\",\n          \"hs\": \"1\"\n        },\n        {\n          \"q\": \"4\",\n          \"q_reflected\": \"0\",\n          \"hs\": \"-1\"\n        }\n      ]\n    },\n    \"D_over_2\": {\n      \"grid_estimators\": 63,\n      \"radius_rejection\": {\n        \"2999/1000\": true,\n        \"3\": false,\n        \"3001/1000\": false\n      },\n      \"randomized_per_world_expected_errors\": [\n        \"3\",\n        \"3\"\n      ]\n    },\n    \"CLI_reproductions_and_regressions\": {\n      \"v1_flaws_reproduced\": [\n        \"duplicate key\",\n        \"input clobber\",\n        \"previous result clobber\",\n        \"uncapped observation/candidate/byte/numeric sizes\"\n      ],\n      \"cli_invocations\": 35,\n      \"invalid_variants\": 16,\n      \"numeric_bound_acceptance_cases\": 4,\n      \"max_n_k\": [\n        32,\n        16\n      ],\n      \"scratch_directory\": \"C:\\\\Users\\\\沅\\\\Documents\\\\Codex\\\\2026-09-25\\\\pptx\\\\work\\\\final_audit\\\\tmp\\\\crowdlocate-mirror-6b17ylil\\\\verifier\\\\checks_owvw9f6y_v2\"\n    },\n    \"v1_integrity\": {\n      \"sha256_unchanged_files\": 11\n    }\n  },\n  \"failures\": [],\n  \"invocation\": [\n    \"C:\\\\Users\\\\沅\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\python\\\\python.exe\",\n    \"-X\",\n    \"utf8\",\n    \"-B\",\n    \"C:\\\\Users\\\\沅\\\\Documents\\\\Codex\\\\2026-09-25\\\\pptx\\\\work\\\\final_audit\\\\tmp\\\\crowdlocate-mirror-6b17ylil\\\\verifier\\\\verify_v2.py\",\n    \"--report\",\n    \"portable_reproduction.json\"\n  ],\n  \"status\": \"passed\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\deep_audit\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_audit\\tmp\\crowdlocate-mirror-6b17ylil\\post_review\\review_v2.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"output\": \"C:\\\\Users\\\\沅\\\\Documents\\\\Codex\\\\2026-09-25\\\\pptx\\\\work\\\\final_audit\\\\tmp\\\\crowdlocate-mirror-6b17ylil\\\\post_review\\\\review_v2.json\", \"status\": \"passed_reviewed_regressions\", \"legacy_cases\": 11, \"numeric_cases\": 20, \"cli_cases\": 9, \"runtime_unchanged\": true}\n",
+      "stderr": ""
+    }
+  ],
+  "relocated_historical_hash_paths": 11,
+  "check_groups": 6,
+  "fixed_cases_per_version": 517,
+  "common_cases_per_version": 514,
+  "cli_regressions": 35,
+  "independent_legacy_cases": 11,
+  "independent_numeric_cases": 20,
+  "independent_cli_cases": 9,
+  "historical_v1_external_review": "Archived only; not rerun by this standard-library entry."
+}

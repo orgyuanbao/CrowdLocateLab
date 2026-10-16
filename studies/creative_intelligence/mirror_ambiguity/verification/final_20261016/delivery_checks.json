@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-16",
+  "status": "passed",
+  "original_protected_files_unchanged": 361,
+  "authorized_report_changes": [
+    "latex/quality_addendum.tex",
+    "report/CrowdLocateLab_Quality_Review.pdf"
+  ],
+  "archived_research_files_verified": 70,
+  "upstream_original_files_verified": 7,
+  "relative_links_checked": 96,
+  "new_text_files_scanned": 119,
+  "credential_pattern_hits": [],
+  "scan_limit": "Finite patterns only; not a complete secret or security audit. Local path metadata remains.",
+  "pdf": {
+    "source": "latex/quality_addendum.tex",
+    "source_sha256": "b275ea10ecfe04634a18946ecabed3b9017edd806d2b0f2015614b78ed9f0ff1",
+    "pdf": "report/CrowdLocateLab_Quality_Review.pdf",
+    "pdf_sha256": "b66c26d737afd7d25bea646036b574c79189e23e94ad7caa520eafa0ba1a4df5",
+    "pages": 12,
+    "builtin_compiler": "success",
+    "xelatex_export": "success",
+    "layout_warnings": [],
+    "visual_pages_reviewed": 12,
+    "author": "徐楷沅（学号：2352163）",
+    "archived_main_report_unchanged": true
+  },
+  "publication": "Verify final commit and CI after upload; this record makes no advance claim."
+}

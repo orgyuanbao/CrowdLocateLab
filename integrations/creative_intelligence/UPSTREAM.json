@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/DeepMathLLM/Creative-Intelligence",
+  "commit": "b7d17249f94949351faefd7ae28a020f0623db93",
+  "vendor_source_subdirectory": "mathematical-concept-agent",
+  "license_source": "LICENSE at repository root",
+  "files_sha256": {
+    "agent.py": "a9c505d8bc1c66369ff71f1fd5c1f13453b6338336fcb123a2164c7606b6f342",
+    "AGENTS.md": "d1ab433033663e06afff616c4b8ef910b2a3bf61a46f5309d00afe7ec00b74ea",
+    "config.toml": "c8d5a411f34884dadc385a7ef1b70103ccddedf7451ff1955f04b7e31270bc16",
+    "LICENSE": "a85a560014268151d93a94eb1ae897ecefddf66ab9eff56e956497381907b602",
+    "README.md": "34ff2e3e220f5187876f88f984a8ebf86c091564351ebd9c91ca421b5de38b40",
+    "schemas/turn-result.schema.json": "1894a29a4d11ac150cf50703fb274a99e0695c5293909b1afd01dfcbabfdd6f3",
+    "tests/test_agent.py": "f099d538cfdb24f274e5cc2adb1cd17b66e55a4899a3ca68d258d39b142c21db"
+  }
+}

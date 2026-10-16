@@ -1,0 +1,525 @@
+{
+  "version": 1,
+  "stage": "construction_and_initial_probes_not_independent_verification",
+  "seed": 20261015,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.4",
+  "case_count": 11,
+  "cases": {
+    "collinear_full_rank": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "witness",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "3",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-3",
+          "1",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "9",
+          "25",
+          "25",
+          "9"
+        ],
+        [
+          "9",
+          "25",
+          "25",
+          "9"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        true
+      ],
+      "witnesses": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "position_separation_squared": "36",
+          "worst_case_error_lower_bound_squared": "9",
+          "worst_case_error_lower_bound_rational": "3"
+        }
+      ]
+    },
+    "near_noncollinear": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "witness",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "3",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-3",
+          "1",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "89401/10000",
+          "250601/10000",
+          "998801/40000",
+          "90601/10000"
+        ],
+        [
+          "90601/10000",
+          "249401/10000",
+          "1001201/40000",
+          "89401/10000"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        true
+      ],
+      "witnesses": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "position_separation_squared": "36",
+          "worst_case_error_lower_bound_squared": "9",
+          "worst_case_error_lower_bound_rational": "3"
+        }
+      ]
+    },
+    "noncollinear_crossing_full_rank": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "witness",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "3",
+          "1",
+          "1"
+        ],
+        [
+          "0",
+          "-3",
+          "1",
+          "-1"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "1",
+          "1",
+          "1",
+          "25/4",
+          "25"
+        ],
+        [
+          "1",
+          "1",
+          "1",
+          "25/4",
+          "25"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        true
+      ],
+      "witnesses": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "position_separation_squared": "36",
+          "worst_case_error_lower_bound_squared": "9",
+          "worst_case_error_lower_bound_rational": "3"
+        }
+      ]
+    },
+    "pair_rejected_after_anchor_change": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "no_witness_found",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "3",
+          "1",
+          "0"
+        ],
+        [
+          "0",
+          "-3",
+          "1",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "9",
+          "25",
+          "25",
+          "4"
+        ],
+        [
+          "9",
+          "25",
+          "25",
+          "16"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        false
+      ],
+      "witnesses": []
+    },
+    "omitted_mirror_no_witness": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "no_witness_found",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "3",
+          "1",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "9",
+          "25",
+          "25",
+          "9"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true
+      ],
+      "witnesses": []
+    },
+    "fixed_y_quantifier": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "no_witness_found",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "3",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "1"
+        ],
+        [
+          "9"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        false
+      ],
+      "witnesses": []
+    },
+    "common_y_boundary": {
+      "version": 1,
+      "mode": "common_y",
+      "status": "witness",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "3",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "1"
+        ],
+        [
+          "9"
+        ]
+      ],
+      "fixed_y_feasible": null,
+      "witnesses": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "position_separation_squared": "4",
+          "worst_case_error_lower_bound_squared": "1",
+          "worst_case_error_lower_bound_rational": "1",
+          "common_y_exact_recipe": "y_i=(sqrt(q_j_i)+sqrt(q_k_i))/2"
+        }
+      ]
+    },
+    "common_y_below_boundary": {
+      "version": 1,
+      "mode": "common_y",
+      "status": "no_witness_found",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "3",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "1"
+        ],
+        [
+          "9"
+        ]
+      ],
+      "fixed_y_feasible": null,
+      "witnesses": []
+    },
+    "zero_range": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "witness",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "0"
+        ],
+        [
+          "1"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        true
+      ],
+      "witnesses": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "position_separation_squared": "1",
+          "worst_case_error_lower_bound_squared": "1/4",
+          "worst_case_error_lower_bound_rational": "1/2"
+        }
+      ]
+    },
+    "same_current_different_velocity": {
+      "version": 1,
+      "mode": "common_y",
+      "status": "no_witness_found",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "1",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "2",
+          "3"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "1"
+        ],
+        [
+          "1"
+        ]
+      ],
+      "fixed_y_feasible": null,
+      "witnesses": []
+    },
+    "equal_time_velocity_confounding": {
+      "version": 1,
+      "mode": "fixed_y",
+      "status": "witness",
+      "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+      "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+      "candidates": [
+        [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "10",
+          "20",
+          "10",
+          "20"
+        ]
+      ],
+      "squared_ranges": [
+        [
+          "0",
+          "4",
+          "4"
+        ],
+        [
+          "0",
+          "4",
+          "4"
+        ]
+      ],
+      "fixed_y_feasible": [
+        true,
+        true
+      ],
+      "witnesses": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "position_separation_squared": "500",
+          "worst_case_error_lower_bound_squared": "125",
+          "worst_case_error_lower_bound_rational": "11180339887/1000000000"
+        }
+      ]
+    }
+  },
+  "rank_observations": {
+    "collinear_full_rank": {
+      "nonzero_minor_rows": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "unnormalized_minor_exact": "432",
+      "jacobian_singular_values_float": [
+        3.5764260657984375,
+        2.0307965504266963,
+        1.0081063410251232,
+        0.2622280912440104
+      ]
+    },
+    "near_noncollinear": {
+      "nonzero_minor_rows": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "unnormalized_minor_exact": "269997/625",
+      "jacobian_singular_values_float": [
+        3.577381129943374,
+        2.0291591272172154,
+        1.0080126669442733,
+        0.2622364407095798
+      ]
+    },
+    "noncollinear_crossing_full_rank": {
+      "nonzero_minor_rows": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "unnormalized_minor_exact": "-6",
+      "jacobian_singular_values_float": [
+        5.734961062766667,
+        1.3386633646443595,
+        0.4496781234860807,
+        0.34057538074163113
+      ]
+    }
+  },
+  "invalid_input_rejections": {
+    "negative_epsilon": "epsilon must be nonnegative",
+    "negative_y": "y must be nonnegative",
+    "nan_time": "non-finite number",
+    "infinite_anchor": "non-finite number",
+    "bad_shape": "incorrect vector shape",
+    "boolean_time": "expected finite rational number",
+    "missing_times": "incorrect vector shape",
+    "empty_candidates": "at least one candidate required",
+    "mixed_quantifiers": "common_y must omit y: quantifiers differ",
+    "json_nan": "non-finite JSON number: NaN"
+  },
+  "finite_identity_probes": {
+    "count": 200,
+    "fixed_row_comparisons": 400,
+    "max_reflection_identity_error_float": 1.7763568394002505e-15,
+    "max_geometric_bound_excess_float": 0.0,
+    "max_midpoint_identity_error_float": 1.7763568394002505e-15
+  }
+}

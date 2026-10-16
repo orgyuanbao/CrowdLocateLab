@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "checks": 123279,
+  "errors": [],
+  "physical_prediction_errors_recomputed": 15860,
+  "logical_matrix_rows": 15400,
+  "paired_bootstrap_comparisons_recomputed": 155,
+  "coverage_populations_recomputed": 12,
+  "case_counts": {
+    "main": 720,
+    "stress": 400,
+    "edge": 420,
+    "calibration": 800,
+    "coverage": 1200
+  },
+  "scope": "Read only saved inputs, positions and outcomes. No fitting, new data generation, retuning or modification of study evidence.",
+  "limitations": "Checks numerical consistency, not independence of research decisions, authenticity of all local records, model superiority or mathematical assumptions."
+}

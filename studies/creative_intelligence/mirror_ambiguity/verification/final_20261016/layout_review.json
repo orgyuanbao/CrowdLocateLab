@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "review": "Read-only visual layout inspection of all 12 rendered pages, with final pages 8 and 12 reinspected after whitespace correction.",
+  "reviewed_at_utc": "2026-10-16T07:15:32.303796+00:00",
+  "pdf": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\github_publish\\CrowdLocateLab\\report\\CrowdLocateLab_Quality_Review.pdf",
+  "pdf_sha256": "b66c26d737afd7d25bea646036b574c79189e23e94ad7caa520eafa0ba1a4df5",
+  "tex_sha256": "b275ea10ecfe04634a18946ecabed3b9017edd806d2b0f2015614b78ed9f0ff1",
+  "page_count": 12,
+  "overall_status": "passed_visual_review",
+  "blocking_layout_findings": [],
+  "checks": {
+    "all_pages_visually_inspected": true,
+    "cover_text_unclipped": true,
+    "final_page_text_unclipped": true,
+    "no_table_overlap_observed": true,
+    "no_formula_overlap_observed": true,
+    "no_missing_cjk_glyphs_observed": true,
+    "corrected_command_spaces_visually_confirmed": true,
+    "footer_sequence_2_through_12_confirmed": true,
+    "cover_footer_intentionally_hidden": true,
+    "cover_page8_reference_correct": true
+  },
+  "render_warning_assessment": "Reported Poppler Bulgarian/Greek/Thai nameToUnicode path warnings did not visibly damage Chinese, Latin text or mathematical symbols in the inspected images.",
+  "scope": "Visual inspection plus PDF text checks supports layout legibility and page/reference consistency. It is not a mathematical proof or guarantee against all PDF-viewer differences; repository commands remain the canonical executable source.",
+  "pages": [
+    {
+      "pdf_page": 1,
+      "image_file": "page-01.png",
+      "image_sha256": "c5a8392c89ef78e212a6e2fcf34de7b40a176360b435d0366594f72fb53349ed",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "封面与本版交付结论",
+      "displayed_footer": null,
+      "visual_status": "passed",
+      "notes": "标题、姓名徐楷沅、学号2352163及交付表均清晰。封面内容较密但无重叠或裁切，底部来源与日期在页内，阅读路线第8页清楚。"
+    },
+    {
+      "pdf_page": 2,
+      "image_file": "page-02.png",
+      "image_sha256": "0736a6e21b019451c809c240c5b3e3a97563722e762804b9a11fb680816eddc6",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "历史工程审查：2026-10-12",
+      "displayed_footer": "2",
+      "visual_status": "passed",
+      "notes": "历史口径、三条边界及验证证据入口完整，正文与页脚距离充分，无表格或公式溢出。"
+    },
+    {
+      "pdf_page": 3,
+      "image_file": "page-03.png",
+      "image_sha256": "44639757d5f913288029c1244346edc676a9b184d47d513a486ee46b65e52d7b",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "智能体运行与证据完整性",
+      "displayed_footer": "3",
+      "visual_status": "passed",
+      "notes": "三列表格各列独立、行高随内容自然展开；节标题与段落间距清楚，页底保有余量。"
+    },
+    {
+      "pdf_page": 4,
+      "image_file": "page-04.png",
+      "image_sha256": "ba63f81bece178dbf63acf5a8dc3b6497363c09b2764010c698bf7e40b8a5a53",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "定位应用的数值可靠性",
+      "displayed_footer": "4",
+      "visual_status": "passed",
+      "notes": "三组独立陈列公式完整且居中，分式与上下标无碰撞；行内代码换行未越过边界。"
+    },
+    {
+      "pdf_page": 5,
+      "image_file": "page-05.png",
+      "image_sha256": "2045b6cc9a14584551282a311c4d06866c2690e18cf78baa5ce4d2506c04aaa8",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "接口、浏览与验证边界",
+      "displayed_footer": "5",
+      "visual_status": "passed",
+      "notes": "命令块、项目符号与底部提交建议均完整，底部色线与文字没有与页脚重叠。"
+    },
+    {
+      "pdf_page": 6,
+      "image_file": "page-06.png",
+      "image_sha256": "3c485670be645d3f4aab54a3017f322baa6aa623612f428d5283c08e39c5aa9d",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "进一步复核：证据使用与失败处理",
+      "displayed_footer": "6",
+      "visual_status": "passed",
+      "notes": "四小节段落完整，长代码标记可换行，末段与页脚留有空白。"
+    },
+    {
+      "pdf_page": 7,
+      "image_file": "page-07.png",
+      "image_sha256": "c2b7a6769444cb98b2c0678716ea2002e5badffdaed131ccc63dce8fad569dba",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "统计勘误、数学公式与最终复查",
+      "displayed_footer": "7",
+      "visual_status": "passed",
+      "notes": "尺度勘误公式清楚，历史测试口径加粗可辨；底部说明明确历史记录结束，无内容挤入页脚。"
+    },
+    {
+      "pdf_page": 8,
+      "image_file": "page-08.png",
+      "image_sha256": "44dafccc038d379bff14b3b8d701c5240b64f8de9015d71649a4807378d5d3fa",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "直接采用参考项目的 Agent",
+      "displayed_footer": "8",
+      "visual_status": "passed",
+      "notes": "上游来源与研究推进表清楚。重渲染后 exec resume 保留空格。最后运行边界段完整；实际正文页码8与封面引用一致。"
+    },
+    {
+      "pdf_page": 9,
+      "image_file": "page-09.png",
+      "image_sha256": "a7058b0dca193f60c225862d5cc0f91c9680156621a2d90d11750ac4d421395a",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "问题定义与精确判据",
+      "displayed_footer": "9",
+      "visual_status": "passed",
+      "notes": "集合、范数、平方条件与反射公式均显示完整；分式分母、下标和逻辑分支无重叠，中文与数学符号无缺字方框。"
+    },
+    {
+      "pdf_page": 10,
+      "image_file": "page-10.png",
+      "image_sha256": "ee46bfa37a395fa4d943ed5b32f568ea3cc852b4a696d1de8cca3e52e0adb025",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "非共线、满秩仍有全局歧义",
+      "displayed_footer": "10",
+      "visual_status": "passed",
+      "notes": "五行反例表、4×4矩阵、行列式和下界公式清楚且未超过页宽；两世界结论完整。"
+    },
+    {
+      "pdf_page": 11,
+      "image_file": "page-11.png",
+      "image_sha256": "be1b13158c5fcf277efaf6686c709f92e3cf5fa48fb73e5e464b3106907f8aca",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "真实失败、修复与复核",
+      "displayed_footer": "11",
+      "visual_status": "passed",
+      "notes": "程序问题三列表格、检查清单和可移机复算小节完整。表格下紧随解释仍可清晰区分，无覆盖或裁切。"
+    },
+    {
+      "pdf_page": 12,
+      "image_file": "page-12.png",
+      "image_sha256": "5895996006d65767699f3193be9d6d2c619cc9ee4c14a7d608abfdf335d20253",
+      "image_pixels": [
+        910,
+        1287
+      ],
+      "heading": "本版交付核对与剩余问题",
+      "displayed_footer": "12",
+      "visual_status": "passed",
+      "notes": "末页字体较正文略小但可辨。重渲染后命令前缀空格清楚；四小节、课程要求与剩余问题完整，底部总结两行及页码12均未截断。"
+    }
+  ]
+}

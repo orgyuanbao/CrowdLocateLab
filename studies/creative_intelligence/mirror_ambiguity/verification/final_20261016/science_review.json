@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "date": "2026-10-16",
+  "scope": "Independent bounded exact check and archived-evidence consistency; not formal proof or full security audit",
+  "exact_squared_ranges": [
+    [
+      "1",
+      "1",
+      "1",
+      "25/4",
+      "25"
+    ],
+    [
+      "1",
+      "1",
+      "1",
+      "25/4",
+      "25"
+    ]
+  ],
+  "exact_jacobian_minors": [
+    "-6",
+    "6"
+  ],
+  "twice_anchor_area": "-2",
+  "position_separation_squared": "36",
+  "worst_case_error_lower_bound_squared": "9",
+  "archive_files_verified": 70,
+  "vendor_files_verified": 7,
+  "upstream_agent_sha256": "a9c505d8bc1c66369ff71f1fd5c1f13453b6338336fcb123a2164c7606b6f342",
+  "upstream_agent_verified_from_fixed_public_url": "https://raw.githubusercontent.com/DeepMathLLM/Creative-Intelligence/b7d17249f94949351faefd7ae28a020f0623db93/mathematical-concept-agent/agent.py",
+  "same_session": true,
+  "turns": [
+    {
+      "turn": 1,
+      "status": "paused",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "error": 6,
+        "item.completed": 15,
+        "item.started": 10,
+        "turn.completed": 1
+      },
+      "item_types": {
+        "error": 1,
+        "agent_message": 4,
+        "command_execution": 16,
+        "file_change": 4
+      }
+    },
+    {
+      "turn": 2,
+      "status": "complete",
+      "event_types": {
+        "thread.started": 1,
+        "turn.started": 1,
+        "error": 5,
+        "item.completed": 18,
+        "item.started": 13,
+        "turn.completed": 1
+      },
+      "item_types": {
+        "error": 1,
+        "agent_message": 4,
+        "command_execution": 16,
+        "file_change": 10
+      }
+    }
+  ],
+  "limitations": [
+    "Finite supplied candidates only; absence of witness is not global uniqueness.",
+    "Exact anchors/timestamps and deterministic epsilon bounds are assumptions, not calibrated field guarantees.",
+    "Two accepted controller units are not two backend requests or a formal mathematical proof.",
+    "PDF/report consistency and final publication state require parent review."
+  ]
+}

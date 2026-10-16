@@ -1,0 +1,12 @@
+# CrowdLocateLab invocation-only overrides. No model is selected here.
+# The vendor/config.toml file is preserved for provenance, not used at runtime.
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+approval_policy = "never"
+web_search = "disabled"
+
+[sandbox_workspace_write]
+network_access = false
+
+[agents]
+enabled = false

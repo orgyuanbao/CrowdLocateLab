@@ -1,0 +1,2 @@
+Python with NumPy/SciPy: C:\Users\沅\Documents\Codex\2026-09-25\pptx\work\deep_audit\.venv\Scripts\python.exe
+All copied research files are prior work. Do not overwrite the originals.

@@ -1,6 +1,6 @@
 # 课程提交与答辩说明
 
-项目：**CrowdLocateLab 双轮研究版——面向异步众包定位的科研智能体开发与实证研究**。第二轮的状态、实际次数和指标以保存记录为准；尚未冻结或评测未完成时，不将计划数写成完成数。
+项目：**CrowdLocateLab——面向异步众包定位的科研智能体与开源 Agent 扩展研究**。历史双轮的状态、次数和指标保持原记录；新增 Stage 2 Agent 的两个真实研究单元单独计数。
 
 已按提交者提供的信息补充姓名和学号；其他未提供字段保留待填，不猜测学校或课程：
 
@@ -14,7 +14,7 @@
 | 仓库链接 | [orgyuanbao/CrowdLocateLab](https://github.com/orgyuanbao/CrowdLocateLab) |
 | 提交日期 | 按实际日期填写 |
 
-PDF 封面在 `latex/main.tex` 中。两轮实证章节已经生成后，填写身份并使用 `python reporting/compile_report.py --skip-refresh` 编译；需要从完成证据更新实证时使用不带该选项的正常编译命令。无需为填写身份重新调用模型。
+本版课程交付由两份 PDF 构成：52 页历史论文 `report/CrowdLocateLab_Report.pdf` 和更新后的 12 页 `report/CrowdLocateLab_Quality_Review.pdf`。后者封面已包含徐楷沅（2352163），第 8 页起报告新增 Agent 研究，对应源码为 `latex/quality_addendum.tex`。原论文与冻结证据保持归档版本；不需要为补齐封面重新调用模型。
 
 ## 作业要求与证据对照
 
@@ -23,9 +23,11 @@ PDF 封面在 `latex/main.tex` 中。两轮实证章节已经生成后，填写�
 | 开发一个智能体 | 实际大模型提出动作；控制器执行工具、保存记忆并安排批评；第二轮要求诊断后的修订与验证对照 | `run_revision.py`、`revision/agent.py`、`agent_runtime/`、`tools/` |
 | 应用于数学未解决问题，或提出新问题 / 方法 / 概念 | 从原工业开放题提取异步污染定位子问题，研究残差建模、运动选择和不确定性 | `docs/research_context.md`、`localization/method_math.md`、报告理论章节 |
 | 体现运行与迭代 | 两轮真实响应、假设、诊断、修订、消融与冻结；第一轮失败明确作为第二轮已暴露先验 | 两个正式 runs 目录中的 `events.jsonl`、`model_calls/`、`tools/` |
-| 总结运行与迭代结果为 PDF | 报告包含方法、推导、轨迹、对照评测、失败及限制 | `report/CrowdLocateLab_Report.pdf` |
+| 总结运行与迭代结果为 PDF | 历史论文包含双轮评测；更新的补充报告包含开源 Agent、两次真实推进、数学推导、失败与修复 | `report/CrowdLocateLab_Report.pdf`、`report/CrowdLocateLab_Quality_Review.pdf` |
 | 连同代码上传个人 GitHub | 保留可运行源码、依赖、测试、正式证据、合成输入和逐例输出 | 根目录 README 与本说明的上传清单 |
-| 可以基于开源智能体二次开发 | 本项目选择独立实现，借鉴 Creative-Intelligence 的研究状态与证据分层；新增审计后生成的证据卡片 | README“参考项目、身份与提交”、`research_archive.py`、`archives/` |
+| 可以基于开源智能体二次开发 | 既有两轮为独立实现；新入口直接采用 Creative-Intelligence Stage 2 原控制器，补写研究 Skills、接入定位题面并单独记录运行 | `integrations/creative_intelligence/`、README“参考项目、身份与提交” |
+
+2026-10-15 已实际使用上述上游 Agent 完成两个研究单元。[定位歧义研究](../studies/creative_intelligence/mirror_ambiguity/README.md)提供原始调用、同会话恢复、数学反例、v1→v2 程序修复、保留的失败报告与无模型复算入口。展示时可先讲“非共线且局部满秩仍不保证全局唯一”的反例，再沿两份日志展示 Agent 如何构造和检查它。2026-10-16 已将这些成果纳入现有补充报告，并完成新一轮整体复核；[本版检查汇总](../studies/creative_intelligence/mirror_ambiguity/verification/final_20261016/summary.json)保留真实计数及本地跳过项。
 
 “未解决问题”的准确表述应为：**原工业开放问题的合成数学子问题研究**。不能表述成“已解决华为题目”“证明所有场景更优”或“首次发明稳健定位 / 共形预测”。题目未给定真实数据和完整验收协议，项目结果不构成工业验收。原题的“运动场景精度提升 20%”缺少明确定义，报告中的平均误差或 CEP90 降幅不能直接替代该指标。
 
@@ -72,6 +74,8 @@ python dashboard_revision.py --port 8766
 | `README.md`、`LICENSE`、`.gitignore`、`.gitattributes`、`requirements*.txt` | 项目入口、原创代码许可、环境及审计文件字节保留 |
 | `run_research.py`、`hardened_runtime.py`、`application_safety.py` | 当前研究入口、运行保护与应用数值筛查，不能遗漏依赖 |
 | `research_archive.py`、`archives/` | 验证后生成的只读证据卡片及其校验清单 |
+| `integrations/creative_intelligence/` | 直接采用的上游控制器、MIT 许可、来源摘要、适配入口和补写 Skills |
+| `studies/creative_intelligence/` | 上游 Agent 的两轮真实运行、精确候选检查器、原始失败与成功记录、独立检查和可移机复算入口 |
 | `run_revision.py`、`benchmark_revision.py`、`locate_revision.py`、`dashboard_revision.py`、`doctor.py`、`audit.py` | 第二轮历史研究入口、正式评测、应用、双轮展示、环境与完整链检查 |
 | `run_agent.py`、`benchmark.py`、`benchmark_v2_1.py`、`sensitivity.py`、`dashboard.py`、`locate.py` | 保留第一轮入口和冻结依赖，不删除旧校验库 |
 | `Start-Dashboard.ps1`、`Start-Dashboard.sh` | 不安装依赖、不修改策略的界面启动器 |
@@ -110,7 +114,7 @@ git branch -M main
 git add README.md START_HERE.md LICENSE .gitignore .gitattributes requirements.txt requirements-report.txt requirements-lock.txt
 git add run_agent.py benchmark.py benchmark_v2_1.py audit.py sensitivity.py dashboard.py locate.py
 git add run_revision.py benchmark_revision.py locate_revision.py dashboard_revision.py doctor.py Start-Dashboard.ps1 Start-Dashboard.sh
-git add run_research.py hardened_runtime.py application_safety.py research_archive.py archives
+git add run_research.py hardened_runtime.py application_safety.py research_archive.py archives integrations studies
 git add agent_runtime tools localization revision tests docs reporting latex report research examples verification
 git add runs/live_reference runs/revision_reference results/benchmark results/sensitivity
 git status --short

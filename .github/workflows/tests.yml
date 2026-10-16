@@ -30,6 +30,13 @@ jobs:
         run: python doctor.py --json
       - name: Test isolated fixtures without models or research datasets
         run: python -m unittest discover -s tests -v
+      - name: Test unchanged Creative-Intelligence controller without models
+        # Only command-construction fixtures need an existing executable; no model is run.
+        run: python -B -c "import os, sys, unittest; os.environ['CODEX_EXECUTABLE'] = sys.executable; suite = unittest.defaultTestLoader.discover('integrations/creative_intelligence/vendor/tests'); result = unittest.TextTestRunner(verbosity=2).run(suite); sys.exit(not result.wasSuccessful())"
+      - name: Test Creative-Intelligence integration without models
+        run: python -B -m unittest discover -s integrations/creative_intelligence/tests -v
+      - name: Reproduce Creative-Intelligence study without models
+        run: python -B studies/creative_intelligence/mirror_ambiguity/reproduce_checks.py
       - name: Verify preserved first-study evidence without model calls
         run: python audit.py --run runs/live_reference --require-frozen
       - name: Verify preserved revision evidence without model calls

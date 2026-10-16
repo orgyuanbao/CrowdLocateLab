@@ -1,0 +1,12 @@
+{
+  "output": "C:\\Users\\沅\\Documents\\Codex\\2026-09-25\\pptx\\work\\final_delivery_20261016\\validation_20261016T070535Z\\archive_revision",
+  "snapshot_sha256": "95ba3c8c03607802a6d702d3bd8a33a0ee8d3e07999606df7e55839411e8b3b6",
+  "cards": 13,
+  "files": [
+    "archive.json",
+    "index.html",
+    "SHA256SUMS.txt"
+  ],
+  "new_model_calls": 0,
+  "new_experiments": 0
+}

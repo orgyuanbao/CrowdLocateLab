@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "mode": "fixed_y",
+  "status": "witness",
+  "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+  "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+  "candidates": [
+    [
+      "0",
+      "3",
+      "1",
+      "0"
+    ],
+    [
+      "0",
+      "-3",
+      "1",
+      "0"
+    ]
+  ],
+  "squared_ranges": [
+    [
+      "9",
+      "25",
+      "25",
+      "9"
+    ],
+    [
+      "9",
+      "25",
+      "25",
+      "9"
+    ]
+  ],
+  "fixed_y_feasible": [
+    true,
+    true
+  ],
+  "witnesses": [
+    {
+      "indices": [
+        0,
+        1
+      ],
+      "position_separation_squared": "36",
+      "worst_case_error_lower_bound_squared": "9",
+      "worst_case_error_lower_bound_rational": "3"
+    }
+  ]
+}

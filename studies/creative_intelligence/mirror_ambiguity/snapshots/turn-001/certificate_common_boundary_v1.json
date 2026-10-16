@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "mode": "common_y",
+  "status": "witness",
+  "arithmetic": "exact rational squared inequalities; no feasibility tolerance",
+  "scope": "supplied candidates only; no uniqueness or safe-acceptance conclusion",
+  "candidates": [
+    [
+      "1",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "3",
+      "0",
+      "0",
+      "0"
+    ]
+  ],
+  "squared_ranges": [
+    [
+      "1"
+    ],
+    [
+      "9"
+    ]
+  ],
+  "fixed_y_feasible": null,
+  "witnesses": [
+    {
+      "indices": [
+        0,
+        1
+      ],
+      "position_separation_squared": "4",
+      "worst_case_error_lower_bound_squared": "1",
+      "worst_case_error_lower_bound_rational": "1",
+      "common_y_exact_recipe": "y_i=(sqrt(q_j_i)+sqrt(q_k_i))/2"
+    }
+  ]
+}
